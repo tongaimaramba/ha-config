@@ -1,0 +1,8 @@
+# export tarballs and scratch never get committed
+*.tar.gz
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
+# raw, un-redacted material must never land here
+hosts/*/raw/
