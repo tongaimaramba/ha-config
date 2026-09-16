@@ -1,0 +1,1 @@
+{"result":"ok","data":{"version":"15.0","version_latest":"15.2","update_available":true,"board":"rpi4","boot":"A","data_disk":"SC128-0x147323a6","boot_slots":{"A":{"state":"booted","status":"good","version":"15.0"},"B":{"state":"inactive","status":"good","version":"14.2"}}}}

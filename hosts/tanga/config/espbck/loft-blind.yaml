@@ -1,0 +1,99 @@
+esphome:
+  name: loft-blind
+  friendly_name: loft-blind
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "LHIs8C9vJSG19U0TdMOZs9jETy/yVc3o51A3sLOehRw="
+
+ota:
+  password: <redacted>
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Loft-Blind Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+
+## Control bedroom velux blind
+
+#  Sensor for position tracking
+sensor:
+  - platform: template
+    name: "Loft Suite Blind Position"
+    id: blind_position
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+    lambda: |-
+      return id(loft_suite_blind).position * 100.0f;
+    
+# Define the cover 
+cover:
+  - platform: time_based
+    name: "Loft Suite Blind"
+    id: loft_suite_blind
+    device_class: blind
+    open_action:
+      - switch.turn_on: blind_up
+      - delay: 500ms
+      - switch.turn_off: blind_up
+    close_action:
+      - switch.turn_on: blind_down
+      - delay: 500ms
+      - switch.turn_off: blind_down
+    stop_action:
+      - switch.turn_on: blind_stop
+      - delay: 500ms
+      - switch.turn_off: blind_stop
+    open_duration: 25s #!lambda "return id(open_duration).state * 1000;"
+    close_duration: 25s #!lambda "return id(close_duration).state * 1000;"
+
+    
+switch:
+  - platform: gpio
+    pin: 
+      number: 14 #D5 
+      inverted: true
+      mode: 
+        output: true
+    name: "Close - Loft Suite Blind"
+    id: blind_down
+    on_turn_on:
+      - cover.close: loft_suite_blind
+    interlock: [blind_stop,blind_up]
+  - platform: gpio
+    pin: 
+      number: 12 #D6 
+      inverted: true
+      mode:
+        output: true
+    name: "Stop - Loft Suite Blind"
+    id: blind_stop
+    on_turn_on:
+      - cover.stop: loft_suite_blind
+    interlock: [blind_down,blind_up]
+  - platform: gpio
+    pin: 
+      number: 13 #D7
+      inverted: true
+      mode:
+        output: true
+    name: "Open - Loft Suite Blind"
+    id: blind_up
+    on_turn_on:
+      - cover.open: loft_suite_blind
+    interlock: [blind_stop,blind_down]   
+    

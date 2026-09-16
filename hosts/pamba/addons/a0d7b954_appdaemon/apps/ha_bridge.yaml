@@ -1,0 +1,20 @@
+ha_bridge_rpi4:
+  module: ha_bridge
+  class: HABridge
+  log: bridge_log
+  log_level: INFO
+  server_id: rpi4
+  remote_server: rpi5
+  namespace: 'interha_bridge'
+  hass_namespace: default
+  kill_switch: false
+  mirrors:
+    "binary_sensor.front_doorstep_acceleration": "binary_sensor.front_step_proxy"
+    "binary_sensor.front_acceleration": "binary_sensor.front_door_proxy"
+    "binary_sensor.garage_doorstep_acceleration": "binary_sensor.garage_step_proxy"
+    "binary_sensor.garage_out_acceleration": "binary_sensor.garage_door_proxy"
+    "sensor.ellie_today": "sensor.ellie_today"
+    "sensor.hannah_today": "sensor.hannah_today"
+    "sensor.ellie_tomorrow": "sensor.ellie_tomorrow"
+    "sensor.hannah_tomorrow": "sensor.hannah_tomorrow"
+#    "input_boolean.test_bridge_from_rpi4": "input_boolean.test_bridge_from_rpi5"

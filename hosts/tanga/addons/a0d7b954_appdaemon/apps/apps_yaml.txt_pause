@@ -1,0 +1,210 @@
+aut:
+  module: aut
+  class: AUTApp
+  plugin:
+    - HASS
+    - MQTT
+  log: aut_log
+  log_level: INFO
+  window: 0.05    #window between data gathering for troubleshoot
+  
+  monitor_devices:
+    - binary_sensor.monitor_tongai_phone
+    - binary_sensor.monitor_mojgan_phone
+    - binary_sensor.monitor_hannah_phone
+    
+  presence_sensors:
+    tongai:
+      monitor: binary_sensor.monitor_tongai_phone
+      locator: sensor.tongai_locator
+      tracker: device_tracker.tongai22
+      person: person.tongai
+    mojgan:
+      monitor: binary_sensor.monitor_mojgan_phone
+      locator: sensor.mojgan_locator
+      tracker: device_tracker.mojgans_phone
+      person: person.mojgan
+    hannah:
+      monitor: binary_sensor.monitor_hannah_phone
+      locator: sensor.hannah_locator
+      tracker: device_tracker.hannahs_iphone
+      person: person.hannah
+      
+  rpi_connections:
+    frontdoor_nw: device_tracker.frontdoor_nmap
+    patio_nw: device_tracker.patio_nmap
+    swings_nw: device_tracker.swings_nmap
+    
+  esp_commands:
+    frontdoor:
+      rpi_cycle: switch.rpi_rebooter_reboot_switch
+      wlan_cycle: switch.rpi_rebooter_wlan0_restart
+    
+  api_call:
+    username: user
+    password: <redacted>
+    ## api calls in Alias.py in Util folder
+    mqtterr_url: "https://api.octopus.energy/v1/gas-meter-points/608682103/meters/E6S15330572061/consumption/"
+    nw_url: "https://api.octopus.energy/v1/gas-meter-points/608682103/meters/E6S15330572061/consumption/"
+    mon-proc_url: "https://xyz"
+    hciconf_url: "https://abc"
+    #Result for hciconf: ['hci1:', 'UP', 'RUNNING', 'hci0:', 'UP', 'RUNNING']
+    #Result for mon-proc: ['ok']
+    #Result for mon-proc: ['Missing processes: tongai.proc, other.net']
+    #Result for mqtterr: Done - no output.
+
+iftt:
+  module: iftt
+  class: TriggerApp
+  plugin:
+    - HASS
+  log: iftt_log
+  log_level: DEBUG
+  trigger_pairs:
+    entity_state:
+        - light.loft_main binary_sensor.loft_hatch_contact
+#      - group.utility binary_sensor.garage_out_contact On 19:00 Off 8:00
+#        - light.study_desk_lamp light.t_side
+    nest_event:
+  #    - shout camera_motion on 9:00 off 22:20
+  #    - light.study_desk_lamp camera_person on 14:00 off 17:00
+ #     - shout doorbell_chime 
+#      - arrive camera_person On 7:30 Off 12:00
+      - arrive camera_person
+    scheduled_action:
+#      - light.kitchen_spotlights On 19:16 Off 19:18
+
+#
+guest_access:
+  module: guest_access
+  class: GuestAccessApp
+  plugin:
+    - HASS
+    - MQTT
+  log: guest_access
+  guest_args: 
+    - input_number.monitor_action
+    - input_text.guest_name
+    - input_text.mac_addr
+    - input_select.relationship
+    
+reboot_monitor:
+  module: reboot_monitor
+  class: RebootMonitorApp
+  plugin:
+    - HASS
+    - MQTT
+
+pump:
+  module: pump
+  class: PumpApp
+  plugin:
+    - HASS
+    - MQTT
+  log: test_log
+ 
+#tado_nest:
+#  module: tado_nest
+#  class: TadoNestApp
+#  plugin:
+#    - HASS
+#  log: tado_nest
+#  log_level: DEBUG
+#  offset: 0
+
+#tado_offset:
+#  module: tado_offset
+#  class: TadoOffsetApp
+#  plugin:
+#  - HASS
+#  log: tado_nest
+#  log_level: DEBUG
+#  tado_trv: climate.friends #entity id for Tado TRV
+#  external_sensor: climate.bedroom #entity id for external sensor
+#  temp_check_frequency: 3 #how often in minutes that we check temp difference
+
+device_zones:
+  module: device_zones
+  class: ZonesApp
+  plugin:
+    - HASS
+    - MQTT
+  log: test_log
+  log_level: DEBUG
+
+rebegin_app:
+  module: rebegin_app
+  class: RebeginApp
+  plugin:
+    - HASS
+    - MQTT
+  log: rebegin_log
+  log_level: INFO
+
+#client:
+#  module: client
+#  class: ClientApp
+#  plugin:
+#    - HASS
+#    - MQTT
+#  log: test_log
+#  log_level: DEBUG
+
+#loo:
+#  module: loo
+#  class: LooApp
+#  plugin:
+#    - HASS
+#    - MQTT
+#  log: troubleshoot
+#  log_level: DEBUG
+#
+
+test_app:
+  module: test_app
+  class: TestApp
+  plugin:
+    - HASS
+    - MQTT
+  log: test_log
+  log_level: INFO
+  range_sensor: sensor.driveway_detector_driveway_distance_detector
+  parking_light: light.driveway_detector_range_led
+  led_timeout: 30    #how long does the LED stay on in the new state while Evie is parking (in seconds)
+  snooze_time: 30
+  ranges:
+    parking_green: 1.2 #light will be orange above this and green below it
+    parking_red: 0.85 #light will be green above this and red below it
+    front_door: 0.15 #light will flash blue once below this and red up to "parking_red"
+    
+#
+reboot_by_mqtt:
+  module: reboot_by_mqtt
+  class: REMQApp
+  plugin:
+    - HASS
+    - MQTT
+  log: remq
+  log_level: INFO 
+#
+boiler_alert:
+  module: boiler_alert
+  class: BOILERApp
+  plugin:
+    - HASS
+    - MQTT
+  log: boiler_alert
+  log_level: INFO
+  notif_device: all_android
+  temp_sensor: sensor.boiler_temp_temperature_measurement
+  heater_times:
+    early: 5,30,6,30
+    late: 17,30,18,30
+ #   test1: 17,19,17,23
+   # test2: 13,4,13,9
+  #  test3: 13,13,13,28
+  time_window: 30
+  min_temp_rise: 4
+  peak_temp_min: 27.5
+  peak_temp_max: 31.5
+  alert_ent: input_boolean.boiler_anomaly_alert

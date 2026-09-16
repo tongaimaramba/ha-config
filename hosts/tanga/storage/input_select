@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "input_select",
+  "data": {
+    "items": [
+      {
+        "name": "Relationship",
+        "options": [
+          "Guest",
+          "Resident"
+        ],
+        "id": "device_type",
+        "icon": "mdi:face"
+      },
+      {
+        "id": "room_heater",
+        "name": "Room Heater",
+        "icon": "mdi:fireplace",
+        "options": [
+          "climate.study",
+          "climate.main",
+          "climate.friends",
+          "climate.bathroom_2",
+          "climate.loft_suite_rad"
+        ]
+      },
+      {
+        "name": "MQTT Messages",
+        "options": [
+          "ping",
+          "frontdoor",
+          "swings",
+          "patio",
+          "test"
+        ],
+        "id": "mqtt_messages"
+      },
+      {
+        "name": "matcher",
+        "icon": "mdi:alarm-panel",
+        "options": [
+          "open",
+          "retry",
+          "fail",
+          "ants"
+        ],
+        "id": "matcher"
+      },
+      {
+        "id": "work_status",
+        "name": "Work Status",
+        "icon": "mdi:laptop",
+        "options": [
+          "Not working, yay!",
+          "At work",
+          "On a call",
+          "Focus time"
+        ]
+      },
+      {
+        "id": "fp_enroll_finger",
+        "options": [
+          "Left Thumb",
+          "Right Thumb",
+          "Left Index",
+          "Right Index",
+          "Left Middle",
+          "Right Middle",
+          "Left Ring",
+          "Right Ring",
+          "Left Little",
+          "Right Little"
+        ],
+        "name": "Finger Name",
+        "icon": "mdi:hand-back-left-outline"
+      },
+      {
+        "id": "inverter_mode",
+        "name": "Inverter Mode",
+        "icon": "mdi:server",
+        "options": [
+          "Load first",
+          "Battery first",
+          "Grid first"
+        ]
+      },
+      {
+        "id": "calibration_location",
+        "name": "Calibration Location",
+        "icon": "mdi:map-marker-radius",
+        "options": [
+          "test desk",
+          "inside front door",
+          "outside front door",
+          "outside garage",
+          "car door driver",
+          "car door passenger",
+          "wall",
+          "fence",
+          "tree",
+          "hedge",
+          "road",
+          "gordon",
+          "patio door",
+          "utility door",
+          "patio",
+          "garden A middle",
+          "garden B middle",
+          "garden C middle",
+          "garden C far",
+          "garden D middle",
+          "Loft",
+          "Study",
+          "H",
+          "E"
+        ]
+      },
+      {
+        "id": "motion_travel_path",
+        "name": "Motion Travel Path",
+        "options": [
+          "Arriving from left pavement",
+          "Arriving from right pavement",
+          "Arriving by car into driveway",
+          "Leaving to left pavement",
+          "Leaving to right pavement",
+          "Leaving by car from driveway"
+        ],
+        "icon": "mdi:walk"
+      }
+    ]
+  }
+}

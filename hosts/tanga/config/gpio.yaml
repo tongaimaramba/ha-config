@@ -1,0 +1,16 @@
+switch:
+  - platform: rpi_gpio
+    switches:
+      - port: 4
+        name: "Nuki Power"
+        unique_id: "nuki_en_switch_port_4"
+        invert_logic: true
+      - port: 17
+        name: "Lock Nuki"
+        unique_id: "nuki_lock_switch_port_17"
+      - port: 22
+        name: "Unlock Nuki"
+        unique_id: "nuki_unlock_switch_port_22"
+      - port: 27
+        name: "Open Nuki"
+        unique_id: "nuki_open_switch_port_27"

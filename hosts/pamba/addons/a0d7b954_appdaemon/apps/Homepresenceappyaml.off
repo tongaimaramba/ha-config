@@ -1,0 +1,95 @@
+home_presence_app:
+  module: home_presence_app
+  class: HomePresenceApp
+  plugin: 
+    - HASS
+    - MQTT
+  monitor_topic: monitor
+  user_device_domain: binary_sensor                # change to device_tracker if you want your devices to appear as device_tracker rather than as binary_sensor
+  everyone_not_home: nobody_home    # will be a binary_sensor
+  everyone_home: everyone_home            # will be a binary_sensor
+  somebody_is_home: somebody_is_home      # will be a binary_sensor
+  depart_check_time: 60
+  minimum_confidence: 50
+  not_home_timeout: 15
+  system_check: 60
+  system_timeout: 120
+  #scheduled_reatart:
+#    time: 22:30
+#    days:
+#      - sat
+#      - wed
+#    location: all
+  ### Read about RSSI and more control in main README, and remove remarks below if you want to use this feature
+  home_gateway_sensors:
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+#    - binary_sensor.utility_back_door_contact
+  # home_motion_sensors:
+  #   - <your motion sensor inside #1>
+  #   - <your motion sensor inside #1>
+
+#  pin_app: True
+#  pin_thread: 9
+  log: troubleshoot
+  log_level: INFO
+
+### If you want to be able to remotely reboot your monitor hardware from MQTT, automation or scripts,
+### add your monitor(s) below. Be aware, you have to use same name of monitor as it is called in 
+### 'mqtt_publisher_identity' in 'mqtt_preferences' of monitor
+### If not, remove entire section of 'remote_monitors'
+  remote_monitors:
+    patio:
+      host: 192.168.179.33
+      username: pi
+      password: <redacted>
+      reboot_command: sudo /sbin/reboot now
+      auto_reboot_when_offline: True
+    frontdoor:
+      host: 192.168.179.63
+      username: pi
+      password: <redacted>
+      reboot_command: sudo reboot now
+      auto_reboot_when_offline: True
+#    upstairs:
+#      host: 192.169.178.30
+#      username: pi
+#      password: imba2020yedu
+    swings:
+      host: 192.168.179.80
+      username: pi
+      password: <redacted>
+      reboot_command: sudo /sbin/reboot now
+      auto_reboot_when_offline: True
+#
+#    <mqtt_publisher_identity #2>:
+#      host: <ip address to monitor hardware>
+#      username: <ip address to monitor hardware>
+#      password: <ip address to monitor hardware>
+### etc etc
+
+  known_devices:
+    - 1C:F8:D0:42:2E:7C TongaiS22 #1>
+    - 9C:83:06:4B:0E:AF Tongai-Phone
+    - B8:5D:0A:7C:1E:32 Mojgan-Phone
+    - 08:87:C7:2D:FC:39 Hannah-Phone
+    - 74:9E:AF:41:A1:DA Old-Hannah-Phone
+ #   - 04:C4:61:17:CB:FF Evie
+#    - 90:F1:57:33:CD:37 venu
+#    - 38:f9:f5:87:c9:56 f965
+#    - 38:CA:DA:A9:B1:30 Stories_iPhone
+#    - 00:26:B4:C9:11:BC Justina
+#    - 8C:86:1E:CD:D8:C8 Geach
+#    - 68:FE:F7:9F:3E:CB Rhodes
+#    - 94:65:2d:63:37:62 Allen
+#    - 4c:4f:ee:de:24:6a Feasby
+
+#    - xx:xx:xx:xx:xx:xx <friendly name of device #2>
+#    - xx:xx:xx:xx:xx:xx <friendly name of device #3>
+### etc etc
+#
+#  known_beacons:
+#    - 50:C2:ED:E9:14:81 Jabra
+ #   - 10:4E:89:65:7A:CC vivo
+ #   - 04:C4:61:17:CB:FF Ev_b
+  #  - 38:f9:f5:87:c9:56 f965

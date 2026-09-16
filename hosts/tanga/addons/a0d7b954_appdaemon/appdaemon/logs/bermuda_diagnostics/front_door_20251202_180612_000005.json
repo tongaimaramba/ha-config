@@ -1,0 +1,14 @@
+{
+  "cycle_id": "front_door_20251202_180612_000005",
+  "door": "front_door",
+  "person": "unknown user",
+  "timestamp": "2025-12-02T18:06:12.962530",
+  "tap_outcome": "failure",
+  "reason": "No eligible user found",
+  "checks_passed": [],
+  "failed_at": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

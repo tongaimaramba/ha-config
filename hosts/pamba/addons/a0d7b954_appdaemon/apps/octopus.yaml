@@ -1,0 +1,23 @@
+octopus:
+  module: octopus
+  class: OctopusApp
+  plugin:
+    - HASS
+    - MQTT
+  log: octopus
+#  log_level: DEBUG
+  energy_types: all    # show data for Gas or Electric only, or both together. Options: elec, gas, all. Default is all
+  gas_tariff: 3.08 #Super Green Octopus 12M Fixed 3.08p/kWh17.85p/day Fixed term ends 21/10/2021
+  
+  update_frequency: 1 # in hours
+  data_aggregation: month #the time period to sum up and present. Options: hour, day, week, month, quarter
+  
+  
+  octo_sensors:
+    sensor.elec_usage: month
+    sensor.gas_usage: month
+    sensor.all_usage: month
+    sensor.elec_cost: month
+    sensor.gas_cost: month
+    sensor.all_cost: month
+    

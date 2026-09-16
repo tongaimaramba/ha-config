@@ -1,0 +1,1613 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "lovelace.lovelace_tab",
+    "data": {
+        "config": {
+            "title": "Home",
+            "views": [
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entity": "weather.alexandra_drive",
+                            "name": "52 Alexandra Drive",
+                            "type": "weather-forecast"
+                        },
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.camera",
+                            "camera_view": "live",
+                            "name": "Doorbell"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.front_contact",
+                                    "name": "Front Door",
+                                    "icon": "mdi:door",
+                                    "show_state": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "lock.unlock",
+                                        "service_data": {
+                                            "entity_id": "lock.mukuru"
+                                        }
+                                    }
+                                },
+                                {
+                                    "entity": "binary_sensor.garage_out_contact",
+                                    "name": "Garage Door",
+                                    "icon": "mdi:door",
+                                    "show_state": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "lock.unlock",
+                                        "service_data": {
+                                            "entity_id": "lock.mudiki"
+                                        }
+                                    }
+                                },
+                                {
+                                    "entity": "script.study_boost",
+                                    "icon": "mdi:rocket",
+                                    "name": "Boost Study",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                }
+                            ],
+                            "title": "Important Buttons",
+                            "type": "glance"
+                        },
+                        {
+                            "columns": 2,
+                            "entities": [
+                                {
+                                    "entity": "group.fave_lights_downstairs",
+                                    "icon": "mdi:lightbulb",
+                                    "name": "Kitchen Faves",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "group.all_lights",
+                                    "icon": "mdi:home",
+                                    "name": "All",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "group.upstairs_lights",
+                                    "icon": "mdi:lightbulb",
+                                    "name": "Upstairs",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "group.downstairs_lights",
+                                    "icon": "mdi:lightbulb",
+                                    "name": "Downstairs",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.m_side",
+                                    "icon": "mdi:bed",
+                                    "name": "M Bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.t_side",
+                                    "icon": "mdi:bed",
+                                    "name": "T Bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                }
+                            ],
+                            "show_state": false,
+                            "title": "Lights",
+                            "type": "glance"
+                        },
+                        {
+                            "card": {
+                                "columns": 3,
+                                "show_icons": false,
+                                "show_state": false,
+                                "title": "What's On?",
+                                "type": "glance"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "light.armchair_lamp",
+                                    "name": "armchair",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.bathroom_sink",
+                                    "name": "bathroom",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.coats",
+                                    "name": "coats",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.dining_spotlights",
+                                    "name": "dining spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.hall_downlights",
+                                    "name": "hall spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_downlight",
+                                    "name": "isla spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_wall",
+                                    "name": "isla wall",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_spotlights",
+                                    "name": "kitchen spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_worktop",
+                                    "name": "kitchen worktop",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.loft_main",
+                                    "name": "loft",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_1",
+                                    "name": "lounge pendant",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_2",
+                                    "name": "lounge spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_1",
+                                    "name": "mic lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_2",
+                                    "name": "printer lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.m_side",
+                                    "name": "m bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.main_downlights",
+                                    "name": "main br spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.movie_lamp",
+                                    "name": "movie lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_bedside_lamp",
+                                    "name": "guest lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_desk_lamp",
+                                    "name": "study lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.t_side",
+                                    "name": "t bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.utility",
+                                    "name": "utility",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                }
+                            ],
+                            "state_filter": [
+                                "on"
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_icons": false,
+                                "show_state": false,
+                                "title": "What's Open?",
+                                "type": "glance"
+                            },
+                            "entities": [
+                                "binary_sensor.bathroom_window_contact",
+                                "binary_sensor.bay_party_wall_contact",
+                                "binary_sensor.bay_window_contact",
+                                "binary_sensor.front_contact",
+                                "binary_sensor.garage_out_contact",
+                                "binary_sensor.guest_win_contact",
+                                "binary_sensor.kitchen_contact",
+                                "binary_sensor.landing_window_contact",
+                                "binary_sensor.loft_hatch_contact",
+                                "binary_sensor.main_window_contact",
+                                "binary_sensor.main_window_party_contact",
+                                "binary_sensor.patio_door_contact",
+                                "binary_sensor.utility_back_door_contact",
+                                "binary_sensor.mukuru_contact"
+                            ],
+                            "state_filter": [
+                                "on"
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "columns": 2,
+                            "entities": [
+                                {
+                                    "entity": "fan.bedroom",
+                                    "name": "tall fan",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "fan.upstairs",
+                                    "name": "small fan",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature",
+                                    "name": "tall fan room temp"
+                                },
+                                {
+                                    "entity": "sensor.upstairs_temperature",
+                                    "name": "small fan room temp"
+                                }
+                            ],
+                            "title": "Dyson Fans",
+                            "type": "glance"
+                        },
+                        {
+                            "type": "glance",
+                            "title": "Bathtime",
+                            "show_icon": true,
+                            "entities": [
+                                {
+                                    "entity": "script.bathtime_on",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "name": "on",
+                                    "show_state": false
+                                },
+                                {
+                                    "entity": "script.bathtime_off",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "name": "off",
+                                    "show_state": false
+                                },
+                                {
+                                    "entity": "switch.sonoff_1000eced8f",
+                                    "name": "extractor fan",
+                                    "tap_action": {
+                                        "action": "toggle",
+                                        "show_state": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "aspect_ratio": "0%",
+                            "entity": "light.m_side",
+                            "name": "Bedside Light",
+                            "state_image": {
+                                "off": "/local/m_side_off.jpg",
+                                "on": "/local/m_side_on.jpg"
+                            },
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "type": "picture-entity"
+                        },
+                        {
+                            "type": "media-control",
+                            "entity": "media_player.roku_6225a6008928"
+                        }
+                    ],
+                    "icon": "",
+                    "path": "lights",
+                    "title": "Overview",
+                    "visible": [
+                        {
+                            "user": "9c5a287905c54f3fb4f87ba57d071235"
+                        },
+                        {
+                            "user": "06495997aca44e59a54f1b3138ad088e"
+                        },
+                        {
+                            "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+                        }
+                    ]
+                },
+                {
+                    "title": "Heating",
+                    "path": "heating",
+                    "icon": "mdi:radiator",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "climate.main"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature"
+                                },
+                                {
+                                    "entity": "sensor.main_open_window"
+                                }
+                            ],
+                            "state_color": true,
+                            "title": "Main Temp"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "climate.friends"
+                                },
+                                {
+                                    "entity": "sensor.upstairs_temperature"
+                                },
+                                {
+                                    "entity": "sensor.friends_open_window"
+                                }
+                            ],
+                            "state_color": true,
+                            "title": "Friends Temp"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "climate.study"
+                                },
+                                {
+                                    "entity": "sensor.guest_win_temperature_measurement"
+                                },
+                                {
+                                    "entity": "sensor.study_open_window"
+                                }
+                            ],
+                            "state_color": true,
+                            "title": "Study Temp"
+                        },
+                        {
+                            "type": "thermostat",
+                            "entity": "climate.main"
+                        },
+                        {
+                            "type": "thermostat",
+                            "entity": "climate.friends"
+                        },
+                        {
+                            "type": "thermostat",
+                            "entity": "climate.study"
+                        },
+                        {
+                            "type": "glance",
+                            "entities": [
+                                {
+                                    "entity": "climate.bedroom"
+                                },
+                                {
+                                    "entity": "climate.downstairs"
+                                },
+                                {
+                                    "entity": "sensor.downstairs_temperature"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature"
+                                }
+                            ],
+                            "title": "Nest Thermostats"
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Friends",
+                            "icon": "mdi:flash",
+                            "hours_to_show": 48,
+                            "entities": [
+                                {
+                                    "entity": "sensor.friends_temperature",
+                                    "name": "TRV"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature",
+                                    "name": "Nest Sensor"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Heating",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.main_temperature",
+                                    "name": "Main Bedroom"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature",
+                                    "name": "Friends"
+                                },
+                                {
+                                    "entity": "sensor.study_temperature",
+                                    "name": "Study"
+                                },
+                                {
+                                    "entity": "sensor.landing_temperature",
+                                    "name": "Landing"
+                                },
+                                {
+                                    "entity": "sensor.bathroom_temperature",
+                                    "name": "Bathroom"
+                                },
+                                {
+                                    "entity": "sensor.downstairs_temperature",
+                                    "name": "Downstairs"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "icon": "mdi:cctv",
+                    "panel": false,
+                    "path": "check_alarm",
+                    "title": "Alarm",
+                    "visible": [
+                        {
+                            "user": "9c5a287905c54f3fb4f87ba57d071235"
+                        },
+                        {
+                            "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+                        }
+                    ],
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entity": "camera.aarlo_swings",
+                            "image_click": "play",
+                            "light": "light.aarlo_front_light",
+                            "name": "Swings",
+                            "show": [
+                                "motion",
+                                "sound",
+                                "snapshot",
+                                "captured_today"
+                            ],
+                            "type": "custom:aarlo-glance"
+                        },
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.backyard",
+                            "camera_view": "live"
+                        },
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.camera",
+                            "camera_view": "live"
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_icons": false,
+                                "show_state": false,
+                                "title": "What's Open?",
+                                "type": "glance"
+                            },
+                            "entities": [
+                                "binary_sensor.bathroom_window_contact",
+                                "binary_sensor.bay_party_wall_contact",
+                                "binary_sensor.bay_window_contact",
+                                "binary_sensor.front_contact",
+                                "binary_sensor.garage_out_contact",
+                                "binary_sensor.guest_win_contact",
+                                "binary_sensor.kitchen_contact",
+                                "binary_sensor.landing_window_contact",
+                                "binary_sensor.loft_hatch_contact",
+                                "binary_sensor.main_window_contact",
+                                "binary_sensor.main_window_party_contact",
+                                "binary_sensor.patio_door_contact",
+                                "binary_sensor.utility_back_door_contact"
+                            ],
+                            "state_filter": [
+                                "on"
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "card": {
+                                "columns": 3,
+                                "show_icons": false,
+                                "show_state": false,
+                                "title": "What's On?",
+                                "type": "glance"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "light.armchair_lamp",
+                                    "name": "armchair",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.bathroom_sink",
+                                    "name": "bathroom",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.coats",
+                                    "name": "coats",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.dining_spotlights",
+                                    "name": "dining spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.hall_downlights",
+                                    "name": "hall spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_downlight",
+                                    "name": "isla spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_wall",
+                                    "name": "isla wall",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_spotlights",
+                                    "name": "kitchen spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_worktop",
+                                    "name": "kitchen worktop",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.loft_main",
+                                    "name": "loft",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_1",
+                                    "name": "lounge pendant",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_2",
+                                    "name": "lounge spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_1",
+                                    "name": "mic lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_2",
+                                    "name": "printer lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.m_side",
+                                    "name": "m bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.main_downlights",
+                                    "name": "main br spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.movie_lamp",
+                                    "name": "movie lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_bedside_lamp",
+                                    "name": "guest lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_desk_lamp",
+                                    "name": "study lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.t_side",
+                                    "name": "t bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.utility",
+                                    "name": "utility",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                }
+                            ],
+                            "state_filter": [
+                                "on"
+                            ],
+                            "type": "entity-filter"
+                        }
+                    ]
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_state": false,
+                                "title": "Lights",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "light.*",
+                                        "options": {
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_state": false,
+                                "title": "Doors and Windows",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "binary_sensor.*contact"
+                                    }
+                                ]
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_state": true,
+                                "title": "Low Batteries",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "sensor.*battery*",
+                                        "attributes": {
+                                            "unit_of_measurement": "%"
+                                        }
+                                    }
+                                ],
+                                "exclude": [
+                                    {
+                                        "domain": "group.*"
+                                    },
+                                    {
+                                        "entity_id": "sensor.batteries_battery_level"
+                                    },
+                                    {
+                                        "state": "> 20"
+                                    }
+                                ]
+                            },
+                            "sort": {
+                                "method": "state",
+                                "reverse": true
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "card": {
+                                "columns": 3,
+                                "show_icons": false,
+                                "show_state": false,
+                                "title": "lounge",
+                                "type": "glance"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "light.armchair_lamp",
+                                    "name": "armchair",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.bathroom_sink",
+                                    "name": "bathroom",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.coats",
+                                    "name": "coats",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.dining_spotlights",
+                                    "name": "dining spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.hall_downlights",
+                                    "name": "hall spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_downlight",
+                                    "name": "isla spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.isla_wall",
+                                    "name": "isla wall",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_spotlights",
+                                    "name": "kitchen spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.kitchen_worktop",
+                                    "name": "kitchen worktop",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.loft_main",
+                                    "name": "loft",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_1",
+                                    "name": "lounge pendant",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_dim_2",
+                                    "name": "lounge spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_1",
+                                    "name": "mic lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.lounge_lamp_2",
+                                    "name": "printer lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.m_side",
+                                    "name": "m bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.main_downlights",
+                                    "name": "main br spots",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.movie_lamp",
+                                    "name": "movie lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_bedside_lamp",
+                                    "name": "guest lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.study_desk_lamp",
+                                    "name": "study lamp",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.t_side",
+                                    "name": "t bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.utility",
+                                    "name": "utility",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                }
+                            ],
+                            "state_filter": [
+                                "on"
+                            ],
+                            "type": "entity-filter"
+                        }
+                    ],
+                    "icon": "mdi:home",
+                    "path": "all-of-it",
+                    "title": "all of it"
+                },
+                {
+                    "title": "Octopus",
+                    "path": "octopus",
+                    "icon": "mdi:power-socket-uk",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Daily Energy Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_cost_daily",
+                                    "name": "Total Usage",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.energy_usage_daily",
+                                    "name": "Total Cost",
+                                    "unit": "kWh"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Daily All Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_usage_daily",
+                                    "name": "Total Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.energy_cost_daily",
+                                    "name": "Total Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.elec_usage_daily",
+                                    "name": "Elec Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.elec_cost_daily",
+                                    "name": "Elec Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.gas_usage_daily",
+                                    "name": "Gas Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.gas_cost_daily",
+                                    "name": "Gas Cost",
+                                    "unit": "pence"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Hourly Energy Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_usage_hourly",
+                                    "name": "Total Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.energy_cost_hourly",
+                                    "name": "Total Cost",
+                                    "unit": "kWh"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Hourly Cost Data",
+                            "icon": "mdi:flash",
+                            "hours_to_show": 24,
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_cost_hourly",
+                                    "name": "Total Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.elec_cost_hourly",
+                                    "name": "Elec Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.gas_cost_hourly",
+                                    "name": "Gas Cost",
+                                    "unit": "pence"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Hourly Usage Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_usage_hourly",
+                                    "name": "Total Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.elec_usage_hourly",
+                                    "name": "Elec Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.gas_usage_hourly",
+                                    "name": "Gas Usage",
+                                    "unit": "kWh"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Hourly Gas Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.gas_usage_hourly",
+                                    "name": "Gas Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.gas_cost_hourly",
+                                    "name": "Gas Cost",
+                                    "unit": "pence"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Hourly All Data",
+                            "icon": "mdi:flash",
+                            "entities": [
+                                {
+                                    "entity": "sensor.energy_usage_hourly",
+                                    "name": "Total Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.energy_cost_hourly",
+                                    "name": "Total Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.elec_usage_hourly",
+                                    "name": "Elec Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.elec_cost_hourly",
+                                    "name": "Elec Cost",
+                                    "unit": "pence"
+                                },
+                                {
+                                    "entity": "sensor.gas_usage_hourly",
+                                    "name": "Gas Usage",
+                                    "unit": "kWh"
+                                },
+                                {
+                                    "entity": "sensor.gas_cost_hourly",
+                                    "name": "Gas Cost",
+                                    "unit": "pence"
+                                }
+                            ]
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_state": true,
+                                "title": "Live data points",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "sensor.*hourly",
+                                        "options": {
+                                            "tap_action": {
+                                                "action": "more-info"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "type": "custom:auto-entities"
+                        }
+                    ]
+                },
+                {
+                    "path": "presence",
+                    "title": "Dev",
+                    "visible": [
+                        {
+                            "user": "9c5a287905c54f3fb4f87ba57d071235"
+                        },
+                        {
+                            "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+                        }
+                    ],
+                    "icon": "mdi:server",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "columns": 2,
+                            "entities": [
+                                {
+                                    "entity": "light.study_desk_lamp",
+                                    "icon": "mdi:lightbulb",
+                                    "name": "Study Desk",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "light.t_bedside",
+                                    "icon": "mdi:lightbulb",
+                                    "name": "T Bedside",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "sensor.monitor_tongai_phone_frontdoor_conf",
+                                    "icon": "mdi:logout",
+                                    "name": "Scan Depart",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "mqtt.publish",
+                                        "service_data": {
+                                            "topic": "monitor/run_scan/depart"
+                                        }
+                                    }
+                                },
+                                {
+                                    "entity": "sensor.monitor_tongai_phone_frontdoor_conf",
+                                    "icon": "mdi:login",
+                                    "name": "Scan Arrive",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "mqtt.publish",
+                                        "service_data": {
+                                            "topic": "monitor/run_scan/arrive"
+                                        }
+                                    }
+                                }
+                            ],
+                            "title": "Test Auto Unlock",
+                            "type": "glance"
+                        },
+                        {
+                            "card": {
+                                "columns": 2,
+                                "show_state": false,
+                                "title": "People at home",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "binary_sensor.monitor*"
+                                    }
+                                ]
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_text.guest_name",
+                                    "name": "Who needs access?",
+                                    "type": "custom:text-input-row"
+                                },
+                                {
+                                    "entity": "input_text.mac_addr",
+                                    "name": "What is their Bluetooth MAC address?",
+                                    "type": "custom:text-input-row"
+                                },
+                                {
+                                    "entity": "input_select.relationship",
+                                    "name": "Device Type"
+                                },
+                                {
+                                    "entity": "input_select.guest_access",
+                                    "name": "Action"
+                                },
+                                {
+                                    "action_name": "Run",
+                                    "name": " ",
+                                    "icon": "mdi",
+                                    "service": "script.manage_guest_access",
+                                    "type": "call-service"
+                                }
+                            ],
+                            "title": "Manage Guest Access",
+                            "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "show_icon": false,
+                                "show_state": false,
+                                "title": "Mac Addresses for Devices",
+                                "type": "glance"
+                            },
+                            "filter": {
+                                "include": [
+                                    {
+                                        "entity_id": "sensor.monitor*"
+                                    }
+                                ]
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "type": "gauge",
+                            "entity": "sensor.cert_expiry_hass_tojgan_net",
+                            "min": 0,
+                            "max": 100,
+                            "unit": "Days left",
+                            "name": "SSL Certificate Expiry"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_text.app_reload",
+                                    "name": "Which app needs to be reloaded?",
+                                    "type": "custom:text-input-row"
+                                },
+                                {
+                                    "action_name": "Relaunch",
+                                    "name": " ",
+                                    "icon": "mdi",
+                                    "service": "script.relaunch_apps",
+                                    "type": "call-service"
+                                }
+                            ],
+                            "title": "Reload Appdaemon Apps",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "action_name": "Red",
+                                    "name": " ",
+                                    "icon": "mdi:lock",
+                                    "service": "mqtt.publish",
+                                    "service_data": {
+                                        "topic": "/Homeassistant/Auto_Unlock/Status",
+                                        "payload": "red"
+                                    },
+                                    "type": "call-service"
+                                },
+                                {
+                                    "action_name": "Green",
+                                    "name": " ",
+                                    "icon": "mdi:door-open",
+                                    "service": "mqtt.publish",
+                                    "service_data": {
+                                        "topic": "/Homeassistant/Auto_Unlock/Status",
+                                        "payload": "green"
+                                    },
+                                    "type": "call-service"
+                                },
+                                {
+                                    "action_name": "Amber",
+                                    "name": " ",
+                                    "icon": "mdi:progress-clock",
+                                    "service": "mqtt.publish",
+                                    "service_data": {
+                                        "topic": "/Homeassistant/Auto_Unlock/Status",
+                                        "payload": "amber"
+                                    },
+                                    "type": "call-service"
+                                }
+                            ],
+                            "title": "Test Door LED",
+                            "type": "entities"
+                        },
+                        {
+                            "type": "glance",
+                            "entities": [
+                                {
+                                    "entity": "switch.sonoff_1000eced8f",
+                                    "name": "fan relay",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    }
+                                },
+                                {
+                                    "entity": "sensor.cert_expiry_timestamp_hass_tojgan_net"
+                                }
+                            ],
+                            "state_color": true
+                        }
+                    ]
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entity": "camera.aarlo_swings",
+                            "image_click": "play",
+                            "light": "light.aarlo_front_light",
+                            "name": "Swings",
+                            "show": [
+                                "motion",
+                                "sound",
+                                "snapshot",
+                                "captured_today"
+                            ],
+                            "type": "custom:aarlo-glance"
+                        }
+                    ],
+                    "icon": "",
+                    "panel": false,
+                    "path": "intercom",
+                    "title": "Swings",
+                    "visible": [
+                        {
+                            "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+                        }
+                    ]
+                },
+                {
+                    "path": "",
+                    "title": "house lights",
+                    "icon": "mdi:lightbulb",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "group.downstairs_lights",
+                                "group.upstairs_lights"
+                            ],
+                            "title": "all_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "switch.sonoff_100125dac5",
+                                "group.utility_lights",
+                                "group.kitchen_lights",
+                                "group.lounge_lamps",
+                                "group.lounge_spots",
+                                "group.hall_lights"
+                            ],
+                            "title": "downstairs_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.dining_spotlights_2",
+                                "light.kitchen_spotlights",
+                                "light.kitchen_worktop"
+                            ],
+                            "title": "kitchen_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.armchair_lamp",
+                                "light.lounge_lamp_1",
+                                "light.lounge_lamp_2",
+                                "light.movie_lamp"
+                            ],
+                            "title": "lounge_lamps",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.lounge_spotlights_2",
+                                "light.lounge_pendantt"
+                            ],
+                            "title": "lounge_spots",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "group.utility_laundry_lights",
+                                "group.utility_pantry_lights"
+                            ],
+                            "title": "utility_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.hall_spotlights_2",
+                                "light.bookshelf_lamp",
+                                "light.coats"
+                            ],
+                            "title": "hall_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "group.main_lights",
+                                "group.isla_lights",
+                                "light.bathroom_sink",
+                                "light.study_desk_lamp",
+                                "light.loft_main"
+                            ],
+                            "title": "upstairs_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.main_spotlights",
+                                "light.m_side",
+                                "light.t_side"
+                            ],
+                            "title": "main_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.isla_spotlights",
+                                "light.isla_wall"
+                            ],
+                            "title": "isla_lights",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "light.loft_main",
+                                "binary_sensor.loft_hatch_contact"
+                            ],
+                            "title": "loft",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "group.perimeter_contact",
+                                "group.perimeter_movement"
+                            ],
+                            "title": "perimeter",
+                            "show_header_toggle": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "binary_sensor.bathroom_window_acceleration",
+                                "binary_sensor.bay_party_wall_acceleration",
+                                "binary_sensor.bay_window_acceleration",
+                                "binary_sensor.front_acceleration",
+                                "binary_sensor.garage_out_acceleration",
+                                "binary_sensor.guest_win_acceleration",
+                                "binary_sensor.kitchen_acceleration",
+                                "binary_sensor.landing_window_acceleration",
+                                "binary_sensor.main_window_acceleration",
+                                "binary_sensor.main_window_party_acceleration",
+                                "binary_sensor.patio_door_acceleration",
+                                "binary_sensor.utility_back_door_acceleration"
+                            ],
+                            "title": "perimeter_movement",
+                            "show_header_toggle": true,
+                            "view_layout": {
+                                "position": "main"
+                            }
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "binary_sensor.bay_party_wall_contact",
+                                "binary_sensor.bay_window_contact",
+                                "binary_sensor.front_contact",
+                                "binary_sensor.garage_out_contact",
+                                "binary_sensor.landing_window_contact",
+                                "binary_sensor.bay_party_wall_acceleration",
+                                "binary_sensor.bay_window_acceleration",
+                                "binary_sensor.front_acceleration",
+                                "binary_sensor.garage_out_acceleration",
+                                "binary_sensor.landing_window_acceleration"
+                            ],
+                            "title": "front_perimeter",
+                            "show_header_toggle": true,
+                            "view_layout": {
+                                "position": "main"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

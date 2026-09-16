@@ -1,0 +1,101 @@
+esphome:
+  name: landing-blind
+  friendly_name: landing-blind
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: <redacted>
+
+ota:
+  - platform: esphome
+    password: <redacted>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Landing-Blind Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+# Blind Control Config
+
+# Template sensor for position tracking
+sensor:
+  - platform: template
+    name: "Landing Blind Position"
+    id: landing_blind_position
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+    lambda: |-
+      return id(landing_blind).position * 100.0f;
+
+# Cover component for Landing Blind
+cover:
+  - platform: time_based
+    name: "Landing Blind"
+    id: landing_blind
+    device_class: blind
+    open_action:
+      - switch.turn_on: landing_blind_up
+      - delay: 500ms
+      - switch.turn_off: landing_blind_up
+    close_action:
+      - switch.turn_on: landing_blind_down
+      - delay: 500ms
+      - switch.turn_off: landing_blind_down
+    stop_action:
+      - switch.turn_on: landing_blind_stop
+      - delay: 500ms
+      - switch.turn_off: landing_blind_stop
+    open_duration: 25s
+    close_duration: 25s
+
+# Switch components for Landing Blind
+switch:
+  - platform: gpio
+    pin:
+      number: 7 #D5 for Close 
+      inverted: true
+      mode:
+        output: true
+    name: "Close - Landing Blind"
+    id: landing_blind_down
+    on_turn_on:
+      - cover.close: landing_blind
+    interlock: [landing_blind_stop,landing_blind_up]
+
+  - platform: gpio
+    pin:
+      number: 21 #D6 for Stop 
+      inverted: true
+      mode:
+        output: true
+    name: "Stop - Landing Blind"
+    id: landing_blind_stop
+    on_turn_on:
+      - cover.stop: landing_blind
+    interlock: [landing_blind_down,landing_blind_up]
+
+  - platform: gpio
+    pin:
+      number: 20 #D7 for Open 
+      inverted: true
+      mode:
+        output: true
+    name: "Open - Landing Blind"
+    id: landing_blind_up
+    on_turn_on:
+      - cover.open: landing_blind
+    interlock: [landing_blind_stop,landing_blind_down]    

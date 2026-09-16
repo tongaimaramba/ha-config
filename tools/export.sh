@@ -56,8 +56,13 @@ copy() {  # copy <src> <dest-dir>   (silently skip if src missing)
 }
 
 copytree() {  # copytree <srcdir> <dstdir> [find filters...]  — busybox-safe (no cp --parents)
+  # Always prunes .git directories: some add-ons (ESPHome Device Builder) git-init
+  # their own working dirs, and copying that in verbatim makes git see the copy as
+  # an embedded repo (a gitlink) instead of files — the real content silently never
+  # gets committed. See if a rogue nested .git ever slips through:
+  #   git ls-tree -r HEAD | awk '$1=="160000"'   (should print nothing)
   local src="$1" dst="$2"; shift 2
-  ( cd "$src" && find . -type f "$@" -print0 ) | while IFS= read -r -d '' rel; do
+  ( cd "$src" && find . -type f -not -path '*/.git/*' "$@" -print0 ) | while IFS= read -r -d '' rel; do
     mkdir -p "$dst/$(dirname "$rel")"
     cp -a "$src/$rel" "$dst/$rel"
   done

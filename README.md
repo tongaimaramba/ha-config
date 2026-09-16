@@ -76,19 +76,27 @@ wholesale, so files removed on the box show up as deletions in git.
 
 ## Project-knowledge sync
 
-The raw registries are several MB each (`core.entity_registry` ≈ 2.5 MB,
-`hacs.repositories` ≈ 2.7 MB per host) and the knowledge base is capped at 2 MB, so the
-GitHub sync should include only:
+The raw registries are several MB each (`core.entity_registry` ≈ 2.5–2.7 MB,
+`hacs.repositories` ≈ 2.7–2.9 MB per host) and the knowledge base is capped at 2 MB
+total, so syncing all of `hosts/*/config/` doesn't fit — with real data from both
+boxes that alone came to ~1.7 MB before `digest/` is even added, mostly ESPHome
+device-firmware YAML and old `espbck/` backups that don't help with HA-level
+visibility. The filter that fits (~1.4 MB measured against the 2026-09-16 snapshots,
+leaving headroom):
 
 ```
 /README.md
 /hosts/pamba/digest/
-/hosts/pamba/config/
+/hosts/pamba/config/*.yaml
 /hosts/tanga/digest/
-/hosts/tanga/config/
+/hosts/tanga/config/*.yaml
 ```
 
-Everything else stays in the repo for on-demand reading.
+i.e. `digest/` in full (that's the point of it) plus only the *top-level* YAML files
+in `config/` (`configuration.yaml`, `automations.yaml`, `scripts.yaml`, `groups.yaml`,
+etc.) — not `esphome/`, `espbck/`, `blueprints/`, `misc/`, `floorplan_repo/`, `rpi/`,
+`panels/`. Everything excluded from the sync still lives in the repo for on-demand
+reading; only the knowledge-base copy is trimmed.
 
 ## Known context (kept here so it travels with the repo)
 

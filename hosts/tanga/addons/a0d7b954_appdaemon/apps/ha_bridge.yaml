@@ -1,0 +1,14 @@
+ha_bridge_rpi5:
+  module: ha_bridge
+  class: HABridge
+  log: bridge_log
+  log_level: INFO
+  server_id: rpi5
+  remote_server: rpi4
+  namespace: 'interha_bridge'
+  hass_namespace: default
+  kill_switch: false
+  mirrors:
+    "input_boolean.test_bridge_from_rpi5": "input_boolean.test_bridge_from_rpi4"
+    "input_boolean.test_bridge_mirror": "input_boolean.test_bridge_mirror"
+#    "sensor.bermuda_tongai_phone_area": "sensor.bermuda_tongai_phone_area"

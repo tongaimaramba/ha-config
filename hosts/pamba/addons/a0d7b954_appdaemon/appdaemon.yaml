@@ -1,0 +1,85 @@
+---
+secrets: /homeassistant/secrets.yaml
+appdaemon:
+  latitude: 51.3889375
+  longitude: -0.2847698
+  elevation: 2
+  time_zone: Europe/London
+  plugins:
+    HASS:
+      type: hass
+#      ha_url: http://127.0.0.1:5050
+ #     token: <redacted-jwt>
+
+    MQTT:
+       namespace: mqtt
+       type: mqtt
+       client_host: 192.168.179.41
+       client_user: mqtt_broker
+       client_password: <redacted>
+       
+    interha_bridge:
+      type: mqtt
+      client_id: "ad_bridge_rpi4"
+      namespace: 'interha_bridge'
+      client_host: 192.168.179.199
+      client_port: 1883
+      client_user: bridge_rpi4
+      client_password: <redacted>
+      protocol: 3.1.1       
+    
+http:
+    url: http://192.168.179.41:5050
+admin:
+api:
+hadashboard:
+logs:
+  main_log:
+    filename: /homeassistant/logs/main.log 
+  error_log:
+    filename: /homeassistant/logs/error.log
+  troubleshoot:
+    name: troubleshoot
+    filename: /homeassistant/logs/solve.log
+  test_log:
+    name: test_log
+    filename: /homeassistant/logs/test.log
+  bridge_log:
+    name: bridge_log
+    filename: /homeassistant/logs/bridge.log
+  auto_unlock:
+    name: auto_unlock
+    filename: /homeassistant/logs/auto_unlock.log
+  guest_access:
+    name: guest_access
+    filename: /homeassistant/logs/guest_access.log
+  mng_guests:
+    name: mng_guests
+    filename: /homeassistant/logs/manage_guests.log
+  octopus:
+    name: octopus
+    filename: /homeassistant/logs/octopus.log
+  boiler_alert:
+    name: boiler_alert
+    filename: /homeassistant/logs/boiler_alert.log
+  remq:
+    name: remq
+    filename: /homeassistant/logs/reboot_by_mqtt.log
+  rebegin_log:
+    name: rebegin_log
+    filename: /homeassistant/logs/rebegin.log
+  iftt_log:
+    name: iftt_log
+    filename: /homeassistant/logs/iftt.log
+  alarm_log:
+    name: alarm_log
+    filename: /homeassistant/logs/alarm.log
+  solar_log:
+    name: solar_log
+    filename: /homeassistant/logs/solar.log
+  aut_log:
+    name: aut_log
+    filename: /homeassistant/logs/aut.log
+  solar_wm_log:
+    name: solar_work_mode_logger
+    filename: /homeassistant/logs/solar_work_mode_logger.log

@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "id": "ef83eb061894481f8442fa5f7687c85d",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-hass-aarlo/hass-aarlo.js?hacstag=1972451790261"
+      },
+      {
+        "id": "e1c26c4c7b774af09ad284d8d561dda9",
+        "type": "module",
+        "url": "/hacsfiles/fan-control-entity-row/fan-control-entity-row.js?hacstag=19166315022"
+      },
+      {
+        "id": "fad3010970a642c6bc3ef9c4ad51b5e8",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-more-info-card/more-info-card.js?hacstag=1805289500994"
+      },
+      {
+        "id": "88a79a920c1e4e99bb154f40c32a3823",
+        "type": "module",
+        "url": "/hacsfiles/group-element/group-element-bundle.js?hacstag=179491130092"
+      },
+      {
+        "id": "8a091d5e7adb47818dd0bc9da0d01652",
+        "type": "module",
+        "url": "/hacsfiles/group-card/group-card.js?hacstag=187245511006"
+      },
+      {
+        "id": "9673900302aa44489d8fe96e36e89d50",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-badge-card/badge-card.js"
+      },
+      {
+        "id": "2c5b98ff8cd74ed18539f538be71a995",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-text-input-row/lovelace-text-input-row.js?hacstag=1821137430010"
+      },
+      {
+        "id": "19d32a7549234c968a06d8bf3d4465ec",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js?hacstag=1677445841130"
+      },
+      {
+        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381165",
+        "type": "module",
+        "id": "f8b1d6ffe6cf4cc5aa2ba5861a1220a8"
+      },
+      {
+        "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214124",
+        "type": "module",
+        "id": "ac045fd63a2b4a518793d5c00a532cab"
+      },
+      {
+        "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878250",
+        "type": "module",
+        "id": "e8fc804d21d1456cb500aca1e4625b19"
+      },
+      {
+        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=303101606172",
+        "type": "module",
+        "id": "53d2cfd4e75f4889bb2b1db33d2fe790"
+      },
+      {
+        "url": "/hacsfiles/lovelace-battery-entity-row/battery-entity-row.js",
+        "type": "module",
+        "id": "26e34f9ac21f448b8c41c81acb749c1f"
+      },
+      {
+        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620110",
+        "type": "module",
+        "id": "a5b5384669704aefbc3080a9f6272c5d"
+      },
+      {
+        "url": "/hacsfiles/ha-floorplan/floorplan.js?hacstag=1883234941044",
+        "type": "module",
+        "id": "e45229f576f843569662d2148389f132"
+      },
+      {
+        "url": "/hacsfiles/toggle-control-button-row/toggle-control-button-row.js?hacstag=32603392131",
+        "type": "module",
+        "id": "7cb0a0373e764576aab188e557b8e33e"
+      },
+      {
+        "url": "/hacsfiles/hass-bha-icons/hass-bha-icons.js?hacstag=17980857698057",
+        "type": "module",
+        "id": "a1d4c56ff5e64841ac80e8d3e889bbcc"
+      },
+      {
+        "url": "/hacsfiles/lovelace-tempometer-gauge-card/tempometer-gauge-card.js?hacstag=203246690140",
+        "type": "module",
+        "id": "573d5d6a34524125a4467a0afbacce9c"
+      },
+      {
+        "url": "/hacsfiles/simple-clock-card/simple-clock-card.js?hacstag=34193126615",
+        "type": "module",
+        "id": "c6b2bf06502d4d6797be3026f1489e59"
+      },
+      {
+        "url": "/hacsfiles/lovelace-notify-card/notify-card.js?hacstag=358962656993862",
+        "type": "module",
+        "id": "76454401ffac4436affe406935bffb54"
+      },
+      {
+        "url": "/hacsfiles/fan-percent-button-row/fan-percent-button-row.js?hacstag=34575320518",
+        "type": "module",
+        "id": "b7e9da85ed52459dab0d30cf45cbbf73"
+      },
+      {
+        "url": "/hacsfiles/charger-card/charger-card.js?hacstag=3087524090014",
+        "type": "module",
+        "id": "87ba229062cd42e1835f8270fb297c44"
+      },
+      {
+        "url": "/hacsfiles/lovelace-ha-dashboard/ha-dashboard.js?hacstag=329411371110",
+        "type": "module",
+        "id": "697d9c9517aa4f5fba58f9cb98850409"
+      },
+      {
+        "url": "/hacsfiles/lovelace-entities-btn-group/entities-btn-group.js?hacstag=373857882105",
+        "type": "module",
+        "id": "9e4021ed7821445194d02f29a3d908f4"
+      },
+      {
+        "url": "/hacsfiles/timer-bar-card/timer-bar-card.js?hacstag=376904517110",
+        "type": "module",
+        "id": "e0df327bc5354c1d8d02d024007bcd43"
+      },
+      {
+        "url": "/hacsfiles/Multiline-Entity-Card/multiline-entity-card.js?hacstag=351472550122",
+        "type": "module",
+        "id": "31f59d3c75514d00ae8a78b92799f4b2"
+      },
+      {
+        "url": "/hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js?hacstag=257005990202",
+        "type": "module",
+        "id": "a6a70a72190648b4bfa33c582b3f3be3"
+      },
+      {
+        "url": "/hacsfiles/tv-card/tv-card.js?hacstag=505459170052",
+        "type": "module",
+        "id": "098efce61c894651880b1881e067243d"
+      },
+      {
+        "url": "/hacsfiles/LG-WebOS-Remote-Control/",
+        "type": "module",
+        "id": "718d24447ca9438fafcab3c859631d0e"
+      },
+      {
+        "url": "/local/roku-card.js",
+        "type": "module",
+        "id": "a7f149d3172e45da8c0afae96564a5c7"
+      },
+      {
+        "url": "/hacsfiles/octopus-energy-rates-card/octopus-energy-rates-card.js?hacstag=596085141012",
+        "type": "module",
+        "id": "00edb0a02f9843b6bbcd8859bc317823"
+      },
+      {
+        "id": "94ab003549704f1ba6cc2019c98a73ca",
+        "url": "/hacsfiles/lovelace-template-entity-row/template-entity-row.js?hacstag=231674882132",
+        "type": "module"
+      },
+      {
+        "id": "90d579405b3c4e0ebc303c2d75c66d83",
+        "url": "/hacsfiles/lovelace-card-templater/lovelace-card-templater.js?hacstag=1843331630017",
+        "type": "module"
+      },
+      {
+        "id": "8f0b42a568fb43e099b04ea96705614d",
+        "url": "/hacsfiles/config-template-card/config-template-card.js?hacstag=172177543136",
+        "type": "module"
+      },
+      {
+        "id": "8a15b7ca2c354291a9d24a96ce6e63a8",
+        "url": "Url /hacsfiles/lovelace-hass-aarlo/hass-aarlo.js",
+        "type": "module"
+      },
+      {
+        "id": "d945930184aa40fd871950c51e673346",
+        "url": "/hacsfiles/entity-attributes-card/entity-attributes-card.js?hacstag=187245461012",
+        "type": "module"
+      },
+      {
+        "id": "7c167e75d76841ae95d0ca57c13a9ac1",
+        "url": "/hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js?hacstag=178921037451",
+        "type": "module"
+      },
+      {
+        "id": "58cebb9fece141bebb26521504135f05",
+        "url": "/hacsfiles/flex-table-card/flex-table-card.js?hacstag=156292058075",
+        "type": "module"
+      },
+      {
+        "id": "be4155e87cad40fa88153b4dfff0742b",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375511",
+        "type": "module"
+      }
+    ]
+  }
+}

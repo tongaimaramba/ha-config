@@ -1,0 +1,209 @@
+# ==== Auto-Unlock V2 Complete Configuration ====
+# Supports three modes:
+# 1. sandbox: Testing with controllable mock sensors
+# 2. crossover: Production multi-server (bridge to remote HA)
+# 3. production: Production local-server (direct control)
+
+auto_unlock_v2:
+  module: auto_unlock_v2
+  class: AutoUnlockV2
+  log: auto_unlock
+  log_level: DEBUG
+  bridge_app: ha_bridge_rpi5
+
+  # MODE SELECTION
+  # sandbox: For testing with mock sensors
+  # crossover: For production with remote HA server (uses bridge)
+  # production: For production with local HA server (direct control)
+  mode: crossover  # sandbox | crossover | production
+
+  # Hardware stage (quick presets for common configurations)
+  hardware_stage: 4
+
+  # Sandbox options (applies to sandbox AND crossover modes)
+  # Override hardware_stage settings or customize per component
+  sandbox_options:
+    tap: mock              # mock | real - Which tap sensor to listen to
+#    home_away: real        # mock | real - BLE area/location source
+#    ble_distance: real     # mock | real - BLE distance source
+#    intent: mock           # mock | real - Intent window checking
+#    led_mode: real         # mock | real - LED feedback display
+    unlock: mock           # mock | bridge | real - Unlock execution
+
+  # Advanced proximity settings (hysteresis, EMA smoothing, predictive approach)
+  proximity_advanced:
+    hysteresis_band: 0.4       # meters - buffer to prevent oscillation
+    ema_alpha: 0.7             # smoothing factor (0-1, lower = more smoothing)
+    ema_window: 5              # number of readings to average
+    approach_velocity_threshold: -0.3  # m/s - negative means approaching
+    approach_window: 10        # number of readings to track for velocity
+
+  # Adaptive staleness settings
+  staleness_adaptive:
+    enabled: true
+    tight_threshold: 30        # seconds - when updates are frequent
+    tight_avg_interval: 2.0    # seconds - trigger tight threshold below this
+    relaxed_avg_interval: 10.0 # seconds - trigger relaxed threshold above this
+    frequency_window: 20       # number of intervals to track
+
+  #Retry proximity checks to allow for sensor latency
+  location_retry:
+    enabled: true
+    attempts: 3
+    interval: [2, 3, 10]  #15 second max wait - retries at 2sec, then 3sec, then 5sec
+    amber_pulse: true
+
+  # Trusted devices and their sensors
+  trusted_devices:
+    Tongai:
+      person: "person.tongai"
+      tracker: "device_tracker.bermuda_tongai_phone_bermuda_tracker"
+      phone_type: "android"
+      bermuda_area: "sensor.bermuda_tongai_phone_area"
+      bermuda_dist: "sensor.bermuda_tongai_phone_distance"
+      bermuda_tracker: "device_tracker.bermuda_tongai_phone"
+      proxy_distances:
+        kai_proxy: "sensor.bermuda_tongai_phone_distance_to_kai_proxy"
+        nya_proxy: "sensor.bermuda_tongai_phone_distance_to_nya_proxy"
+      wifi_bssid: "sensor.tongaism25_wi_fi_bssid"
+      wifi_rssi: "sensor.tongaism25_wi_fi_signal_strength"
+      min_wifi_rssi: -70
+      min_ble_update_sec: 120
+
+    # Ellie:
+    #   person: "person.ellie"
+    #   tracker: "device_tracker.ellie_bag"
+    #   phone_type: "android"
+    #   bermuda_area: "sensor.bermuda_ellie_school_bag_area"
+    #   bermuda_dist: "sensor.bermuda_ellie_school_bag_distance"
+    #   bermuda_tracker: "device_tracker.ellie_school_bag_bermuda_tracker"
+    #   proxy_distances:
+    #     kai_proxy: "sensor.ellie_school_bag_distance_to_kai_proxy"
+    #     nya_proxy: "sensor.ellie_school_bag_distance_to_nya_proxy"
+   
+    Hannah:
+      person: "person.hannah"
+      tracker: "device_tracker.bermuda_hannah_iphone13_bermuda_tracker"
+      phone_type: "iphone"
+      bermuda_area: "sensor.hannah_iphone13_area"
+      bermuda_dist: "sensor.hannah_iphone13_distance"
+      bermuda_tracker: "device_tracker.hannah_iphone13_bermuda_tracker"
+      proxy_distances:
+        kai_proxy: "sensor.hannah_iphone13_distance_to_kai_proxy"
+        nya_proxy: "sensor.hannah_iphone13_distance_to_nya_proxy"
+      wifi_bssid: "sensor.hannahs_iphone_bssid"
+      min_wifi_rssi: -70
+      min_ble_update_sec: 120
+
+    # Mojgan:
+    #   person: "person.mojgan"
+    #   tracker: "device_tracker.mojgan_iphone11_bermuda_tracker"
+    #   phone_type: "iphone"
+    #   bermuda_area: "sensor.mojgan_iphone11_area"
+    #   bermuda_dist: "sensor.mojgan_iphone11_distance"
+    #   bermuda_tracker: "device_tracker.mojgan_iphone11_bermuda_tracker"
+    #   proxy_distances:
+    #     kai_proxy: "sensor.mojgan_iphone11_distance_to_kai_proxy"
+    #     nya_proxy: "sensor.mojgan_iphone11_distance_to_nya_proxy"
+    #   wifi_bssid: "sensor.mm_iphone_bssid"
+    #   min_wifi_rssi: -70
+    #   min_ble_update_sec: 120
+
+  #track the car
+  car_tracker: "device_tracker.volvo_eva_location"
+  car_arrival_velocity: 1.0  # meters/sec, use as threshold for car arrival
+
+  # Trusted WiFi BSSIDs (for presence detection)
+  trusted_bssids:
+    - "04:42:1a:33:91:64"   # kitchen
+    - "04:42:1a:33:58:24"   # study
+    - "04:42:1a:da:ea:d4"   # loft
+    - "fc:34:97:ae:05:b4"   # garden
+
+  # Mock entities for sandbox testing
+  sandbox_entities:
+    tap_front_door: input_boolean.mock_tap_front_door
+    tap_garage: input_boolean.mock_tap_garage
+    lock_entity: input_boolean.mock_door_locked
+    led_green: input_boolean.mock_led_green
+    led_amber: input_boolean.mock_led_amber
+    led_red: input_boolean.mock_led_red
+    location_area: input_select.mock_location_area
+    ble_distance: input_number.mock_ble_distance
+    user_select: input_text.mock_user
+
+  # Lock configuration
+  locks:
+    front_door:
+      lock_entity: "lock.nMukuru_2"
+      unlock_service: "mqtt.publish"
+      unlock_service_data:
+        topic: "nuki/lock/action"
+        payload: "unlatch"
+      tap_sensor: 
+        - "binary_sensor.front_doorstep_acceleration"
+        - "binary_sensor.front_acceleration"
+        - "input_boolean.mock_tap_front_door"
+      contact_sensor: "binary_sensor.front_door"
+      led_controller: "light.kai_proxy_front_door_status_led"
+      zone: "front_door"
+      ble_proxy: "kai_proxy"
+
+    garage:
+      lock_entity: "lock.mudiki"
+      unlock_service: "lock.unlock"
+      tap_sensor: 
+        - "binary_sensor.garage_doorstep_acceleration"
+        - "binary_sensor.garage_out_acceleration"
+        - "input_boolean.mock_tap_garage"
+      contact_sensor: "binary_sensor.garage_out_door"
+      led_controller: "light.kai_proxy_front_door_status_led"
+      zone: "Garage"
+      ble_proxy: "nya_proxy"
+
+  # Proximity zones (FIXED: Hallway added to front_door)
+  proxy_zones:
+    - name: "front_door"
+      proxies: ["kai_proxy"]
+      locations: ["front_door", "Hallway"]
+      ble_distance: 5
+
+    - name: "garage"
+      proxies: ["nya_proxy"]
+      locations: ["garage"]
+      ble_distance: 5
+
+    - name: "garden"
+      proxies: ["zane_proxy"]
+      locations: ["garden"]
+
+    - name: "boundary"
+      proxies: ["zane_proxy"]
+      locations: ["boundary"]
+
+  #time to sleep after an unlock
+  just_unlocked_interval: 30  # seconds
+
+  # Intent windows (time allowed to unlock after arrival)
+  intent_window:
+    walking:
+      android: 40   # seconds
+      iphone: 40
+    car:
+      android: 60
+      iphone: 90
+
+  # LED feedback colors (RGB for real LEDs, ignored for mock booleans)
+  led_feedback:
+    opening: [0, 255, 0]      # Green - solid for 5 seconds
+    thinking: [255, 127, 0]   # Amber/Orange - flashing (10 flashes in 2s)
+    error: [255, 0, 0]        # Red - solid for 5 seconds
+
+  # Health check configuration (production mode only)
+  health_check:
+    interval: 180  # seconds
+    notify_entity: "notify.mobile_app_tongaism25"
+    require_online: 
+      - "binary_sensor.appdaemon_4_running"
+    alert_message: "Auto-Unlock system requires attention. Check Home Assistant."
+

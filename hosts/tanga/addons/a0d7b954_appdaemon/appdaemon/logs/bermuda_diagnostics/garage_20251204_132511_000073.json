@@ -1,0 +1,16 @@
+{
+  "cycle_id": "garage_20251204_132511_000073",
+  "door": "garage",
+  "person": "Ellie",
+  "timestamp": "2025-12-04T13:25:11.865015",
+  "tap_outcome": "failure",
+  "reason": "No eligible user found",
+  "ignore_reason": null,
+  "checks_passed": [],
+  "failed_at": null,
+  "failure_reason": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

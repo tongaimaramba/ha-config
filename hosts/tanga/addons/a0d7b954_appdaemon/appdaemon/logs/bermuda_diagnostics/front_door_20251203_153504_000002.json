@@ -1,0 +1,14 @@
+{
+  "cycle_id": "front_door_20251203_153504_000002",
+  "door": "front_door",
+  "person": "Mojgan",
+  "timestamp": "2025-12-03T15:35:04.239261",
+  "tap_outcome": "failure",
+  "reason": "Location not available (timeout)",
+  "checks_passed": [],
+  "failed_at": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.lovelace_guest",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "visible": [
+            {
+              "user": "c99ca07941bd4465a02d08ecb04551bc"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "b5c88f9ba6c24fc09f3071b395e7964c"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_contact",
+                  "name": "Front Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "nuki/lock/action",
+                      "payload": "unlatch"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.garage_out_contact",
+                  "name": "Garage Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "lock.unlock",
+                    "service_data": {
+                      "entity_id": "lock.mudiki"
+                    }
+                  }
+                }
+              ],
+              "title": "Doors",
+              "type": "glance"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

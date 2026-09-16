@@ -1,0 +1,381 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "title": "Mojgan",
+      "views": [
+        {
+          "icon": "",
+          "path": "lights",
+          "title": "Overview",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            }
+          ],
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_contact",
+                  "name": "Front Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "/Homeassistant/Auto_Unlock/Action",
+                      "payload": "open"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.garage_out_contact",
+                  "name": "Garage Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "lock.unlock",
+                    "service_data": {
+                      "entity_id": "lock.mudiki"
+                    }
+                  }
+                }
+              ],
+              "title": "Doors",
+              "type": "glance"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.hannahs_iphone_battery_level",
+                "sensor.hannahs_iphone_battery_state"
+              ]
+            },
+            {
+              "entities": [
+                {
+                  "entity": "group.lounge_lamps",
+                  "icon": "mdi:lightbulb",
+                  "name": "Lounge Lamps",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bookshelf_lamp",
+                  "name": "Hallway Lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_wall",
+                  "name": "Friends Light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "group.eating_lights",
+                  "name": "Dining Lighting",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon": "mdi:lightbulb"
+                },
+                {
+                  "entity": "group.downstairs_lights",
+                  "icon": "mdi:lightbulb",
+                  "name": "Downstairs",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.m_side",
+                  "icon": "mdi:bed",
+                  "name": "M Bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.t_side",
+                  "icon": "mdi:bed",
+                  "name": "T Bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "switch.sonoff_100125dac5",
+                  "icon": "mdi:outdoor-lamp",
+                  "name": "Patio Lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "show_state": false,
+              "title": "Lights",
+              "type": "glance",
+              "columns": 3
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "glance",
+                "title": "What's Open",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*_contact"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "*doorstep*"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "show_empty": true
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "entities",
+                "title": "What's On",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "light",
+                    "state": "on"
+                  }
+                ],
+                "exclude": []
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "tap_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "glance",
+              "title": "Garden",
+              "entities": [
+                {
+                  "entity": "switch.sonoff_1000eced8f",
+                  "name": "pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_boolean.pump_timer",
+                  "name": "timed pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_number.timer_length",
+                  "name": "run time",
+                  "show_state": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Heating",
+          "path": "heating",
+          "icon": "mdi:radiator",
+          "badges": [],
+          "cards": [
+            {
+              "type": "thermostat",
+              "entity": "climate.main",
+              "name": "Main Bedroom Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.friends",
+              "name": "Kids Room Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.study",
+              "name": "Study Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.downstairs",
+              "name": "Downstairs Heating (Nest)"
+            }
+          ]
+        },
+        {
+          "badges": [],
+          "cards": [
+            {
+              "card": {
+                "columns": 2,
+                "show_state": false,
+                "title": "Lights",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "light.*",
+                    "options": {
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    }
+                  }
+                ]
+              },
+              "type": "custom:auto-entities"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_state": false,
+                "title": "Doors and Windows",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "binary_sensor.*contact"
+                  }
+                ]
+              },
+              "type": "custom:auto-entities"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_state": true,
+                "title": "Low Batteries",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "sensor.*battery*",
+                    "attributes": {
+                      "unit_of_measurement": "%"
+                    }
+                  }
+                ],
+                "exclude": [
+                  {
+                    "domain": "group.*"
+                  },
+                  {
+                    "entity_id": "sensor.batteries_battery_level"
+                  },
+                  {
+                    "state": "> 20"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "state",
+                "reverse": true
+              },
+              "type": "custom:auto-entities"
+            }
+          ],
+          "icon": "mdi:home",
+          "path": "all-of-it",
+          "title": "all of it"
+        },
+        {
+          "icon": "mdi:cctv",
+          "panel": false,
+          "path": "check_alarm",
+          "title": "Alarm",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "entity": "camera.aarlo_swings",
+              "image_click": "play",
+              "light": "light.aarlo_front_light",
+              "name": "Swings",
+              "show": [
+                "motion",
+                "sound",
+                "snapshot",
+                "captured_today"
+              ],
+              "type": "custom:aarlo-glance"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.backyard",
+              "camera_view": "live"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.camera",
+              "camera_view": "live"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

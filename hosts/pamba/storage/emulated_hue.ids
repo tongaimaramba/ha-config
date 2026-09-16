@@ -1,0 +1,24 @@
+{
+  "version": "1",
+  "minor_version": 1,
+  "key": "emulated_hue.ids",
+  "data": {
+    "1": "button.landing_blind_close",
+    "2": "switch.landing_blind_close_landing_blind",
+    "3": "switch.landing_blind_stop_landing_blind",
+    "4": "switch.landing_blind_open_landing_blind",
+    "5": "switch.loft_blind_close_loft_suite_blind",
+    "6": "switch.loft_blind_stop_loft_suite_blind",
+    "7": "switch.loft_blind_open_loft_suite_blind",
+    "8": "light.scenario_1_light",
+    "9": "light.scenario_2_light",
+    "10": "light.scenario_3_light",
+    "11": "light.loft_door_closed",
+    "12": "light.alexa_started_ac",
+    "13": "input_boolean.away_on_holiday",
+    "14": "binary_sensor.loft_pir_bedroom_door",
+    "15": "input_boolean.ac_hi_lo_speed",
+    "16": "input_boolean.garden_d_cleared",
+    "17": "script.oppy_mow_all"
+  }
+}

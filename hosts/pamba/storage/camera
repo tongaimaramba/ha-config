@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "key": "camera",
+    "data": {
+        "camera.garden": {
+            "preload_stream": true
+        },
+        "camera.backyard": {
+            "preload_stream": true
+        },
+        "camera.camera": {
+            "preload_stream": true
+        }
+    }
+}

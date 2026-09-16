@@ -1,0 +1,415 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "repairs.issue_registry",
+  "data": {
+    "issues": [
+      {
+        "created": "2022-08-03T18:12:34.798759+00:00",
+        "dismissed_version": "2022.8.0",
+        "domain": "nest",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml"
+      },
+      {
+        "created": "2022-11-09T19:38:00.461325+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "mqtt",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_binary_sensor"
+      },
+      {
+        "created": "2022-11-09T19:38:00.466251+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "mqtt",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_sensor"
+      },
+      {
+        "created": "2023-01-11T18:38:15.604878+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "country_not_configured"
+      },
+      {
+        "created": "2023-06-16T18:26:00.282184+00:00",
+        "dismissed_version": null,
+        "domain": "sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_openweathermap"
+      },
+      {
+        "created": "2023-06-16T18:26:00.284246+00:00",
+        "dismissed_version": null,
+        "domain": "sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_mqtt"
+      },
+      {
+        "created": "2023-06-16T18:26:28.953216+00:00",
+        "dismissed_version": null,
+        "domain": "binary_sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_binary_sensor_mqtt"
+      },
+      {
+        "created": "2023-06-29T12:43:40.547719+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "329e506d98714412bd4fb7cc58ef5a87"
+      },
+      {
+        "created": "2023-06-30T14:49:00.292895+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "53665eb436a34204b792b7633d73ea2d"
+      },
+      {
+        "created": "2023-12-23T22:55:58.639496+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.989690+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_camera_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.990265+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.990649+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_binary_sensor_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.991004+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_media_player_aarlo"
+      },
+      {
+        "created": "2024-04-05T11:18:21.386478+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_mqtt"
+      },
+      {
+        "created": "2024-05-19T15:49:47.886642+00:00",
+        "dismissed_version": null,
+        "domain": "panel_iframe",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml"
+      },
+      {
+        "created": "2024-08-04T21:02:51.215151+00:00",
+        "dismissed_version": "2024.7.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_systemmonitor"
+      },
+      {
+        "created": "2024-08-25T20:52:48.637105+00:00",
+        "dismissed_version": "2024.8.3",
+        "domain": "script",
+        "is_persistent": false,
+        "issue_id": "script.bathtime_on_validation_failed_sequence"
+      },
+      {
+        "created": "2024-08-25T20:52:48.637560+00:00",
+        "dismissed_version": "2024.8.3",
+        "domain": "script",
+        "is_persistent": false,
+        "issue_id": "script.bathtime_off_validation_failed_sequence"
+      },
+      {
+        "created": "2024-12-08T20:39:49.754024+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "integration_not_found.ota"
+      },
+      {
+        "created": "2025-03-26T20:08:55.268887+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_tuya_e45c0687bfd0bce4ae2a8d3188b81b86"
+      },
+      {
+        "created": "2025-04-12T17:07:21.193789+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.litra_brightness_service_not_found_rest_command.litra_on",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "rest_command.litra_on",
+          "entity_id": "automation.litra_brightness",
+          "name": "litra beam",
+          "edit": "/config/automation/edit/1744103079454"
+        }
+      },
+      {
+        "created": "2025-04-12T17:07:23.385539+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.litra_brightness_service_not_found_rest_command.litra_off",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "rest_command.litra_off",
+          "entity_id": "automation.litra_brightness",
+          "name": "litra beam",
+          "edit": "/config/automation/edit/1744103079454"
+        }
+      },
+      {
+        "created": "2025-06-04T21:58:10.790958+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.fp_access_granted_service_not_found_notify.mobile_app_tongai22",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_tongai22",
+          "entity_id": "automation.fp_access_granted",
+          "name": "FP Access",
+          "edit": "/config/automation/edit/1747764905471"
+        }
+      },
+      {
+        "created": "2025-06-14T09:55:07.083835+00:00",
+        "dismissed_version": null,
+        "domain": "esphome",
+        "is_persistent": false,
+        "issue_id": "service_calls_not_enabled-c8:f0:9e:4e:4a:5c"
+      },
+      {
+        "created": "2025-06-14T21:15:27.526274+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.fingerprint_enrollment_workflow_service_not_found_script.update_metadata_sensors",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "script.update_metadata_sensors",
+          "entity_id": "automation.fingerprint_enrollment_workflow",
+          "name": "Fingerprint Enrollment Management",
+          "edit": "/config/automation/edit/1749894430384"
+        }
+      },
+      {
+        "created": "2025-06-15T18:37:43.481747+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.fingerprint_enrollment_workflow_service_not_found_esphome.fp_auth_refresh_metadata",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "esphome.fp_auth_refresh_metadata",
+          "entity_id": "automation.fingerprint_enrollment_workflow",
+          "name": "Fingerprint Enrollment Management",
+          "edit": "/config/automation/edit/1749894430384"
+        }
+      },
+      {
+        "created": "2025-06-18T18:01:16.298606+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.sync_fp_metadata_to_esphome_on_boot_service_not_found_esphome.set_fp_metadata",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "esphome.set_fp_metadata",
+          "entity_id": "automation.sync_fp_metadata_to_esphome_on_boot",
+          "name": "Sync FP Metadata to ESPHome on Boot",
+          "edit": "/config/automation/edit/1750269427938"
+        }
+      },
+      {
+        "created": "2025-06-24T21:26:42.565567+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.sync_fp_metadata_to_esphome_on_boot_service_not_found_esphome.fp_set_metadata",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "esphome.fp_set_metadata",
+          "entity_id": "automation.sync_fp_metadata_to_esphome_on_boot",
+          "name": "Sync FP Metadata to ESPHome on Boot",
+          "edit": "/config/automation/edit/1750269427938"
+        }
+      },
+      {
+        "created": "2025-07-25T21:02:54.546324+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "ba30249e8d40463e999bd799edbab9b2"
+      },
+      {
+        "created": "2025-07-29T13:42:18.380986+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_257988102"
+      },
+      {
+        "created": "2025-07-29T13:42:18.381336+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_312896602"
+      },
+      {
+        "created": "2025-07-29T13:44:51.196421+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_899977910_tags/v1.5.6"
+      },
+      {
+        "created": "2025-07-31T15:28:28.509121+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_131915802_tags/v2.9.0"
+      },
+      {
+        "created": "2025-09-09T20:48:49.456017+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant_alerts",
+        "is_persistent": false,
+        "issue_id": "accuweather.markdown_accuweather"
+      },
+      {
+        "created": "2025-10-14T14:37:53.358286+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_158654878"
+      },
+      {
+        "created": "2025-11-07T20:39:28.215842+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_volvo_cars_01K1GGAK9FV2R48N9W8977QRA2"
+      },
+      {
+        "created": "2025-11-12T11:52:35.593917+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_accuweather_a1167d55689b4ce48bc85b58149d034b"
+      },
+      {
+        "created": "2025-11-12T14:39:49.941716+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_223993584_tags/13.10.1"
+      },
+      {
+        "created": "2025-11-13T09:53:26.448206+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "419811d0a96a4a68a84baeb50dabc770"
+      },
+      {
+        "created": "2025-11-13T12:17:06.516349+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_676091897_tags/v0.8.5"
+      },
+      {
+        "created": "2025-11-23T16:59:48.316613+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "2c7786beadf34733a2d1724717134941"
+      },
+      {
+        "created": "2025-12-09T22:22:32.273625+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_899977910"
+      },
+      {
+        "created": "2026-03-04T13:31:54.970294+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_636943975"
+      },
+      {
+        "created": "2026-03-04T13:31:54.970631+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_164367214"
+      }
+    ]
+  }
+}

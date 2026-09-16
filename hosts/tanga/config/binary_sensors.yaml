@@ -1,0 +1,32 @@
+#Aarlo Integration
+  - platform: aarlo
+    monitored_conditions:
+    - motion
+    - sound
+#    - ding
+#    - cry
+    - connectivity
+#
+# door led
+#
+  - platform: remote_rpi_gpio
+    host: 192.168.179.63
+    ports:
+      14: DoorLight
+#
+# GPIO
+#
+  - platform: rpi_gpio
+    sensors:
+      - port: 17
+        name: pir_gpio_driveway
+        pull_mode: "DOWN"
+        unique_id: "pir_17_gpio_driveway"
+#
+## Oppy 
+#
+  - platform: rest
+    resource: "https://eu-api.segwaydiscovery.com/api/v2/vehicle/query/current/status?iotCode=${imei}"
+    name: "Oppy Online"
+    value_template: "{{ value_json.data.online }}"
+    device_class: connectivity

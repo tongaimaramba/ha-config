@@ -1,0 +1,67 @@
+auto_unlock:
+  module: auto_unlock
+  class: AutoUnlockApp
+  plugin:
+    - HASS
+    - MQTT
+  log: auto_unlock
+  log_level: DEBUG # choose INFO or DEBUG
+  production_mode: False     #set to False to disable lock operation
+  notif_level: admin # options: all, admin. Default is admin
+  admin_device: mobile_app_tongai22     #default is "all_android"
+  
+  residents_list: #for each resident device choose which doors can be used: "all", or one of the locks
+    tongai_phone: all       
+    mojgan_phone: all
+#    hannah_phone: all
+
+  guests_list: # device name and mac for guest, also which door they can access
+#    - justina 00:26:B4:C9:11:BC mudiki
+#    - tongai_phone 58:CB:52:08:87:C7 front_door
+#    - guestina 00:26:B4:C9:11:B9 garage_door 
+#    - Feasby 4c:4f:ee:de:24:6a utility
+
+
+  time_window: 12:00 16:00 # hours when auto works for guests. Default is none. 24hr format
+  locks: # entity id for front and garage doors
+    front_door: lock.nmukuru
+    garage_out: lock.mudiki
+
+  require_trigger: y # wait for a trigger sensor, or just unlock on arrival. Default is yes
+  trigger_timeout: 45 # max time in seconds between trigger and device arrival
+  led_delay: 1    #time in seconds to wait between when door starts to unlock, and when we give green light to push open
+  prescan_delay: 1  #time in seconds to wait before running mqtt pre-scan 
+  door_open_timeout: # check door status: if door opened in the last N seconds, do/don't do something
+    default: 5
+    recently_opened: 1    # has the door been opened in the last X seconds?
+    retry: 20               # you have X seconds to try again, after which the lock will ignore retry requests
+
+  trigger_sensor:  # sensor-lock pairings. Trigger sensor will unlock a specific lock <sensor> <lock>
+    binary_sensor.front_acceleration: front_door 
+ #   binary_sensor.garage_out_acceleration: garage_out
+    binary_sensor.doorstep_acceleration: front_door
+    binary_sensor.garage_doorstep_acceleration: garage_out
+#    light.utility_1: front_door
+#    light.lounge_lamp_1: front_door
+#    light.study_desk_lamp: garage_out
+
+  prescan_sensors:  #sensors used for early detection of a device thats arriving home
+    - device_tracker.tongai22
+    - sensor.tongai22_wifi_connection
+    - device_tracker.mm_iphone
+    - device_tracker.hannahs_iphone
+
+  door_contact:
+    front_door: binary_sensor.front_contact
+    garage_out: binary_sensor.garage_out_contact 
+#
+  noise_list:
+    timeout: 100
+    binary_sensor.utility_back_door_contact: contact
+#    binary_sensor.utility_door_acceleration: motion
+    binary_sensor.patio_door_contact: contact
+#    light.utility_2: other
+    
+#
+  Camera:  # entity id for camera viewing front door. Default is none
+#

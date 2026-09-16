@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.mdiindex",
+  "data": {
+    "config": {
+      "strategy": {
+        "type": "iframe",
+        "url": "https://cdn.rawgit.com/james-fry/home-assistant-mdi/efd95d7a/home-assistant-mdi.html"
+      }
+    }
+  }
+}

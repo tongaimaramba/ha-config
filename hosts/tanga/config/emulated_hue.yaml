@@ -1,0 +1,18 @@
+switch.landing_blind_close_landing_blind:
+  name: "LB Down"
+  hidden: false
+switch.landing_blind_stop_landing_blind:
+  name: "LB Stop"
+  hidden: false
+switch.landing_blind_open_landing_blind:
+  name: "LB Up"
+  hidden: false
+switch.loft_blind_close_loft_suite_blind:
+  name: "RB Down"
+  hidden: false
+switch.loft_blind_stop_loft_suite_blind:
+  name: "RB Stop"
+  hidden: false
+switch.loft_blind_open_loft_suite_blind:
+  name: "RB Up"
+  hidden: false

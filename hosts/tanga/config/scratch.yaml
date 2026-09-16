@@ -1,0 +1,11 @@
+power_row, channel_row, apps_row, source_row and media_control_row
+
+
+
+power_row:
+  - power
+media_control_row:
+  - rewind
+  - play
+  - pause
+  - fast_forward

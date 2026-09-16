@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_text",
+  "data": {
+    "items": [
+      {
+        "name": "App Reload",
+        "icon": "mdi:power",
+        "max": 100,
+        "min": 0,
+        "mode": "text",
+        "id": "app_reload"
+      },
+      {
+        "name": "runtime",
+        "icon": "mdi:camera-timer",
+        "max": 100,
+        "mode": "text",
+        "min": 0,
+        "id": "runtime"
+      },
+      {
+        "name": "mqtt_payload",
+        "mode": "text",
+        "min": 0,
+        "max": 100,
+        "id": "mqtt_payload"
+      },
+      {
+        "name": "mqtt_cmd",
+        "icon": "mdi:remote-desktop",
+        "mode": "text",
+        "min": 0,
+        "max": 100,
+        "id": "mqtt_cmd"
+      },
+      {
+        "id": "web",
+        "name": "Web",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "alarm_status",
+        "name": "alarm_status",
+        "max": 500,
+        "min": 0,
+        "mode": "text"
+      }
+    ]
+  }
+}

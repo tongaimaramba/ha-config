@@ -1,0 +1,4401 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.tongai_test",
+  "data": {
+    "config": {
+      "title": "Home",
+      "views": [
+        {
+          "badges": [],
+          "cards": [
+            {
+              "show_state": true,
+              "show_name": true,
+              "camera_view": "live",
+              "type": "picture-entity",
+              "entity": "camera.front_door",
+              "name": "Doorbell"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.hannahs_iphone_battery_level",
+                "sensor.hannahs_iphone_battery_state"
+              ]
+            },
+            {
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_door",
+                  "name": "Front Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "nuki/lock/action",
+                      "payload": "unlatch"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.garage_out_door",
+                  "name": "Garage Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "nuki_mudiki/lock/action",
+                      "payload": "unlatch"
+                    }
+                  }
+                }
+              ],
+              "title": "Doors",
+              "type": "glance"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "light.downstairs_lights",
+                  "icon": "mdi:lightbulb",
+                  "name": "Downstairs",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.loft_suite_spotlights_switch",
+                  "name": "Loft Spots Dim",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.loft_suite_spotlights_switch",
+                      "brightness_pct": 20
+                    }
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_2",
+                  "name": "Hall Night Light",
+                  "icon": "mdi:candle",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.home_fires"
+                  }
+                },
+                {
+                  "entity": "light.loft_suite_spotlights_switch",
+                  "name": "loft spots on",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.loft_suite_spotlights_switch",
+                      "brightness_pct": 60
+                    }
+                  }
+                },
+                {
+                  "entity": "switch.sonoff_100125dac5",
+                  "icon": "mdi:outdoor-lamp",
+                  "name": "Patio Lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bookshelf_lamp",
+                  "name": "Bedside Lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "show_state": false,
+              "title": "Lights",
+              "type": "glance",
+              "columns": 3
+            },
+            {
+              "columns": 2,
+              "entities": [
+                {
+                  "entity": "script.study_boost",
+                  "icon": "mdi:rocket",
+                  "name": "Boost Heating",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "show_state": true
+                },
+                {
+                  "entity": "input_select.room_heater",
+                  "name": "Boosted Room",
+                  "show_state": false
+                }
+              ],
+              "title": "Heating",
+              "type": "entities",
+              "state_color": true
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "glance",
+                "title": "What's Open",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*_contact"
+                  },
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*evie*closed*"
+                  },
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*evie*door*lock*"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "*doorstep*"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "show_empty": true
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "entities",
+                "title": "What's On",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "light",
+                    "state": "on"
+                  },
+                  {
+                    "domain": "switch",
+                    "group": "group.downstairs_lights",
+                    "state": "on"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "light.linkplus_led"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "tap_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "entities",
+              "title": "Oppy",
+              "entities": [
+                {
+                  "type": "section",
+                  "label": "Status"
+                },
+                {
+                  "entity": "sensor.oppy_status"
+                },
+                {
+                  "entity": "sensor.oppy_battery"
+                },
+                {
+                  "entity": "sensor.oppy_mowing_progress"
+                },
+                {
+                  "entity": "sensor.oppy_current_zone"
+                },
+                {
+                  "type": "section",
+                  "label": "Schedule"
+                },
+                {
+                  "entity": "input_boolean.oppy_schedule_enabled",
+                  "name": "Mow Daily"
+                },
+                {
+                  "entity": "input_datetime.oppy_mow_time",
+                  "name": "Mow time"
+                },
+                {
+                  "type": "section",
+                  "label": "Dog zone"
+                },
+                {
+                  "entity": "input_boolean.garden_d_cleared",
+                  "name": "Garden D cleared (mow D next time)"
+                },
+                {
+                  "type": "section",
+                  "label": "Actions"
+                },
+                {
+                  "type": "button",
+                  "name": "Mow whole garden now",
+                  "icon": "mdi:robot-mower",
+                  "action_name": "Mow",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.oppy_mow_all"
+                  }
+                }
+              ]
+            },
+            {
+              "title": "Alarm Panel",
+              "show_name": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "sensor.alarm_mode",
+                  "icon": "mdi:security",
+                  "name": "Current Mode",
+                  "show_icon": false
+                },
+                {
+                  "entity": "sensor.alarm_mode",
+                  "icon": "mdi:plane-car",
+                  "name": "Set to Away",
+                  "show_state": false,
+                  "show_icon": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.away_on_holiday"
+                    }
+                  }
+                },
+                {
+                  "entity": "input_boolean.force_home_mode",
+                  "name": "Set to Home",
+                  "icon": "mdi:home",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.force_home_mode"
+                    }
+                  },
+                  "show_state": false
+                }
+              ],
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.hannah_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.hannah_locator'].attributes.map_link",
+                    "PLC": "states['sensor.hannah_locator'].attributes.place_name",
+                    "STA": "states['sensor.hannah_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Hannah is at '+STA : 'Hannah is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.hannah_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.hannah_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.mojgan_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.mojgan_locator'].attributes.map_link",
+                    "PLC": "states['sensor.mojgan_locator'].attributes.place_name",
+                    "STA": "states['sensor.mojgan_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Mojgan is at '+STA : 'Mojgan is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.mojgan_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.mojgan_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.tongai_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.tongai_locator'].attributes.map_link",
+                    "PLC": "states['sensor.tongai_locator'].attributes.place_name",
+                    "STA": "states['sensor.tongai_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Tongai is at '+STA : 'Tongai is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.tongai_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.tongai_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.eva_location"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.eva_location'].attributes.map_link",
+                    "PLC": "states['sensor.eva_location'].attributes.place_name",
+                    "STA": "states['sensor.eva_location'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC === undefined ? \"https://mars.nasa.gov/maps/location/?mission=M20\" : LOC}",
+                    "name": "${PLC === undefined ? \"Eva Location\" : \"Eva is at \"+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.eva_location",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.eva_location",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "entity": "lock.volvo_eva_lock"
+                }
+              ],
+              "title": "Where is everyone?"
+            },
+            {
+              "type": "gauge",
+              "min": 0,
+              "max": 100,
+              "needle": true,
+              "severity": {
+                "green": 15,
+                "yellow": 5,
+                "red": 0
+              },
+              "entity": "sensor.volvo_eva_battery_charge_level"
+            },
+            {
+              "columns": 2,
+              "entities": [
+                {
+                  "entity": "script.study_boost",
+                  "icon": "mdi:rocket",
+                  "name": "Boost Heating",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "show_state": true
+                },
+                {
+                  "entity": "input_select.room_heater",
+                  "name": "Boosted Room",
+                  "show_state": true
+                },
+                {
+                  "entity": "climate.downstairs",
+                  "show_state": false
+                },
+                {
+                  "entity": "climate.hannah",
+                  "show_state": false
+                },
+                {
+                  "entity": "climate.ellie",
+                  "show_state": false
+                },
+                {
+                  "entity": "climate.kids_bathroom",
+                  "show_state": false
+                },
+                {
+                  "entity": "input_datetime.weekday_shower",
+                  "name": "morning heater time",
+                  "icon": "mdi:fan",
+                  "show_state": false
+                }
+              ],
+              "title": "Heating",
+              "type": "glance",
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "title": "Garden",
+              "entities": [
+                {
+                  "entity": "switch.sonoff_1000eced8f",
+                  "name": "pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_boolean.pump_timer",
+                  "name": "timed pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_number.timer_length",
+                  "name": "run time",
+                  "show_state": true
+                }
+              ]
+            }
+          ],
+          "icon": "",
+          "path": "lights",
+          "title": "Overview",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            }
+          ]
+        },
+        {
+          "title": "Blinds",
+          "path": "blinds",
+          "icon": "mdi:calendar-account",
+          "cards": [
+            {
+              "type": "markdown",
+              "title": "Today",
+              "content": "**Ellie** [ {{ state_attr('sensor.ellie_today', 'long_day') }} ] \n{{ state_attr('sensor.ellie_today', 'event_summary') }}\n\n**Hannah** [ {{ state_attr('sensor.hannah_today', 'long_day') }} ] \n{{ state_attr('sensor.hannah_today', 'event_summary') }}\n"
+            },
+            {
+              "type": "markdown",
+              "title": "Tomorrow",
+              "content": "**Ellie** [ {{ state_attr('sensor.ellie_tomorrow', 'long_day') }} ] \n{{ state_attr('sensor.ellie_tomorrow', 'event_summary') }}\n\n**Hannah** [ {{ state_attr('sensor.hannah_tomorrow', 'long_day') }} ] \n{{ state_attr('sensor.hannah_tomorrow', 'event_summary') }}\n"
+            }
+          ],
+          "type": "masonry"
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "TV",
+          "path": "tv",
+          "icon": "mdi:projector",
+          "badges": [],
+          "cards": [
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": false,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "media_player.projector",
+                  "name": "Headphones",
+                  "icon": "mdi:headphones-settings",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.select_sound_output",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "sound_output": "headphone"
+                    }
+                  }
+                },
+                {
+                  "entity": "media_player.projector",
+                  "name": "Muso",
+                  "icon": "mdi:speaker",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.select_sound_output",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "sound_output": "soundbar"
+                    }
+                  }
+                },
+                {
+                  "entity": "media_player.projector",
+                  "name": "Projector Speaker",
+                  "icon": "mdi:projector",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.select_sound_output",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "sound_output": "tv_speaker"
+                    }
+                  }
+                },
+                {
+                  "entity": "media_player.projector",
+                  "name": "Vol Up",
+                  "icon": "mdi:volume-plus",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.button",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "button": "VOLUMEUP"
+                    }
+                  }
+                },
+                {
+                  "entity": "media_player.projector",
+                  "name": "Vol Down",
+                  "icon": "mdi:volume-minus",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.button",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "button": "VOLUMEDOWN"
+                    }
+                  }
+                },
+                {
+                  "entity": "media_player.projector",
+                  "name": "MUTE",
+                  "icon": "mdi:volume-mute",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "webostv.button",
+                    "service_data": {
+                      "entity_id": "media_player.projector",
+                      "button": "MUTE"
+                    }
+                  }
+                }
+              ],
+              "title": "Sound",
+              "columns": 3,
+              "state_color": false
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "remote.shield"
+                    }
+                  ]
+                },
+                {
+                  "square": true,
+                  "columns": 3,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "button",
+                      "show_icon": false,
+                      "tap_action": {
+                        "action": "none"
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:arrow-up-bold",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_UP"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "show_icon": false,
+                      "tap_action": {
+                        "action": "none"
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:arrow-left-bold",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_LEFT"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:circle",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_CENTER"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_CENTER",
+                          "hold_secs": 0.5
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:arrow-right-bold",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_RIGHT"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:arrow-left",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "BACK"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "BACK",
+                          "hold_secs": 0.5
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:arrow-down-bold",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "DPAD_DOWN"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:home-outline",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "HOME"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "HOME",
+                          "hold_secs": 0.5
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "columns": 3,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "button",
+                      "icon": "mdi:skip-previous",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_PREVIOUS"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_REWIND"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:play-pause",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_PLAY_PAUSE"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_STOP"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:skip-next",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_NEXT"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MEDIA_FAST_FORWARD"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:volume-off",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "MUTE"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:volume-medium",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "VOLUME_DOWN"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:volume-high",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.send_command",
+                        "data": {
+                          "command": "VOLUME_UP"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "columns": 4,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "button",
+                      "image": "https://upload.wikimedia.org/wikipedia/en/f/fd/BBC_iPlayer_logo_%282021%29.svg",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.turn_on",
+                        "data": {
+                          "activity": "https://www.bbc.co.uk/iplayer"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "icon": "mdi:netflix",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.turn_on",
+                        "data": {
+                          "activity": "https://www.netflix.com/title"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "picture",
+                      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Amazon_Prime_Video_logo.svg/450px-Amazon_Prime_Video_logo.svg.png",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.turn_on",
+                        "data": {
+                          "activity": "https://app.primevideo.com"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    },
+                    {
+                      "type": "picture",
+                      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Disney%2B_logo.svg/440px-Disney%2B_logo.svg.png",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "remote.turn_on",
+                        "data": {
+                          "activity": "https://www.disneyplus.com"
+                        },
+                        "target": {
+                          "entity_id": "remote.shield"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "entity": "remote.shield",
+                  "attribute": "current_activity"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.projector"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "script.movie_lights"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "remote.shield"
+              ]
+            },
+            {
+              "type": "custom:tv-card",
+              "entity": "media_player.projector",
+              "title": "Shield TV",
+              "power_row": [
+                "power",
+                "home",
+                "back"
+              ],
+              "source_row": [
+                "up"
+              ],
+              "apps_row": [
+                "left",
+                "ok",
+                "right"
+              ],
+              "channel_row": [
+                "down"
+              ],
+              "media_control_row": [
+                "rewind",
+                "play",
+                "pause",
+                "forward"
+              ],
+              "custom_keys": {
+                "power": {
+                  "icon": "mdiPower",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "POWER"
+                  }
+                },
+                "settings": {
+                  "icon": "mdiMenu",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "MENU"
+                  }
+                },
+                "up": {
+                  "icon": "mdiChevronUp",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "UP"
+                  }
+                },
+                "down": {
+                  "icon": "mdiChevronDown",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "DOWN"
+                  }
+                },
+                "left": {
+                  "icon": "mdiChevronLeft",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "LEFT"
+                  }
+                },
+                "right": {
+                  "icon": "mdiChevronRight",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "RIGHT"
+                  }
+                },
+                "ok": {
+                  "icon": "mdiKeyboardReturn",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "ENTER"
+                  }
+                },
+                "back": {
+                  "icon": "mdiArrowULeftTop",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "BACK"
+                  }
+                },
+                "home": {
+                  "icon": "mdiHome",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "HOME"
+                  }
+                },
+                "forward": {
+                  "icon": "mdiFastForward",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "FAST_FORWARD"
+                  }
+                },
+                "rewind": {
+                  "icon": "mdiRewind",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "REWIND"
+                  }
+                },
+                "play": {
+                  "icon": "mdiPlay",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "input keyevent 126"
+                  }
+                },
+                "pause": {
+                  "icon": "mdiPause",
+                  "service": "androidtv.adb_command",
+                  "service_data": {
+                    "entity_id": "media_player.tojgantv",
+                    "command": "input keyevent 127"
+                  }
+                }
+              }
+            },
+            {
+              "type": "custom:lg-remote-control",
+              "entity": "media_player.projector",
+              "color_buttons": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "update.nhtojgan_firmware_update",
+                "switch.nhtojgan_restart_nuki_hub",
+                "switch.nhtojgan_webserver_enabled",
+                "sensor.nhtojgan_build",
+                "sensor.nhtojgan_ip",
+                "sensor.nhtojgan_latest_version",
+                "binary_sensor.nhtojgan_mqtt_connected",
+                "sensor.nhtojgan_mqtt_log",
+                "sensor.nhtojgan_network_device",
+                "sensor.nhtojgan_restart_reason",
+                "sensor.nhtojgan_restart_reason_esp",
+                "sensor.nhtojgan_uptime",
+                "sensor.nhtojgan_version",
+                "sensor.nhtojgan_wifi_signal_strength"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "select.nmukuru_advertising_mode_2",
+                  "name": "Advertising mode"
+                },
+                {
+                  "entity": "switch.nmukuru_auto_lock_2",
+                  "name": "Auto lock"
+                },
+                {
+                  "entity": "number.nmukuru_auto_lock_timeout_2",
+                  "name": "Auto lock timeout"
+                },
+                {
+                  "entity": "switch.nmukuru_auto_unlatch_2",
+                  "name": "Auto unlatch"
+                },
+                {
+                  "entity": "switch.nmukuru_auto_unlock_2",
+                  "name": "Auto unlock"
+                },
+                {
+                  "entity": "switch.nmukuru_auto_update_enabled_2",
+                  "name": "Auto update enabled"
+                },
+                {
+                  "entity": "switch.nmukuru_button_enabled_2",
+                  "name": "Button enabled"
+                },
+                {
+                  "entity": "switch.nmukuru_detached_cylinder_2",
+                  "name": "Detached cylinder"
+                },
+                {
+                  "entity": "select.nmukuru_double_button_press_action_2",
+                  "name": "Double button press action"
+                },
+                {
+                  "entity": "switch.nmukuru_double_lock_2",
+                  "name": "Double lock"
+                },
+                {
+                  "entity": "switch.nmukuru_dst_mode_european_2",
+                  "name": "DST mode European"
+                },
+                {
+                  "entity": "switch.nmukuru_enable_slow_speed_during_nightmode_2",
+                  "name": "Enable slow speed during nightmode"
+                },
+                {
+                  "entity": "select.nmukuru_fob_action_1_2",
+                  "name": "Fob action 1"
+                },
+                {
+                  "entity": "select.nmukuru_fob_action_2_2",
+                  "name": "Fob action 2"
+                },
+                {
+                  "entity": "select.nmukuru_fob_action_3_2",
+                  "name": "Fob action 3"
+                },
+                {
+                  "entity": "switch.nmukuru_immediate_auto_lock_enabled_2",
+                  "name": "Immediate auto lock enabled"
+                },
+                {
+                  "entity": "number.nmukuru_led_brightness_2",
+                  "name": "LED brightness"
+                },
+                {
+                  "entity": "switch.nmukuru_led_enabled_2",
+                  "name": "LED enabled"
+                },
+                {
+                  "entity": "number.nmukuru_lock_n_go_timeout_2",
+                  "name": "Lock n Go timeout"
+                },
+                {
+                  "entity": "number.nmukuru_locked_position_offset_degrees_2",
+                  "name": "Locked position offset degrees"
+                },
+                {
+                  "entity": "select.nmukuru_motor_speed_2",
+                  "name": "Motor speed"
+                },
+                {
+                  "entity": "switch.nmukuru_nightmode_auto_lock_2",
+                  "name": "Nightmode auto lock"
+                },
+                {
+                  "entity": "switch.nmukuru_nightmode_auto_unlock_2",
+                  "name": "Nightmode auto unlock"
+                },
+                {
+                  "entity": "switch.nmukuru_nightmode_enabled_2",
+                  "name": "Nightmode enabled"
+                },
+                {
+                  "entity": "text.nmukuru_nightmode_end_time_2",
+                  "name": "Nightmode end time"
+                },
+                {
+                  "entity": "switch.nmukuru_nightmode_immediate_lock_on_start_2",
+                  "name": "Nightmode immediate lock on start"
+                },
+                {
+                  "entity": "text.nmukuru_nightmode_start_time_2",
+                  "name": "Nightmode start time"
+                },
+                {
+                  "entity": "switch.nmukuru_pairing_enabled_2",
+                  "name": "Pairing enabled"
+                },
+                {
+                  "entity": "select.nmukuru_single_button_press_action_2",
+                  "name": "Single button press action"
+                },
+                {
+                  "entity": "number.nmukuru_single_locked_position_offset_degrees_2",
+                  "name": "Single locked position offset degrees"
+                },
+                {
+                  "entity": "select.nmukuru_timezone_2",
+                  "name": "Timezone"
+                },
+                {
+                  "entity": "number.nmukuru_timezone_offset_2",
+                  "name": "Timezone offset"
+                },
+                {
+                  "entity": "number.nmukuru_unlatch_duration_2",
+                  "name": "Unlatch duration"
+                },
+                {
+                  "entity": "number.nmukuru_unlocked_position_offset_degrees_2",
+                  "name": "Unlocked position offset degrees"
+                },
+                {
+                  "entity": "number.nmukuru_unlocked_to_locked_transition_offset_degrees_2",
+                  "name": "Unlocked to locked transition offset degrees"
+                }
+              ],
+              "title": "nMukuru"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.nmukuru_authorization_178229",
+                  "name": "Authorization - 178229"
+                },
+                {
+                  "entity": "switch.nmukuru_authorization_244875",
+                  "name": "Authorization - 244875"
+                },
+                {
+                  "entity": "switch.nmukuru_authorization_28402",
+                  "name": "Authorization - 28402"
+                },
+                {
+                  "entity": "switch.nmukuru_authorization_302223",
+                  "name": "Authorization - 302223"
+                },
+                {
+                  "entity": "switch.nmukuru_authorization_74898",
+                  "name": "Authorization - 74898"
+                },
+                {
+                  "entity": "button.nmukuru_reboot_nuki_2",
+                  "name": "Reboot Nuki"
+                },
+                {
+                  "entity": "binary_sensor.nmukuru_battery_charging_2",
+                  "name": "Battery charging"
+                },
+                {
+                  "entity": "sensor.nmukuru_battery_level_2",
+                  "name": "Battery level"
+                },
+                {
+                  "entity": "binary_sensor.nmukuru_battery_low_2",
+                  "name": "Battery low"
+                },
+                {
+                  "entity": "sensor.nmukuru_battery_voltage_2",
+                  "name": "Battery voltage"
+                },
+                {
+                  "entity": "sensor.nmukuru_bluetooth_signal_strength_2",
+                  "name": "Bluetooth signal strength"
+                },
+                {
+                  "entity": "sensor.nmukuru_firmware_version_2",
+                  "name": "Firmware version"
+                },
+                {
+                  "entity": "sensor.nmukuru_hardware_version_2",
+                  "name": "Hardware version"
+                },
+                {
+                  "entity": "binary_sensor.nmukuru_hybrid_connected",
+                  "name": "Hybrid connected"
+                },
+                {
+                  "entity": "sensor.nmukuru_trigger_2",
+                  "name": "Trigger"
+                }
+              ],
+              "title": "nMukuru"
+            }
+          ]
+        },
+        {
+          "title": "Solar System",
+          "path": "solar",
+          "icon": "mdi:solar-power-variant-outline",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.growatt_sph_device_mode",
+                  "name": "Device mode"
+                },
+                {
+                  "entity": "sensor.growatt_sph_load_power",
+                  "name": "House Consumption Now"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_power",
+                  "name": "Solar Output Now"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_state_of_charge",
+                  "name": "Battery Level"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_power",
+                  "name": "Grid Input Now"
+                },
+                {
+                  "entity": "sensor.tojgan3_grid_import_today",
+                  "name": "Peak Grid Today (kWh)"
+                },
+                {
+                  "entity": "sensor.tojgan3_grid_import_today",
+                  "type": "attribute",
+                  "attribute": "cost (£)",
+                  "name": "Spent on Peak Grid Today (£)"
+                }
+              ],
+              "title": "Happening Now"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Import Today",
+                  "unit": "kWh",
+                  "icon": "mdi:transmission-tower-import",
+                  "entity": "sensor.growatt_sph_grid_energy_in"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Export Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_out",
+                  "icon": "mdi:transmission-tower-export"
+                }
+              ]
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                {
+                  "entity": "select.growatt_sph_work_mode_priority"
+                }
+              ],
+              "title": "Inverter Mode",
+              "hours_to_show": 12
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.growatt_sph_device_mode",
+                  "name": "Current Mode",
+                  "icon": "mdi:solar-power-variant"
+                },
+                {
+                  "entity": "input_select.inverter_mode",
+                  "name": "Choose Mode",
+                  "icon": "mdi:solar-power-variant"
+                },
+                {
+                  "type": "button",
+                  "action_name": "press",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.set_growatt_mode_from_dropdown"
+                  },
+                  "name": "Set Mode",
+                  "icon": "mdi:solar-power-variant",
+                  "show_state": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "entity": "input_boolean.export_window"
+                },
+                {
+                  "entity": "automation.export_optimiser"
+                },
+                {
+                  "entity": "automation.battery_first_scheduler"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Home Consumption Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_load_energy",
+                  "icon": "mdi:home"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Solar Output Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_pv_energy",
+                  "icon": "mdi:solar-power"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Import Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_in",
+                  "icon": "mdi:transmission-tower-import"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Export Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_out",
+                  "icon": "mdi:transmission-tower-export"
+                }
+              ]
+            },
+            {
+              "type": "custom:more-info-card",
+              "entity": "binary_sensor.peak_window"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.peak_window",
+                  "type": "attribute",
+                  "attribute": "after",
+                  "name": "Start"
+                },
+                {
+                  "entity": "binary_sensor.peak_window",
+                  "type": "attribute",
+                  "attribute": "before",
+                  "name": "End"
+                }
+              ],
+              "title": "Peak Window"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.growatt_sph_battery_current",
+                  "name": "Battery current"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_energy_in",
+                  "name": "Battery energy in"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_energy_out",
+                  "name": "Battery energy out"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_power",
+                  "name": "Battery power"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_state_of_charge",
+                  "name": "Battery state of charge"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_temperature",
+                  "name": "Battery temperature"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_voltage",
+                  "name": "Battery voltage"
+                },
+                {
+                  "entity": "sensor.growatt_sph_bus_voltage",
+                  "name": "Bus voltage"
+                },
+                {
+                  "entity": "sensor.growatt_sph_device_mode",
+                  "name": "Device mode"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_energy_in",
+                  "name": "Grid energy in"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_energy_out",
+                  "name": "Grid energy out"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_frequency",
+                  "name": "Grid frequency"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_power",
+                  "name": "Grid power"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_voltage",
+                  "name": "Grid voltage"
+                },
+                {
+                  "entity": "sensor.growatt_sph_load_energy",
+                  "name": "Load energy"
+                },
+                {
+                  "entity": "sensor.growatt_sph_load_percentage",
+                  "name": "Load percentage"
+                },
+                {
+                  "entity": "sensor.growatt_sph_load_power",
+                  "name": "Load power"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_current_1",
+                  "name": "PV current 1"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_current_2",
+                  "name": "PV current 2"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_energy",
+                  "name": "PV energy"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_power",
+                  "name": "PV power"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_power_1",
+                  "name": "PV power 1"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_power_2",
+                  "name": "PV power 2"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_voltage_1",
+                  "name": "PV voltage 1"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_voltage_2",
+                  "name": "PV voltage 2"
+                },
+                {
+                  "entity": "sensor.growatt_sph_response",
+                  "name": "Response"
+                },
+                {
+                  "entity": "sensor.growatt_sph_serial_number",
+                  "name": "Serial number"
+                },
+                {
+                  "entity": "sensor.growatt_sph_temperature",
+                  "name": "Temperature"
+                }
+              ],
+              "title": "Growatt SPH"
+            }
+          ]
+        },
+        {
+          "title": "WFH",
+          "path": "wfh",
+          "icon": "mdi:laptop",
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "light.hue_lightstrip_plus_1",
+              "tap_action": {
+                "action": "toggle"
+              }
+            }
+          ],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "input_select.work_status"
+              ],
+              "title": "What's happing in the study?"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.camera"
+            },
+            {
+              "columns": 2,
+              "entities": [
+                {
+                  "entity": "script.study_boost",
+                  "icon": "mdi:rocket",
+                  "name": "Boost Heating",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "show_state": true
+                },
+                {
+                  "entity": "input_select.room_heater",
+                  "name": "Boosted Room",
+                  "show_state": false
+                }
+              ],
+              "title": "Heating",
+              "type": "entities",
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.hannah_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.hannah_locator'].attributes.map_link",
+                    "PLC": "states['sensor.hannah_locator'].attributes.place_name",
+                    "STA": "states['sensor.hannah_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Hannah is at '+STA : 'Hannah is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.hannah_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.hannah_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.mojgan_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.mojgan_locator'].attributes.map_link",
+                    "PLC": "states['sensor.mojgan_locator'].attributes.place_name",
+                    "STA": "states['sensor.mojgan_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Mojgan is at '+STA : 'Mojgan is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.mojgan_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.mojgan_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.tongai_locator"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.tongai_locator'].attributes.map_link",
+                    "PLC": "states['sensor.tongai_locator'].attributes.place_name",
+                    "STA": "states['sensor.tongai_locator'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC}",
+                    "name": "${PLC === undefined ? 'Tongai is at '+STA : 'Tongai is at '+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.tongai_locator",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.tongai_locator",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.evie_location"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.evie_location'].attributes.map_link",
+                    "PLC": "states['sensor.evie_location'].attributes.place_name",
+                    "STA": "states['sensor.evie_location'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC === undefined ? \"https://mars.nasa.gov/maps/location/?mission=M20\" : LOC}",
+                    "name": "${PLC === undefined ? \"Evie Location\" : \"Evie is at \"+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.evie_location",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.evie_location",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                },
+                {
+                  "entity": "binary_sensor.evie_vehicle_moving",
+                  "name": "Evie on the move"
+                }
+              ],
+              "title": "Where is everyone?"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.study"
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.alexandra_drive",
+              "forecast_type": "daily"
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Eva",
+          "path": "eva",
+          "icon": "mdi:car",
+          "badges": [],
+          "cards": [
+            {
+              "type": "picture",
+              "image_entity": "image.volvo_eva_exterior"
+            },
+            {
+              "type": "gauge",
+              "min": 0,
+              "max": 100,
+              "needle": true,
+              "severity": {
+                "green": 15,
+                "yellow": 5,
+                "red": 0
+              },
+              "entity": "sensor.volvo_eva_battery_charge_level"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "custom:config-template-card",
+                  "entities": [
+                    "sensor.eva_location"
+                  ],
+                  "variables": {
+                    "LOC": "states['sensor.eva_location'].attributes.map_link",
+                    "PLC": "states['sensor.eva_location'].attributes.place_name",
+                    "STA": "states['sensor.eva_location'].state"
+                  },
+                  "row": {
+                    "type": "weblink",
+                    "url": "${LOC === undefined ? \"https://mars.nasa.gov/maps/location/?mission=M20\" : LOC}",
+                    "name": "${PLC === undefined ? \"Eva Location\" : \"Eva is at \"+PLC}",
+                    "icon": "mdi:map-marker-account"
+                  }
+                },
+                {
+                  "entity": "sensor.eva_location",
+                  "type": "attribute",
+                  "attribute": "last_changed",
+                  "name": "There since: ",
+                  "icon": "mdi:clock"
+                },
+                {
+                  "entity": "sensor.eva_location",
+                  "type": "attribute",
+                  "attribute": "distance_from_home_mi",
+                  "suffix": "miles",
+                  "name": "Distance from home is about: ",
+                  "icon": "mdi:home-circle"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "lock.volvo_eva_lock",
+                  "name": "Central lock"
+                },
+                {
+                  "entity": "button.volvo_eva_flash",
+                  "name": "Flash"
+                },
+                {
+                  "entity": "button.volvo_eva_honk",
+                  "name": "Honk"
+                },
+                {
+                  "entity": "button.volvo_eva_honk_flash",
+                  "name": "Honk & flash"
+                },
+                {
+                  "entity": "lock.volvo_eva_lock_reduced_guard",
+                  "icon": "mdi:dog-side",
+                  "name": "Lock with Poppy inside"
+                },
+                {
+                  "entity": "button.volvo_eva_climatization_start",
+                  "name": "Start climatization"
+                },
+                {
+                  "entity": "button.volvo_eva_climatization_stop",
+                  "name": "Stop climatization"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_service_warning",
+                  "name": "Time for Service"
+                }
+              ],
+              "title": "Controls"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.volvo_eva_battery_charge_level",
+                      "name": "Battery charge level"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_distance_to_empty_battery",
+                      "name": "Distance to empty battery"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_charging_system_status",
+                      "name": "Charging status"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_estimated_charging_time",
+                      "name": "Est. charging time"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_charging_connection_status",
+                      "name": "Charging connection status"
+                    }
+                  ]
+                }
+              ],
+              "title": "Charging"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.volvo_eva_door_front_left",
+                      "name": "Door front left"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_door_front_right",
+                      "name": "Door front right"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_door_rear_left",
+                      "name": "Door rear left"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_door_rear_right",
+                      "name": "Door rear right"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_window_front_left",
+                      "name": "Window front left"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_window_front_right",
+                      "name": "Window front right"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_window_rear_left",
+                      "name": "Window rear left"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_window_rear_right",
+                      "name": "Window rear right"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_sunroof",
+                      "name": "Sunroof"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_hood",
+                      "name": "Hood"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_tailgate",
+                      "name": "Tailgate"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_tank_lid",
+                      "name": "Tank lid"
+                    }
+                  ]
+                }
+              ],
+              "title": "Doors and Windows"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.volvo_eva_engine_status",
+                      "name": "Engine status"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_availability",
+                      "name": "Car connection"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_odometer",
+                      "name": "Odometer"
+                    }
+                  ]
+                }
+              ],
+              "title": "Eng Status"
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "binary_sensor.volvo_eva_fog_light_front_warning",
+                  "name": "Fog light front"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_fog_light_rear_warning",
+                  "name": "Fog light rear"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_high_beam_left_warning",
+                  "name": "High beam left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_high_beam_right_warning",
+                  "name": "High beam right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_low_beam_left_warning",
+                  "name": "Low beam left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_low_beam_right_warning",
+                  "name": "Low beam right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_brake_light_left_warning",
+                  "name": "Brake light left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_brake_light_center_warning",
+                  "name": "Brake light center"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_brake_light_right_warning",
+                  "name": "Brake light right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_daytime_running_light_left_warning",
+                  "name": "Daytime running light left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_daytime_running_light_right_warning",
+                  "name": "Daytime running light right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_position_light_front_left_warning",
+                  "name": "Position light front left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_position_light_front_right_warning",
+                  "name": "Position light front right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_position_light_rear_left_warning",
+                  "name": "Position light rear left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_position_light_rear_right_warning",
+                  "name": "Position light rear right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_registration_plate_light_warning",
+                  "name": "Registration plate light"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_turn_indication_front_left_warning",
+                  "name": "Turn indication front left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_turn_indication_front_right_warning",
+                  "name": "Turn indication front right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_turn_indication_rear_left_warning",
+                  "name": "Turn indication rear left"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_turn_indication_rear_right_warning",
+                  "name": "Turn indication rear right"
+                },
+                {
+                  "entity": "binary_sensor.volvo_eva_side_mark_lights_warning",
+                  "name": "Side mark lights"
+                }
+              ],
+              "columns": 3,
+              "title": "Any Issues with Car Lights"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.volvo_eva_service_warning",
+                      "name": "No Service Yet"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_time_to_service",
+                      "name": "Time to service"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_engine_time_to_service",
+                      "name": "Engine time to service"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_distance_to_service",
+                      "name": "Distance to service"
+                    }
+                  ]
+                }
+              ],
+              "title": "Service"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.volvo_eva_washer_fluid_level_warning",
+                      "name": "Washer fluid"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_brake_fluid_level_warning",
+                      "name": "Brake fluid"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_oil_level_warning",
+                      "name": "Oil level"
+                    },
+                    {
+                      "entity": "binary_sensor.volvo_eva_coolant_level_warning",
+                      "name": "Coolant level"
+                    }
+                  ]
+                }
+              ],
+              "title": "Fluid Levels"
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.volvo_eva_odometer",
+                      "name": "Odometer"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_trip_meter_automatic",
+                      "name": "TA Distance"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_trip_meter_manual",
+                      "name": "TM Distance"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_average_speed",
+                      "name": "TM Avg. speed"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_average_speed_automatic",
+                      "name": "TA Avg. speed"
+                    },
+                    {
+                      "entity": "sensor.volvo_eva_average_energy_consumption",
+                      "name": "TM Avg. energy consumption"
+                    }
+                  ]
+                }
+              ],
+              "title": "Usage Data"
+            }
+          ],
+          "type": "masonry"
+        },
+        {
+          "path": "",
+          "title": "house lights",
+          "icon": "mdi:lightbulb",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "group.downstairs_lights",
+                "group.upstairs_lights"
+              ],
+              "title": "all_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.sonoff_100125dac5"
+                },
+                {
+                  "entity": "switch.sonoff_100140291c"
+                },
+                {
+                  "entity": "group.utility_lights"
+                },
+                {
+                  "entity": "group.kitchen_lights"
+                },
+                {
+                  "entity": "group.lounge_lamps"
+                },
+                {
+                  "entity": "group.lounge_spots"
+                },
+                {
+                  "entity": "group.hall_lights"
+                }
+              ],
+              "title": "downstairs_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.dining_spotlights"
+                },
+                {
+                  "entity": "light.kitchen_spotlights"
+                },
+                {
+                  "entity": "light.kitchen_worktop"
+                }
+              ],
+              "title": "kitchen_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.armchair_lamp"
+                },
+                {
+                  "entity": "light.lounge_lamp_1"
+                },
+                {
+                  "entity": "light.lounge_lamp_2"
+                },
+                {
+                  "entity": "light.movie_lamp"
+                },
+                {
+                  "entity": "light.bookshelf_lamp"
+                }
+              ],
+              "title": "lounge_lamps",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.lounge_spotlights"
+                },
+                {
+                  "entity": "light.lounge_pendant"
+                }
+              ],
+              "title": "lounge_spots",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "group.utility_laundry_lights",
+                "group.utility_pantry_lights"
+              ],
+              "title": "utility_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.bookshelf_lamp"
+                },
+                {
+                  "entity": "light.coats"
+                },
+                {
+                  "entity": "light.hall_spotlights"
+                }
+              ],
+              "title": "hall_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "group.main_lights",
+                "group.isla_lights",
+                "light.bathroom_sink",
+                "light.study_desk_lamp",
+                "light.loft_main"
+              ],
+              "title": "upstairs_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.main_spotlights"
+                },
+                {
+                  "entity": "light.m_side"
+                },
+                {
+                  "entity": "light.t_side"
+                }
+              ],
+              "title": "main_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.isla_spotlights",
+                "light.isla_wall"
+              ],
+              "title": "isla_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.loft_main"
+                }
+              ],
+              "title": "loft",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "group.perimeter_contact"
+                },
+                {
+                  "entity": "group.perimeter_movement"
+                },
+                {
+                  "entity": "group.car_security"
+                }
+              ],
+              "title": "perimeter",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "binary_sensor.bathroom_window_acceleration",
+                "binary_sensor.bay_party_wall_acceleration",
+                "binary_sensor.bay_window_acceleration",
+                "binary_sensor.front_acceleration",
+                "binary_sensor.garage_out_acceleration",
+                "binary_sensor.guest_win_acceleration",
+                "binary_sensor.kitchen_acceleration",
+                "binary_sensor.landing_window_acceleration",
+                "binary_sensor.main_window_acceleration",
+                "binary_sensor.main_window_party_acceleration",
+                "binary_sensor.patio_door_acceleration",
+                "binary_sensor.utility_back_door_acceleration"
+              ],
+              "title": "perimeter_movement",
+              "show_header_toggle": true,
+              "view_layout": {
+                "position": "main"
+              }
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "binary_sensor.bay_party_wall_contact",
+                "binary_sensor.bay_window_contact",
+                "binary_sensor.front_contact",
+                "binary_sensor.garage_out_contact",
+                "binary_sensor.landing_window_contact",
+                "binary_sensor.bay_party_wall_acceleration",
+                "binary_sensor.bay_window_acceleration",
+                "binary_sensor.front_acceleration",
+                "binary_sensor.garage_out_acceleration",
+                "binary_sensor.landing_window_acceleration"
+              ],
+              "title": "front_perimeter",
+              "show_header_toggle": true,
+              "view_layout": {
+                "position": "main"
+              }
+            }
+          ]
+        },
+        {
+          "path": "presence",
+          "title": "Dev",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            }
+          ],
+          "icon": "mdi:server",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_boolean.test_bridge_from_rpi4"
+                },
+                {
+                  "entity": "input_boolean.test_bridge_mirror"
+                },
+                {
+                  "entity": "input_boolean.blaaaah"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.domane_phone"
+                },
+                {
+                  "entity": "input_boolean.boiler_anomaly_alert"
+                }
+              ]
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "entities": [
+                {
+                  "entity": "binary_sensor.monitor_tongai_phone",
+                  "name": "Check BT",
+                  "icon": "mdi:bluetooth-connect",
+                  "show_state": false,
+                  "state_color": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "hci_monitor/command",
+                      "payload": 1
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.monitor_tongai_phone",
+                  "name": "nuki reboot",
+                  "icon": "mdi:restart",
+                  "show_state": false,
+                  "state_color": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "/rpi/gpio/",
+                      "payload": "nuki_reboot"
+                    }
+                  }
+                },
+                {
+                  "entity": "sensor.monitor_tongai_phone_frontdoor_conf",
+                  "icon": "mdi:logout",
+                  "name": "Scan Depart",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "monitor/run_scan/depart"
+                    }
+                  }
+                },
+                {
+                  "entity": "sensor.monitor_tongai_phone_frontdoor_conf",
+                  "icon": "mdi:login",
+                  "name": "Scan Arrive",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "monitor/run_scan/arrive"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.monitor_tongai_phone",
+                  "icon": "mdi:home-outline",
+                  "name": "Tongai Monitor",
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "entity": "input_boolean.all_parents_home",
+                  "name": "Parents Presence",
+                  "icon": "mdi:home-heart"
+                }
+              ],
+              "title": "Test Auto Unlock",
+              "type": "glance",
+              "columns": 2
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_state": false,
+                "title": "People at home",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "binary_sensor.monitor*"
+                  },
+                  {
+                    "entity_id": "*everyone_home"
+                  }
+                ]
+              },
+              "type": "custom:auto-entities"
+            },
+            {
+              "type": "entities",
+              "state_color": true,
+              "entities": [
+                {
+                  "entity": "device_tracker.frontdoor_nmap"
+                },
+                {
+                  "entity": "device_tracker.patio_nmap"
+                },
+                {
+                  "entity": "device_tracker.swings_nmap"
+                },
+                {
+                  "entity": "switch.rpi_rebooter_reboot_switch"
+                },
+                {
+                  "entity": "switch.rpi_rebooter_wlan0_restart"
+                }
+              ]
+            },
+            {
+              "graph": "line",
+              "type": "sensor",
+              "detail": 2,
+              "entity": "sensor.boiler_temp_temperature_measurement",
+              "name": "Monitor boiler"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_state": true,
+                "show_icon": false,
+                "title": "Conf",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "sensor.*conf*"
+                  }
+                ]
+              },
+              "type": "custom:auto-entities"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "input_text.guest_name",
+                  "name": "Who needs access?",
+                  "type": "custom:text-input-row"
+                },
+                {
+                  "entity": "input_text.mac_addr",
+                  "name": "What is their Bluetooth MAC address?",
+                  "type": "custom:text-input-row"
+                },
+                {
+                  "entity": "input_select.relationship",
+                  "name": "Device Type"
+                },
+                {
+                  "entity": "input_select.guest_access",
+                  "name": "Action"
+                },
+                {
+                  "action_name": "Run",
+                  "name": " ",
+                  "icon": "mdi",
+                  "service": "script.manage_guest_access",
+                  "type": "call-service"
+                }
+              ],
+              "title": "Manage Guest Access",
+              "type": "entities"
+            },
+            {
+              "card": {
+                "show_icon": false,
+                "show_state": false,
+                "title": "Mac Addresses for Devices",
+                "type": "glance",
+                "columns": 2
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "sensor.monitor*"
+                  }
+                ]
+              },
+              "type": "custom:auto-entities",
+              "sort": {
+                "method": "none"
+              }
+            },
+            {
+              "entities": [
+                {
+                  "action_name": "Red",
+                  "name": " ",
+                  "icon": "mdi:lock",
+                  "service": "mqtt.publish",
+                  "service_data": {
+                    "topic": "/Homeassistant/Auto_Unlock/Status",
+                    "payload": "red"
+                  },
+                  "type": "call-service"
+                },
+                {
+                  "action_name": "Green",
+                  "name": " ",
+                  "icon": "mdi:door-open",
+                  "service": "mqtt.publish",
+                  "service_data": {
+                    "topic": "/Homeassistant/Auto_Unlock/Status",
+                    "payload": "green"
+                  },
+                  "type": "call-service"
+                },
+                {
+                  "action_name": "Amber",
+                  "name": " ",
+                  "icon": "mdi:progress-clock",
+                  "service": "mqtt.publish",
+                  "service_data": {
+                    "topic": "/Homeassistant/Auto_Unlock/Status",
+                    "payload": "amber"
+                  },
+                  "type": "call-service"
+                }
+              ],
+              "title": "Test Door LED",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.myups_load",
+                  "name": "Load",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.myups_battery_charge",
+                  "name": "Battery",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.myups_status",
+                  "name": "Status",
+                  "secondary_info": "last-changed"
+                }
+              ],
+              "title": "UPS Status"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "input_select.mqtt_messages",
+                "input_text.mqtt_payload"
+              ],
+              "title": "Reboot Monitor Nodes"
+            },
+            {
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "binary_sensor.monitor_tongai_phone",
+                  "name": "RP0 Restart",
+                  "icon": "mdi:light-switch",
+                  "show_state": false,
+                  "state_color": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "/rp_sw/RP0/listen",
+                      "payload": "restart"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.monitor_tongai_phone",
+                  "name": "RP1 Restart",
+                  "icon": "mdi:light-switch",
+                  "show_state": false,
+                  "state_color": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "/rp_sw/RP1/listen",
+                      "payload": "restart"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.loft_blind_close_loft_suite_blind",
+                  "name": "Close - Loft Suite Blind"
+                },
+                {
+                  "entity": "switch.loft_blind_open_loft_suite_blind",
+                  "name": "Open - Loft Suite Blind"
+                },
+                {
+                  "entity": "switch.loft_blind_stop_loft_suite_blind",
+                  "name": "Stop - Loft Suite Blind"
+                }
+              ],
+              "title": "loft-blind"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_button.speedtest",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.speedtest_ping",
+                  "secondary_info": "last-changed",
+                  "icon": "mdi:resistor"
+                },
+                {
+                  "entity": "sensor.speedtest_download",
+                  "icon": "mdi:download",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "sensor.speedtest_upload",
+                  "icon": "mdi:upload",
+                  "secondary_info": "last-changed"
+                }
+              ],
+              "title": "ISP Speed Test"
+            },
+            {
+              "type": "markdown",
+              "title": "Hannah Today",
+              "content": "**Long day:** {{ state_attr('sensor.hannah_today', 'long_day') }}\n\n  **Events**  \n  {{ state_attr('sensor.hannah_today', 'event_summary') }}\n  \n"
+            },
+            {
+              "type": "markdown",
+              "title": "Ellie Today",
+              "content": "**Long day:** {{ state_attr('sensor.ellie_today', 'long_day') }}\n\n  **Events**  \n  {{ state_attr('sensor.ellie_today', 'event_summary') }}\n  \n"
+            }
+          ]
+        },
+        {
+          "title": "Heating",
+          "path": "heating",
+          "icon": "mdi:radiator",
+          "badges": [],
+          "cards": [
+            {
+              "type": "thermostat",
+              "entity": "climate.loft_suite"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.study"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.hannah"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.ellie"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.kids_bathroom"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.landing"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.downstairs"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "water_heater.hot_water"
+              ],
+              "title": "Hot Water"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.loft_suite_ac",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "off",
+                    "cool",
+                    "heat",
+                    "fan_only",
+                    "dry",
+                    "auto"
+                  ]
+                },
+                {
+                  "type": "climate-fan-modes",
+                  "style": "dropdown"
+                }
+              ]
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": false,
+              "type": "glance",
+              "title": "Status",
+              "entities": [
+                {
+                  "entity": "light.scenario_1_light",
+                  "name": "Empty, AC On"
+                },
+                {
+                  "entity": "light.scenario_2_light",
+                  "name": "Door Open, AC On"
+                },
+                {
+                  "entity": "light.scenario_3_light",
+                  "name": "AC Just Turned On, Door Open"
+                }
+              ]
+            },
+            {
+              "show_name": false,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "title": "Loft Bedroom",
+              "entities": [
+                {
+                  "entity": "binary_sensor.loft_pir_person_present",
+                  "name": "Person",
+                  "icon": "mdi:human"
+                },
+                {
+                  "entity": "binary_sensor.loft_pir_bedroom_door",
+                  "name": "door"
+                },
+                {
+                  "entity": "binary_sensor.loft_pir_bed_area",
+                  "name": "bed",
+                  "icon": "mdi:bed"
+                },
+                {
+                  "entity": "binary_sensor.loft_pir_window_area",
+                  "name": "window",
+                  "icon": "mdi:window-shutter"
+                }
+              ],
+              "columns": 2
+            },
+            {
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "input_boolean.ignore_ac_automation",
+                  "show_name": true,
+                  "show_icon": true,
+                  "name": "Snooze (1 Hour)",
+                  "icon": "mdi:timer-off",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.ignore_ac_automation_for_1_hour"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "show_state": true
+                },
+                {
+                  "entity": "light.alexa_started_ac",
+                  "name": "Reset All Flags",
+                  "icon": "mdi:refresh",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.reset_all_ac_flags"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "number.loft_pir_bedroom_presence_timeout",
+                  "name": "Presence Timeout",
+                  "icon": "mdi:timer-sand-complete"
+                },
+                {
+                  "entity": "number.loft_pir_bedroom_presence_delay_on",
+                  "name": "Delay On (sensor)"
+                },
+                {
+                  "entity": "number.loft_pir_bedroom_presence_delay_off",
+                  "name": "Delay Off (sensor)"
+                }
+              ],
+              "show_header_toggle": true,
+              "state_color": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "fan.pure_cool"
+              ],
+              "title": "Pure Cool"
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    "fan.pure_hot_cool"
+                  ],
+                  "title": "Pure Hot+Cool"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.pure_hot_cool"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "badges": [],
+          "cards": [
+            {
+              "card": {
+                "columns": 2,
+                "show_state": true,
+                "title": "Low Batteries",
+                "type": "glance"
+              },
+              "filter": {
+                "include": [
+                  {
+                    "entity_id": "sensor.*battery*",
+                    "attributes": {
+                      "unit_of_measurement": "%"
+                    }
+                  }
+                ],
+                "exclude": [
+                  {
+                    "domain": "group.*"
+                  },
+                  {
+                    "entity_id": "sensor.batteries_battery_level"
+                  },
+                  {
+                    "state": "> 50"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "state",
+                "reverse": true
+              },
+              "type": "custom:auto-entities"
+            }
+          ],
+          "icon": "mdi:home",
+          "path": "all-of-it",
+          "title": "all of it"
+        },
+        {
+          "icon": "mdi:cctv",
+          "panel": false,
+          "path": "check_alarm",
+          "title": "Alarm",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "show_name": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "sensor.alarm_mode",
+                  "icon": "mdi:security",
+                  "name": "Current Mode",
+                  "show_icon": false
+                },
+                {
+                  "entity": "sensor.alarm_mode",
+                  "icon": "mdi:plane-car",
+                  "name": "Set to Away",
+                  "show_state": false,
+                  "show_icon": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.away_on_holiday"
+                    }
+                  }
+                },
+                {
+                  "entity": "input_boolean.force_home_mode",
+                  "name": "Set to Home",
+                  "icon": "mdi:home",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.force_home_mode"
+                    }
+                  },
+                  "show_state": true
+                }
+              ],
+              "state_color": true
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "input_boolean.mute_alarm"
+                },
+                {
+                  "entity": "input_boolean.nearly_home",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.turn_on",
+                    "service_data": {
+                      "entity_id": "script.nearly_home"
+                    }
+                  },
+                  "icon": "mdi:road-variant"
+                },
+                {
+                  "entity": "input_boolean.we_took_the_car",
+                  "name": "Disable Car",
+                  "icon": "mdi:car-off",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.we_took_the_car"
+                    }
+                  }
+                },
+                {
+                  "entity": "input_boolean.disable_auto_modes",
+                  "name": "Disable Automatic Modes",
+                  "icon": "mdi:home-automation",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.disable_auto_modes"
+                    }
+                  }
+                }
+              ],
+              "state_color": true,
+              "title": "Alarm Overrides",
+              "columns": 2
+            },
+            {
+              "show_state": true,
+              "show_name": true,
+              "camera_view": "live",
+              "type": "picture-entity",
+              "entity": "camera.front_door"
+            },
+            {
+              "entity": "camera.aarlo_garden_c",
+              "image_click": "play",
+              "light": "light.aarlo_garden_c",
+              "name": "Garden C",
+              "image_bottom": [
+                "snapshot",
+                "stream",
+                "motion"
+              ],
+              "image_top": [
+                "name",
+                "onoff",
+                "date",
+                "status"
+              ],
+              "image_view": [
+                "smart-modal",
+                "start-stream",
+                "arlo-stream",
+                "numeric"
+              ],
+              "type": "custom:aarlo-glance"
+            },
+            {
+              "show_state": true,
+              "show_name": true,
+              "camera_view": "live",
+              "type": "picture-entity",
+              "entity": "camera.garden_a"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's Open?",
+                "type": "glance"
+              },
+              "entities": [
+                "binary_sensor.bathroom_window_contact",
+                "binary_sensor.bay_party_wall_contact",
+                "binary_sensor.bay_window_contact",
+                "binary_sensor.front_contact",
+                "binary_sensor.garage_out_contact",
+                "binary_sensor.guest_win_contact",
+                "binary_sensor.kitchen_contact",
+                "binary_sensor.landing_window_contact",
+                "binary_sensor.loft_hatch_contact",
+                "binary_sensor.main_window_contact",
+                "binary_sensor.main_window_party_contact",
+                "binary_sensor.patio_door_contact",
+                "binary_sensor.utility_back_door_contact"
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            },
+            {
+              "card": {
+                "columns": 3,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's On?",
+                "type": "glance"
+              },
+              "entities": [
+                {
+                  "entity": "light.armchair_lamp",
+                  "name": "armchair",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bathroom_sink",
+                  "name": "bathroom",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.coats",
+                  "name": "coats",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.dining_spotlights",
+                  "name": "dining spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.hall_downlights",
+                  "name": "hall spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_downlight",
+                  "name": "isla spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_wall",
+                  "name": "isla wall",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_spotlights",
+                  "name": "kitchen spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_worktop",
+                  "name": "kitchen worktop",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.loft_main",
+                  "name": "loft",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_1",
+                  "name": "lounge pendant",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_2",
+                  "name": "lounge spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_1",
+                  "name": "mic lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_2",
+                  "name": "printer lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.m_side",
+                  "name": "m bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.main_downlights",
+                  "name": "main br spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.movie_lamp",
+                  "name": "movie lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_bedside_lamp",
+                  "name": "guest lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_desk_lamp",
+                  "name": "study lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.t_side",
+                  "name": "t bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.utility",
+                  "name": "utility",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.alarm_mode",
+                  "icon": "mdi:security",
+                  "name": "Mode",
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "entity": "sensor.alarm_mode",
+                  "name": "Season",
+                  "icon": "mdi:cloud",
+                  "attribute": "dash_season"
+                },
+                {
+                  "entity": "input_boolean.all_parents_home",
+                  "icon": "mdi:account-group",
+                  "name": "All adults are home",
+                  "secondary_info": "none"
+                },
+                {
+                  "entity": "input_boolean.a_parent_home",
+                  "icon": "mdi:account",
+                  "name": "An adult is home",
+                  "secondary_info": "none"
+                },
+                {
+                  "type": "custom:entity-attributes-card",
+                  "entity": "sensor.alarm_schedule",
+                  "heading_name": "#",
+                  "heading_state": "Routine",
+                  "filter": {
+                    "include": [
+                      {
+                        "key": "sensor.alarm_schedule.*"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "title": "Current Mode and Routine",
+              "show_header_toggle": false
+            }
+          ]
+        },
+        {
+          "badges": [],
+          "cards": [
+            {
+              "entity": "camera.aarlo_swings",
+              "image_click": "play",
+              "light": "light.aarlo_front_light",
+              "name": "Swings",
+              "show": [
+                "motion",
+                "sound",
+                "snapshot",
+                "captured_today"
+              ],
+              "type": "custom:aarlo-glance"
+            },
+            {
+              "card": {
+                "columns": 3,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's On?",
+                "type": "glance"
+              },
+              "entities": [
+                {
+                  "entity": "light.armchair_lamp",
+                  "name": "armchair",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bathroom_sink",
+                  "name": "bathroom",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.coats",
+                  "name": "coats",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.dining_spotlights",
+                  "name": "dining spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.hall_downlights",
+                  "name": "hall spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_downlight",
+                  "name": "isla spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_wall",
+                  "name": "isla wall",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_spotlights",
+                  "name": "kitchen spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_worktop",
+                  "name": "kitchen worktop",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.loft_main",
+                  "name": "loft",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_1",
+                  "name": "lounge pendant",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_2",
+                  "name": "lounge spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_1",
+                  "name": "mic lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_2",
+                  "name": "printer lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.m_side",
+                  "name": "m bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.main_downlights",
+                  "name": "main br spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.movie_lamp",
+                  "name": "movie lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_bedside_lamp",
+                  "name": "guest lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_desk_lamp",
+                  "name": "study lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.t_side",
+                  "name": "t bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.utility",
+                  "name": "utility",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's Open?",
+                "type": "glance"
+              },
+              "entities": [
+                "binary_sensor.bathroom_window_contact",
+                "binary_sensor.bay_party_wall_contact",
+                "binary_sensor.bay_window_contact",
+                "binary_sensor.front_contact",
+                "binary_sensor.garage_out_contact",
+                "binary_sensor.guest_win_contact",
+                "binary_sensor.kitchen_contact",
+                "binary_sensor.landing_window_contact",
+                "binary_sensor.loft_hatch_contact",
+                "binary_sensor.main_window_contact",
+                "binary_sensor.main_window_party_contact",
+                "binary_sensor.patio_door_contact",
+                "binary_sensor.utility_back_door_contact",
+                "binary_sensor.mukuru_contact"
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            },
+            {
+              "aspect_ratio": "0%",
+              "entity": "light.m_side",
+              "name": "Bedside Light",
+              "state_image": {
+                "off": "/local/m_side_off.jpg",
+                "on": "/local/m_side_on.jpg"
+              },
+              "tap_action": {
+                "action": "toggle"
+              },
+              "type": "picture-entity"
+            },
+            {
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "light.study_desk_lamp",
+                  "name": "lamp",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.study_desk_lamp",
+                      "brightness_pct": 10
+                    },
+                    "url_path": null,
+                    "navigation_path": null
+                  }
+                }
+              ]
+            }
+          ],
+          "icon": "",
+          "panel": false,
+          "path": "intercom",
+          "title": "Swings",
+          "visible": [
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            }
+          ]
+        },
+        {
+          "title": "Alarm",
+          "path": "alarm",
+          "icon": "mdi:shield-home",
+          "type": "sections",
+          "max_columns": 3,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Mode Control"
+                },
+                {
+                  "type": "entity",
+                  "entity": "sensor.alarm_mode",
+                  "name": "Current Mode",
+                  "icon": "mdi:shield-home"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "button",
+                      "name": "Force Home",
+                      "icon": "mdi:home-account",
+                      "entity": "input_boolean.force_home_mode",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "show_state": true
+                    },
+                    {
+                      "type": "button",
+                      "name": "Holiday",
+                      "icon": "mdi:airplane",
+                      "entity": "input_boolean.away_on_holiday",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "show_state": true
+                    },
+                    {
+                      "type": "button",
+                      "name": "Nearly Home",
+                      "icon": "mdi:car-arrow-right",
+                      "entity": "input_boolean.nearly_home",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "show_state": true
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "title": "Alarm Settings",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "input_boolean.mute_alarm",
+                      "name": "Mute Alarm Sounds",
+                      "icon": "mdi:volume-off"
+                    },
+                    {
+                      "entity": "input_boolean.disable_auto_modes",
+                      "name": "Disable Auto Out/Away",
+                      "icon": "mdi:cog-pause"
+                    },
+                    {
+                      "entity": "input_boolean.we_took_the_car",
+                      "name": "Car Alarm Off",
+                      "icon": "mdi:car-off"
+                    },
+                    {
+                      "entity": "input_boolean.all_parents_home",
+                      "name": "All Parents Home",
+                      "icon": "mdi:account-group"
+                    },
+                    {
+                      "entity": "input_boolean.a_parent_home",
+                      "name": "A Parent Home",
+                      "icon": "mdi:account"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "title": "Current Schedule",
+                  "content": "{% set s = state_attr('sensor.alarm_mode', 'mode') %} {% set season = state_attr('sensor.alarm_mode', 'season') %} {% set sunrise = state_attr('sensor.alarm_mode', 'sunrise') %} {% set sunset = state_attr('sensor.alarm_mode', 'sunset') %} {% set wakeup = state_attr('sensor.alarm_mode', 'wakeup') %} {% set evening = state_attr('sensor.alarm_mode', 'evening') %} {% set bedtime = state_attr('sensor.alarm_mode', 'bedtime') %} {% set nighttime = state_attr('sensor.alarm_mode', 'nighttime') %}\n| | | |:--|:--| | **Mode** | {{ s | upper if s else 'Unknown' }} | | **Season** | {{ season | title if season else '—' }} | | **Sunrise** | {{ sunrise or '—' }} | | **Sunset** | {{ sunset or '—' }} | | **Wakeup** | {{ wakeup or '—' }} | | **Evening** | {{ evening or '—' }} | | **Bedtime** | {{ bedtime or '—' }} | | **Nighttime** | {{ nighttime or '—' }} |"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Cameras"
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "camera.front_door",
+                  "name": "Front Door",
+                  "show_state": true,
+                  "show_name": true,
+                  "camera_view": "live",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "camera.garden_a",
+                  "name": "Garden",
+                  "show_state": true,
+                  "show_name": true,
+                  "camera_view": "live",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "title": "Detection Events",
+                  "show_header_toggle": false,
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "event.front_door_motion",
+                      "name": "Front Door — Last Event",
+                      "icon": "mdi:motion-sensor"
+                    },
+                    {
+                      "entity": "event.garden_a_motion",
+                      "name": "Garden — Last Event",
+                      "icon": "mdi:motion-sensor"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "title": "Camera Event Detail",
+                  "content": "**Front Door**\nLast event: {{ states('event.front_door_motion') }}\nType: {{ state_attr('event.front_door_motion', 'event_type') | default('none') }}\n---\n**Garden**\nLast event: {{ states('event.garden_a_motion') }}\nType: {{ state_attr('event.garden_a_motion', 'event_type') | default('none') }}"
+                },
+                {
+                  "type": "markdown",
+                  "title": "Snapshots",
+                  "content": "Snapshots are saved to `/config/www/snapshots/` on person-detection alerts.  Browse: `/local/snapshots/`"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Building Perimeter"
+                },
+                {
+                  "type": "glance",
+                  "title": "Doors & Windows",
+                  "columns": 4,
+                  "show_name": true,
+                  "show_state": true,
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.front_contact",
+                      "name": "Front Door",
+                      "icon": "mdi:door"
+                    },
+                    {
+                      "entity": "binary_sensor.patio_door_contact",
+                      "name": "Patio Door",
+                      "icon": "mdi:door-sliding"
+                    },
+                    {
+                      "entity": "binary_sensor.utility_back_door_contact",
+                      "name": "Back Door",
+                      "icon": "mdi:door"
+                    },
+                    {
+                      "entity": "binary_sensor.utility_garage_door_contact",
+                      "name": "Garage Door",
+                      "icon": "mdi:garage"
+                    },
+                    {
+                      "entity": "binary_sensor.bathroom_window_contact",
+                      "name": "Bathroom",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.bay_window_contact",
+                      "name": "Bay Window",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.bay_party_wall_contact",
+                      "name": "Bay Party",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.kitchen_contact",
+                      "name": "Kitchen",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.guest_win_contact",
+                      "name": "Guest",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.landing_window_contact",
+                      "name": "Landing",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.main_window_contact",
+                      "name": "Main Window",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.main_window_party_contact",
+                      "name": "Main Party",
+                      "icon": "mdi:window-closed-variant"
+                    },
+                    {
+                      "entity": "binary_sensor.garage_out_contact",
+                      "name": "Garage Out",
+                      "icon": "mdi:garage-variant"
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "sensor.alarm_mode",
+                      "state": "Away"
+                    }
+                  ],
+                  "card": {
+                    "type": "markdown",
+                    "content": "### ⚠️ AWAY MODE\nBuilding perimeter is **fully armed**. Any contact or vibration sensor will trigger a **scream** alert with TTS."
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "or",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "sensor.alarm_mode",
+                          "state": "Home"
+                        },
+                        {
+                          "condition": "state",
+                          "entity": "sensor.alarm_mode",
+                          "state": "Out"
+                        }
+                      ]
+                    }
+                  ],
+                  "card": {
+                    "type": "markdown",
+                    "content": "Perimeter armed during **bedtime → wakeup** window only."
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Car Security"
+                },
+                {
+                  "type": "glance",
+                  "title": "Evie — Doors & Windows",
+                  "columns": 3,
+                  "show_name": true,
+                  "show_state": true,
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.evie_door_closed_left_front",
+                      "name": "L Front",
+                      "icon": "mdi:car-door"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_door_closed_right_front",
+                      "name": "R Front",
+                      "icon": "mdi:car-door"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_door_closed_left_back",
+                      "name": "L Back",
+                      "icon": "mdi:car-door"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_door_closed_right_back",
+                      "name": "R Back",
+                      "icon": "mdi:car-door"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_window_closed_left_front",
+                      "name": "L Front Win",
+                      "icon": "mdi:car-door-lock"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_window_closed_right_front",
+                      "name": "R Front Win",
+                      "icon": "mdi:car-door-lock"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_window_closed_left_back",
+                      "name": "L Back Win",
+                      "icon": "mdi:car-door-lock"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_window_closed_right_back",
+                      "name": "R Back Win",
+                      "icon": "mdi:car-door-lock"
+                    },
+                    {
+                      "entity": "binary_sensor.evie_doors_locked",
+                      "name": "Locked",
+                      "icon": "mdi:lock"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "entity": "device_tracker.evie_position",
+                  "name": "Car Location",
+                  "icon": "mdi:map-marker"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Lights & Climate"
+                },
+                {
+                  "type": "entities",
+                  "title": "Managed Lights",
+                  "show_header_toggle": false,
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "light.downstairs_lights",
+                      "name": "Downstairs",
+                      "icon": "mdi:ceiling-light"
+                    },
+                    {
+                      "entity": "light.wall_lamps",
+                      "name": "Wall Lamps",
+                      "icon": "mdi:wall-sconce"
+                    },
+                    {
+                      "entity": "light.lounge_lamp_2",
+                      "name": "Night Light",
+                      "icon": "mdi:lamp"
+                    },
+                    {
+                      "entity": "light.ellie_window_lamp",
+                      "name": "Ellie Lamp",
+                      "icon": "mdi:lamp"
+                    },
+                    {
+                      "entity": "light.hannah_lamp",
+                      "name": "Hannah Lamp",
+                      "icon": "mdi:lamp"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "title": "Active Light Routines",
+                  "content": "{% set attrs = states.sensor.alarm_schedule.attributes %} {% for key, val in attrs.items() %} {% if key | length == 2 and val and 'light' in val | lower or 'room' in val | lower or 'lounge' in val | lower or 'lamp' in val | lower %} - {{ val }} {% endif %} {% endfor %}"
+                },
+                {
+                  "type": "entities",
+                  "title": "Climate",
+                  "show_header_toggle": false,
+                  "state_color": true,
+                  "entities": [
+                    {
+                      "entity": "climate.downstairs",
+                      "name": "Nest Thermostat"
+                    },
+                    {
+                      "entity": "climate.study",
+                      "name": "Tado (Study)"
+                    },
+                    {
+                      "entity": "water_heater.hot_water",
+                      "name": "Hot Water"
+                    }
+                  ]
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.downstairs",
+                  "name": "Downstairs"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Alerts & Actions"
+                },
+                {
+                  "type": "logbook",
+                  "title": "Recent Alarm Events",
+                  "hours_to_show": 24,
+                  "entities": [
+                    "sensor.alarm_mode",
+                    "binary_sensor.front_contact",
+                    "binary_sensor.patio_door_contact",
+                    "binary_sensor.utility_back_door_contact",
+                    "event.front_door_motion",
+                    "event.garden_a_motion"
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "button",
+                      "name": "Arm Away Now",
+                      "icon": "mdi:shield-lock",
+                      "icon_height": "40px",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "input_boolean.turn_on",
+                        "target": {
+                          "entity_id": "input_boolean.away_on_holiday"
+                        }
+                      },
+                      "confirmation": {
+                        "text": "Switch to AWAY mode? This arms all perimeters and sets climate to eco."
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "name": "Disarm (Home)",
+                      "icon": "mdi:shield-off",
+                      "icon_height": "40px",
+                      "tap_action": {
+                        "action": "call-service",
+                        "service": "input_boolean.turn_on",
+                        "target": {
+                          "entity_id": "input_boolean.force_home_mode"
+                        }
+                      },
+                      "confirmation": {
+                        "text": "Force HOME mode? This disarms perimeter night-only and resumes normal climate."
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "name": "Mute Alarm",
+                      "icon": "mdi:volume-mute",
+                      "icon_height": "40px",
+                      "entity": "input_boolean.mute_alarm",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "show_state": true
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "title": "Mode History (48h)",
+                  "hours_to_show": 48,
+                  "entities": [
+                    {
+                      "entity": "sensor.alarm_mode",
+                      "name": "Alarm Mode"
+                    },
+                    {
+                      "entity": "input_boolean.a_parent_home",
+                      "name": "Someone Home"
+                    },
+                    {
+                      "entity": "input_boolean.away_on_holiday",
+                      "name": "Holiday"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "cards": []
+        }
+      ]
+    }
+  }
+}

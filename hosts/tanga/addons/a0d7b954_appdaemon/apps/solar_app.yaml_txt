@@ -1,0 +1,41 @@
+solar_app:
+   module: solar_app
+  class: SolarApp
+  plugin:
+    - HASS
+    - MQTT
+  log: solar_log
+  log_level: INFO
+
+  refresh_rate: 1
+  load_now: sensor.growatt_sph_load_power
+  solar_now: sensor.growatt_sph_pv_power
+  grid_now: sensor.growatt_sph_grid_power
+  battery_now: sensor.growatt_sph_battery_power
+  battery_soc: sensor.growatt_sph_battery_state_of_charge
+  work_mode: select.growatt_sph_work_mode_priority
+  pv_wk: sensor.growatt_sph_pv_energy
+  load_wk: sensor.growatt_sph_load_energy
+  grid_in_wk: sensor.growatt_sph_grid_energy_in
+  grid_out_wk: sensor.growatt_sph_grid_energy_out
+  peak_start: "05:30"
+  peak_grid_price: 31.21 # https://octopus.energy/dashboard/new/accounts/A-355AB690/dashboard
+  offpeak_grid_price: 7.5 
+  
+  battery_stop_charge: number.growatt_sph_battery_first_stop_charge
+  
+  
+#  summer_months: 5 6 7 8 9   
+  
+#  mode_params:
+#    summer:
+#      wakeup: "06:00:00" 
+#      sunrise: "04:00:00"
+#    winter:
+#      sunrise: "07:00:00"
+#      wakeup: "06:00:00" 
+  
+#  home_perimeter:
+#    - binary_sensor.bathroom_window_contact
+#    - binary_sensor.bay_party_wall_contact
+

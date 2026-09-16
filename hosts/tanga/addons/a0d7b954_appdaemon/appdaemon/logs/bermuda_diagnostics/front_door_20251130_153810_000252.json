@@ -1,0 +1,16 @@
+{
+  "cycle_id": "front_door_20251130_153810_000252",
+  "door": "front_door",
+  "person": "Tongai",
+  "timestamp": "2025-11-30T15:38:10.787032",
+  "tap_outcome": "failure",
+  "reason": "Not in proximity (not arriving)",
+  "ignore_reason": null,
+  "checks_passed": [],
+  "failed_at": null,
+  "failure_reason": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

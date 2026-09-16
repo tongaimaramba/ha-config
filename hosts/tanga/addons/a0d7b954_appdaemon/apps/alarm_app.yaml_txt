@@ -1,0 +1,85 @@
+alarm_app:
+  module: alarm_app
+  class: AlarmApp
+  plugin:
+    - HASS
+    - MQTT
+  log: alarm_log
+  log_level: INFO
+  
+  admin_device: mobile_app_tongai22
+  admin_url: "/tongai-test/check_alarm"
+  other_url: "/dashboard-basics/check_alarm"
+  all_home: input_boolean.all_parents_home #binary_sensor.everyone_home  
+  presence: input_boolean.a_parent_home  #binary_sensor.somebody_is_home
+  disable_presence_check: input_boolean.disable_auto_modes
+  holiday: input_boolean.away_on_holiday
+  out_to_away_timeout: 24 #if Out, wait this long (in hours) and then switch to Away.
+  mute_alarm: input_boolean.mute_alarm
+  car_location: device_tracker.evie_position
+  car_alarm_off: input_boolean.we_took_the_car
+  night_light: light.lounge_lamp_2
+  
+  summer_months: 5 6 7 8 9   
+  
+  mode_params:
+    summer:
+      sunrise: "04:00:00"
+      wakeup: "06:00:00" 
+      sunset: "21:00:00"
+      evening: "19:00:00"
+      bedtime: "22:00:00"
+      nighttime: "23:30:00"
+    winter:
+      sunrise: "07:00:00"
+      wakeup: "06:00:00" 
+      sunset: "17:00:00"
+      evening: "19:00:00"
+      bedtime: "22:00:00"
+      nighttime: "23:30:00"
+      
+  lights:
+    light.downstairs_lights: 0
+    light.wall_lamps: 30
+    light.lounge_lamp_2: 10
+    light.ellie_window_lamp: 50
+    light.hannah_lamp: 50
+
+  home_perimeter:
+    - binary_sensor.bathroom_window_contact
+    - binary_sensor.bay_party_wall_contact
+    - binary_sensor.bay_window_contact
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+    - binary_sensor.guest_win_contact
+    - binary_sensor.kitchen_contact
+    - binary_sensor.landing_window_contact
+    - binary_sensor.main_window_contact
+    - binary_sensor.main_window_party_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.utility_garage_door_contact
+    - binary_sensor.bathroom_window_acceleration
+    - binary_sensor.bay_party_wall_acceleration
+    - binary_sensor.bay_window_acceleration
+    - binary_sensor.front_acceleration
+    - binary_sensor.garage_out_acceleration
+    - binary_sensor.guest_win_acceleration
+    - binary_sensor.kitchen_acceleration
+    - binary_sensor.landing_window_acceleration
+    - binary_sensor.main_window_acceleration
+    - binary_sensor.main_window_party_acceleration
+    - binary_sensor.patio_door_acceleration
+  #  - binary_sensor.utility_back_door_acceleration
+    - binary_sensor.utility_garage_door_acceleration
+  car_security:
+    - binary_sensor.evie_door_closed_left_back
+    - binary_sensor.evie_door_closed_right_back
+    - binary_sensor.evie_door_closed_left_front
+    - binary_sensor.evie_door_closed_right_front
+    - binary_sensor.evie_window_closed_left_back
+    - binary_sensor.evie_window_closed_right_back
+    - binary_sensor.evie_window_closed_left_front
+    - binary_sensor.evie_window_closed_right_front
+    - binary_sensor.evie_doors_locked
+    

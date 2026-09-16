@@ -1,0 +1,47 @@
+# ==== SANDBOX TEST ENTITIES ====
+
+# Mock lock, vibrate, and LED state input_booleans
+input_boolean:
+  mock_door_locked:
+    name: "Mock Door Locked"
+    initial: on
+  mock_tap_front_door:
+    name: "Mock Tap Front Door"
+    initial: off
+  mock_tap_garage:
+    name: "Mock Tap Garage"
+    initial: off
+  mock_led_green:
+    name: "Mock LED Green"
+    initial: off
+  mock_led_amber:
+    name: "Mock LED Amber"
+    initial: off
+  mock_led_red:
+    name: "Mock LED Red"
+    initial: off
+
+# Use these for dashboards & test automations
+input_select:
+  mock_location_area:
+    name: "Sandbox Location Area"
+    options:
+      - "away"
+      - "front_door"
+      - "garage"
+      - "garden"
+      - "boundary"
+    initial: "away"
+    
+input_number:
+  mock_ble_distance:
+    name: "Sandbox BLE Distance"
+    min: 0
+    max: 20
+    step: 0.1
+    initial: 5
+
+input_text:
+  mock_user:
+    name: "Which User"
+    initial: "Tongai"

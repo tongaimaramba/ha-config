@@ -1,0 +1,192 @@
+# App to alert when boiler doesn't work
+#
+import adbase as ad
+from datetime import datetime, timedelta, timezone, time
+
+
+class BOILERApp(ad.ADBase):
+#
+#####
+#
+    def initialize(self):
+        """Initialize AppDaemon App."""
+        self.adbase = self.get_ad_api()
+        self.hass = self.get_plugin_api("HASS")
+        self.mqtt = self.get_plugin_api("MQTT")
+        self.au = self.adbase.get_app("auto_unlock")
+       
+        self.adbase.log("\n\n************\n*\n* Welcome to Bolier Alert App   ************\n*\n************\n") #Launch message
+
+       # load configuration  
+
+        self.notif_device = self.args.get('notif_device')
+        self.heater_times_raw = self.args.get('heater_times')
+        self.time_window = self.args.get('time_window') if self.args.get('time_window') > 1 else 1     #time window can't be less than 1 min
+        self.min_temp_rise = self.args.get('min_temp_rise') 
+        self.alert_ent = self.args.get('alert_ent') #input_boolean.boiler_anomaly_alert
+        self.temp_sensor = self.args.get('temp_sensor')
+        self.peak_temp_min = self.args.get('peak_temp_min')
+        self.peak_temp_max = self.args.get('peak_temp_max')
+        self.heater_schedule = []
+        self.optimiser_schedule = time(0,0)
+        self.anomaly_flag = False
+        self.history_days = 7
+        
+        # Attributes to track heating period
+        self.heating_start_temp = None
+        self.heating_start_time = None
+        self.current_schedule = None
+        self.check_handle = None
+        
+        for s in self.heater_times_raw:
+            r = [int(i) for i in self.heater_times_raw[s].split(',')]
+            self.adbase.log(f"Line {self.au.lnn()}: heater times: {r}.",level="DEBUG")
+            try:
+                rec = [time(r[0],r[1]),time(r[2],r[3])]
+            except:
+                rec = [time(7,0),time(16,0)]
+            self.heater_schedule.append(rec)
+        
+        # Schedule optimization every day at midnight
+        self.adbase.run_daily(self.optimize_parameters,self.optimiser_schedule)
+        
+        # Schedule daily checks for each heating period
+        for start, end in self.heater_schedule:
+            self.adbase.run_daily(self.start_heating_check,start)
+            self.adbase.log(f"Line {self.au.lnn()}: Running a schedule daily which starts at {start}",level="DEBUG")
+            self.adbase.run_daily(self.stop_heating_check, end)
+            self.adbase.log(f"Line {self.au.lnn()}: Running a schedule daily which ends at {end}",level="DEBUG")
+        
+        # Get the initial temperature
+        #self.adbase.listen_state(self.check_temperature, self.temp_sensor)
+
+
+    def start_heating_check(self, kwargs):
+        self.adbase.log(f"Line {self.au.lnn()}: Starting heating period check", level="DEBUG")
+        current_time = self.adbase.time()
+        self.heating_start_temp = float(self.adbase.get_state("sensor.boiler_temp_temperature_measurement"))
+        self.heating_start_time = self.adbase.datetime()
+        self.current_schedule = next((s for s in self.heater_schedule if s[0] <= current_time < s[1]), None)
+        
+        if self.current_schedule:
+            # Schedule regular checks during the heating period
+            self.check_handle = self.adbase.run_every(self.check_temperature, "now", self.time_window * 60)
+            self.adbase.log(f"Line {self.au.lnn()}: Running temperature checker every {self.time_window * 60} seconds",level="DEBUG")
+        else:
+            self.adbase.log(f"Line {self.au.lnn()}: No matching schedule found for the current time",level="DEBUG")
+
+    def stop_heating_check(self, kwargs):
+        self.adbase.log(f"Line {self.au.lnn()}: Stopping heating period check", level="DEBUG")
+        
+        if self.check_handle:
+            self.adbase.cancel_timer(self.check_handle)
+        
+        #report on heating session results
+        current_temp, total_rise, duration = self.get_delta()
+        msg = f"Completed heating session. Temp change: {round(total_rise,1)} degrees in {round(duration,0)} minutes. {'Anomaly found' if self.anomaly_flag else 'No anomaly found'}. Params: expected temp change: {round(self.min_temp_rise,1)} degrees; and/or exceeding peak temp of {self.peak_temp_min} degrees in {round(self.time_window,0)} minutes."
+        self.adbase.log(msg, level="INFO")
+        phone_msg = "Check the boiler!"
+        self.au.shout("normal",phone_msg,notif_device=self.notif_device) if self.anomaly_flag else ""
+        
+        self.heating_start_temp = None
+        self.heating_start_time = None
+        self.current_schedule = None
+
+    def check_temperature(self, kwargs):
+        self.adbase.log(f"Line {self.au.lnn()}: Check temp started. Start temp: {self.heating_start_temp}; schedule: {self.current_schedule}", level="DEBUG")
+        if self.heating_start_temp is None or self.current_schedule is None:
+            return
+
+        current_temp, total_rise, duration = self.get_delta()
+
+        self.adbase.log(f"Line {self.au.lnn()}: Temp Check - Total rise: {round(total_rise,1)} degrees over {round(duration,0)} minutes", level="DEBUG")
+
+        if (total_rise < self.min_temp_rise and duration >= self.time_window) and not (self.peak_temp_min <= current_temp <= self.peak_temp_max):         # Check if either the total rise is sufficient or the peak temperature is within range
+            msg = "Anomaly detected."
+            msg = f"{msg} Didn't reach expected peak temp. Current: {current_temp}; Min: {self.peak_temp_min}." if not (self.peak_temp_min <= current_temp <= self.peak_temp_max) else ""
+            msg = f"{msg} Insufficient temperature rise. Total rise: {round(total_rise,1)} degrees over {round(duration,0)} minutes." if (total_rise < self.min_temp_rise and duration >= self.time_window) else ": Unkown issue."
+            
+            self.adbase.log(f"Line {self.au.lnn()}: {msg}",level="DEBUG")
+            self.au.shout("normal",msg)
+            self.anomaly_flag = True
+            self.hass.turn_on(self.alert_ent)
+        else:
+            self.adbase.log(f"Line {self.au.lnn()}: no issues all good",level="DEBUG")
+            self.anomaly_flag = False
+            self.hass.turn_off(self.alert_ent)
+                        
+        # Check if we're at the end of the heating period
+        current_time = self.adbase.time()
+        if current_time >= self.current_schedule[1] and self.end_flag:
+            self.stop_heating_check(kwargs)
+            
+    def optimize_parameters(self, kwargs):
+        # Query historical data from Home Assistant
+        history = self.get_history(entity_id="sensor.boiler_temp_temperature_measurement", days=self.history_days)
+    
+        time_deltas = []
+        temp_rises = []
+        peak_temps = []
+        anomalies_detected = 0
+        anomaly_events = []
+        expected_temp_rise = self.min_temp_rise  # Store the current expected rise
+    
+        for start_time, end_time in self.heater_schedule:
+            # Filter data for each schedule period
+            for day_data in history:
+                period_data = []
+                for entry in day_data:
+                    # Convert the 'last_changed' string to a datetime object
+                    last_changed = datetime.fromisoformat(entry['last_changed'].replace('Z', '+00:00'))
+                    if start_time <= last_changed.time() <= end_time:
+                        period_data.append({
+                            'state': float(entry['state']),
+                            'last_changed': last_changed
+                        })
+    
+                # Check for anomalies in this period
+                if period_data:
+                    total_rise = period_data[-1]['state'] - period_data[0]['state']
+                    duration = (period_data[-1]['last_changed'] - period_data[0]['last_changed']).total_seconds() / 60
+                    peak_temp = max(entry['state'] for entry in period_data)
+    
+                    if total_rise < expected_temp_rise and duration >= self.time_window and not (self.peak_temp_min <= peak_temp <= self.peak_temp_max):
+                        anomalies_detected += 1
+                        anomaly_events.append(period_data[-1]['last_changed'])
+                    else:
+                        # Calculate time deltas and temperature rises for normal periods
+                        for i in range(1, len(period_data)):
+                            if period_data[i]['state'] > period_data[i-1]['state']:
+                                time_deltas.append((period_data[i]['last_changed'] - period_data[i-1]['last_changed']).total_seconds() / 60)
+                                temp_rises.append(period_data[i]['state'] - period_data[i-1]['state'])
+                        peak_temps.append(peak_temp)
+    
+        # Update parameters only if no anomalies were detected
+        if anomalies_detected == 0:
+            if time_deltas:
+                self.adbase.log(f"Line {self.au.lnn()}: Time deltas: {time_deltas}",level="DEBUG")
+                self.time_window = max(int(sum(time_deltas) / len(time_deltas)), 1)  # Ensure at least 1 minute
+            if temp_rises:
+                self.min_temp_rise = max(sum(temp_rises) / len(temp_rises), 0.1)  # Ensure a minimum rise of 0.1
+            if peak_temps:
+                self.peak_temp_min = min(peak_temps)  # Set to the minimum of observed peaks
+                self.peak_temp_max = max(peak_temps)  # Set to the maximum of observed peaks
+    
+            self.adbase.log(f"## Optimized time_window: {round(self.time_window,0)}, min_temp_rise: {round(self.min_temp_rise,1)}, peak_temp_min: {self.peak_temp_min}, peak_temp_max: {self.peak_temp_max}",level="INFO")
+        else:
+            self.adbase.log(f"## Optimization skipped due to {anomalies_detected} anomalies detected in the last {self.history_days} days. Anomaly events {anomaly_events}. Using temp change: {round(self.min_temp_rise,1)} degrees; min temp target of {self.peak_temp_min} degrees; and time window: {round(self.time_window,0)} minutes.",level="INFO")    
+        
+    def get_history(self, entity_id, days):
+        # Use Home Assistant API to get historical data
+        end_time = datetime.now()
+        start_time = end_time - timedelta(days=days)
+        history = self.hass.get_history(entity_id=entity_id, start_time=start_time, end_time=end_time)
+        return history
+    
+    def get_delta(self):
+        current_temp = float(self.adbase.get_state("sensor.boiler_temp_temperature_measurement"))
+        total_rise = current_temp - self.heating_start_temp
+        duration = (self.adbase.datetime() - self.heating_start_time).total_seconds() / 60
+        self.adbase.log(f"Line {self.au.lnn()}: Getting delta details: current temp: {current_temp}; total rise: {total_rise}; duration: {duration}",level="DEBUG")
+        
+        return current_temp, total_rise, duration

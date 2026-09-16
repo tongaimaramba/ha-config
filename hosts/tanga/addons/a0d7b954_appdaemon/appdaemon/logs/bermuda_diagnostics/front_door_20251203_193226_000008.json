@@ -1,0 +1,14 @@
+{
+  "cycle_id": "front_door_20251203_193226_000008",
+  "door": "front_door",
+  "person": "Ellie",
+  "timestamp": "2025-12-03T19:32:26.600778",
+  "tap_outcome": "success",
+  "reason": "Unlock successful",
+  "checks_passed": [],
+  "failed_at": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

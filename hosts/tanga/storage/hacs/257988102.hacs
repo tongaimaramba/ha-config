@@ -1,0 +1,61 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/257988102.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@cgarwood"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Fully Kiosk Browser integration for Home Assistant",
+        "domain": "fullykiosk",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"77fea85d0b1c8a9a1fa35e0db12d6649699db087f86fd3ed34069b77c84f27aa\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "cgarwood/homeassistant-fullykiosk",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "257988102",
+        "iot_class": null,
+        "installed": true,
+        "installed_commit": "fad765b",
+        "installed_version": "1.0.2",
+        "open_issues": 21,
+        "last_commit": "fad765b",
+        "last_version": "1.0.2",
+        "last_updated": "2022-05-15T21:17:45Z",
+        "manifest_name": "Fully Kiosk Browser",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-05-15T21:17:45",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "1.0.2",
+            "1.0.1",
+            "1.0.0",
+            "0.1.6",
+            "0.1.5"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 120,
+        "topics": [
+            "fully-kiosk-browser",
+            "hacktoberfest",
+            "home-assistant"
+        ],
+        "zip_release": false
+    }
+}

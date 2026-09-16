@@ -1,0 +1,63 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/316807165.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@kloknibor",
+            "@docbobo"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": false,
+        "default_branch": "master",
+        "description": "Miele integration for Home assistant",
+        "domain": "miele",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"9ea965c9f322f8ebb7a55586365788e8a508e58de4fb8f57a4612684d77dd2cf\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "HomeAssistant-Mods/home-assistant-miele",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "316807165",
+        "iot_class": [
+            "Cloud Polling"
+        ],
+        "installed": true,
+        "installed_commit": "1972140",
+        "installed_version": "v0.9.3",
+        "open_issues": 8,
+        "last_commit": "1972140",
+        "last_version": "v0.9.3",
+        "last_updated": "2022-04-19T19:21:06Z",
+        "manifest_name": "Miele@home",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-04-19T19:21:06",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v0.9.3",
+            "v0.9.1",
+            "v0.9.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 65,
+        "topics": [
+            "hacs",
+            "homeassistant",
+            "homeassistant-integration",
+            "miele"
+        ],
+        "zip_release": false
+    }
+}

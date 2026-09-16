@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "core.label_registry",
+  "data": {
+    "labels": [
+      {
+        "color": null,
+        "description": null,
+        "icon": null,
+        "label_id": "direct_mqtt",
+        "name": "Direct MQTT",
+        "created_at": "2025-11-17T08:44:01.457461+00:00",
+        "modified_at": "2025-11-17T08:44:01.457479+00:00"
+      },
+      {
+        "color": null,
+        "description": null,
+        "icon": null,
+        "label_id": "nukihub",
+        "name": "Nukihub",
+        "created_at": "2025-11-17T08:44:33.109302+00:00",
+        "modified_at": "2025-11-17T08:44:33.109319+00:00"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "cycle_id": "front_door_20251202_233455_000031",
+  "door": "front_door",
+  "person": "Tongai",
+  "timestamp": "2025-12-02T23:34:55.302052",
+  "tap_outcome": "success",
+  "reason": "Unlock successful",
+  "checks_passed": [],
+  "failed_at": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

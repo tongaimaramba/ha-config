@@ -1,0 +1,14 @@
+#Aarlo Integration
+  - platform: aarlo
+    monitored_conditions:
+    - motion
+    - sound
+#    - ding
+#    - cry
+    - connectivity
+#
+# Floorplan Integration
+#
+  - platform: mqtt
+    state_topic: dummy/floorplan/sensor
+    name: Floorplan

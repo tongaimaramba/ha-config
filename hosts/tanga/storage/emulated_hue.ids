@@ -1,0 +1,14 @@
+{
+  "version": "1",
+  "minor_version": 1,
+  "key": "emulated_hue.ids",
+  "data": {
+    "1": "button.landing_blind_close",
+    "2": "switch.landing_blind_close_landing_blind",
+    "3": "switch.landing_blind_stop_landing_blind",
+    "4": "switch.landing_blind_open_landing_blind",
+    "5": "switch.loft_blind_close_loft_suite_blind",
+    "6": "switch.loft_blind_stop_loft_suite_blind",
+    "7": "switch.loft_blind_open_loft_suite_blind"
+  }
+}

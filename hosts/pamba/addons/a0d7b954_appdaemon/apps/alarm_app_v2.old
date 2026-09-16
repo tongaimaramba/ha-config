@@ -1,0 +1,222 @@
+###############################################################################
+# Alarm App v2 — AppDaemon Configuration
+#
+# Modes:  home | out | away
+#   home  — Family is home. Perimeter armed at night only.
+#   out   — Everyone left but expected back soon. Presence lights on.
+#   away  — Extended absence (holiday / auto-escalated from "out").
+#
+# Season is derived from summer_months; everything else follows.
+###############################################################################
+
+alarm_app:
+  module: alarm_app
+  class: AlarmApp
+  plugin:
+    - HASS
+    - MQTT
+  log: alarm_log
+  log_level: INFO
+
+  # ── Notification ──────────────────────────────────────────────────────────
+  notification:
+    admin_device: mobile_app_tongai22
+    admin_url: "/tongai-test/check_alarm"
+    other_url: "/dashboard-basics/check_alarm"
+    escalation_delay: 30          # seconds before re-alerting on scream
+    cooldown: 300                 # seconds between duplicate alerts for same sensor
+
+  # ── Presence & Mode Inputs ────────────────────────────────────────────────
+  presence:
+    all_home: input_boolean.all_parents_home
+    a_parent_home: input_boolean.a_parent_home
+    disable_auto_modes: input_boolean.disable_auto_modes
+    holiday: input_boolean.away_on_holiday
+    force_home: input_boolean.force_home_mode
+    nearly_home: input_boolean.nearly_home
+    out_to_away_hours: 24         # auto-escalate out → away after N hours
+    mute_alarm: input_boolean.mute_alarm
+
+  # ── Vehicle ───────────────────────────────────────────────────────────────
+  car:
+    location: device_tracker.evie_position
+    alarm_off: input_boolean.we_took_the_car
+    perimeter:
+      - binary_sensor.evie_door_closed_left_back
+      - binary_sensor.evie_door_closed_right_back
+      - binary_sensor.evie_door_closed_left_front
+      - binary_sensor.evie_door_closed_right_front
+      - binary_sensor.evie_window_closed_left_back
+      - binary_sensor.evie_window_closed_right_back
+      - binary_sensor.evie_window_closed_left_front
+      - binary_sensor.evie_window_closed_right_front
+      - binary_sensor.evie_doors_locked
+
+  # ── Cameras (Google Nest via SDM API) ──────────────────────────────────────
+  #
+  # Nest SDM exposes a single event entity per camera (e.g. event.front_door_motion).
+  # Each event fires with an event_type attribute that distinguishes:
+  #   • camera_person  — a person was detected
+  #   • camera_motion  — generic motion
+  #   • camera_sound   — sound detected
+  #
+  # We listen for ANY state change on the event entity, then filter by
+  # event_type in Python.  Only camera_person triggers security alerts.
+  # camera_motion can optionally trigger a lower-priority "motion_alert".
+  #
+  # sensitivity (applies to person alerts):
+  #   high   — alert on ANY person detection (away mode default)
+  #   medium — alert only between sunset and sunrise
+  #   low    — alert only during bedtime→wakeup window
+  #
+  # motion_alerts:
+  #   true   — also send a whisper notification on generic motion (non-person)
+  #   false  — only alert on person detection
+  #
+  cameras:
+    enabled: true
+    sensitivity: high             # high | medium | low
+    motion_alerts: false          # set true to also get notified on generic motion
+    snapshot_on_alert: true       # save a snapshot when a person alert fires
+    snapshot_path: /config/www/snapshots
+    devices:
+      front_door:
+        camera_entity: camera.front_door     # for snapshots — update to your actual entity
+        event_entity: event.front_door_motion
+      garden:
+        camera_entity: camera.garden_a       # for snapshots — update to your actual entity
+        event_entity: event.garden_a_motion
+
+  # ── Building Perimeter ────────────────────────────────────────────────────
+  home_perimeter:
+    contacts:
+      - binary_sensor.bathroom_window_contact
+      - binary_sensor.bay_party_wall_contact
+      - binary_sensor.bay_window_contact
+      - binary_sensor.front_contact
+      - binary_sensor.garage_out_contact
+      - binary_sensor.guest_win_contact
+      - binary_sensor.kitchen_contact
+      - binary_sensor.landing_window_contact
+      - binary_sensor.main_window_contact
+      - binary_sensor.main_window_party_contact
+      - binary_sensor.patio_door_contact
+      - binary_sensor.utility_back_door_contact
+      - binary_sensor.utility_garage_door_contact
+    vibration:
+      - binary_sensor.bathroom_window_acceleration
+      - binary_sensor.bay_party_wall_acceleration
+      - binary_sensor.bay_window_acceleration
+      - binary_sensor.front_acceleration
+      - binary_sensor.garage_out_acceleration
+      - binary_sensor.guest_win_acceleration
+      - binary_sensor.kitchen_acceleration
+      - binary_sensor.landing_window_acceleration
+      - binary_sensor.main_window_acceleration
+      - binary_sensor.main_window_party_acceleration
+      - binary_sensor.patio_door_acceleration
+      - binary_sensor.utility_garage_door_acceleration
+
+  # ── Season & Schedule ─────────────────────────────────────────────────────
+  summer_months: [5, 6, 7, 8, 9]
+  schedules:
+    summer:
+      sunrise:   "04:00:00"
+      wakeup:    "06:00:00"
+      sunset:    "21:00:00"
+      evening:   "19:00:00"
+      bedtime:   "22:00:00"
+      nighttime: "23:30:00"
+    winter:
+      sunrise:   "07:00:00"
+      wakeup:    "06:00:00"
+      sunset:    "17:00:00"
+      evening:   "19:00:00"
+      bedtime:   "22:00:00"
+      nighttime: "23:30:00"
+
+  # ── Lighting ──────────────────────────────────────────────────────────────
+  #
+  # dim_pct = brightness when in "dim" state.  0 means "don't automate".
+  # Each light entry can specify per-mode behaviour; missing means "no action".
+  #
+  lights:
+    light.downstairs_lights:
+      dim_pct: 0
+      schedules:
+        all:                      # applies in every mode
+          - action: "off"
+            at: nighttime
+    light.wall_lamps:
+      dim_pct: 30
+      schedules:
+        out:
+          - action: dim
+            at: sunset
+        away:
+          - action: dim
+            at: sunset
+    light.lounge_lamp_2:
+      dim_pct: 10
+      schedules:
+        home:
+          - action: dim
+            at: bedtime
+        out:
+          - action: dim
+            at: nighttime
+          - action: "off"
+            at: wakeup
+        away:
+          - action: dim
+            at: nighttime
+          - action: "off"
+            at: wakeup
+    light.ellie_window_lamp:
+      dim_pct: 50
+      schedules:
+        away:
+          - action: dim
+            at: sunset
+            random_minutes: 15
+          - action: "off"
+            at: bedtime
+            random_minutes: 30
+    light.hannah_lamp:
+      dim_pct: 50
+      schedules:
+        away:
+          - action: dim
+            at: sunset
+            random_minutes: 15
+          - action: "off"
+            at: bedtime
+            random_minutes: 15
+          # winter-only morning on/off:
+          - action: dim
+            at: wakeup
+            random_minutes: 15
+            season: winter
+          - action: "off"
+            at: sunrise
+            random_minutes: 30
+            season: winter
+
+  # ── Climate ───────────────────────────────────────────────────────────────
+  climate:
+    tado_group: group.tado_rads
+    tado_sample: climate.study
+    nest_thermostat: climate.downstairs
+    hot_water: water_heater.hot_water
+    boost_temp: 20
+    boost_duration: "00:30:00"
+    boost_script: script.boost_downstairs
+
+  # ── Automations toggle (NEW) ──────────────────────────────────────────────
+  #
+  # HA automations to disable in "away" mode and re-enable otherwise.
+  #
+  managed_automations:
+    disable_when_away: []
+    # Example:
+    # - automation.timed_pump

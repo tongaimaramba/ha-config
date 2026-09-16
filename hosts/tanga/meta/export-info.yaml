@@ -1,0 +1,5 @@
+host: tanga
+exported_at: 2026-09-16T19:19:33+01:00
+config_dir: /homeassistant
+ha_version: 2025.11.1
+uname: Linux ccf28a08-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 Linux

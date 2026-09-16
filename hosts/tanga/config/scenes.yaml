@@ -1,0 +1,43 @@
+- id: '1599680355334'
+  name: bathroom nightlight
+  entities:
+    light.bathroom_sink:
+      brightness: 26
+      color_temp: 500
+      friendly_name: Bathroom Sink
+      hs_color:
+      - 36
+      - 99
+      max_mireds: 500
+      min_mireds: 111
+      rgb_color:
+      - 255
+      - 154
+      - 2
+      state: 'on'
+      supported_features: 51
+      xy_color:
+      - 0.577
+      - 0.404
+- id: '1599680410236'
+  name: Bathroom Sink
+  entities:
+    light.bathroom_sink:
+      brightness: 26
+      color_temp: 500
+      friendly_name: Bathroom Sink
+      hs_color:
+      - 36
+      - 99
+      max_mireds: 500
+      min_mireds: 111
+      rgb_color:
+      - 255
+      - 154
+      - 2
+      state: 'on'
+      supported_features: 51
+      xy_color:
+      - 0.577
+      - 0.404
+  icon: mdi:shower

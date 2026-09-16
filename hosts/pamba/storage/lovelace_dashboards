@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "icon": "mdi:robot",
+        "id": "tongai_test",
+        "mode": "storage",
+        "require_admin": true,
+        "show_in_sidebar": true,
+        "title": "Home",
+        "url_path": "tongai-test"
+      },
+      {
+        "require_admin": true,
+        "show_in_sidebar": false,
+        "title": "tab",
+        "url_path": "lovelace-tab",
+        "mode": "storage",
+        "id": "lovelace_tab",
+        "icon": "mdi:tablet"
+      },
+      {
+        "require_admin": true,
+        "show_in_sidebar": true,
+        "title": "Smarthome",
+        "url_path": "lovelace-new",
+        "mode": "storage",
+        "id": "lovelace_new",
+        "icon": "mdi:home"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:account",
+        "title": "Pamba",
+        "require_admin": true,
+        "mode": "storage",
+        "url_path": "lovelace-guest",
+        "id": "lovelace_guest"
+      },
+      {
+        "show_in_sidebar": true,
+        "title": "Basics",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-basics",
+        "id": "dashboard_basics",
+        "icon": "mdi:emoticon-cool-outline"
+      },
+      {
+        "id": "mdiindex",
+        "url_path": "mdiindex",
+        "icon": "mdi:vector-square",
+        "require_admin": false,
+        "title": "MDI Icon Index",
+        "show_in_sidebar": true,
+        "mode": "storage"
+      },
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "show_in_sidebar": true,
+        "mode": "storage",
+        "require_admin": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,247 @@
+# front_perimeter:
+#     - binary_sensor.bay_party_wall_contact
+#     - binary_sensor.bay_window_contact
+#     - binary_sensor.front_contact
+#     - binary_sensor.garage_out_contact
+#     - binary_sensor.landing_window_contact
+#     - binary_sensor.bay_party_wall_acceleration
+#     - binary_sensor.bay_window_acceleration
+#     - binary_sensor.front_acceleration
+#     - binary_sensor.garage_out_acceleration
+#     - binary_sensor.landing_window_acceleration
+# #
+# perimeter_contact:
+#     - binary_sensor.bathroom_window_contact
+#     - binary_sensor.bay_party_wall_contact
+#     - binary_sensor.bay_window_contact
+#     - binary_sensor.front_contact
+#     - binary_sensor.garage_out_contact
+#     - binary_sensor.guest_win_contact
+#     - binary_sensor.kitchen_contact
+#     - binary_sensor.landing_window_contact
+#     - binary_sensor.main_window_contact
+#     - binary_sensor.main_window_party_contact
+#     - binary_sensor.patio_door_contact
+#     - binary_sensor.utility_back_door_contact
+#     - binary_sensor.utility_garage_door_contact
+# #
+# perimeter_movement:
+#     - binary_sensor.bathroom_window_acceleration
+#     - binary_sensor.bay_party_wall_acceleration
+#     - binary_sensor.bay_window_acceleration
+#     - binary_sensor.front_acceleration
+#     - binary_sensor.garage_out_acceleration
+#     - binary_sensor.guest_win_acceleration
+#     - binary_sensor.kitchen_acceleration
+#     - binary_sensor.landing_window_acceleration
+#     - binary_sensor.main_window_acceleration
+#     - binary_sensor.main_window_party_acceleration
+#     - binary_sensor.patio_door_acceleration
+#     - binary_sensor.utility_back_door_acceleration
+#     - binary_sensor.utility_garage_door_acceleration
+#
+# car_security:
+#     - binary_sensor.evie_door_closed_left_back
+#     - binary_sensor.evie_door_closed_right_back
+#     - binary_sensor.evie_door_closed_left_front
+#     - binary_sensor.evie_door_closed_right_front
+#     - binary_sensor.evie_window_closed_left_back
+#     - binary_sensor.evie_window_closed_right_back
+#     - binary_sensor.evie_window_closed_left_front
+#     - binary_sensor.evie_window_closed_right_front
+#     - binary_sensor.evie_doors_locked
+#
+# home_perimeter:
+#     - group.perimeter_contact
+#     - group.perimeter_movement
+
+#
+# perimeter:
+#     - group.perimeter_contact
+#     - group.perimeter_movement
+#     - group.car_security
+# #
+# motion_sensors:
+#     - binary_sensor.utility_motion_motion
+#     - binary_sensor.worktop_sensor_motion
+#     - binary_sensor.aarlo_motion_swings
+#
+cameras:
+    - camera.aarlo_swings
+    - camera.camera
+    - camera.backyard
+#
+## Lights
+#
+# lounge_lamps:
+#     - light.armchair_lamp
+#     - light.lounge_lamp_2
+#     - light.lounge_lamp_1
+#     - light.movie_lamp
+
+#
+# lounge_spots:
+#     - light.lounge_spotlights
+#     - light.lounge_pendant
+# #
+# eating_lights:
+#     - light.dining_spotlights
+#     - light.kitchen_spotlights
+#
+kitchen_lights:
+    - light.dining_spotlights
+    - light.kitchen_spotlights
+    - light.kitchen_worktop
+#
+# utility_laundry_lights:
+#     - light.utility_1
+#     - light.utility_2
+#     - light.utility_3
+#     - light.utility_4
+#     - light.utility_5
+#
+# utility_pantry_lights:
+#     - light.utility_6
+#     - light.utility_7
+#     - light.utility_8
+#     - light.utility_9
+#
+# utility_lights:
+#     - group.utility_laundry_lights
+#     - group.utility_pantry_lights
+#
+# hall_lights:
+#     - light.hall_spotlights
+#     - light.coats
+#
+landing_lights:
+#
+isla_lights:
+    - light.isla_spotlights
+    - light.isla_wall
+#
+main_lights:
+    - light.main_spotlights
+    - light.m_side
+    - light.t_side
+#
+# downstairs_lights:
+#     - switch.sonoff_100125dac5
+#     - switch.sonoff_100140291c
+#     - group.utility_lights
+#     - group.kitchen_lights
+#     - group.lounge_lamps
+#     - group.lounge_spots
+#     - group.hall_lights
+#
+upstairs_lights:
+    - group.main_lights
+    - group.isla_lights
+    - light.bathroom_sink 
+    - light.study_desk_lamp
+#
+# all_lights:
+#     # - group.downstairs_lights
+#     - group.upstairs_lights
+#
+fave_lights_downstairs:
+    - light.lounge_lamps_2
+    - light.kitchen_worktop
+#
+bedtime_lights:
+    - light.m_side
+    - light.t_side
+#
+# Rooms
+#
+# lounge:
+#     - group.lounge_lamps
+#     - group.lounge_spots
+#     - binary_sensor.bay_party_wall_contact
+#     - binary_sensor.bay_window_contact
+#     - binary_sensor.bay_party_wall_acceleration
+#     - binary_sensor.bay_window_acceleration
+# kitchen:
+#     - light.dining_spotlights_3
+#     - light.kitchen_spotlights_2
+#     - light.kitchen_worktop
+#     - binary_sensor.kitchen_contact
+#     - binary_sensor.patio_door_contact
+#     - binary_sensor.kitchen_acceleration
+#     - binary_sensor.patio_door_acceleration
+#     - climate.downstairs
+# hallway:
+#     - light.hall_downlights
+#     - binary_sensor.front_contact
+#     - binary_sensor.garage_out_contact
+#     - binary_sensor.landing_window_contact
+#     - binary_sensor.front_acceleration
+#     - binary_sensor.garage_out_acceleration
+#     - binary_sensor.landing_window_acceleration
+# utility:
+#     - group.utility_lights  
+#     - binary_sensor.utility_back_door_contact
+#     - binary_sensor.utility_back_door_acceleration
+# main_br:
+#     - group.main_lights
+#     - binary_sensor.main_window_contact
+#     - binary_sensor.main_window_party_contact
+#     - binary_sensor.main_window_acceleration
+#     - binary_sensor.main_window_party_acceleration
+#     - climate.main
+# isla_br:
+#     - group.isla_lights
+#     - climate.friends
+# study:
+#     - light.study_desk_lamp
+#     - binary_sensor.guest_win_contact
+#     - binary_sensor.guest_win_acceleration
+#     - climate.study
+# bathroom:
+#     - light.bathroom_sink 
+#     - binary_sensor.bathroom_window_contact
+#     - binary_sensor.bathroom_window_acceleration
+#     - climate.bathroom_2
+# landing:
+#      - climate.landing_2
+# loft:
+#     - light.loft_suite_spotlights 
+#     - light.bookshelf_lamp
+tado_rads:
+    - climate.friends 
+    - climate.main
+    - climate.bathroom_2 
+    - climate.landing_2
+    - climate.study
+    - climate.loft_suite
+#
+## System Status
+#
+batteries:
+    - sensor.aarlo_battery_level_swings
+    - sensor.bathroom_dimmer_battery_level
+    - sensor.bathroom_heater_battery_level
+    - sensor.bathroom_window_battery
+    - sensor.bay_party_wall_battery
+    - sensor.bay_window_battery
+    - sensor.doorstep_battery
+    - sensor.front_battery
+    - sensor.front_door_battery
+    - sensor.garage_out_battery
+    - sensor.guest_win_battery
+    - sensor.iphone_battery_level
+    - sensor.iphone_battery_state
+    - sensor.isla_switch_battery_level
+    - sensor.kitchen_battery
+    - sensor.kitchen_switch_battery_level
+    - sensor.landing_window_battery
+    - sensor.loft_hatch_battery
+    - sensor.lounge_lamps_switch_battery_level
+    - sensor.m_bedside_light_battery_level
+    - sensor.main_window_battery
+    - sensor.main_window_party_battery
+    - sensor.patio_door_battery
+    - sensor.pixel_3_battery_level
+    - sensor.pixel_3_battery_state
+    - sensor.swings_battery_level
+    - sensor.utility_back_door_battery

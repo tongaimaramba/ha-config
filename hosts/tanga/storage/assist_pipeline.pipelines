@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "assist_pipeline.pipelines",
+  "data": {
+    "items": [
+      {
+        "conversation_engine": "conversation.mhuka",
+        "conversation_language": "*",
+        "id": "01h0bt0qykzmqxneayf1qh72t4",
+        "language": "en-GB",
+        "name": "Home Assistant",
+        "stt_engine": null,
+        "stt_language": null,
+        "tts_engine": "google_translate",
+        "tts_language": "en-gb",
+        "tts_voice": null,
+        "wake_word_entity": null,
+        "wake_word_id": null,
+        "prefer_local_intents": false
+      },
+      {
+        "conversation_engine": "conversation.mhuka",
+        "conversation_language": "*",
+        "id": "01kaq3t3pt2jsn5ywhakhgtdee",
+        "language": "en",
+        "name": "milly",
+        "stt_engine": null,
+        "stt_language": null,
+        "tts_engine": null,
+        "tts_language": null,
+        "tts_voice": null,
+        "wake_word_entity": null,
+        "wake_word_id": null,
+        "prefer_local_intents": true
+      }
+    ],
+    "preferred_item": "01kaq3t3pt2jsn5ywhakhgtdee"
+  }
+}

@@ -1,0 +1,61 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/259739166.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@markgdev"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Octopus Agile custom component for Home Assistant",
+        "domain": "octopusagile",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"fabe1c3b8e2ea7255654f9e1962e5009723a7ccb185419d6dd0fa56e2ebd52fe\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "markgdev/home-assistant_OctopusAgile",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "259739166",
+        "iot_class": null,
+        "installed": true,
+        "installed_commit": "b2a565d",
+        "installed_version": "v0.1.1",
+        "open_issues": 27,
+        "last_commit": "b09a118",
+        "last_version": "v0.1.1",
+        "last_updated": "2021-08-29T11:52:01Z",
+        "manifest_name": "octopusagile",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2021-08-29T11:52:01",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "v0.1.1",
+            "v0.1.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 60,
+        "topics": [
+            "energy",
+            "home-assistant",
+            "home-automation",
+            "octopus",
+            "octopus-agile",
+            "octopus-energy"
+        ],
+        "zip_release": false
+    }
+}

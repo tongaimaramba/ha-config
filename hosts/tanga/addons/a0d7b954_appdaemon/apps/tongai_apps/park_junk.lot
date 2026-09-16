@@ -1,0 +1,127 @@
+#
+#Extra bits of code
+#
+# Listening
+#
+# if self.args.get("home_gateway_sensors") is not None:
+#            for gateway_sensor in self.args["home_gateway_sensors"]:
+
+#                self.hass.listen_state(self.gateway_opened, gateway_sensor)
+      
+ #       self.listen_state(self.authenticate,list_list,test1="hello testing kwargs)")
+        
+#    def authenticate(self, entity, attribute, old, new, kwargs):
+#    self.log("tt1 is {}".format(kwargs["test1"]))
+    
+#
+# handle guests        
+ #       for guest in self.args.get("guests_list"):
+ #         guest_fields = guest.split('/')
+ #         guest_ent = "binary_sensor.monitor_ {}".format(guest_fields[1])
+ #         self.guest_entity = {guest_ent: guest_fields[0]}
+#          self.adbase.log("guest entity is: {}".format(self.guest_entity)
+#          self.res_list.append(guest_fields[0])
+ ###         self.guest_trig_sensor = {guest_ent: guest_fields[2]}
+#        
+#        self.adbase.log("residents are: {} and {}".format(res_list))
+#        
+#        
+#        self.known_beacons = {
+#            p[0]: p[1].lower()
+#            for p in (b.split(" ", 1) for b in self.args.get("known_beacons", []))
+
+
+
+
+            ts = (self.adbase.datetime() - self.trigger[1]).total_seconds()-3600
+            # Check for timeout between trigger and device arrival
+            if ts > self.args.get("trigger_timeout"):                                                                           
+                self.adbase.log(f"Timeout: Trigger {entity} last triggered too long ago: {int(ts)} seconds.",level="DEBUG")
+                self.trigger.clear()
+            else:
+                trig_flag =  self.hass_ts(new["last_changed"])
+                trig_door = self.triggers[entity]
+                door_contact = self.door_contacts[trig_door] 
+                self.trigger = [entity,trig_flag,trig_door,door_contact]
+                self.trig_size = len(self.trigger)
+                if not (self.res_size or self.guest_size): self.mqtt.mqtt_publish("monitor/run_scan/arrive")
+
+#            self.adbase.log(f"Line 225 Trig Block: Entity {self.trigger[0]} was. triggered at {self.trigger[1]} for {self.trigger[2]}",level="INFO")   #Enable for Debugging        
+
+          # check_if_garden()
+            # Check for timeout between trigger and device arrival
+            if self.trig_size:
+                #try in case resident is blank
+                ts = (self.resident[2] - self.trigger[1]).total_seconds()-3600
+                if abs(ts) > self.args.get("trigger_timeout"):
+                    if ts > self.args.get("trigger_timeout"): 
+                        self.adbase.log(f"Timeout: Trigger {entity} last triggered too long ago: {int(ts)} seconds.",level="DEBUG")
+                        self.trigger.clear()
+                    else:
+                        self.adbase.log(f"Timeout: Device {entity} has already been home for too long: {int(ts)} seconds.", level="DEBUG")
+                        self.resident.clear()
+                        return
+            if not self.res_size:
+                friendly_name = new["attributes"]["friendly_name"]
+                res_flag = self.hass_ts(new["last_changed"])
+                self.resident = [entity,friendly_name,res_flag]
+                self.res_size = len(self.resident)
+#            self.adbase.log(f"Line 236: Resident time: {self.resident[2]}; Trigger time: {self.trigger[1]} \nDevice that triggered this loop: {entity}")   #Enable for Debug
+
+            # Try to unlock            
+            try:
+                diff = (self.resident[2] - self.trigger[1]).total_seconds()
+                if diff < 0: diff = int((self.adbase.datetime() - self.trigger[1]).total_seconds()-3600)
+                self.adbase.log(f"OK to unlock for Resident: diff btn device: {self.resident[1]} and trigger: {self.trigger[3]} is {abs(diff)} seconds.")
+                if self.hass.get_state(self.trigger[3]) == "off":
+                    self.open_up(self.trigger[2],self.resident[1])
+                    self.shout("loud",f"Unlocked for {self.resident[1]} in {abs(diff)} seconds",heading="*** Resident Home ***")
+                else:
+                    self.adbase.log(f"No action: {self.resident[1]} tried to auto-unlock but {self.trigger[2]} is already open.")
+                    self.shout("normal",f"{self.resident[1]} tried to auto-unlock but {self.trigger[2]} is already open.",heading="***Auto-Unlock Failed ***")
+                self.trigger.clear()
+                self.resident.clear()
+            except Exception as e:
+                self.adbase.log(f"Resident block exception: {e}")
+                          
+        if (self.trig_size and self.guest_size) or (entity in self.guest_list and old["state"] == "off" and new["state"] == "on"):
+          # check_if_garden()    
+            if not self.guest_size:
+                ts = (self.adbase.datetime() - self.trigger[1]).total_seconds()-3600
+                # Check for timeout between trigger and device arrival
+                if ts > self.args.get("trigger_timeout"):
+                    self.adbase.log(f"Timeout: Device {entity} has already been home for too long: {int(ts)} seconds.", level="DEBUG")
+                    self.guest.clear()
+                else:
+                    friendly_name = new["attributes"]["friendly_name"]
+                    guest_flag = self.hass_ts(new["last_changed"])
+                    now = self.authenticate_guests(entity)
+                    self.guest = [entity,friendly_name,guest_flag,self.guest_lock,now]
+                    self.guest_size = len(self.guest)
+           else:
+                self.guest[4] = self.authenticate_guests(self.guest[0])         #reconfirm that we are still within the time window
+            
+            if self.guest[4] and (self.guest[3] == self.trigger[2]):            #check time windoow and approved door
+                try:
+                    diff = (self.guest[2] - self.trigger[1]).total_seconds()
+                    if diff < 0: diff = int((self.adbase.datetime() - self.trigger[1]).total_seconds()-3600)
+                    self.adbase.log(f"OK to unlock for Guest: diff btn device: {self.guest[1]} and trigger: {self.trigger[0]} is {abs(diff)} seconds.")
+                    if self.hass.get_state("self.trigger[3]") == "off":
+                        self.open_up(self.trigger[2],self.guest[1])
+                        self.shout("loud",f"Unlocking: {self.trigger[2]} for {self.guest[1]} ({abs(diff)} seconds)",heading="*** Guest Access Alert ***")
+                    else:
+                        self.adbase.log(f"No action: {self.guest[1]} tried to auto-unlock but {self.trigger[2]} is already open.")
+                        self.shout("normal",f"{self.guest[1]} tried to auto-unlock but {self.trigger[2]} is already open.",heading="***Auto-Unlock Failed ***")
+                    self.trigger.clear()
+                    self.guest.clear()
+                except Exception as e:
+                    self.adbase.log(f"Guest block exception: {e}")
+            elif self.guest[3] != self.trigger[2]:
+#               notify admin
+                self.adbase.log(f"Access Alert: Guest device {self.guest[1]} tried to access wrong lock: {self.trigger[2]} instead of {self.guest[3]}",level="INFO")
+                self.shout("loud",f"Guest device {self.guest[1]} tried to access wrong lock: {self.trigger[2]} instead of {self.guest[3]}",heading="*** Guest Access Alert***")
+            else:
+#               notify admin
+                window = self.args.get("time_window")
+                self.adbase.log(f"Access Alert: Guest device {self.guest[1]} just tried to access lock on {self.guest[3]} outside time window {window}",level="INFO")
+                self.shout("loud",f"Guest device {self.guest[1]} just tried to access {self.guest[3]} outside time window {window}",heading="*** Guest Access Alert***")

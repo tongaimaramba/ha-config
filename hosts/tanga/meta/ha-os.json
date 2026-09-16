@@ -1,0 +1,1 @@
+{"result":"ok","data":{"version":"15.2","version_latest":"18.2","version_pending":null,"update_available":true,"board":"rpi5-64","boot":"B","data_disk":"USD00-0x31642e4e","boot_slots":{"A":{"state":"inactive","status":"good","version":"15.0"},"B":{"state":"booted","status":"good","version":"15.2"}}}}

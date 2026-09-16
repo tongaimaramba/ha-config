@@ -1,0 +1,14 @@
+{
+  "cycle_id": "garage_20251204_071844_000025",
+  "door": "garage",
+  "person": "Tongai",
+  "timestamp": "2025-12-04T07:18:44.131654",
+  "tap_outcome": "failure",
+  "reason": "Location not available (timeout)",
+  "checks_passed": [],
+  "failed_at": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

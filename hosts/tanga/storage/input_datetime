@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_datetime",
+  "data": {
+    "items": [
+      {
+        "name": "weekday shower",
+        "icon": "mdi:shower-head",
+        "has_time": true,
+        "has_date": false,
+        "id": "weekday_shower"
+      },
+      {
+        "id": "return",
+        "name": "Return",
+        "has_date": true,
+        "has_time": true
+      },
+      {
+        "id": "start_window",
+        "name": "Start Window",
+        "has_date": false,
+        "has_time": true
+      },
+      {
+        "id": "end_window",
+        "name": "End window",
+        "has_date": false,
+        "has_time": true
+      },
+      {
+        "id": "high_start",
+        "name": "high start",
+        "has_date": true,
+        "has_time": true,
+        "icon": "mdi:currency-gbp"
+      },
+      {
+        "id": "high_end",
+        "name": "high end",
+        "has_date": false,
+        "has_time": true,
+        "icon": "mdi:currency-gbp"
+      }
+    ]
+  }
+}

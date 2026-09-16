@@ -1,0 +1,578 @@
+manage_guest_access:
+  alias: manage_guests
+  icon: mdi:account
+  mode: single
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.guest_access
+        state: Add
+      sequence:
+      - data_template:
+          message: 'the guest: {{states(''input_text.guest_name'')}} with MAC {{states(''input_text.mac_addr'')}}
+            as {{states(''input_select.relationship'')}} just created'
+        service: notify.all_android
+      - data:
+          value: 2
+        entity_id: input_number.monitor_action
+        service: input_number.set_value
+      - event: run_guest_access
+        event_data:
+          name: run_guest_access
+    - conditions:
+      - condition: state
+        entity_id: input_select.guest_access
+        state: Remove
+      sequence:
+      - data_template:
+          message: 'the guest: {{states(''input_text.guest_name'')}} with MAC {{states(''input_text.mac_addr'')}}
+            as {{states(''input_select.relationship'')}} just removed'
+        service: notify.all_android
+      - data:
+          value: 1
+        entity_id: input_number.monitor_action
+        service: input_number.set_value
+      - event: run_guest_access
+        event_data:
+          name: run_guest_access
+    default:
+    - data_template:
+        message: No action selected so nothing done. Select from "Add" or "Remove"
+          and resubmit
+      service: notify.all_android
+    - data:
+        value: 0
+      entity_id: input_number.monitor_action
+      service: input_number.set_value
+bathtime_on:
+  alias: Bathtime On
+  sequence:
+  - type: turn_on
+    device_id: ef52ca73e86842ce81d6c44af594b4a7
+    entity_id: light.bathroom_sink
+    domain: light
+    brightness_pct: 80
+  - type: turn_on
+    device_id: bc964c1c755b413e95e17234a6885d04
+    entity_id: light.bathroom_heater
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: 40e5bd673eba4cd59035ba018b61bead
+    entity_id: light.isla_wall
+    domain: light
+    brightness_pct: 80
+  - service: climate.turn_on
+    data: {}
+    entity_id: climate.upstairs
+  - service: climate.set_temperature
+    data:
+      temperature: 24
+      hvac_mode: heat
+    entity_id: climate.upstairs
+  - type: turn_on
+    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
+    entity_id: light.m_side
+    domain: light
+    brightness_pct: 100
+  mode: single
+  icon: mdi:shower
+bathtime_off:
+  alias: Bathtime Off
+  sequence:
+  - type: turn_off
+    device_id: ef52ca73e86842ce81d6c44af594b4a7
+    entity_id: light.bathroom_sink
+    domain: light
+  - type: turn_off
+    device_id: bc964c1c755b413e95e17234a6885d04
+    entity_id: light.bathroom_heater
+    domain: light
+  - type: turn_off
+    device_id: 40e5bd673eba4cd59035ba018b61bead
+    entity_id: light.isla_wall
+    domain: light
+  - service: climate.turn_off
+    data: {}
+    entity_id: climate.upstairs
+  - type: turn_off
+    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
+    entity_id: light.m_side
+    domain: light
+  mode: single
+  icon: mdi:shower
+study_boost:
+  alias: Study Boost
+  sequence:
+  - service: tado.set_climate_timer
+    data:
+      time_period: 00:30:00
+      temperature: 25
+    target:
+      entity_id: '{{states(''input_select.room_heater'')}}'
+  mode: single
+relaunch_apps:
+  alias: Relaunch Apps
+  sequence:
+  - service: input_boolean.toggle
+    data_template:
+      entity_id: input_boolean.relaunch
+  mode: single
+  icon: mdi:rocket
+lock_nuki_momentary:
+  alias: Lock Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.lock_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.lock_nuki
+  mode: single
+  icon: 'mdi: lock'
+unlock_nuki_momentary:
+  alias: Unlock Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.unlock_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.unlock_nuki
+  mode: single
+  icon: mdi:unlock
+open_nuki_momentary:
+  alias: Open Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.open_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.open_nuki
+  mode: single
+  icon: mdi:door-open
+movie_lights:
+  alias: Movie Lights
+  sequence:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.movie_lamp
+      - light.dining_spotlights_3
+      - light.lounge_lamp_1
+  mode: single
+  icon: mdi:movie
+home_fires:
+  alias: Home Fires
+  sequence:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: group.downstairs_lights
+  - service: light.turn_on
+    data:
+      brightness_pct: 10
+    target:
+      entity_id:
+      - light.lounge_lamp_2
+      - light.movie_lamp
+  mode: single
+  icon: mdi:candle
+nearly_home:
+  alias: Nearly Home
+  sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.nearly_home
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.away_on_holiday
+  mode: single
+  icon: mdi:road
+boost_downstairs:
+  alias: Boost Downstairs
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 20
+      milliseconds: 0
+  - service: climate.set_temperature
+    data:
+      temperature: 20
+    target:
+      entity_id: climate.downstairs
+  mode: single
+grid:
+  alias: Grid
+  sequence:
+  - if:
+    - condition: template
+      value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<=100
+        }}'
+    then:
+    - service: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.importing
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.importing
+  mode: single
+change_sound_output:
+  alias: change sound output
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.audio_switch
+        state: 'on'
+      sequence:
+      - service: webostv.select_sound_output
+        data:
+          entity_id: media_player.projector
+          sound_output: soundbar
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.audio_switch
+        state: 'off'
+      sequence:
+      - service: webostv.select_sound_output
+        metadata: {}
+        data:
+          entity_id: media_player.projector
+          sound_output: headphone
+  mode: single
+  icon: mdi:speaker
+downstairs_lights_off:
+  alias: Downstairs Lights Off
+  sequence:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.downstairs_lights
+      - light.movie_lamp
+      - light.study_desk_lamp
+    action: light.turn_off
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.sonoff_lights
+    action: switch.turn_off
+  mode: single
+  icon: mdi:light-switch
+fp_delete_fingerprint:
+  alias: Delete Single Fingerprint
+  sequence:
+  - action: esphome.fp_delete_fingerprint
+    data:
+      finger_id: '{{ states(''input_number.fp_enroll_id'') | int }}'
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.fp_metadata
+    data:
+      value: '{% set fid = states(''input_number.fp_enroll_id'') | string %} {% set
+        current = states(''input_text.fp_metadata'') %} {{ current.split('';'') |
+        reject(''match'', ''^'' ~ fid ~ '':'') | join('';'') }}'
+fp_delete_all_fingerprints:
+  alias: Delete All Fingerprints
+  sequence:
+  - action: esphome.fp_delete_all_fingerprints
+    data: {}
+  - target:
+      entity_id: input_text.fp_metadata
+    data:
+      value: ''
+    action: input_text.set_value
+fp_enroll_fingerprint:
+  sequence:
+  - action: esphome.fp_enroll
+    data:
+      finger_id: '{{ states(''input_number.fp_enroll_id'') | int }}'
+      num_scans: '{{ states(''input_number.fp_enroll_scans'') | int }}'
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.fp_metadata
+    data:
+      value: "{% set current = states('input_text.fp_metadata') %} {% set new_entry
+        = [\n  states('input_number.fp_enroll_id'),\n  states('input_text.fp_enroll_name'),\n
+        \ states('input_text.fp_enroll_finger')\n] | join(':') %} {{ current ~ ';'
+        ~ new_entry if current != '\"\"' else new_entry }}"
+  alias: fp_enroll_fingerprint
+fp_reset:
+  sequence:
+  - action: esphome.fp_reset_lockout
+    metadata: {}
+    data: {}
+  alias: fp reset
+  description: ''
+auto_allocate_fingerprint_id:
+  alias: Auto-select Next Fingerprint ID
+  sequence:
+  - variables:
+      used_ids: "{% set store = states('input_text.fp_metadata_store') %} {% set ns
+        = namespace(id_list=[]) %} {% if store %}\n  {% for record in store.split(';')
+        if record %}\n    {% set parts = record.split(':') %}\n    {% if parts|length
+        >= 1 %}\n      {# Extract ID from first part #}\n      {% set id_candidate
+        = parts[0] | int(default=0) %}\n      {% if 1 <= id_candidate <= 127 %}\n
+        \       {% if id_candidate not in ns.id_list %}\n          {% set ns.id_list
+        = ns.id_list + [id_candidate] %}\n        {% endif %}\n      {% endif %}\n
+        \   {% endif %}\n  {% endfor %}\n{% endif %} {{ ns.id_list | sort }}"
+      next_id: "{% set id_set = used_ids | list %}  {# Convert to list #} {% for i
+        in range(1, 128) %}\n  {% if i not in id_set %}\n    {{ i }}\n    {% break
+        %}\n  {% elif loop.last %}\n    0\n  {% endif %}\n{% endfor %}"
+  - condition: '{{ next_id | int > 0 }}'
+  - action: input_number.set_value
+    target:
+      entity_id: input_number.fp_enroll_id
+    data:
+      value: '{{ next_id }}'
+  - action: notify.mobile_app_tongai_s22
+    data:
+      message: "\U0001F513 Fingerprint ID Selected: {{ next_id }}\n\U0001F4CA Currently
+        Used IDs: {{ used_ids }}\n✅ Ready for enrollment\n"
+    enabled: false
+  description: ''
+debug_fingerprint_id_parser:
+  alias: Enhanced Debug Fingerprint ID Parser
+  sequence:
+  - variables:
+      sensor1_raw: '{{ states(''sensor.fp_auth_fingerprint_metadata_part_1'') }}'
+      sensor2_raw: '{{ states(''sensor.fp_auth_fingerprint_metadata_part_2'') }}'
+      sensor3_raw: '{{ states(''sensor.fp_auth_fingerprint_metadata_part_3'') }}'
+      test_parsing: '{% set test_string = "1:wwwww:Left Index" %} {% set entry = test_string.split('':'')
+        %} Step1_split: {{ entry }} | Step2_first_part: ''{{ entry[0] }}'' | Step3_is_decimal:
+        {{ entry[0].isdecimal() }} | Step4_as_int: {{ entry[0] | int }} | Step5_in_range:
+        {{ 1 <= (entry[0] | int) <= 127 }}'
+      used_ids: "{% set ns = namespace(ids=[]) %} {% for part in \n    states('sensor.fp_auth_fingerprint_metadata_part_1').split(';')
+        +\n    states('sensor.fp_auth_fingerprint_metadata_part_2').split(';') +\n
+        \   states('sensor.fp_auth_fingerprint_metadata_part_3').split(';') \n%}\n
+        \ {% if part.strip() != '' and ':' in part %}\n    {% set entry = part.strip().split(':')
+        %}\n    {% if entry|length >= 1 and entry[0].isdecimal() %}\n      {% set
+        id_candidate = entry[0] | int %}\n      {% if 1 <= id_candidate <= 127 and
+        id_candidate not in ns.ids %}\n        {% set ns.ids = ns.ids + [id_candidate]
+        %}\n      {% endif %}\n    {% endif %}\n  {% endif %}\n{% endfor %} {{ ns.ids
+        | sort }}"
+      next_id: "{% for i in range(1, 128) %}\n  {% if i not in used_ids %}\n    {{
+        i }}\n    {% break %}\n  {% elif loop.last %}\n    0\n  {% endif %}\n{% endfor
+        %}"
+  - action: notify.mobile_app_tongai_s22
+    data:
+      message: "\U0001F50D ENHANCED DEBUG RESULTS:\n\n\U0001F4CA Raw Sensors:\n• Sensor
+        1: '{{ sensor1_raw }}'\n• Sensor 2: '{{ sensor2_raw }}'\n• Sensor 3: '{{ sensor3_raw
+        }}'\n\n\U0001F9EA Test Parsing: {{ test_parsing }}\n\n✅ Used IDs Found: {{
+        used_ids }}\n\U0001F3AF Next Available ID: {{ next_id }}\n\n\U0001F4DD All
+        Split Parts: {{ \n  states('sensor.fp_auth_fingerprint_metadata_part_1').split(';')
+        +\n  states('sensor.fp_auth_fingerprint_metadata_part_2').split(';') +\n  states('sensor.fp_auth_fingerprint_metadata_part_3').split(';')
+        \n}}\n"
+manage_fp_metadata:
+  alias: Manage FP Metadata
+  description: "Add, update, or delete a fingerprint record in input_text.fp_metadata_store.
+    \n\nUsage:\n  - service: script.manage_fp_metadata\n    data: \n      action:
+    \"add\"  or \"update\" or \"delete\"\n      record: \"4:Sam:LeftThumb\"   #For
+    add/update\n      record_id: \"4\"                           # For update/delete\n"
+  fields:
+    action:
+      description: add, update, or delete
+      example: add
+    record:
+      description: Record string in format id:name:finger (for add/update)
+      example: 4:Sam:LeftThumb
+    record_id:
+      description: ID of record to update/delete
+      example: '4'
+  sequence:
+  - variables:
+      store: '{{ states(''input_text.fp_metadata_store'') }}'
+      records: '{{ store.split('';'') if store else [] }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ action == ''add'' }}'
+      sequence:
+      - variables:
+          filtered: '{{ records | reject(''match'', ''^'' ~ record.split('':'')[0]
+            ~ '':'') | list }}'
+          new_records: '{{ filtered + [record] }}'
+      - target:
+          entity_id: input_text.fp_metadata_store
+        data:
+          value: '{{ new_records | join('';'') }}'
+        action: input_text.set_value
+    - conditions:
+      - condition: template
+        value_template: '{{ action == ''update'' }}'
+      sequence:
+      - variables:
+          updated: '{{ records | map(''regex_replace'', ''^'' ~ record_id ~ '':.*'',
+            record) | list }}
+
+            '
+      - target:
+          entity_id: input_text.fp_metadata_store
+        data:
+          value: '{{ updated | join('';'') }}'
+        action: input_text.set_value
+    - conditions:
+      - condition: template
+        value_template: '{{ action == ''delete'' }}'
+      sequence:
+      - variables:
+          filtered: '{{ records | reject(''match'', ''^'' ~ record_id ~ '':'') | list
+            }}'
+      - target:
+          entity_id: input_text.fp_metadata_store
+        data:
+          value: '{{ filtered | join('';'') }}'
+        action: input_text.set_value
+ignore_ac_automation_for_1_hour:
+  alias: Ignore AC Automation for 1 Hour
+  sequence:
+  - target:
+      entity_id: input_datetime.ignore_until
+    data:
+      datetime: '{{ (now() + timedelta(hours=1)).strftime(''%Y-%m-%d %H:%M:%S'') }}'
+    action: input_datetime.set_datetime
+  - target:
+      entity_id: input_boolean.ignore_ac_automation
+    action: input_boolean.turn_on
+    data: {}
+  - data:
+      title: AC Automation Ignored
+      message: Energy-saving scenarios disabled for 1 hour
+    action: persistent_notification.create
+  description: ''
+reset_all_ac_flags:
+  alias: Reset All AC Flags
+  sequence:
+  - target:
+      entity_id:
+      - light.scenario_1_light
+      - light.scenario_2_light
+      - light.scenario_3_light
+    action: light.turn_off
+    data: {}
+  - target:
+      entity_id: input_boolean.ignore_ac_automation
+    action: input_boolean.turn_off
+    data: {}
+  - target:
+      entity_id: input_datetime.ignore_until
+    data:
+      datetime: '1970-01-01 00:00:00'
+    action: input_datetime.set_datetime
+  description: ''
+set_growatt_sph_mode_with_retry:
+  alias: Set Growatt SPH Mode with Retry
+  mode: single
+  fields:
+    expected_mode:
+      description: Expected inverter mode/state, e.g. "Battery first".
+      example: Battery first
+      required: true
+  variables:
+    mqtt_topic: solar_assistant/inverter_1/work_mode_priority/set
+    max_attempts: 3
+    delay_seconds: 8
+  sequence:
+  - variables:
+      attempt: 0
+  - repeat:
+      until:
+      - condition: template
+        value_template: '{{ states(''sensor.growatt_sph_device_mode'') == expected_mode
+          or repeat.index >= max_attempts }}'
+      sequence:
+      - data:
+          topic: '{{ mqtt_topic }}'
+          payload: '{{ expected_mode }}'
+          qos: 1
+        action: mqtt.publish
+      - wait_for_trigger:
+        - entity_id: sensor.growatt_sph_device_mode
+          to: '{{ expected_mode }}'
+          trigger: state
+        timeout:
+          seconds: '{{ delay_seconds }}'
+        continue_on_timeout: true
+  description: ''
+set_growatt_mode_from_dropdown:
+  alias: Set Growatt Mode From Dropdown
+  sequence:
+  - data:
+      expected_mode: '{{ states(''input_select.inverter_mode'') }}'
+    action: script.set_growatt_sph_mode_with_retry
+  description: ''
+take_calibration_snapshot:
+  alias: Take Calibration Snapshot
+  sequence:
+  - target:
+      entity_id: notify.file
+    data:
+      message: "{% set entities = [\n  'sensor.tongaism25_wi_fi_bssid', \n  'sensor.tongaism25_wi_fi_signal_strength',\n
+        \ 'sensor.bermuda_tongai_phone_area',\n  'sensor.bermuda_tongai_phone_distance',\n
+        \ 'device_tracker.bermuda_tongai_phone_bermuda_tracker'\n] %} {{ now().isoformat()
+        }},\"{{ states('input_select.calibration_location') }}\" {%- for entity in
+        entities %},\"{{ states(entity) }}\",\"{{ states[entity].attributes | tojson
+        | replace('\"', '\"\"') }}\"{% endfor %}"
+    action: notify.send_message
+arrive_at_front_door:
+  alias: Arrive at Front Door
+  sequence:
+  - data:
+      entity_id: input_text.mock_user
+      value: Tongai
+    action: input_text.set_value
+  - data:
+      entity_id: input_select.mock_location_area
+      option: front_door
+    action: input_select.select_option
+  - data:
+      entity_id: input_number.mock_ble_distance
+      value: 1.2
+    action: input_number.set_value
+  - data:
+      entity_id: input_boolean.mock_tap_front_door
+    action: input_boolean.turn_on
+  description: ''
+leave_to_away:
+  alias: Leave to Away
+  sequence:
+  - data:
+      entity_id: input_select.mock_location_area
+      option: away
+    action: input_select.select_option
+  - data:
+      entity_id: input_boolean.mock_tap_front_door
+    action: input_boolean.turn_off
+  description: ''

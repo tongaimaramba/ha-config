@@ -1,0 +1,16 @@
+{
+  "cycle_id": "garage_20251201_121423_000296",
+  "door": "garage",
+  "person": "Tongai",
+  "timestamp": "2025-12-01T12:14:23.108954",
+  "tap_outcome": "failure",
+  "reason": "Not in proximity (not arriving)",
+  "ignore_reason": null,
+  "checks_passed": [],
+  "failed_at": null,
+  "failure_reason": null,
+  "arrival_phase": false,
+  "retry_count": 0,
+  "ble_area": null,
+  "ble_distance_m": null
+}

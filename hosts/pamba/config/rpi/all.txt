@@ -1,0 +1,554 @@
+import re
+import random
+import pandas as pd
+from faker import Faker
+import hashlib
+
+class AlexaAnonymizer:
+    def __init__(self):
+        self.fake = Faker()
+        self.device_hashes = {}
+    
+    def anonymize_row(self, row):
+        """Anonymize all sensitive fields in a data row"""
+        # Create a copy to avoid modifying the original
+        anon_row = row.copy()
+
+        # Preserve device_id for transformation
+        anon_row['original_device_id'] = row.get('device_id')
+        anon_row['device_id'] = self._hash_device(row.get('device_id', ''))
+        
+        # Anonymize each field
+        if 'command_text' in anon_row:
+            anon_row['command_text'] = self._redact_pii(anon_row['command_text'])
+        
+        if 'device_id' in anon_row:
+            anon_row['device_id'] = self._hash_device(anon_row['device_id'])
+        
+        if 'timestamp' in anon_row:
+            anon_row['timestamp'] = self._perturb_time(anon_row['timestamp'])
+            
+        # Add any other fields that need anonymization
+        if 'user_name' in anon_row:
+            anon_row['user_name'] = self.fake.name()
+            
+        return anon_row
+    
+    def _redact_pii(self, text):
+        """Replace personally identifiable information with [REDACTED]"""
+        if not isinstance(text, str):
+            return text
+            
+        patterns = [
+            r'\b\d{3}[-\.]?\d{3}[-\.]?\d{4}\b',  # Phone numbers
+            r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',  # Emails
+            r'\b(?:\d{1,3}\.){3}\d{1,3}\b',  # IP addresses
+            r'\b[0-9]{16,19}\b',  # Credit card numbers
+            r'\b[A-Z]{2}\s?[0-9]{2}\s?[A-Z]{1,2}\s?[0-9]{1,2}\s?[0-9]{1}[A-Z]{2}\b'  # UK Postcodes
+        ]
+        
+        for pattern in patterns:
+            text = re.sub(pattern, '[REDACTED]', text)
+            
+        return text
+    
+    def _hash_device(self, device_id):
+        """Create consistent anonymized IDs for devices"""
+        if not isinstance(device_id, str):
+            return device_id
+            
+        if device_id not in self.device_hashes:
+            # Create a consistent hash for the same device ID
+            self.device_hashes[device_id] = hashlib.sha256(device_id.encode()).hexdigest()[:8]
+            
+        return f"device_{self.device_hashes[device_id]}"
+    
+    def _perturb_time(self, timestamp):
+        if pd.isna(timestamp):  # Handle NaT
+            return None
+        """Add random time offset to timestamps to prevent identification"""
+        if not timestamp:
+            return timestamp
+            
+        # Convert timestamp to datetime if it's a string
+        if isinstance(timestamp, str):
+            timestamp = pd.to_datetime(timestamp)
+            
+        # Add random offset between -5 and 5 minutes
+        perturbed = timestamp + pd.Timedelta(minutes=random.randint(-5, 5))
+        
+        # Return in the same format as the input
+        if isinstance(timestamp, str):
+            return perturbed.isoformat()
+        return perturbed
+import pandas as pd
+from pathlib import Path
+from intent_inference import infer_intents
+
+class AlexaDataLoader:
+    def __init__(self, data_dir):
+        self.data_dir = Path(data_dir)
+        self.voice_commands = infer_intents(data_dir)
+        self.device_states = self._load_csv_group("DeviceState-*.csv")
+        self.endpoints = self._load_endpoints()
+
+    def _load_csv_group(self, pattern):
+        files = list(self.data_dir.glob(pattern))
+        return pd.concat([pd.read_csv(f) for f in files], ignore_index=True) if files else pd.DataFrame()
+
+    def _load_endpoints(self):
+        ep_path = self.data_dir / "Endpoints.csv"
+        if not ep_path.exists():
+            return pd.DataFrame()
+        df = pd.read_csv(ep_path)
+        # Normalize for mapping: strip whitespace and lower-case for robust matching
+        df['Name of Endpoint'] = df['Name of Endpoint'].astype(str).str.strip().str.lower()
+        return df
+
+    def _load_voice_history(self):
+        """Load and clean voice command transcripts"""
+        voice_path = self.export_dir / 'voice_history.csv'
+    
+        # Read with quote handling
+        df = pd.read_csv(voice_path, quotechar="'")
+    
+        # Clean text (your specific case needs this)
+        df['command_text'] = df['Transcription'].str.strip("' ")  # Strip quotes and whitespace
+    
+        # Additional cleaning for common Alexa artifacts
+        df['command_text'] = df['command_text'].str.replace(
+            r'\b(alexa|echo|computer|hey\s+google)\b', 
+            '', 
+            case=False, 
+            regex=True
+        ).str.strip()
+    
+        return df
+
+    def get_endpoint_map(self):
+        # Returns a dict: name_of_endpoint (lowercase) -> description (or just name)
+        return dict(zip(self.endpoints['Name of Endpoint'], self.endpoints['Description of Endpoint']))
+
+    def get_voice_commands(self):
+        return self.voice_commands
+def validate_transformations(original, transformed):
+    assert len(original) == len(transformed)
+    assert all('prompt' in t for t in transformed)
+    assert all('completion' in t for t in transformed)
+import json
+import os
+from pathlib import Path
+
+def export_to_jsonl(data, output_path, append=False):
+    """Export data to JSONL format with proper error handling"""
+    try:
+        # Ensure output directory exists
+        output_dir = Path(output_path).parent
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Write data using context manager
+        mode = 'a' if append else 'w'
+        with open(output_path, mode, encoding='utf-8') as f:
+            for item in data:
+                f.write(json.dumps(item, ensure_ascii=False) + '\n')
+                
+    except PermissionError:
+        print(f"Error: Permission denied for {output_path}")
+    except Exception as e:
+        print(f"Export failed: {str(e)}")
+#!/usr/bin/env python3
+import pandas as pd
+import re
+from pathlib import Path
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+def infer_intents(data_dir: str) -> pd.DataFrame:
+    """
+    Load Alexa command data and infer intents based on transcription patterns.
+    
+    Args:
+        data_dir: Path to directory containing Alexa export files
+    
+    Returns:
+        DataFrame with all command data plus inferred intents
+    """
+    data_dir = Path(data_dir)
+    logger.info(f"Loading data from {data_dir}")
+    
+    # Load recognition data files (voice command transcripts)
+    recog_files = list(data_dir.glob('recognitionData*.csv'))
+    if not recog_files:
+        logger.error("No recognitionData CSV files found!")
+        return pd.DataFrame()
+        
+    logger.info(f"Found {len(recog_files)} transcription files")
+    recog_df = pd.concat([pd.read_csv(f) for f in recog_files], ignore_index=True)
+    
+    # Load question understandings if available (may contain intent information)
+    q_file = data_dir / 'questionUnderstandings.csv'
+    if q_file.exists():
+        logger.info("Loading questionUnderstandings.csv")
+        q_df = pd.read_csv(q_file)
+        # Check if intent column exists in questionUnderstandings
+        intent_columns = [col for col in q_df.columns if 'intent' in col.lower()]
+        if intent_columns:
+            logger.info(f"Found intent column(s): {intent_columns}")
+            # If multiple intent columns, prefer the one named just 'intent'
+            intent_col = 'intent' if 'intent' in intent_columns else intent_columns[0]
+            q_df_intent = q_df[['timestamp', intent_col]].rename(columns={intent_col: 'qa_intent'})
+            
+            # Merge with recognition data if possible
+            if 'timestamp' in q_df.columns and 'Interaction Timestamp' in recog_df.columns:
+                logger.info("Merging intent data from questionUnderstandings")
+                recog_df['timestamp'] = pd.to_datetime(recog_df['Interaction Timestamp'], errors='coerce')
+                q_df_intent['timestamp'] = pd.to_datetime(q_df_intent['timestamp'], errors='coerce')
+                
+                # Merge using timestamp proximity
+                merged = pd.merge_asof(
+                    recog_df.sort_values('timestamp'),
+                    q_df_intent.sort_values('timestamp'),
+                    on='timestamp',
+                    direction='nearest',
+                    tolerance=pd.Timedelta('5s')
+                )
+                logger.info(f"Merged dataset has {len(merged)} rows")
+                
+                # If we have intents from questionUnderstandings, use those first
+                if 'qa_intent' in merged.columns:
+                    merged['interim_intent'] = merged['qa_intent']
+                else:
+                    merged['interim_intent'] = None
+            else:
+                logger.warning("Could not merge questionUnderstandings - timestamp columns missing")
+                merged = recog_df
+                merged['interim_intent'] = None
+        else:
+            logger.warning("No intent column found in questionUnderstandings.csv")
+            merged = recog_df
+            merged['interim_intent'] = None
+    else:
+        logger.info("No questionUnderstandings.csv found, using only recognitionData")
+        merged = recog_df
+        merged['interim_intent'] = None
+    
+    # Apply rule-based intent inference to all records
+    logger.info("Applying rule-based intent inference")
+    merged['rule_intent'] = merged['Transcription'].apply(rule_based_intent)
+    
+    # Final intent is the questionUnderstandings intent if available, otherwise rule-based
+    merged['final_intent'] = merged['interim_intent'].fillna(merged['rule_intent'])
+    
+    # Add device inference if not already present
+    if 'device_id' not in merged.columns:
+        merged['device_id'] = merged['Transcription'].apply(infer_device)
+    
+    logger.info("Intent inference complete")
+    intent_counts = merged['final_intent'].value_counts()
+    logger.info(f"Intent distribution: {dict(intent_counts)}")
+    
+    return merged
+
+def rule_based_intent(text):
+    """
+    Comprehensive rule-based intent detection for Alexa commands.
+    
+    Args:
+        text: Transcription text from Alexa command
+        
+    Returns:
+        Inferred intent name
+    """
+    if not isinstance(text, str):
+        return 'UnknownIntent'
+        
+    text = text.lower().strip()
+    
+    # Remove wake words for cleaner pattern matching
+    for wake_word in ['alexa', 'echo', 'ziggy', 'computer']:
+        if text.startswith(wake_word):
+            text = text[len(wake_word):].strip()
+    
+    # Alarm intents
+    if re.search(r'set\s+an?\s+alarm', text) or re.search(r'wake\s+me\s+up\s+at', text):
+        return 'SetAlarmIntent'
+    if re.search(r'cancel\s+(\w+\s+)?alarm', text) or re.search(r'stop\s+alarm', text):
+        return 'CancelAlarmIntent'
+        
+    # Timer intents
+    if re.search(r'set\s+a\s+timer', text) or re.search(r'timer\s+for', text):
+        return 'SetTimerIntent'
+    if any(phrase in text for phrase in ['restart timer', 'pause timer', 'cancel timer', 'stop timer']):
+        return 'TimerControlIntent'
+        
+    # Weather intents
+    if 'weather' in text or 'temperature outside' in text or 'forecast' in text:
+        return 'WeatherForecastIntent'
+        
+    # Communication intents
+    if 'drop in' in text:
+        return 'DropInIntent'
+    if 'call' in text or 'dial' in text:
+        return 'CallIntent'
+    if 'hang up' in text or 'end call' in text:
+        return 'EndCallIntent'
+    if 'check in' in text:
+        return 'CheckInIntent'
+    if 'announce' in text or 'tell everyone' in text:
+        return 'AnnouncementIntent'
+        
+    # Smart home intents - lights
+    if any(phrase in text for phrase in ['turn on', 'switch on', 'lights on', 'turn up', 'brighten']):
+        if 'light' in text or 'lamp' in text or 'bulb' in text:
+            return 'TurnOnIntent'
+    if any(phrase in text for phrase in ['turn off', 'switch off', 'lights off', 'turn down', 'dim']):
+        if 'light' in text or 'lamp' in text or 'bulb' in text:
+            return 'TurnOffIntent'
+    
+    # General smart home controls
+    if 'turn on' in text or 'switch on' in text or 'open' in text:
+        return 'TurnOnIntent'
+    if 'turn off' in text or 'switch off' in text or 'close' in text or 'shut' in text:
+        return 'TurnOffIntent'
+    
+    # Temperature controls
+    if ('set' in text and 'temperature' in text) or ('thermostat' in text and ('to' in text or 'at' in text)):
+        return 'SetTemperatureIntent'
+    if 'make it' in text and ('warmer' in text or 'cooler' in text or 'colder' in text or 'hotter' in text):
+        return 'AdjustTemperatureIntent'
+    
+    # Media intents
+    if 'play' in text:
+        return 'PlayMediaIntent'
+    if 'pause' in text or 'stop playing' in text:
+        return 'PauseIntent'
+    if ('volume' in text and ('up' in text or 'down' in text)) or 'louder' in text or 'quieter' in text:
+        return 'VolumeIntent'
+    if 'mute' in text:
+        return 'MuteIntent'
+    if 'next' in text or 'skip' in text:
+        return 'NextIntent'
+    if 'previous' in text or 'back' in text:
+        return 'PreviousIntent'
+        
+    # Simple responses
+    if text in ['yes', 'yeah', 'yep', 'correct', 'right']:
+        return 'YesIntent'
+    if text in ['no', 'nope', 'incorrect', 'wrong']:
+        return 'NoIntent'
+    if text in ['cancel', 'never mind', 'forget it']:
+        return 'CancelIntent'
+    if text in ['stop', 'shut up']:
+        return 'StopIntent'
+    
+    # Shopping & Lists
+    if 'shopping list' in text or 'add to list' in text or 'put on list' in text:
+        return 'ShoppingListIntent'
+    if 'reminder' in text or 'remind me' in text:
+        return 'ReminderIntent'
+    
+    # Information queries
+    if re.search(r'what\s+time', text) or "tell me the time" in text:
+        return 'TimeQueryIntent'
+    if re.search(r'what\s+day', text) or "what's the date" in text:
+        return 'DateQueryIntent'
+    if "what's" in text or "what is" in text or "who is" in text or "how do" in text:
+        return 'InformationQueryIntent'
+    
+    return 'UnknownIntent'
+
+def infer_device(text):
+    """Attempt to extract device information from command text"""
+    if not isinstance(text, str):
+        return 'unknown_device'
+    
+    text = text.lower()
+    
+    # Remove wake word
+    for wake_word in ['alexa', 'echo', 'ziggy', 'computer']:
+        if text.startswith(wake_word):
+            text = text[len(wake_word):].strip()
+    
+    # Extract location/room mentions
+    rooms = ['living room', 'bedroom', 'kitchen', 'bathroom', 'office', 'hallway', 
+             'dining room', 'basement', 'garage', 'porch', 'patio']
+    
+    for room in rooms:
+        if room in text:
+            # If device type mentioned, create compound ID
+            devices = ['light', 'lamp', 'fan', 'thermostat', 'tv', 'blinds', 'speaker']
+            for device in devices:
+                if device in text:
+                    return f"{room}_{device}"
+            # Default to room name if no specific device
+            return f"{room}_device"
+    
+    return 'unknown_device'
+
+# Standalone execution for testing
+if __name__ == "__main__":
+    import sys
+    
+    if len(sys.argv) != 2:
+        print("Usage: python intent_inference.py <data_directory>")
+        sys.exit(1)
+    
+    data_dir = sys.argv[1]
+    df = infer_intents(data_dir)
+    
+    # Display summary statistics
+    print("\nIntent distribution:")
+    print(df['final_intent'].value_counts())
+    
+    print("\nSample commands for each intent:")
+    for intent in df['final_intent'].unique():
+        if intent != 'UnknownIntent':
+            samples = df[df['final_intent'] == intent]['Transcription'].sample(min(3, df[df['final_intent'] == intent].shape[0])).tolist()
+            print(f"\n{intent}:")
+            for s in samples:
+                print(f"  - {s}")
+    
+    # Check the total number of known intents
+    known = df[df['final_intent'] != 'UnknownIntent'].shape[0]
+    total = df.shape[0]
+    print(f"\nClassified {known}/{total} commands ({known/total*100:.1f}%)")
+    
+    # Save results
+    output_path = Path(data_dir) / "inferred_intents.csv"
+    df.to_csv(output_path, index=False)
+    print(f"\nResults saved to {output_path}")
+from data_loader import AlexaDataLoader
+from anon import AlexaAnonymizer
+from transformation import transform_to_llama_format
+from export import export_to_jsonl
+
+def main():
+    loader = AlexaDataLoader('./alexa_working')
+    anonymizer = AlexaAnonymizer()
+    endpoint_map = loader.get_endpoint_map()
+    voice_data = loader.get_voice_commands()
+
+    batch_size = 100
+    for i in range(0, len(voice_data), batch_size):
+        batch = voice_data.iloc[i:i+batch_size]
+        anonymized = [anonymizer.anonymize_row(row) for _, row in batch.iterrows()]
+        transformed = [transform_to_llama_format(row, endpoint_map) for row in anonymized]
+        export_to_jsonl(transformed, './processed/training_data.jsonl', append=True)
+
+if __name__ == "__main__":
+    main()
+import pandas as pd
+from typing import Dict, Any
+
+def transform_to_llama_format(row: Dict[str, Any], endpoint_map: Dict[str, str]) -> Dict[str, Any]:
+    """
+    Transforms Alexa command data into Llama-compatible format with full smart home action mapping.
+    
+    Args:
+        row: Dictionary containing Alexa command data
+        endpoint_map: Dictionary mapping device IDs to Home Assistant entities
+        
+    Returns:
+        Formatted training example for Llama fine-tuning
+    """
+
+    # 1. Intent to Action Mapping
+    action_map = {
+        # Core Smart Home Controls
+        'AMAZON.TurnOnIntent': 'homeassistant.turn_on',
+        'AMAZON.TurnOffIntent': 'homeassistant.turn_off',
+        'AMAZON.SetTemperatureIntent': 'climate.set_temperature',
+        'AMAZON.SetPercentageIntent': 'fan.set_percentage',
+        'AMAZON.LockIntent': 'lock.lock',
+        'AMAZON.UnlockIntent': 'lock.unlock',
+        
+        # Media Controls
+        'AMAZON.PlayIntent': 'media_player.media_play',
+        'AMAZON.PauseIntent': 'media_player.media_pause',
+        'AMAZON.NextIntent': 'media_player.media_next_track',
+        'AMAZON.PreviousIntent': 'media_player.media_previous_track',
+        'AMAZON.VolumeUpIntent': 'media_player.volume_up',
+        'AMAZON.VolumeDownIntent': 'media_player.volume_down',
+        'AMAZON.MuteIntent': 'media_player.volume_mute',
+        
+        # Scene & Automation
+        'AMAZON.ActivateSceneIntent': 'scene.turn_on',
+        'AMAZON.StartAutomationIntent': 'automation.trigger',
+        
+        # Security & Monitoring
+        'AMAZON.ArmSecuritySystemIntent': 'alarm_control_panel.alarm_arm_home',
+        'AMAZON.DisarmSecuritySystemIntent': 'alarm_control_panel.alarm_disarm',
+        
+        # Custom Intents (add your own)
+        'CloseBlindsIntent': 'cover.close_cover',
+        'CozyModeIntent': 'climate.set_preset_mode',
+        'EnergySaverModeIntent': 'climate.set_preset_mode',
+        
+        # Fallbacks
+        'UnknownIntent': 'unknown_action'
+    }
+
+    # 2. Extract core fields with fallbacks
+    intent = row.get('final_intent', 'UnknownIntent')
+    device_name = str(row.get('device_id', '')).strip().lower()
+    raw_text = row.get('Transcription', '').strip("'")  # Remove Alexa's quotes
+    
+    # 3. Entity resolution
+    entity_id = endpoint_map.get(device_name, "unknown_entity")
+    
+    # 4. Context enrichment
+    context = {
+        "time": _format_timestamp(row.get('Interaction Timestamp')), 
+        "success": _determine_success(row.get('response_code', 0)),
+        "room": _infer_room(device_name, entity_id),
+        "raw_command": raw_text  # For model reference
+    }
+    
+    return {
+        "prompt": f"Execute smart home command: {raw_text}",
+        "completion": {
+            "action": action_map.get(intent, 'unknown_action'),
+            "entity_id": entity_id,
+            "context": context
+        }
+    }
+
+def _format_timestamp(ts: str) -> str:
+    """Convert various timestamp formats to ISO-8601"""
+    try:
+        return pd.to_datetime(ts).isoformat()
+    except:
+        return ""
+
+def _determine_success(response_code: int) -> bool:
+    """Map Alexa response codes to success/failure"""
+    return response_code in [200, 204]  # 204 = No Content success
+
+def _infer_room(device_name, entity_id):
+    # Try to use entity_id first
+    if entity_id and '.' in entity_id:
+        return entity_id.split('.')[1].replace('_', ' ').title()
+    # Try to extract room from device name
+    # Example: "kitchen light" -> "kitchen"
+    parts = device_name.split()
+    if len(parts) > 1:
+        return parts[-1].capitalize()
+    return "Unknown"
+
+# Example usage:
+if __name__ == "__main__":
+    test_row = {
+        'final_intent': 'AMAZON.TurnOnIntent',
+        'device_id': 'living_room_lamp',
+        'Transcription': 'turn on the living room lamp',
+        'Interaction Timestamp': '2025-04-15T19:30:00Z',
+        'response_code': 200
+    }
+    
+    endpoint_map = {
+        'living_room_lamp': 'light.living_room_main'
+    }
+    
+    print(transform_to_llama_format(test_row, endpoint_map))

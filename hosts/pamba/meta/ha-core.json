@@ -1,0 +1,1 @@
+{"result":"ok","data":{"version":"2025.11.2","version_latest":"2025.11.3","update_available":true,"machine":"raspberrypi4","ip_address":"172.30.32.1","arch":"armv7","image":"ghcr.io/home-assistant/raspberrypi4-homeassistant","boot":true,"port":8123,"ssl":false,"watchdog":true,"audio_input":"None","audio_output":"None","backups_exclude_database":false}}

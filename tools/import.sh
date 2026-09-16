@@ -15,6 +15,11 @@ DEST="$REPO/hosts/$HOST"
 mkdir -p "$DEST"
 for d in config storage integrations addons meta; do rm -rf "$DEST/$d"; done
 tar -xzf "$TARBALL" -C "$REPO/hosts"
+echo "== re-redacting with the repo's current redact.py (belt-and-braces: the tarball"
+echo "   was already redacted on-box at export time, by whatever version of redact.py"
+echo "   was bundled onto the box then — this re-applies today's rules on top, so a"
+echo "   fix made here takes effect on already-exported data without a fresh export)"
+python3 "$REPO/tools/redact.py" "$DEST" | sed 's/^/  /'
 python3 "$REPO/tools/digest.py" "$DEST"
 echo "== secret scan (should be empty):"
 grep -rInE '(eyJ[A-Za-z0-9_-]{15,}\.|-----BEGIN [A-Z ]*PRIVATE KEY|"(access_token|refresh_token|password|client_secret)"\s*:\s*"[^<"]{4,}"|^[[:space:]]*[a-z_]*(password|token|api_key|secret)[[:space:]]*:[[:space:]]*[^!<[:space:]].{3,})' \

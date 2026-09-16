@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "repairs.issue_registry",
+  "data": {
+    "issues": [
+      {
+        "created": "2022-08-03T18:12:34.798759+00:00",
+        "dismissed_version": "2022.8.0",
+        "domain": "nest",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml"
+      },
+      {
+        "created": "2022-11-09T19:38:00.461325+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "mqtt",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_binary_sensor"
+      },
+      {
+        "created": "2022-11-09T19:38:00.466251+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "mqtt",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_sensor"
+      },
+      {
+        "created": "2023-01-11T18:38:15.604878+00:00",
+        "dismissed_version": "2023.1.2",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "country_not_configured"
+      },
+      {
+        "created": "2023-06-16T18:26:00.282184+00:00",
+        "dismissed_version": null,
+        "domain": "sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_openweathermap"
+      },
+      {
+        "created": "2023-06-16T18:26:00.284246+00:00",
+        "dismissed_version": null,
+        "domain": "sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_mqtt"
+      },
+      {
+        "created": "2023-06-16T18:26:28.953216+00:00",
+        "dismissed_version": null,
+        "domain": "binary_sensor",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_binary_sensor_mqtt"
+      },
+      {
+        "created": "2023-06-29T12:43:40.547719+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "329e506d98714412bd4fb7cc58ef5a87"
+      },
+      {
+        "created": "2023-06-30T14:49:00.292895+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "53665eb436a34204b792b7633d73ea2d"
+      },
+      {
+        "created": "2023-12-23T22:55:58.639496+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.989690+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_camera_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.990265+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.990649+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_binary_sensor_aarlo"
+      },
+      {
+        "created": "2023-12-23T22:56:10.991004+00:00",
+        "dismissed_version": "2023.12.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_media_player_aarlo"
+      },
+      {
+        "created": "2024-04-05T11:18:21.386478+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_mqtt"
+      },
+      {
+        "created": "2024-05-19T15:49:47.886642+00:00",
+        "dismissed_version": null,
+        "domain": "panel_iframe",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml"
+      },
+      {
+        "created": "2024-08-04T21:02:51.215151+00:00",
+        "dismissed_version": "2024.7.4",
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_systemmonitor"
+      },
+      {
+        "created": "2024-08-25T20:52:48.637105+00:00",
+        "dismissed_version": "2024.8.3",
+        "domain": "script",
+        "is_persistent": false,
+        "issue_id": "script.bathtime_on_validation_failed_sequence"
+      },
+      {
+        "created": "2024-08-25T20:52:48.637560+00:00",
+        "dismissed_version": "2024.8.3",
+        "domain": "script",
+        "is_persistent": false,
+        "issue_id": "script.bathtime_off_validation_failed_sequence"
+      },
+      {
+        "created": "2024-12-08T20:39:49.754024+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "integration_not_found.ota"
+      },
+      {
+        "created": "2025-04-21T16:21:25.539213+00:00",
+        "dismissed_version": "2025.4.3",
+        "domain": "tado",
+        "is_persistent": false,
+        "issue_id": "water_heater_fallback_Hot Water"
+      },
+      {
+        "created": "2025-04-29T20:58:53.932682+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": false,
+        "issue_id": "automation.ac_off_validation_failed_conditions"
+      },
+      {
+        "created": "2025-07-02T03:59:37.976136+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_myskoda_01JQ7792B2KE7CX4BQ5CDJ3GNF"
+      },
+      {
+        "created": "2025-09-05T07:25:22.051669+00:00",
+        "dismissed_version": null,
+        "domain": "myskoda",
+        "is_persistent": false,
+        "issue_id": "new_tandc_01JQ7792B2KE7CX4BQ5CDJ3GNF"
+      },
+      {
+        "created": "2025-09-09T23:22:00.981256+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant_alerts",
+        "is_persistent": false,
+        "issue_id": "accuweather.markdown_accuweather"
+      },
+      {
+        "created": "2025-11-19T20:11:51.924978+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_metoffice_f7b8d9997ddcfe2ae565662674a87386"
+      },
+      {
+        "created": "2025-11-19T20:11:54.591109+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_accuweather_a1167d55689b4ce48bc85b58149d034b"
+      },
+      {
+        "created": "2025-11-19T20:16:36.155750+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "deprecated_os_aarch64"
+      },
+      {
+        "created": "2025-11-19T22:40:17.259395+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_158654878"
+      },
+      {
+        "created": "2025-11-19T22:42:25.878806+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_719179733_tags/v5.0.1"
+      },
+      {
+        "created": "2025-11-26T18:16:56.771670+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "unsupported_system_system_architecture"
+      },
+      {
+        "created": "2025-12-24T09:14:12.028096+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_899977910"
+      },
+      {
+        "created": "2025-12-24T09:14:12.028458+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_636943975"
+      },
+      {
+        "created": "2026-02-24T10:56:58.115007+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_only_miele"
+      },
+      {
+        "created": "2026-03-02T14:10:36.180757+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_164367214"
+      },
+      {
+        "created": "2026-03-30T16:13:39.028788+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_139664351_tags/v5.15.0"
+      },
+      {
+        "created": "2026-06-16T13:36:52.644832+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_volvo_cars_01K1446Z182X5CKHWQVVNR942C"
+      },
+      {
+        "created": "2026-09-15T06:08:41.632714+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_1309777882_tags/v0.6.0"
+      },
+      {
+        "created": "2026-09-15T07:38:11.716585+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_tado_01JSCJF0V9J60GA1YF14QMGEG0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,247 @@
+Event 7 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: e0095477-8e2e-476b-8a30-6dc12b1656c1
+  type: short_release
+  subtype: 4
+origin: LOCAL
+time_fired: "2025-03-26T20:22:41.677362+00:00"
+context:
+  id: 01JQA1Y58DYVY8ZVEWWH06ZT6Q
+  parent_id: null
+  user_id: null
+
+Event 6 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: e0095477-8e2e-476b-8a30-6dc12b1656c1
+  type: initial_press
+  subtype: 4
+origin: LOCAL
+time_fired: "2025-03-26T20:22:40.669509+00:00"
+context:
+  id: 01JQA1Y48XGD5GYPWDGRH24KYA
+  parent_id: null
+  user_id: null
+
+Event 5 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: 61fb60da-3d87-4c8d-84de-cf92db8c770e
+  type: short_release
+  subtype: 3
+origin: LOCAL
+time_fired: "2025-03-26T20:22:39.473019+00:00"
+context:
+  id: 01JQA1Y33HD1JXNSJM35DBMHW1
+  parent_id: null
+  user_id: null
+
+Event 4 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: 61fb60da-3d87-4c8d-84de-cf92db8c770e
+  type: initial_press
+  subtype: 3
+origin: LOCAL
+time_fired: "2025-03-26T20:22:38.465172+00:00"
+context:
+  id: 01JQA1Y241JQ9SMBC4315K7CC3
+  parent_id: null
+  user_id: null
+
+Event 3 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: de7f44f3-f899-45e3-89ca-b737772fbbe6
+  type: short_release
+  subtype: 2
+origin: LOCAL
+time_fired: "2025-03-26T20:22:36.967506+00:00"
+context:
+  id: 01JQA1Y0N7KQHTCRR1CZ99XQNE
+  parent_id: null
+  user_id: null
+
+Event 2 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: de7f44f3-f899-45e3-89ca-b737772fbbe6
+  type: initial_press
+  subtype: 2
+origin: LOCAL
+time_fired: "2025-03-26T20:22:35.961631+00:00"
+context:
+  id: 01JQA1XZNSEN51328BMN8KXZMG
+  parent_id: null
+  user_id: null
+
+Event 1 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: 200cb44d-b280-439e-9420-34ef3a161d8d
+  type: short_release
+  subtype: 1
+origin: LOCAL
+time_fired: "2025-03-26T20:22:31.733755+00:00"
+context:
+  id: 01JQA1XVHNDCW3CZ74AF69S114
+  parent_id: null
+  user_id: null
+
+Event 0 fired 20:22:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+⌄
+⌄
+event_type: hue_event
+data:
+  id: study_switch_button
+  device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+  unique_id: 200cb44d-b280-439e-9420-34ef3a161d8d
+  type: initial_press
+  subtype: 1
+origin: LOCAL
+time_fired: "2025-03-26T20:22:30.724034+00:00"
+context:
+  id: 01JQA1XTJ4838899NWE08FMB4Z
+  parent_id: null
+  user_id: null

@@ -1,0 +1,6 @@
+motion_logger:
+  module: motion_logger
+  class: MotionLogger
+  log: test_log
+  log_level: INFO
+  

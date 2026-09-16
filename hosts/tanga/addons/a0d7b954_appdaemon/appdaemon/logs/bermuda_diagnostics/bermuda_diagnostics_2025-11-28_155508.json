@@ -1,0 +1,26 @@
+{
+  "cycle_id": "front_door_1764345308",
+  "door": "front_door",
+  "user": "unknown_user",
+  "tap_time": "2025-11-28T15:55:08.335616",
+  "cycle_complete_time": "2025-11-28T15:55:08.408652",
+  "success": true,
+  "cycle_duration_seconds": 0.073036,
+  "query_window_seconds": 60,
+  "query_start": "2025-11-28T15:54:08.335616",
+  "query_end": "2025-11-28T15:55:08.408652",
+  "distance_entity": "sensor.bermuda_tongai_phone_distance",
+  "area_entity": "sensor.bermuda_tongai_phone_area",
+  "distance_states": [
+    {
+      "timestamp": "2025-11-28T15:55:07.261901+00:00",
+      "state": "1.7"
+    }
+  ],
+  "area_states": [
+    {
+      "timestamp": "2025-11-28T15:55:05.260609+00:00",
+      "state": "Hallway"
+    }
+  ]
+}
