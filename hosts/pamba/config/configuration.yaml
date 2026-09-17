@@ -1,0 +1,455 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+automation: !include automations.yaml
+group: !include groups.yaml
+script: !include scripts.yaml
+notify: !include notify.yaml
+#gpio: !include gpio.yaml
+#frontend: !include frontend.yaml
+#panel_custom: !include panel_custom.yaml
+homeassistant:
+  customize: !include customize.yaml
+  whitelist_external_dirs: /config/media
+  allowlist_external_dirs:
+    - "/root"
+#
+http:
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+# Garmin editor
+  cors_allowed_origins:
+    - https://house-of-abbey.github.io
+
+#
+binary_sensor: !include binary_sensors.yaml
+#
+
+#
+recorder: !include recorder_config.yaml
+#
+device_tracker:
+  - platform: tile
+    username: tongaimaramba@gmail.com
+    password: !secret tilepw
+#
+stream:
+# Text to speech
+tts:
+  - platform: google_translate
+#
+## Icons
+# #
+# panel_iframe:
+#   mdiindex:
+#     title: MDI Icon Index
+#     icon: mdi:vector-square
+#     url: https://cdn.rawgit.com/james-fry/home-assistant-mdi/efd95d7a/home-assistant-mdi.html
+# #
+sonoff:
+  username: !secret gen_un
+  password: !secret sonoff_pw
+#  mode: local
+#
+## RPI Rest API
+#
+rest:
+#   - authentication: basic
+#     username: "admin"
+#     password: "<redacted>"
+   - scan_interval: 6000
+     resource: http://192.168.179.63/
+     sensor:
+       - name: "restzzz"
+#         json_attributes_path: "$.response.system"
+#         value_template: "OK"
+#         json_attributes:
+#           - "message"
+#
+rest_command:
+  control_rpi:
+    url: "http://192.168.179.63/network/"
+  read_rpi:
+    url: "http://192.168.179.63/"
+    #method: get
+#     #content_type: "application/json"
+#     #payload: { "item_id":7,"q":"foobar"}
+#
+## Miele
+#
+#miele:
+#    client_secret: !secret miele_secret 
+#    client_id: !secret miele_id 
+#    lang: en
+#
+## Emulated Hue -> Alexa Integration
+#
+emulated_hue:
+  listen_port: 80
+  expose_by_default: false
+ # off_maps_to_on_domains: ["binary_sensor"]
+  entities: !include emulated_hue.yaml
+
+
+## OWM
+#
+#weather:
+#  - platform: openweathermap
+#    api_key: !secret owm_key
+#    name: Weather
+#
+## arlo camera
+#
+#aarlo:
+#  host: https://my.arlo.com
+#  username: tongai.maramba@gmail.com
+#  password: !secret arlo_password
+#  tfa_source: push
+#  tfa_type: PUSH
+#  backend: sse
+#  mode_api: auto
+#  refresh_devices_every: 2
+#  stream_timeout: 120
+ # save_media_to: "/config/media/${N}/${F}/${T}"
+#  user_agent: linux
+#  stream_snapshot_stop: 5
+#  stream_snapshot: true 
+cover:
+  - platform: template
+    covers:
+      blind_left:
+        device_class: blind
+        unique_id: loft_blind
+        friendly_name: Loft Blind
+        value_template: ''
+        open_cover:
+          service: switch.turn_on
+          entity_id: switch.blind_up
+        close_cover:
+          service: switch.turn_on
+          entity_id: switch.blind_down
+        stop_cover:
+          service: switch.turn_on
+          entity_id: switch.blind_stop
+    
+    
+#
+# media player
+media_player:
+  - platform: aarlo
+# Camera
+#camera:
+#  - platform: aarlo
+#    ffmpeg_arguments: '-pred 1 -q:v 2'  
+#
+# camera playback
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+#
+## Sensors
+#
+sensor:
+# Camera Sensor
+  - platform: aarlo
+    monitored_conditions:
+    - total_cameras
+    - last_capture
+    - recent_activity
+    - captured_today
+    - battery_level
+    - signal_strength
+#    - temperature
+#    - humidity
+#    - air_quality
+#
+# ESpresence Devices
+#
+  - platform: mqtt_room
+    device_id: "tile:ff1f04667e93"
+    name: 'Hannah Keys'
+    #state_topic: 'espresense/devices/tile:ff1f04667e93'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+  - platform: mqtt_room
+    device_id: "tile:d2dee031bfd7"
+    name: 'Ellie Bag'
+    #state_topic: 'espresense/devices/tile:d2dee031bfd7'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+  - platform: mqtt_room
+    device_id: "tile:d3a9f62adee2"
+    name: 'Bike'
+    #state_topic: 'espresense/devices/tile:d3a9f62adee2'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 20
+  - platform: mqtt_room
+    device_id: "garmin:38f9f587c956"
+    name: 'F965 Watch'
+    #state_topic: 'espresense/devices/garmin:38f9f587c956'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+  - platform: mqtt_room
+    device_id: "apple:1006:10-11"
+    name: 'Mojgan Phone'
+    #state_topic: 'espresense/devices/apple:1006:10-11'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+  - platform: mqtt_room
+    device_id: "apple:1006:10-12"
+    name: 'Hannah Phone'
+    #state_topic: 'espresense/devices/apple:1006:10-12'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+  - platform: mqtt_room
+    device_id: "iBeacon:4ea4dc89-d22f-4f8e-9d1d-0908ad023fe7-100-1"
+    name: 'Tongai s22 Phone'
+    #state_topic: 'espresense/devices/iBeacon:4ea4dc89-d22f-4f8e-9d1d-0908ad023fe7-100-1'
+    state_topic: 'espresense/rooms'
+    timeout: 30
+    away_timeout: 120
+# rpi_rest sensor
+#   - platform: rest
+#     resource: http://192.168.179.63/network/
+#     name: test script read
+#     headers:
+#         Content-Type: application/json
+#     method: GET
+#     payload: '{"cmd": 7}'
+#     value_template: "{{ value_json['status'] }}"
+#     json_attributes:
+#       - streams.active
+#       - streams.all
+#       - streams.xepg
+#
+# system sensor
+#
+#   - platform: systemmonitor
+#     resources:
+#       - type: disk_use_percent
+#         arg: /
+#       - type: disk_use_percent
+#         arg: /config
+#       - type: disk_use
+#         arg: /
+#       - type: disk_free
+#         arg: /
+#       - type: memory_free
+#       - type: memory_use
+#       - type: memory_use_percent
+#       - type: load_1m
+#       - type: load_5m
+#       - type: load_15m
+#       - type: processor_use
+#       - type: last_boot
+# #
+## Battery
+#
+  - platform: attributes
+    friendly_name: "Batteries"
+    attribute: battery_level
+    unit_of_measurement: "%"
+    entities:
+      - group.batteries
+
+## monit
+#
+# rest:
+#   - authentication: basic
+#     username: "admin"
+#     password: "<redacted>"
+#     scan_interval: 60
+#     resource: http://192.168.179.33:2812/_status?format=xml
+#     sensor:
+#       - name:  Monit Hassio 
+#         json_attributes_path: "$.monit" 
+#    value_template: 'OK' 
+#        json_attributes: 
+#           - "platform" 
+#           - "server" 
+#           - "service"
+
+#
+## Others on Arlo
+#
+#light:
+#  - platform: aarlo
+switch:
+#  - platform: aarlo
+#    siren: True
+#    all_sirens: True
+ #   snapshot: True
+ #   siren_volume: 1
+#    siren_duration: 10
+  - platform: rpi_gpio 
+    switches:
+      - port: 4
+        name: "Nuki Power"
+        unique_id: "nuki_en_switch_port_4"
+        invert_logic: true
+#      - port: 17
+#        name: "Lock Nuki"
+#        unique_id: "nuki_lock_switch_port_17"
+#        invert_logic: true
+      - port: 22
+        name: "Unlock Nuki"
+        unique_id: "nuki_unlock_switch_port_22"
+        invert_logic: true
+      - port: 27
+        name: "Open Nuki"
+        unique_id: "nuki_open_switch_port_27"
+        invert_logic: true
+  - platform: momentary
+    name: Empty House Trigger
+    mode: on
+    toggle_for: 1
+    cancellable: True
+# 
+## Guest Access
+#
+input_text:
+  guest_name:
+    name: "Guest Name"
+    icon: mdi:face
+    initial: "guest_1"  
+    min: 1
+    max: 20
+  mac_addr:
+    name: "Bluetooth MAC Address"
+    icon: mdi:bluetooth-audio
+#    initial: ""
+    min: 1
+    max: 20
+input_select:
+  relationship:
+    name: "Relationship"
+    options:
+      - Guest
+      - Resident
+    initial: "Guest"
+    icon: mdi:face
+  guest_access:
+    name: "Manage Guest Access"
+    options:
+      - Add
+      - Remove
+      - Select
+    initial: "Select"
+    icon: mdi:key
+input_number:
+  monitor_action:
+    name: Monitor Action
+    initial: 0
+    min: 0
+    max: 2
+    step: 1
+    mode: box
+    icon: mdi:server
+#
+#
+## ac controller
+light:
+  - platform: template
+    lights:
+      scenario_1_light:
+        friendly_name: "Scenario 1 Active"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.scenario_1_light
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.scenario_1_light
+      scenario_2_light:
+        friendly_name: "Scenario 2 Active"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.scenario_2_light
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.scenario_2_light
+      scenario_3_light:
+        friendly_name: "Scenario 3 Active"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.scenario_3_light
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.scenario_3_light
+#
+      loft_door_closed:
+        friendly_name: "Loft Door Closed"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.loft_door_closed
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.loft_door_closed
+            
+      alexa_started_ac:
+        friendly_name: "alexa_started_ac"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.alexa_started_ac
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.alexa_started_ac
+#
+template:
+#
+## n8n
+#
+#   - sensor: 
+#       - name: "Hannah Today"
+#         unique_id: hannah_today
+#         state: "{{ state_attr('sensor.hannah_today_raw', 'event_summary') }}"
+#         attributes:
+#           day: "{{ state_attr('sensor.hannah_today_raw', 'day') }}"
+#           long_day: "{{ state_attr('sensor.hannah_today_raw', 'long_day') }}"
+#           location: "{{ state_attr('sensor.hannah_today_raw', 'location') }}"
+#           start_time: "{{ state_attr('sensor.hannah_today_raw', 'start_time') }}"
+#           end_time: "{{ state_attr('sensor.hannah_today_raw', 'end_time') }}"
+#           extra_info: "{{ state_attr('sensor.hannah_today_raw', 'extra_info') }}"
+#       - name: "Ellie Today"
+#         unique_id: ellie_today
+#         state: "{{ state_attr('sensor.ellie_today_raw', 'event_summary') }}"
+#         attributes:
+#           day: "{{ state_attr('sensor.ellie_today_raw', 'day') }}"
+#           long_day: "{{ state_attr('sensor.ellie_today_raw', 'long_day') }}"
+#           location: "{{ state_attr('sensor.ellie_today_raw', 'location') }}"
+#           start_time: "{{ state_attr('sensor.ellie_today_raw', 'start_time') }}"
+#           end_time: "{{ state_attr('sensor.ellie_today_raw', 'end_time') }}"
+#           extra_info: "{{ state_attr('sensor.ellie_today_raw', 'extra_info') }}"
+  
+#
+
+
+
+## doorstep template
+#binary_sensor:
+#  - platform: template
+#    sensors:
+#      doorstepz:
+#        value_template: >-
+#          {% if is_state('binary_sensor.doorstep_acceleration', 'on') %}
+#            up
+#          {% else %}
+#            down
+#          {% endif %}
+#

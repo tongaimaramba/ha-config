@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "input_select",
+  "data": {
+    "items": [
+      {
+        "name": "Relationship",
+        "options": [
+          "Guest",
+          "Resident"
+        ],
+        "id": "device_type",
+        "icon": "mdi:face"
+      },
+      {
+        "id": "room_heater",
+        "name": "Room Heater",
+        "icon": "mdi:fireplace",
+        "options": [
+          "climate.study",
+          "climate.main",
+          "climate.friends",
+          "climate.bathroom_2",
+          "climate.loft_suite_rad"
+        ]
+      },
+      {
+        "name": "MQTT Messages",
+        "options": [
+          "ping",
+          "frontdoor",
+          "swings",
+          "patio",
+          "test"
+        ],
+        "id": "mqtt_messages"
+      },
+      {
+        "name": "matcher",
+        "icon": "mdi:alarm-panel",
+        "options": [
+          "open",
+          "retry",
+          "fail",
+          "ants"
+        ],
+        "id": "matcher"
+      },
+      {
+        "id": "work_status",
+        "name": "Work Status",
+        "icon": "mdi:laptop",
+        "options": [
+          "Not working, yay!",
+          "At work",
+          "On a call",
+          "Focus time"
+        ]
+      },
+      {
+        "id": "ac_mode",
+        "name": "AC Mode",
+        "icon": "mdi:air-conditioner",
+        "options": [
+          "Fan",
+          "Heat",
+          "Cool"
+        ]
+      },
+      {
+        "id": "dyson_mode",
+        "name": "Dyson Mode",
+        "icon": "mdi:fan",
+        "options": [
+          "Normal",
+          "Night"
+        ]
+      },
+      {
+        "id": "inverter_mode_change_retry",
+        "name": "inverter_mode_change_retry",
+        "icon": "mdi:repeat",
+        "options": [
+          "Battery First",
+          "Load First",
+          "Grid First"
+        ]
+      },
+      {
+        "id": "inverter_mode",
+        "name": "Inverter Mode",
+        "icon": "mdi:server",
+        "options": [
+          "Load first",
+          "Battery first",
+          "Grid first"
+        ]
+      }
+    ]
+  }
+}

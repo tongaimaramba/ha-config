@@ -1,0 +1,41 @@
+# pamba — areas
+
+- Backyard
+- Basement
+- Bathroom
+- Bathroom heating
+- Camera
+- Coats
+- Dining Area
+- Downstairs
+- Driveway
+- Ellie
+- Ellies Bedroom
+- Garage
+- Garden
+- Hallway
+- Hannah
+- Hannahs Bedroom
+- Home General
+- Hot Water
+- Isla
+- Isla Bedroom
+- Kids Bathroom
+- Kitchen
+- Landing
+- Living Room
+- Loft
+- Loft Bathroom
+- Loft Suite
+- Lounge Lamps
+- M Bedside
+- Main Bedroom
+- Media area
+- Room 6
+- Study
+- Swings
+- T Bedside
+- Upstairs
+- Utility
+- Utility - Laundry
+- Utility - Pantry

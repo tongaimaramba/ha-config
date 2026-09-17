@@ -1,0 +1,417 @@
+manage_guest_access:
+  alias: manage_guests
+  icon: mdi:account
+  mode: single
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.guest_access
+        state: Add
+      sequence:
+      - data_template:
+          message: 'the guest: {{states(''input_text.guest_name'')}} with MAC {{states(''input_text.mac_addr'')}}
+            as {{states(''input_select.relationship'')}} just created'
+        service: notify.all_android
+      - data:
+          value: 2
+        entity_id: input_number.monitor_action
+        service: input_number.set_value
+      - event: run_guest_access
+        event_data:
+          name: run_guest_access
+    - conditions:
+      - condition: state
+        entity_id: input_select.guest_access
+        state: Remove
+      sequence:
+      - data_template:
+          message: 'the guest: {{states(''input_text.guest_name'')}} with MAC {{states(''input_text.mac_addr'')}}
+            as {{states(''input_select.relationship'')}} just removed'
+        service: notify.all_android
+      - data:
+          value: 1
+        entity_id: input_number.monitor_action
+        service: input_number.set_value
+      - event: run_guest_access
+        event_data:
+          name: run_guest_access
+    default:
+    - data_template:
+        message: No action selected so nothing done. Select from "Add" or "Remove"
+          and resubmit
+      service: notify.all_android
+    - data:
+        value: 0
+      entity_id: input_number.monitor_action
+      service: input_number.set_value
+bathtime_on:
+  alias: Bathtime On
+  sequence:
+  - type: turn_on
+    device_id: ef52ca73e86842ce81d6c44af594b4a7
+    entity_id: light.bathroom_sink
+    domain: light
+    brightness_pct: 80
+  - type: turn_on
+    device_id: bc964c1c755b413e95e17234a6885d04
+    entity_id: light.bathroom_heater
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: 40e5bd673eba4cd59035ba018b61bead
+    entity_id: light.isla_wall
+    domain: light
+    brightness_pct: 80
+  - service: climate.turn_on
+    data: {}
+    entity_id: climate.upstairs
+  - service: climate.set_temperature
+    data:
+      temperature: 24
+      hvac_mode: heat
+    entity_id: climate.upstairs
+  - type: turn_on
+    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
+    entity_id: light.m_side
+    domain: light
+    brightness_pct: 100
+  mode: single
+  icon: mdi:shower
+bathtime_off:
+  alias: Bathtime Off
+  sequence:
+  - type: turn_off
+    device_id: ef52ca73e86842ce81d6c44af594b4a7
+    entity_id: light.bathroom_sink
+    domain: light
+  - type: turn_off
+    device_id: bc964c1c755b413e95e17234a6885d04
+    entity_id: light.bathroom_heater
+    domain: light
+  - type: turn_off
+    device_id: 40e5bd673eba4cd59035ba018b61bead
+    entity_id: light.isla_wall
+    domain: light
+  - service: climate.turn_off
+    data: {}
+    entity_id: climate.upstairs
+  - type: turn_off
+    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
+    entity_id: light.m_side
+    domain: light
+  mode: single
+  icon: mdi:shower
+study_boost:
+  alias: Study Boost
+  sequence:
+  - service: tado.set_climate_timer
+    data:
+      time_period: 00:30:00
+      temperature: 25
+    target:
+      entity_id: '{{states(''input_select.room_heater'')}}'
+  mode: single
+relaunch_apps:
+  alias: Relaunch Apps
+  sequence:
+  - service: input_boolean.toggle
+    data_template:
+      entity_id: input_boolean.relaunch
+  mode: single
+  icon: mdi:rocket
+lock_nuki_momentary:
+  alias: Lock Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.lock_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.lock_nuki
+  mode: single
+  icon: 'mdi: lock'
+unlock_nuki_momentary:
+  alias: Unlock Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.unlock_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.unlock_nuki
+  mode: single
+  icon: mdi:unlock
+open_nuki_momentary:
+  alias: Open Nuki - momentary
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.open_nuki
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.open_nuki
+  mode: single
+  icon: mdi:door-open
+movie_lights:
+  alias: Movie Lights
+  sequence:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.movie_lamp
+      - light.dining_spotlights_3
+      - light.lounge_lamp_1
+  mode: single
+  icon: mdi:movie
+home_fires:
+  alias: Home Fires
+  sequence:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: group.downstairs_lights
+  - service: light.turn_on
+    data:
+      brightness_pct: 10
+    target:
+      entity_id:
+      - light.lounge_lamp_2
+      - light.movie_lamp
+  mode: single
+  icon: mdi:candle
+nearly_home:
+  alias: Nearly Home
+  sequence:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.nearly_home
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.away_on_holiday
+  mode: single
+  icon: mdi:road
+boost_downstairs:
+  alias: Boost Downstairs
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 20
+      milliseconds: 0
+  - service: climate.set_temperature
+    data:
+      temperature: 20
+    target:
+      entity_id: climate.downstairs
+  mode: single
+grid:
+  alias: Grid
+  sequence:
+  - if:
+    - condition: template
+      value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<=100
+        }}'
+    then:
+    - service: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.importing
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.importing
+  mode: single
+change_sound_output:
+  alias: change sound output
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.audio_switch
+        state: 'on'
+      sequence:
+      - service: webostv.select_sound_output
+        data:
+          entity_id: media_player.projector
+          sound_output: soundbar
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.audio_switch
+        state: 'off'
+      sequence:
+      - service: webostv.select_sound_output
+        metadata: {}
+        data:
+          entity_id: media_player.projector
+          sound_output: headphone
+  mode: single
+  icon: mdi:speaker
+downstairs_lights_off:
+  alias: Downstairs Lights Off
+  sequence:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.downstairs_lights
+      - light.movie_lamp
+      - light.work_status_on_air_light
+      - light.loft32_desk_light
+      - light.hue_lightstrip_plus_1
+    action: light.turn_off
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.sonoff_lights
+    action: switch.turn_off
+  mode: single
+  icon: mdi:light-switch
+ignore_ac_automation_for_1_hour:
+  alias: Ignore AC Automation for 1 Hour
+  sequence:
+  - target:
+      entity_id: input_datetime.ignore_until
+    data:
+      datetime: '{{ (now() + timedelta(hours=1)).strftime(''%Y-%m-%d %H:%M:%S'') }}'
+    action: input_datetime.set_datetime
+  - target:
+      entity_id: input_boolean.ignore_ac_automation
+    action: input_boolean.turn_on
+  - data:
+      title: AC Automation Ignored
+      message: Energy-saving scenarios disabled for 1 hour
+    action: persistent_notification.create
+  description: ''
+reset_all_ac_flags:
+  alias: Reset All AC Flags
+  sequence:
+  - target:
+      entity_id:
+      - light.scenario_1_light
+      - light.scenario_2_light
+      - light.scenario_3_light
+    action: light.turn_off
+  - target:
+      entity_id: input_boolean.ignore_ac_automation
+    action: input_boolean.turn_off
+  - target:
+      entity_id: input_datetime.ignore_until
+    data:
+      datetime: '1970-01-01 00:00:00'
+    action: input_datetime.set_datetime
+  description: ''
+set_growatt_sph_mode_with_retry:
+  alias: Set Growatt SPH Mode with Retry
+  mode: single
+  fields:
+    expected_mode:
+      description: Expected inverter mode/state, e.g. "Battery first".
+      example: Battery first
+      required: true
+  variables:
+    mqtt_topic: solar_assistant/inverter_1/work_mode_priority/set
+    max_attempts: 3
+    delay_seconds: 8
+  sequence:
+  - variables:
+      attempt: 0
+  - repeat:
+      until:
+      - condition: template
+        value_template: '{{ states(''sensor.growatt_sph_device_mode'') == expected_mode
+          or repeat.index >= max_attempts }}'
+      sequence:
+      - data:
+          topic: '{{ mqtt_topic }}'
+          payload: '{{ expected_mode }}'
+          qos: 1
+        action: mqtt.publish
+      - wait_for_trigger:
+        - platform: state
+          entity_id: sensor.growatt_sph_device_mode
+          to: '{{ expected_mode }}'
+        timeout:
+          seconds: '{{ delay_seconds }}'
+        continue_on_timeout: true
+  description: ''
+set_growatt_mode_from_dropdown:
+  alias: Set Growatt Mode From Dropdown
+  sequence:
+  - data:
+      expected_mode: '{{ states(''input_select.inverter_mode'') }}'
+    action: script.set_growatt_sph_mode_with_retry
+  description: ''
+print_entities_to_file:
+  alias: Print Entities To File
+  sequence:
+  - data:
+      message: "{% for state in states %}\n  - {{- state.entity_id -}}\n{% endfor
+        %}\n"
+    action: notify.entity_log
+  mode: single
+  description: ''
+oppy_mow_daily:
+    alias: "Oppy - Daily mow (D-flag aware)"
+    mode: single
+    sequence:
+      - if:
+          - condition: state
+            entity_id: input_boolean.garden_d_cleared
+            state: "on"
+        then:
+          - service: navimow_pro.mow
+            data:
+              zones: [6, 16, 14, 3, 17]   # D first, then C2, C1, B, C3
+              reset: true
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.garden_d_cleared
+        else:
+          - service: navimow_pro.mow
+            data:
+              zones: [16, 14, 3, 17]      # C2, C1, B, C3 — skirts D
+              reset: true
+
+oppy_mow_all:
+    alias: "Oppy - Mow all zones (ad hoc)"
+    mode: single
+    sequence:
+      - service: navimow_pro.mow
+        data:
+          zones: []                       # all zones, robot's own route
+          reset: true
+
+ha_config_sync_pamba:
+  alias: "Sync pamba config snapshot"
+  icon: mdi:cloud-sync
+  sequence:
+    - event: ha_config_sync
+      event_data:
+        host: pamba

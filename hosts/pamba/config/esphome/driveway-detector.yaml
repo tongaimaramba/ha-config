@@ -1,0 +1,55 @@
+esphome:
+  name: driveway-detector
+  friendly_name: driveway detector
+
+esp32:
+  board: wemos_d1_mini32
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: <redacted>
+
+ota:
+  password: <redacted>
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Driveway-Detector"
+    password: <redacted>
+
+captive_portal:
+
+#Driveway presence/distance detector
+sensor:
+  - platform: ultrasonic
+    #D1 trig and D2 echo
+    trigger_pin: 25
+    echo_pin: 27
+    name: "Driveway Distance Detector"
+    update_interval: 1s
+    timeout: 3m 
+    unit_of_measurement: "m"
+    device_class: "distance"
+    state_class: "measurement"
+    accuracy_decimals: 2   
+    
+light:
+#D5 is pin14
+  - platform: neopixelbus
+    type: RGB
+    variant: WS2811
+    pin: 32
+    num_leds: 1
+    name: "Range LED" 
+  #  method:
+  #    type: esp32_rmt
+  #    channel: 1

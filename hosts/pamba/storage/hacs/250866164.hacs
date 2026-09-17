@@ -1,0 +1,59 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/250866164.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@azogue"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "HomeAssistant custom sensor to track specific events",
+        "domain": "eventsensor",
+        "domains": [
+            "sensor"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"a0510110121b8fc2b6cf60de825394dd70338ab416ab43fccfb7ebaf1555ae0b\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "azogue/eventsensor",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2021.12.0",
+        "id": "250866164",
+        "iot_class": "Local Push",
+        "installed": true,
+        "installed_commit": "b11f740",
+        "installed_version": "v3.0.0",
+        "open_issues": 9,
+        "last_commit": "b11f740",
+        "last_version": "v3.0.0",
+        "last_updated": "2022-06-06T19:29:29Z",
+        "manifest_name": "EventSensor",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-06-06T19:29:29",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "v3.0.0",
+            "v2.4.2",
+            "v2.4.1",
+            "v2.4.0",
+            "v2.2.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 79,
+        "topics": [],
+        "zip_release": false
+    }
+}

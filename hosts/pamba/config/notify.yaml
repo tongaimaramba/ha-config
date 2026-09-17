@@ -1,0 +1,25 @@
+  - name: all_android
+    platform: group
+    services:
+      - service: mobile_app_tongai22
+  - name: parents    
+    platform: group 
+    services:
+      - service: mobile_app_iphone_32
+      - service: mobile_app_tongai22
+  - name: all_ios    
+    platform: group
+    services:
+      - service: mobile_app_iphone_32
+      - service: mobile_app_hannahs_iphone
+#      - service: mobile_app_ipad_one
+  - name: all_phones    
+    platform: group
+    services:
+      - service: mobile_app_iphone_32
+      - service: mobile_app_tongai22
+      - service: mobile_app_hannahs_iphone
+  - platform: file
+    name: entity_log
+    filename: /homeassistant/www/entity_log.txt
+    timestamp: false

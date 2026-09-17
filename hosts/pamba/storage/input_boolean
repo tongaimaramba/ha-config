@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_boolean",
+  "data": {
+    "items": [
+      {
+        "id": "just_got_home",
+        "name": "away on holiday"
+      },
+      {
+        "id": "just_knocked",
+        "name": "Disable Alarm Auto Modes"
+      },
+      {
+        "id": "tap_to_open",
+        "name": "Importing"
+      },
+      {
+        "name": "iphone_wifi",
+        "icon": "mdi:wifi",
+        "id": "iphone_wifi"
+      },
+      {
+        "name": "relaunch",
+        "id": "relaunch"
+      },
+      {
+        "name": "pump_timer",
+        "icon": "mdi:water-pump",
+        "id": "pump_timer"
+      },
+      {
+        "name": "morning heater",
+        "icon": "mdi:air-conditioner",
+        "id": "morning_heater"
+      },
+      {
+        "name": "device_presence",
+        "icon": "mdi:devices",
+        "id": "device_presence"
+      },
+      {
+        "id": "m",
+        "name": "Mute Alarm",
+        "icon": "mdi:alarm-light-off"
+      },
+      {
+        "id": "nearly_home",
+        "name": "Nearly Home",
+        "icon": "mdi:road"
+      },
+      {
+        "id": "parents_home",
+        "name": "All Parents Home",
+        "icon": "mdi:family-tree"
+      },
+      {
+        "id": "a_parent_home",
+        "name": "A Parent Home",
+        "icon": "mdi:account-group"
+      },
+      {
+        "id": "we_took_the_car",
+        "name": "We Took the Car",
+        "icon": "mdi:car"
+      },
+      {
+        "id": "force_home_mode",
+        "name": "Mode Override",
+        "icon": "mdi:home"
+      },
+      {
+        "id": "loft_blind_is_open",
+        "name": "Loft blind is open",
+        "icon": "mdi:blinds-open"
+      },
+      {
+        "id": "export_window",
+        "name": "Export window"
+      },
+      {
+        "id": "battery_charging_window",
+        "name": "Battery Charging Window",
+        "icon": "mdi:battery-charging"
+      },
+      {
+        "id": "audio_switch",
+        "name": "audio-switch",
+        "icon": "mdi:cast-audio"
+      },
+      {
+        "id": "boiler_anomaly_alert",
+        "name": "boiler_anomaly_alert",
+        "icon": "mdi:alert"
+      },
+      {
+        "id": "dawn_lamp",
+        "name": "Dawn lamp"
+      },
+      {
+        "id": "ac_toggle",
+        "name": "AC Toggle",
+        "icon": "mdi:air-filter"
+      },
+      {
+        "id": "dyson_toggle",
+        "name": "Dyson Toggle",
+        "icon": "mdi:fan"
+      },
+      {
+        "id": "blinds_toggle",
+        "name": "Blinds Toggle",
+        "icon": "mdi:blinds"
+      },
+      {
+        "id": "ignore_ac_automation",
+        "name": "Ignore AC Automation",
+        "icon": "mdi:air-conditioner"
+      },
+      {
+        "id": "ac_hi_lo_speed",
+        "name": "AC Hi-Lo Speed",
+        "icon": "mdi:fan"
+      },
+      {
+        "id": "blinds_are_closed",
+        "name": "Blinds are closed"
+      },
+      {
+        "id": "test_bridge",
+        "name": "test bridge rpi4",
+        "icon": "mdi:bridge"
+      },
+      {
+        "id": "bridge_sync",
+        "name": "bridge sync",
+        "icon": "mdi:database-sync-outline"
+      },
+      {
+        "id": "testing_bridge_update",
+        "name": "Testing bridge update"
+      },
+      {
+        "id": "garden_d_cleared",
+        "name": "Garden D Cleared",
+        "icon": "mdi:dog"
+      },
+      {
+        "id": "oppy_schedule_enabled",
+        "name": "Oppy Schedule Enabled",
+        "icon": "mdi:clock-outline"
+      }
+    ]
+  }
+}

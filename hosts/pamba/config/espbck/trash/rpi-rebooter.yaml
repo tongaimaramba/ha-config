@@ -1,0 +1,31 @@
+esphome:
+  name: rpi-rebooter
+  friendly_name: rpi_rebooter
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "LE2gagnXDtJjSoeD78yTeVw5163ETdt60Mse8/zCV24="
+
+ota:
+  password: <redacted>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Rpi-Rebooter Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+    

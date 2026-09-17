@@ -1,0 +1,66 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/196057008.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@pilotak"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": false,
+        "default_branch": "master",
+        "description": "Breaks out specified attribute from other entities to a sensor",
+        "domain": "attributes",
+        "domains": [
+            "sensor"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"8a0320fbfb7db2a7e8a7d2392923b8a45c04294b14097f7902f71744dd6d0039\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "pilotak/homeassistant-attributes",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "0.103.0",
+        "id": "196057008",
+        "iot_class": null,
+        "installed": true,
+        "installed_commit": "398ac4c",
+        "installed_version": "v1.2.0",
+        "open_issues": 5,
+        "last_commit": "398ac4c",
+        "last_version": "v1.2.0",
+        "last_updated": "2021-03-13T13:11:19Z",
+        "manifest_name": "Attributes",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2021-03-13T13:11:19",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v1.2.0",
+            "v1.1.1",
+            "v1.1.0",
+            "1.0.1",
+            "1.0.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 68,
+        "topics": [
+            "attributes",
+            "breakout",
+            "hacs",
+            "hass",
+            "homeassistant",
+            "sensor"
+        ],
+        "zip_release": false
+    }
+}

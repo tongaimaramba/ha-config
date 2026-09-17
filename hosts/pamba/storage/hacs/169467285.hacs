@@ -1,0 +1,61 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/169467285.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@elad-bar"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Integration with EdgeOS (Ubiquiti)",
+        "domain": "edgeos",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"bb856bc7869a8a1e61d566f31170cc85dbab1cc7d8786882328b1120fff23b97\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "elad-bar/ha-edgeos",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2021.12.0",
+        "id": "169467285",
+        "iot_class": "Local Polling",
+        "installed": true,
+        "installed_commit": "c7f5258",
+        "installed_version": "v1.2.6",
+        "open_issues": 10,
+        "last_commit": "c7f5258",
+        "last_version": "v1.2.6",
+        "last_updated": "2022-06-13T12:06:13Z",
+        "manifest_name": "Ubiquiti EdgeOS Routers",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-06-13T12:06:13",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v1.2.6",
+            "v1.2.5",
+            "v1.2.4",
+            "v1.2.3",
+            "v1.2.2"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 93,
+        "topics": [
+            "custom-component",
+            "edgeos",
+            "home-assistant"
+        ],
+        "zip_release": false
+    }
+}

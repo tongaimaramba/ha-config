@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_number",
+  "data": {
+    "items": [
+      {
+        "id": "timer_length",
+        "min": 0.0,
+        "max": 600.0,
+        "name": "timer length",
+        "icon": "mdi:av-timer",
+        "unit_of_measurement": " mins",
+        "mode": "box",
+        "step": 1.0
+      },
+      {
+        "id": "daily_event_count",
+        "min": 0.0,
+        "max": 1.0,
+        "name": "daily event count",
+        "step": 0.01,
+        "mode": "slider"
+      },
+      {
+        "id": "battery_max_charge",
+        "min": 0.0,
+        "max": 100.0,
+        "name": "Battery Max Charge",
+        "mode": "slider",
+        "step": 1.0,
+        "unit_of_measurement": "%"
+      },
+      {
+        "id": "off_peak_electric",
+        "min": 0.0,
+        "max": 1000.0,
+        "mode": "box",
+        "name": "Peak Grid Consumption Today",
+        "step": 1.0,
+        "icon": "mdi:led-outline",
+        "unit_of_measurement": "kWh"
+      },
+      {
+        "id": "peak_electric_price",
+        "min": 0.0,
+        "max": 100.0,
+        "name": "Peak Electric Price",
+        "icon": "mdi:led-on",
+        "mode": "box",
+        "step": 1.0
+      },
+      {
+        "id": "blind_open_duration",
+        "min": 0.0,
+        "max": 100.0,
+        "name": "blind_open_duration",
+        "icon": "mdi:timer",
+        "mode": "slider",
+        "step": 1.0
+      },
+      {
+        "id": "blind_close_duration",
+        "min": 0.0,
+        "max": 100.0,
+        "name": "blind_close_duration",
+        "icon": "mdi:timer",
+        "mode": "slider",
+        "step": 1.0
+      },
+      {
+        "id": "ac_temp",
+        "min": 20.0,
+        "max": 26.0,
+        "name": "AC Temp Heat",
+        "step": 0.5,
+        "mode": "slider"
+      },
+      {
+        "id": "dyson_speed",
+        "min": 2.0,
+        "max": 10.0,
+        "name": "Dyson Speed",
+        "icon": "mdi:fan",
+        "step": 1.0,
+        "mode": "slider"
+      },
+      {
+        "id": "ac_temp_cool",
+        "min": 18.0,
+        "max": 21.0,
+        "name": "AC Temp Cool",
+        "icon": "mdi:air-conditioner",
+        "step": 0.5,
+        "mode": "slider"
+      }
+    ]
+  }
+}

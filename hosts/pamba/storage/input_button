@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_button",
+  "data": {
+    "items": [
+      {
+        "id": "alx",
+        "name": "alx"
+      },
+      {
+        "id": "speedtest",
+        "name": "Speedtest",
+        "icon": "mdi:speedometer"
+      }
+    ]
+  }
+}
