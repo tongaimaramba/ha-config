@@ -74,6 +74,51 @@ wholesale, so files removed on the box show up as deletions in git.
 - `/addon_configs/core_matter_server` (fabric keys), Node-RED `flows_cred.json`,
   `.config.users.json`, `node_modules/`, `*.backup`
 
+## Button + one-command sync (optional, once set up)
+
+The manual "export tarball, Samba it over, attach here" loop above still works and
+needs no setup — use it any time. This is a faster path once set up: a Lovelace
+button on each box that snapshots + commits locally (no GitHub credential ever
+touches a box), plus one command on your Mac that pulls that commit over SSH (the
+access you already use to reach the box) and pushes it to GitHub.
+
+**One-time setup, per box, in the SSH add-on:**
+```sh
+apk add --no-cache git python3
+mkdir -p /share/ha-config-repo && cd /share/ha-config-repo
+git init -b main
+git config receive.denyCurrentBranch updateInstead   # lets a remote push update this checkout
+```
+Copy `tools/` into `/share/ha-config-repo/tools/` (Samba, or `scp`), then:
+```sh
+git add -A && git commit -m "seed tools"
+```
+
+**One-time setup, in Home Assistant:**
+1. Copy `tools/appdaemon/ha_config_sync.py` into your AppDaemon apps directory.
+2. Add its entry to `apps.yaml` (see the top of that file for the exact block).
+3. Add `tools/appdaemon/scripts_snippet.yaml`'s contents to `scripts.yaml`.
+4. Add `tools/appdaemon/lovelace_card.yaml` as a card on any dashboard.
+5. Check the AppDaemon add-on's own configuration for a folder-mapping option
+   that includes `share` (and ideally `homeassistant_config`) with read/write
+   access — this is what lets the app reach `/share/ha-config-repo` and the live
+   config at all. Enable it if it's off, then restart the AppDaemon add-on.
+
+**One-time setup, on your Mac**, in your `ha-config` clone: open `tools/pull_and_push.sh`
+and set `PAMBA_SSH`/`TANGA_SSH` to how you'd SSH into each box (e.g. `root@pamba.local`,
+or add `-p 22222` if the SSH add-on uses a non-default port).
+
+**Ongoing workflow, once all that's done:**
+1. Press the Lovelace button for whichever box changed. A notification confirms
+   it committed (or says there was nothing new).
+2. From your Mac, in the `ha-config` clone: `bash tools/pull_and_push.sh pamba`
+   (or `tanga`). That's the one command — it fetches the box's commit over SSH,
+   fast-forwards `main` onto it, and pushes to GitHub.
+
+If step 2 ever isn't a fast-forward (rare — would mean `main` moved some other way
+since the box last synced), the script stops and leaves the fetched commit on a
+branch for you to look at rather than guessing how to merge it.
+
 ## Project-knowledge sync
 
 The raw registries are several MB each (`core.entity_registry` ≈ 2.5–2.7 MB,

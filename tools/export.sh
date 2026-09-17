@@ -24,8 +24,13 @@
 set -euo pipefail
 
 HOST="${1:-}"
+INPLACE_DIR="${2:-}"   # optional: write the redacted tree straight to <INPLACE_DIR>/<HOST>
+                        # (e.g. a git checkout's hosts/ dir) instead of building a tarball.
+                        # Overwrites that directory's config/storage/integrations/addons/meta.
 if [[ -z "$HOST" ]]; then
-  echo "usage: bash export.sh <hostname>   (pamba | tanga)" >&2
+  echo "usage: bash export.sh <hostname> [in-place-dir]   (pamba | tanga)" >&2
+  echo "  no 2nd arg : writes /share/ha-config-export-<host>-<stamp>.tar.gz (default, manual use)" >&2
+  echo "  2nd arg    : writes redacted tree straight to <dir>/<host>/ , no tarball, for repo_sync.sh" >&2
   exit 2
 fi
 if ! command -v python3 >/dev/null 2>&1; then
@@ -37,8 +42,14 @@ CFG="${HA_CONFIG_DIR:-/homeassistant}"
 [[ -d "$CFG" ]] || CFG=/config
 ADDON_CFG="${HA_ADDON_CONFIGS_DIR:-/addon_configs}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
-WORK="$(mktemp -d /tmp/ha-export.XXXXXX)"
-OUT="$WORK/$HOST"
+if [[ -n "$INPLACE_DIR" ]]; then
+  WORK=""   # nothing to clean up on this path
+  OUT="$INPLACE_DIR/$HOST"
+  rm -rf "$OUT"   # full replacement, same as import.sh does for a tarball — deletions show up
+else
+  WORK="$(mktemp -d /tmp/ha-export.XXXXXX)"
+  OUT="$WORK/$HOST"
+fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REDACT="$SCRIPT_DIR/redact.py"
 [[ -f "$REDACT" ]] || { echo "redact.py must sit next to export.sh" >&2; exit 4; }
@@ -176,13 +187,19 @@ python3 "$REDACT" "$OUT" | tee "$OUT/meta/redaction-report.txt"
 
 ( cd "$OUT" && find . -type f -exec stat -c '%s	%n' {} + | sort -k2 ) > "$OUT/meta/manifest.tsv"
 
-OUTDIR="${HA_EXPORT_DIR:-/share}"
-[[ -d "$OUTDIR" ]] || OUTDIR="$CFG"
-TARBALL="$OUTDIR/ha-config-export-$HOST-$STAMP.tar.gz"
-tar -C "$WORK" -czf "$TARBALL" "$HOST"
-rm -rf "$WORK"
+if [[ -n "$INPLACE_DIR" ]]; then
+  echo
+  echo "== done: wrote redacted tree straight to $OUT (no tarball)"
+  echo "   review $OUT/meta/redaction-report.txt and meta/skipped.txt before committing/pushing."
+else
+  OUTDIR="${HA_EXPORT_DIR:-/share}"
+  [[ -d "$OUTDIR" ]] || OUTDIR="$CFG"
+  TARBALL="$OUTDIR/ha-config-export-$HOST-$STAMP.tar.gz"
+  tar -C "$WORK" -czf "$TARBALL" "$HOST"
+  rm -rf "$WORK"
 
-echo
-echo "== done: $TARBALL ($(du -h "$TARBALL" | cut -f1))"
-echo "   files: $(wc -l < <(tar -tzf "$TARBALL"))"
-echo "   review meta/redaction-report.txt and meta/skipped.txt inside before sharing."
+  echo
+  echo "== done: $TARBALL ($(du -h "$TARBALL" | cut -f1))"
+  echo "   files: $(wc -l < <(tar -tzf "$TARBALL"))"
+  echo "   review meta/redaction-report.txt and meta/skipped.txt inside before sharing."
+fi
