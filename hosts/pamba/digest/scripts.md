@@ -1,4 +1,4 @@
-# pamba — scripts.yaml (22 scripts)
+# pamba — scripts.yaml (23 scripts)
 
 | entity_id | alias | mode | actions | entities referenced |
 |---|---|---|---|---|
@@ -24,3 +24,4 @@
 | script.print_entities_to_file | Print Entities To File | single | notify.entity_log | notify.entity_log |
 | script.oppy_mow_daily | Oppy - Daily mow (D-flag aware) | single | input_boolean.turn_off, navimow_pro.mow | input_boolean.garden_d_cleared, input_boolean.turn_off |
 | script.oppy_mow_all | Oppy - Mow all zones (ad hoc) | single | navimow_pro.mow |  |
+| script.ha_config_sync_pamba | Sync pamba config snapshot | single |  |  |

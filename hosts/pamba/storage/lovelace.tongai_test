@@ -2639,6 +2639,24 @@
           "cards": [
             {
               "type": "entities",
+              "title": "HA config → GitHub",
+              "entities": [
+                {
+                  "entity": "script.ha_config_sync_pamba",
+                  "name": "Sync pamba",
+                  "icon": "mdi:raspberry-pi",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.turn_on",
+                    "target": {
+                      "entity_id": "script.ha_config_sync_pamba"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "entities",
               "entities": [
                 {
                   "entity": "input_boolean.test_bridge_from_rpi4"

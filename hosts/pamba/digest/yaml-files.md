@@ -17,26 +17,12 @@
 | recorder_config.yaml | 21 | purge_keep_days |
 | scenes.yaml | 791 | list[2] |
 | scratch.yaml | 156 | _parse_error |
-| scripts.yaml | 10571 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
+| scripts.yaml | 10733 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
 | secrets.yaml | 433 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password |
-| espbck/doorstep-presence.yaml | 797 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
-| espbck/driveway-detector.yaml | 1022 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
-| espbck/landing-blind.yaml | 2268 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
-| espbck/loft-blind.yaml | 2153 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
-| espbck/loft32.yaml | 1117 | esphome, esp32, logger, api, ota, wifi, captive_portal, light, binary_sensor |
-| espbck/rpi-rebooter.yaml | 832 | esphome, esp32, logger, api, ota, wifi, captive_portal, switch |
-| espbck/secrets.yaml | 79 | wifi_ssid, wifi_password |
-| espbck/test.yaml | 2607 | sensor, cover, switch |
-| espbck/trash/car.yaml | 581 | esphome, esp8266, logger, api, ota, wifi, captive_portal, light |
-| espbck/trash/kitchen-nfc.yaml | 231 | substitutions, packages, esphome, wifi |
-| espbck/trash/landing-blind.yaml | 2273 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
-| espbck/trash/loft-blind.yaml | 1275 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
-| espbck/trash/office-door.yaml | 510 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| espbck/trash/office-esp.yaml | 507 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| espbck/trash/office.yaml | 981 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
-| espbck/trash/on-air.yaml | 503 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| espbck/trash/rpi-rebooter.yaml | 513 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| espbck/trash/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
+| blueprints/automation/homeassistant/motion_light.yaml | 1219 | blueprint, mode, max_exceeded, trigger, action |
+| blueprints/automation/homeassistant/notify_leaving_zone.yaml | 1260 | blueprint, trigger, variables, condition, action |
+| blueprints/template/homeassistant/inverted_binary_sensor.yaml | 971 | blueprint, variables, binary_sensor |
+| blueprints/script/homeassistant/confirmable_notification.yaml | 2164 | blueprint, mode, sequence |
 | esphome/doorstep-presence.yaml | 761 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
 | esphome/driveway-detector.yaml | 986 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
 | esphome/landing-blind.yaml | 2232 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
@@ -61,7 +47,21 @@
 | floorplan_repo/floorplan.yaml | 4172 | name, image, stylesheet, last_motion_entity, last_motion_class, groups |
 | floorplan_repo/frontend.yaml | 67 | extra_html_url |
 | floorplan_repo/panel_custom.yaml | 136 | list[1] |
-| blueprints/automation/homeassistant/motion_light.yaml | 1219 | blueprint, mode, max_exceeded, trigger, action |
-| blueprints/automation/homeassistant/notify_leaving_zone.yaml | 1260 | blueprint, trigger, variables, condition, action |
-| blueprints/script/homeassistant/confirmable_notification.yaml | 2164 | blueprint, mode, sequence |
-| blueprints/template/homeassistant/inverted_binary_sensor.yaml | 971 | blueprint, variables, binary_sensor |
+| espbck/doorstep-presence.yaml | 797 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
+| espbck/driveway-detector.yaml | 1022 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
+| espbck/landing-blind.yaml | 2268 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
+| espbck/loft-blind.yaml | 2153 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
+| espbck/loft32.yaml | 1117 | esphome, esp32, logger, api, ota, wifi, captive_portal, light, binary_sensor |
+| espbck/rpi-rebooter.yaml | 832 | esphome, esp32, logger, api, ota, wifi, captive_portal, switch |
+| espbck/secrets.yaml | 79 | wifi_ssid, wifi_password |
+| espbck/test.yaml | 2607 | sensor, cover, switch |
+| espbck/trash/car.yaml | 581 | esphome, esp8266, logger, api, ota, wifi, captive_portal, light |
+| espbck/trash/kitchen-nfc.yaml | 231 | substitutions, packages, esphome, wifi |
+| espbck/trash/landing-blind.yaml | 2273 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
+| espbck/trash/loft-blind.yaml | 1275 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
+| espbck/trash/office-door.yaml | 510 | esphome, esp32, logger, api, ota, wifi, captive_portal |
+| espbck/trash/office-esp.yaml | 507 | esphome, esp32, logger, api, ota, wifi, captive_portal |
+| espbck/trash/office.yaml | 981 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
+| espbck/trash/on-air.yaml | 503 | esphome, esp32, logger, api, ota, wifi, captive_portal |
+| espbck/trash/rpi-rebooter.yaml | 513 | esphome, esp32, logger, api, ota, wifi, captive_portal |
+| espbck/trash/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |

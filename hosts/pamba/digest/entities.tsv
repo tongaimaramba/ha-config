@@ -92,6 +92,7 @@ binary_sensor.downstairs_indoor_movement	group	Downstairs Indoor Movement			Down
 binary_sensor.ellie_connectivity	tado	Pamba	Ellie	Ellie	Connectivity			link 3 526919
 binary_sensor.ellie_early_start	tado	Pamba	Ellie	Ellie	Early start			early start 3 526919
 binary_sensor.ellie_iphone_camera_motion	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Camera Motion			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_cameraMotion
+binary_sensor.ellie_iphone_focus	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Focus			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_focus
 binary_sensor.ellie_iphone_kiosk_mode	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Mode			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskMode
 binary_sensor.ellie_iphone_kiosk_screensaver	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Screensaver			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskScreensaver
 binary_sensor.ellie_overlay	tado	Pamba	Ellie	Ellie	Overlay			overlay 3 526919
@@ -949,6 +950,7 @@ script.boost_downstairs	script				Boost Downstairs			boost_downstairs
 script.change_sound_output	script				change sound output			change_sound_output
 script.downstairs_lights_off	script				Downstairs Lights Off			downstairs_lights_off
 script.grid	script				Grid			grid
+script.ha_config_sync_pamba	script				Sync pamba config snapshot			ha_config_sync_pamba
 script.home_fires	script				Home Fires			home_fires
 script.ignore_ac_automation_for_1_hour	script				Ignore AC Automation for 1 Hour			ignore_ac_automation_for_1_hour
 script.lock_nuki_momentary	script				Lock Nuki - momentary			lock_nuki_momentary
@@ -1244,21 +1246,30 @@ sensor.ellie_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie A
 sensor.ellie_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Outdoor temperature			50BBB5FFAB85outdoor-temp
 sensor.ellie_heating	tado	Pamba	Ellie	Ellie	Heating			heating 3 526919
 sensor.ellie_humidity	tado	Pamba	Ellie	Ellie	Humidity			humidity 3 526919
+sensor.ellie_iphone_activity	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Activity			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_activity
 sensor.ellie_iphone_app_version	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone App Version			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_app-version
 sensor.ellie_iphone_audio_output	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Audio Output			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_iphone-audio-output
+sensor.ellie_iphone_average_active_pace	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Average Active Pace			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_avg_active_pace
 sensor.ellie_iphone_battery_level	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Battery Level			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_battery_level
 sensor.ellie_iphone_battery_state	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Battery State			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_battery_state
 sensor.ellie_iphone_bssid	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone BSSID			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_bssid
 sensor.ellie_iphone_camera_stream	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Camera Stream			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_cameraStream
 sensor.ellie_iphone_connection_type	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Connection Type			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_connection_type
+sensor.ellie_iphone_current_cadence	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Current Cadence			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_current_cadence
+sensor.ellie_iphone_current_pace	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Current Pace			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_current_pace
+sensor.ellie_iphone_distance	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Distance			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_distance
+sensor.ellie_iphone_floors_ascended	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Floors Ascended			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_floors_ascended
+sensor.ellie_iphone_floors_descended	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Floors Descended			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_floors_descended
 sensor.ellie_iphone_geocoded_location	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Geocoded Location			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_geocoded_location
 sensor.ellie_iphone_kiosk_brightness	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Brightness			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskBrightness
 sensor.ellie_iphone_kiosk_volume	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Volume			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskVolume
 sensor.ellie_iphone_last_update_trigger	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Last Update Trigger			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_last_update_trigger
 sensor.ellie_iphone_location_permission	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Location permission			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_location-permission
+sensor.ellie_iphone_pressure	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Pressure			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pressure
 sensor.ellie_iphone_sim_1	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SIM 1			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_sim_1
 sensor.ellie_iphone_sim_2	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SIM 2			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_sim_2
 sensor.ellie_iphone_ssid	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SSID			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_ssid
+sensor.ellie_iphone_steps	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Steps			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_steps
 sensor.ellie_iphone_storage	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Storage			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_storage
 sensor.ellie_tado_mode	tado	Pamba	Ellie	Ellie	Tado mode			tado mode 3 526919
 sensor.ellie_temperature	tado	Pamba	Ellie	Ellie	Temperature			temperature 3 526919

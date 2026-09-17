@@ -93,7 +93,7 @@
 | matter | matter | ignore | core | 0 | 0 |  | 01JWRZHFKXWZM1S5826TX6A4D0 |
 | metoffice | Kingston Upon Thames | user | core | 1 | 25 |  | f7b8d9997ddcfe2ae565662674a87386 |
 | miele | Miele | ignore | core | 0 | 0 |  | 01JMJZQZFNPBMM5KERGXS4NXQA |
-| mobile_app | Ellie iPhone | registration | core | 1 | 20 |  | 01KXXQJDAKHYW963D1AF4RABRC |
+| mobile_app | Ellie iPhone | registration | core | 1 | 30 |  | 01KXXQJDAKHYW963D1AF4RABRC |
 | mobile_app | Garmin Device | registration | core | 1 | 6 |  | 01JSSMYR9DKJ1ZNMC5EXAMVH57 |
 | mobile_app | Garmin Device | registration | core | 1 | 8 |  | 01M1AAN95W6TVW7D82CK8FDFY2 |
 | mobile_app | Hannah iPhone | registration | core | 1 | 14 |  | 01KA3NRYHRXG30FNAM8JXY5AK7 |

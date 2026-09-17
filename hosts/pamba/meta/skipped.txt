@@ -5,10 +5,10 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (3109715968 bytes) — db/log/binary
 home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (6089392 bytes) — db/log/binary
+home-assistant_v2.db-wal (6328352 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
-zigbee.db-wal (1145392 bytes) — db/log/binary
+zigbee.db-wal (41232 bytes) — db/log/binary
 .storage/androidtv_adbkey — not in allow-list
 .storage/androidtv_adbkey.pub — not in allow-list
 .storage/androidtv_remote_cert.pem — not in allow-list
@@ -43,3 +43,4 @@ zigbee.db-wal (1145392 bytes) — db/log/binary
 .storage/zz.tongai_test_old — not in allow-list
 .storage/zzz_old - dash list — not in allow-list
 .storage/.edgeos — not in allow-list
+ha CLI not available — meta/*.json not captured

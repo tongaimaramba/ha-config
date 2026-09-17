@@ -407,3 +407,11 @@ oppy_mow_all:
         data:
           zones: []                       # all zones, robot's own route
           reset: true
+
+ha_config_sync_pamba:
+  alias: "Sync pamba config snapshot"
+  icon: mdi:cloud-sync
+  sequence:
+    - event: ha_config_sync
+      event_data:
+        host: pamba

@@ -2,22 +2,22 @@
 
 ```
 host: pamba
-exported_at: 2026-09-16T19:20:23+01:00
+exported_at: 2026-09-17T12:02:58+01:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
-uname: Linux a0d7b954-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
+uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
 ```
 
 - config entries: 145  (custom components on disk: 25)
 - devices: 288
-- entities: 2825 across 57 platforms
+- entities: 2836 across 57 platforms
 - areas: 39
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| mobile_app | 759 |
+| mobile_app | 769 |
 | hue | 313 |
 | mqtt | 235 |
 | hassio | 137 |
@@ -40,7 +40,7 @@ uname: Linux a0d7b954-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 U
 | dyson_local | 27 |
 | metoffice | 25 |
 | group | 24 |
-| script | 22 |
+| script | 23 |
 | tile | 22 |
 | roomba | 15 |
 | sonoff | 15 |
@@ -85,10 +85,10 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (3109715968 bytes) — db/log/binary
 home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (6089392 bytes) — db/log/binary
+home-assistant_v2.db-wal (6328352 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
-zigbee.db-wal (1145392 bytes) — db/log/binary
+zigbee.db-wal (41232 bytes) — db/log/binary
 .storage/androidtv_adbkey — not in allow-list
 .storage/androidtv_adbkey.pub — not in allow-list
 .storage/androidtv_remote_cert.pem — not in allow-list
@@ -123,6 +123,7 @@ zigbee.db-wal (1145392 bytes) — db/log/binary
 .storage/zz.tongai_test_old — not in allow-list
 .storage/zzz_old - dash list — not in allow-list
 .storage/.edgeos — not in allow-list
+ha CLI not available — meta/*.json not captured
 ```
 
 ## digests written

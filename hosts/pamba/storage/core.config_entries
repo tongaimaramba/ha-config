@@ -8,7 +8,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "hostname",
+            "location",
+            "mac_address",
+            "st"
           ]
         },
         "disabled_by": null,
@@ -18,9 +22,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -34,7 +36,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host"
           ]
         },
         "disabled_by": null,
@@ -44,9 +46,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -60,7 +60,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "hostname",
+            "location",
+            "mac_address",
+            "st"
           ]
         },
         "disabled_by": null,
@@ -70,9 +74,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -86,7 +88,10 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "broker",
+            "password",
+            "port",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -97,7 +102,10 @@
         "modified_at": "2025-02-22T14:50:36.404447+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "birth_message",
+            "discovery",
+            "discovery_prefix",
+            "will_message"
           ]
         },
         "pref_disable_new_entities": false,
@@ -111,9 +119,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -122,9 +128,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -138,7 +142,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "disabled_by": null,
@@ -148,9 +156,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -164,7 +170,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "hostname"
           ]
         },
         "disabled_by": null,
@@ -174,9 +180,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -190,7 +194,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryPort"
           ]
         },
         "disabled_by": null,
@@ -211,9 +217,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T15:58:59.622726+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -227,7 +231,10 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "api_key",
+            "latitude",
+            "longitude",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -238,7 +245,7 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "forecast"
           ]
         },
         "pref_disable_new_entities": false,
@@ -253,7 +260,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "disabled_by": null,
@@ -263,9 +274,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -279,7 +288,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryPort"
           ]
         },
         "disabled_by": null,
@@ -300,9 +311,7 @@
         "minor_version": 1,
         "modified_at": "2026-07-15T17:17:42.546961+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -316,7 +325,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "api_key",
+            "api_version",
+            "host"
           ]
         },
         "disabled_by": null,
@@ -337,9 +348,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T15:58:50.273269+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -353,7 +362,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "disabled_by": null,
@@ -363,9 +376,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -379,7 +390,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -389,9 +401,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -405,7 +415,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -415,9 +439,7 @@
         "minor_version": 1,
         "modified_at": "2024-12-18T12:40:11.751967+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -430,9 +452,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -441,9 +461,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -457,7 +475,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host"
           ]
         },
         "disabled_by": null,
@@ -467,9 +485,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -482,9 +498,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -493,9 +507,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -509,7 +521,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "hostname",
+            "location",
+            "mac_address"
           ]
         },
         "disabled_by": null,
@@ -519,9 +533,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -535,7 +547,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryPort"
           ]
         },
         "disabled_by": null,
@@ -556,9 +570,7 @@
         "minor_version": 1,
         "modified_at": "2025-12-20T21:07:02.835116+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -572,7 +584,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "disabled_by": null,
@@ -583,7 +599,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "pref_disable_new_entities": false,
@@ -598,7 +618,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "mac",
+            "url"
           ]
         },
         "disabled_by": null,
@@ -616,9 +637,7 @@
         "minor_version": 1,
         "modified_at": "2026-05-03T22:26:18.069756+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -632,7 +651,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "disabled_by": null,
@@ -643,7 +666,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "event",
+            "event_data",
+            "name",
+            "state",
+            "state_map"
           ]
         },
         "pref_disable_new_entities": false,
@@ -658,7 +685,10 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "password",
+            "port",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -668,9 +698,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -684,7 +712,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "blid",
+            "continuous",
+            "delay",
+            "host",
+            "password"
           ]
         },
         "disabled_by": null,
@@ -695,7 +727,8 @@
         "modified_at": "2024-09-29T12:08:45.520067+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "continuous",
+            "delay"
           ]
         },
         "pref_disable_new_entities": false,
@@ -709,9 +742,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -720,9 +751,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -736,7 +765,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryPort"
           ]
         },
         "disabled_by": null,
@@ -757,9 +788,7 @@
         "minor_version": 1,
         "modified_at": "2025-12-20T20:39:39.783965+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -773,7 +802,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "url"
           ]
         },
         "disabled_by": null,
@@ -783,9 +812,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -799,7 +826,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -828,9 +856,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T15:58:54.110988+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -844,7 +870,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryPort"
           ]
         },
         "disabled_by": null,
@@ -865,9 +893,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T15:58:59.622216+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -881,7 +907,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "address"
           ]
         },
         "disabled_by": null,
@@ -891,9 +917,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -906,9 +930,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -917,9 +939,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -932,9 +952,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -943,9 +961,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -959,7 +975,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -969,9 +989,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -984,9 +1002,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -995,9 +1011,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1010,9 +1024,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1021,9 +1033,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1036,9 +1046,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1047,9 +1055,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1062,9 +1068,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1073,9 +1077,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1089,7 +1091,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "address"
           ]
         },
         "disabled_by": null,
@@ -1099,9 +1101,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1114,9 +1114,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1125,9 +1123,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1141,7 +1137,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -1151,9 +1148,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1166,9 +1161,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1177,9 +1170,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1193,7 +1184,7 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "address"
           ]
         },
         "disabled_by": null,
@@ -1203,9 +1194,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1219,7 +1208,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "credential",
+            "device_type",
+            "host",
+            "name",
+            "serial"
           ]
         },
         "disabled_by": null,
@@ -1229,9 +1222,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1245,7 +1236,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "credential",
+            "device_type",
+            "host",
+            "name",
+            "serial"
           ]
         },
         "disabled_by": null,
@@ -1255,9 +1250,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1271,7 +1264,17 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "date_format",
+            "devicetracker_id",
+            "extended_attr",
+            "home_zone",
+            "language",
+            "map_provider",
+            "map_zoom",
+            "name",
+            "options",
+            "show_time",
+            "use_gps_accuracy"
           ]
         },
         "disabled_by": null,
@@ -1281,9 +1284,7 @@
         "minor_version": 1,
         "modified_at": "2025-07-31T11:05:58.170339+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1297,7 +1298,16 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "date_format",
+            "devicetracker_id",
+            "extended_attr",
+            "home_zone",
+            "map_provider",
+            "map_zoom",
+            "name",
+            "options",
+            "show_time",
+            "use_gps_accuracy"
           ]
         },
         "disabled_by": null,
@@ -1307,9 +1317,7 @@
         "minor_version": 1,
         "modified_at": "2025-08-21T20:52:05.600704+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1323,7 +1331,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1333,9 +1355,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-30T19:41:32.256781+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1349,7 +1369,15 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "devicetracker_id",
+            "extended_attr",
+            "home_zone",
+            "map_provider",
+            "map_zoom",
+            "name",
+            "options",
+            "show_time",
+            "use_gps_accuracy"
           ]
         },
         "disabled_by": null,
@@ -1359,9 +1387,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1375,7 +1401,9 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "mac",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -1396,9 +1424,7 @@
         "minor_version": 1,
         "modified_at": "2026-07-28T12:06:58.484791+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1412,7 +1438,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "client_secret",
+            "host"
           ]
         },
         "disabled_by": null,
@@ -1430,9 +1457,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T19:58:30.176392+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1445,9 +1470,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1456,9 +1479,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1472,7 +1493,16 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "date_format",
+            "devicetracker_id",
+            "extended_attr",
+            "home_zone",
+            "map_provider",
+            "map_zoom",
+            "name",
+            "options",
+            "show_time",
+            "use_gps_accuracy"
           ]
         },
         "disabled_by": null,
@@ -1482,9 +1512,7 @@
         "minor_version": 1,
         "modified_at": "2025-04-28T15:06:11.138982+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1498,7 +1526,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1508,9 +1550,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1524,7 +1564,10 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "api_key",
+            "latitude",
+            "longitude",
+            "name"
           ]
         },
         "disabled_by": null,
@@ -1534,9 +1577,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1550,7 +1591,19 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1560,9 +1613,7 @@
         "minor_version": 1,
         "modified_at": "2025-07-07T20:21:32.164733+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1576,7 +1627,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -1586,9 +1638,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1602,7 +1652,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1612,9 +1676,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1628,7 +1690,12 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "bluetooth_mac_address",
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -1657,7 +1724,7 @@
         "modified_at": "2025-11-19T20:12:18.659764+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1672,7 +1739,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -1701,7 +1772,7 @@
         "modified_at": "2025-02-25T02:24:27.953520+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1716,7 +1787,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -1727,7 +1802,7 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1742,7 +1817,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -1771,7 +1850,7 @@
         "modified_at": "2025-12-06T17:00:11.227228+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1786,7 +1865,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "name",
+            "password",
+            "plant_id",
+            "url",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -1796,9 +1879,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1812,7 +1893,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1822,9 +1917,7 @@
         "minor_version": 1,
         "modified_at": "2026-09-11T21:01:17.683733+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1838,7 +1931,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1848,9 +1955,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1863,9 +1968,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1875,7 +1978,9 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "after_time",
+            "before_time",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1889,9 +1994,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1901,7 +2004,9 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "after_time",
+            "before_time",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1916,7 +2021,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -1926,9 +2045,7 @@
         "minor_version": 1,
         "modified_at": "2024-08-31T11:59:51.456355+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -1941,9 +2058,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1953,7 +2068,15 @@
         "modified_at": "2025-11-19T20:11:54.082263+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "consider_home",
+            "exclude",
+            "home_interval",
+            "hosts",
+            "hosts_exclude",
+            "hosts_list",
+            "interval_seconds",
+            "mac_exclude",
+            "scan_options"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1967,9 +2090,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -1979,7 +2100,13 @@
         "modified_at": "2025-11-19T20:11:54.083214+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "exclude",
+            "home_interval",
+            "hosts",
+            "hosts_exclude",
+            "hosts_list",
+            "mac_exclude",
+            "scan_options"
           ]
         },
         "pref_disable_new_entities": false,
@@ -1993,9 +2120,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2005,7 +2130,13 @@
         "modified_at": "2025-11-19T20:11:54.084093+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "exclude",
+            "home_interval",
+            "hosts",
+            "hosts_exclude",
+            "hosts_list",
+            "mac_exclude",
+            "scan_options"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2020,7 +2151,11 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -2049,7 +2184,7 @@
         "modified_at": "2025-02-23T10:08:49.695914+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2063,9 +2198,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2075,7 +2208,11 @@
         "modified_at": "2026-04-07T21:35:31.979625+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2089,9 +2226,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2101,7 +2236,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2115,9 +2253,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2127,7 +2263,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2141,9 +2280,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2153,7 +2290,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2167,9 +2307,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2179,7 +2317,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2193,9 +2334,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2205,7 +2344,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2219,9 +2362,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2231,7 +2372,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2245,9 +2390,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2257,7 +2400,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2271,9 +2418,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2283,7 +2428,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2297,9 +2446,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2309,7 +2456,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2323,9 +2474,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2335,7 +2484,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2349,9 +2502,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2361,7 +2512,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2375,9 +2530,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2387,7 +2540,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2401,9 +2558,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2413,7 +2568,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2427,9 +2586,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2439,7 +2596,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2453,9 +2614,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2465,7 +2624,11 @@
         "modified_at": "2024-12-20T21:05:50.539240+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2479,9 +2642,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2491,7 +2652,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2505,9 +2670,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2517,7 +2680,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2532,7 +2699,10 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "endpoint",
+            "terminal_id",
+            "token_info",
+            "user_code"
           ]
         },
         "disabled_by": null,
@@ -2540,11 +2710,9 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-09-16T16:47:20.736215+00:00",
+        "modified_at": "2026-09-17T10:38:23.499988+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2557,9 +2725,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2569,7 +2735,11 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2583,9 +2753,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2595,7 +2763,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2609,9 +2780,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2621,7 +2790,11 @@
         "modified_at": "2025-11-19T23:07:08.603351+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2635,9 +2808,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2647,7 +2818,10 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2661,9 +2835,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2673,7 +2845,11 @@
         "modified_at": "2025-11-19T22:52:07.350101+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2687,9 +2863,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2699,7 +2873,11 @@
         "modified_at": "2025-11-13T07:23:44.601673+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "all",
+            "entities",
+            "group_type",
+            "hide_members",
+            "name"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2714,7 +2892,21 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -2724,9 +2916,7 @@
         "minor_version": 1,
         "modified_at": "2025-04-22T09:30:08.314625+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2740,7 +2930,8 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "password",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -2750,9 +2941,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2766,7 +2955,16 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "date_format",
+            "devicetracker_id",
+            "extended_attr",
+            "home_zone",
+            "map_provider",
+            "map_zoom",
+            "name",
+            "options",
+            "show_time",
+            "use_gps_accuracy"
           ]
         },
         "disabled_by": null,
@@ -2776,9 +2974,7 @@
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2791,9 +2987,7 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2803,7 +2997,12 @@
         "modified_at": "1970-01-01T00:00:00+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_class",
+            "name",
+            "state",
+            "state_class",
+            "template_type",
+            "unit_of_measurement"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2818,7 +3017,9 @@
         "created_at": "2024-09-13T07:16:28.619665+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "id",
+            "password",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -2828,9 +3029,7 @@
         "minor_version": 1,
         "modified_at": "2024-09-13T07:16:28.619683+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2844,7 +3043,8 @@
         "created_at": "2025-02-20T23:42:38.567136+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -2865,9 +3065,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-28T17:57:12.918650+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2881,7 +3079,8 @@
         "created_at": "2025-02-21T00:50:26.421538+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "auth_implementation",
+            "token"
           ]
         },
         "disabled_by": null,
@@ -2910,9 +3109,7 @@
         "minor_version": 1,
         "modified_at": "2026-01-27T07:15:08.334221+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2925,9 +3122,7 @@
       {
         "created_at": "2025-02-22T15:58:50.319436+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -2936,9 +3131,7 @@
         "minor_version": 1,
         "modified_at": "2025-02-22T15:58:50.319449+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -2952,7 +3145,11 @@
         "created_at": "2025-02-28T11:28:29.688076+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -2989,7 +3186,7 @@
         "modified_at": "2025-02-28T23:15:57.538219+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3003,9 +3200,7 @@
       {
         "created_at": "2025-03-22T17:26:30.859987+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -3014,9 +3209,7 @@
         "minor_version": 1,
         "modified_at": "2025-03-22T17:27:22.018859+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": true,
@@ -3029,9 +3222,7 @@
       {
         "created_at": "2025-04-21T16:15:48.724859+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -3040,9 +3231,7 @@
         "minor_version": 1,
         "modified_at": "2025-04-21T16:15:48.724868+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3056,7 +3245,7 @@
         "created_at": "2025-04-21T16:21:23.945744+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "refresh_token"
           ]
         },
         "disabled_by": null,
@@ -3078,7 +3267,7 @@
         "modified_at": "2026-09-14T13:41:08.937071+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "fallback"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3093,7 +3282,19 @@
         "created_at": "2025-04-26T18:15:04.237553+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3103,9 +3304,7 @@
         "minor_version": 1,
         "modified_at": "2025-04-26T18:15:04.237565+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3119,7 +3318,8 @@
         "created_at": "2025-04-29T21:09:13.380221+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_id",
+            "ip_address"
           ]
         },
         "disabled_by": null,
@@ -3129,9 +3329,7 @@
         "minor_version": 1,
         "modified_at": "2025-04-29T21:09:13.380235+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3145,7 +3343,21 @@
         "created_at": "2025-05-01T19:31:49.491759+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3155,9 +3367,7 @@
         "minor_version": 1,
         "modified_at": "2026-06-18T18:02:10.663696+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3171,7 +3381,8 @@
         "created_at": "2025-05-02T18:07:46.566421+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "auth",
+            "region"
           ]
         },
         "disabled_by": null,
@@ -3181,9 +3392,7 @@
         "minor_version": 1,
         "modified_at": "2025-05-02T18:07:46.566429+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3196,9 +3405,7 @@
       {
         "created_at": "2025-06-02T18:47:51.254331+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {
@@ -3215,9 +3422,7 @@
         "minor_version": 1,
         "modified_at": "2025-06-02T18:47:51.254348+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3231,7 +3436,8 @@
         "created_at": "2025-06-02T18:47:53.097267+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -3259,9 +3465,7 @@
         "minor_version": 1,
         "modified_at": "2025-06-04T21:12:28.951029+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3274,9 +3478,7 @@
       {
         "created_at": "2025-06-02T18:47:54.750007+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {
@@ -3296,9 +3498,7 @@
         "minor_version": 1,
         "modified_at": "2025-06-02T18:47:54.750023+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3311,9 +3511,7 @@
       {
         "created_at": "2025-06-02T18:47:56.939978+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {
@@ -3330,9 +3528,7 @@
         "minor_version": 1,
         "modified_at": "2025-06-02T18:47:56.939994+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3346,7 +3542,7 @@
         "created_at": "2025-06-02T18:47:59.003310+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host"
           ]
         },
         "disabled_by": null,
@@ -3364,9 +3560,7 @@
         "minor_version": 5,
         "modified_at": "2025-06-02T18:48:04.027645+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3380,7 +3574,8 @@
         "created_at": "2025-06-23T16:30:05.581005+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -3424,9 +3619,7 @@
         "minor_version": 1,
         "modified_at": "2025-06-24T20:44:52.993307+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3440,7 +3633,12 @@
         "created_at": "2025-07-01T12:37:00.000480+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "bluetooth_mac_address",
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -3469,7 +3667,7 @@
         "modified_at": "2025-11-19T20:12:18.647919+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "allow_service_calls"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3484,7 +3682,14 @@
         "created_at": "2025-07-03T11:01:29.339955+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "auth_implementation",
+            "cloud_project_id",
+            "project_id",
+            "sdm",
+            "subscriber_id_imported",
+            "subscription_name",
+            "token",
+            "topic_name"
           ]
         },
         "disabled_by": null,
@@ -3492,11 +3697,9 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-09-16T18:03:17.590401+00:00",
+        "modified_at": "2026-09-17T10:14:06.251109+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3510,7 +3713,14 @@
         "created_at": "2025-07-03T11:42:06.787391+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "add_aarlo_prefix",
+            "password",
+            "tfa_host",
+            "tfa_password",
+            "tfa_source",
+            "tfa_type",
+            "tfa_username",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -3521,7 +3731,40 @@
         "modified_at": "2025-07-09T12:55:12.347928+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "alarm_control_panel_alarm_volume",
+            "alarm_control_panel_away_mode_name",
+            "alarm_control_panel_code_arm_required",
+            "alarm_control_panel_code_disarm_required",
+            "alarm_control_panel_disarmed_mode_name",
+            "alarm_control_panel_home_mode_name",
+            "alarm_control_panel_night_mode_name",
+            "alarm_control_panel_trigger_time",
+            "binary_sensor_connectivity",
+            "binary_sensor_contact",
+            "binary_sensor_cry",
+            "binary_sensor_ding",
+            "binary_sensor_leak",
+            "binary_sensor_light",
+            "binary_sensor_motion",
+            "binary_sensor_sound",
+            "binary_sensor_tamper",
+            "sensor_air_quality",
+            "sensor_battery_level",
+            "sensor_captured_today",
+            "sensor_humidity",
+            "sensor_last_capture",
+            "sensor_recent_activity",
+            "sensor_signal_strength",
+            "sensor_temperature",
+            "sensor_total_cameras",
+            "switch_all_sirens",
+            "switch_doorbell_silence",
+            "switch_siren",
+            "switch_siren_allow_off",
+            "switch_siren_duration",
+            "switch_siren_volume",
+            "switch_snapshot",
+            "switch_snapshot_timeout"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3536,7 +3779,19 @@
         "created_at": "2025-07-08T12:32:30.330004+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3546,9 +3801,7 @@
         "minor_version": 1,
         "modified_at": "2025-07-31T06:19:02.034599+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3561,9 +3814,7 @@
       {
         "created_at": "2025-07-10T18:03:04.296251+00:00",
         "data": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "disabled_by": null,
         "discovery_keys": {},
@@ -3573,7 +3824,8 @@
         "modified_at": "2025-07-10T18:03:51.681517+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "folder",
+            "patterns"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3588,7 +3840,10 @@
         "created_at": "2025-07-26T19:43:59.016615+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "friendly_name",
+            "username",
+            "vcc_api_key",
+            "vin"
           ]
         },
         "disabled_by": null,
@@ -3599,7 +3854,9 @@
         "modified_at": "2025-11-02T09:44:58.948108+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_tracker_picture",
+            "energy_consumption_unit",
+            "vcc_api_key"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3614,7 +3871,19 @@
         "created_at": "2025-08-05T12:25:37.988293+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3624,9 +3893,7 @@
         "minor_version": 1,
         "modified_at": "2025-08-12T06:58:14.625918+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3640,7 +3907,19 @@
         "created_at": "2025-08-15T11:20:59.711881+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3648,11 +3927,9 @@
         "domain": "mobile_app",
         "entry_id": "01K2PQCB1ZFTPF9PG3JJCHCFPZ",
         "minor_version": 1,
-        "modified_at": "2026-08-26T06:27:44.140725+00:00",
+        "modified_at": "2026-09-17T06:50:34.116277+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3666,7 +3943,7 @@
         "created_at": "2025-08-28T10:22:46.709456+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "download_dir"
           ]
         },
         "disabled_by": null,
@@ -3676,9 +3953,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-19T20:11:53.023462+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3692,7 +3967,9 @@
         "created_at": "2025-09-05T07:25:18.811465+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "country_code",
+            "password",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -3702,9 +3979,7 @@
         "minor_version": 1,
         "modified_at": "2025-09-05T07:25:19.484806+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3718,7 +3993,8 @@
         "created_at": "2025-11-14T13:58:40.864594+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -3739,9 +4015,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-14T14:17:08.578365+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3755,7 +4029,8 @@
         "created_at": "2025-11-14T13:58:42.941693+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "host",
+            "port"
           ]
         },
         "disabled_by": null,
@@ -3776,9 +4051,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-14T14:17:09.146131+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3792,7 +4065,21 @@
         "created_at": "2025-11-15T11:52:56.120276+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3802,9 +4089,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-19T07:53:36.513486+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3818,7 +4103,11 @@
         "created_at": "2025-11-19T20:12:18.651966+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "source",
+            "source_config_entry_id",
+            "source_device_id",
+            "source_domain",
+            "source_model"
           ]
         },
         "disabled_by": null,
@@ -3828,9 +4117,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-19T20:12:18.651978+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3844,7 +4131,11 @@
         "created_at": "2025-11-19T20:12:18.663078+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "source",
+            "source_config_entry_id",
+            "source_device_id",
+            "source_domain",
+            "source_model"
           ]
         },
         "disabled_by": null,
@@ -3854,9 +4145,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-19T20:12:18.663090+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3870,7 +4159,7 @@
         "created_at": "2025-11-19T22:40:16.670921+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "token"
           ]
         },
         "disabled_by": null,
@@ -3881,7 +4170,7 @@
         "modified_at": "2025-11-19T22:40:16.670932+00:00",
         "options": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "experimental"
           ]
         },
         "pref_disable_new_entities": false,
@@ -3896,7 +4185,10 @@
         "created_at": "2025-11-19T22:43:39.222022+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "instance_name",
+            "lightwave_auth_method",
+            "password",
+            "username"
           ]
         },
         "disabled_by": null,
@@ -3906,9 +4198,7 @@
         "minor_version": 1,
         "modified_at": "2025-11-19T22:43:39.222031+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3922,7 +4212,21 @@
         "created_at": "2025-12-19T19:17:46.943609+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -3932,9 +4236,7 @@
         "minor_version": 1,
         "modified_at": "2026-09-15T06:35:37.752498+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3948,7 +4250,10 @@
         "created_at": "2026-02-19T13:58:58.933245+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "auth_implementation",
+            "location_id",
+            "subscription_id",
+            "token"
           ]
         },
         "disabled_by": null,
@@ -3956,11 +4261,9 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-09-16T10:50:25.232533+00:00",
+        "modified_at": "2026-09-17T10:53:30.739332+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -3974,7 +4277,8 @@
         "created_at": "2026-05-25T18:41:01.862573+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device",
+            "radio_type"
           ]
         },
         "disabled_by": null,
@@ -3984,9 +4288,7 @@
         "minor_version": 1,
         "modified_at": "2026-05-25T18:41:01.862590+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4000,7 +4302,8 @@
         "created_at": "2026-05-26T14:12:04.866935+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_id",
+            "ip_address"
           ]
         },
         "disabled_by": null,
@@ -4010,9 +4313,7 @@
         "minor_version": 1,
         "modified_at": "2026-05-26T14:12:04.866952+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4026,7 +4327,8 @@
         "created_at": "2026-05-26T14:13:10.956600+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_id",
+            "ip_address"
           ]
         },
         "disabled_by": null,
@@ -4036,9 +4338,7 @@
         "minor_version": 1,
         "modified_at": "2026-05-26T14:13:10.956611+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4052,7 +4352,8 @@
         "created_at": "2026-05-26T14:14:39.700349+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "device_id",
+            "ip_address"
           ]
         },
         "disabled_by": null,
@@ -4062,9 +4363,7 @@
         "minor_version": 1,
         "modified_at": "2026-05-26T14:14:39.700391+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4078,7 +4377,21 @@
         "created_at": "2026-07-19T17:42:48.915527+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -4086,11 +4399,9 @@
         "domain": "mobile_app",
         "entry_id": "01KXXQJDAKHYW963D1AF4RABRC",
         "minor_version": 1,
-        "modified_at": "2026-09-13T22:49:46.746490+00:00",
+        "modified_at": "2026-09-17T07:06:37.424994+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4104,7 +4415,19 @@
         "created_at": "2026-08-30T21:54:24.572624+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "os_name",
+            "os_version",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
           ]
         },
         "disabled_by": null,
@@ -4114,9 +4437,7 @@
         "minor_version": 1,
         "modified_at": "2026-08-30T21:54:24.572638+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -4130,7 +4451,18 @@
         "created_at": "2026-09-15T07:56:19.296722+00:00",
         "data": {
           "_redacted_keys": [
-            "_redacted_keys"
+            "access_token",
+            "device_id",
+            "email",
+            "language",
+            "model",
+            "mower_host",
+            "refresh_token",
+            "region",
+            "uid",
+            "vehicle_name",
+            "vehicle_sn",
+            "vehicle_type"
           ]
         },
         "disabled_by": null,
@@ -4140,9 +4472,7 @@
         "minor_version": 1,
         "modified_at": "2026-09-15T07:56:19.296736+00:00",
         "options": {
-          "_redacted_keys": [
-            "_redacted_keys"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
