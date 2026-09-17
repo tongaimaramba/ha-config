@@ -2,7 +2,7 @@
 
 ```
 host: tanga
-exported_at: 2026-09-17T14:55:53+01:00
+exported_at: 2026-09-17T16:09:11+01:00
 config_dir: /homeassistant
 ha_version: 2025.11.1
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
@@ -82,7 +82,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
 home-assistant_v2.db (16729014272 bytes) — db/log/binary
 home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (4499072 bytes) — db/log/binary
+home-assistant_v2.db-wal (5055272 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
