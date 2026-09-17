@@ -113,11 +113,15 @@ or add `-p 22222` if the SSH add-on uses a non-default port).
    it committed (or says there was nothing new).
 2. From your Mac, in the `ha-config` clone: `bash tools/pull_and_push.sh pamba`
    (or `tanga`). That's the one command — it fetches the box's commit over SSH,
-   fast-forwards `main` onto it, and pushes to GitHub.
+   merges it into `main`, and pushes to GitHub.
 
-If step 2 ever isn't a fast-forward (rare — would mean `main` moved some other way
-since the box last synced), the script stops and leaves the fetched commit on a
-branch for you to look at rather than guessing how to merge it.
+The merge is a plain merge, not a fast-forward: `main` always carries Mac-side
+commits (tools/ edits, earlier merges) that the box never sees. If the merge
+conflicts *inside* `hosts/<host>/`, the box's version is taken automatically —
+the box is the source of truth for its own snapshot by definition (this also
+covers the first-ever sync from a freshly `git init`'d box, where every file
+shows up as an add/add conflict). A conflict anywhere *outside* `hosts/<host>/`
+is the one case the script won't guess at: it stops and lists the files.
 
 ## Project-knowledge sync
 

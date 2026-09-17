@@ -38,18 +38,39 @@ REMOTE_URL="ssh://${USERHOST}:${PORT}//share/ha-config-repo"
 echo "== fetching $HOST's local commit from $REMOTE_URL"
 git fetch "$REMOTE_URL" "main:sync-$HOST-incoming" --force
 
-echo "== fast-forwarding main onto it"
-git checkout main
-if ! git merge --ff-only "sync-$HOST-incoming"; then
-  echo
-  echo "!! not a fast-forward — main has diverged from what the box has."
-  echo "   Left the fetched commit on branch 'sync-$HOST-incoming' for you to look at:"
-  echo "     git log main..sync-$HOST-incoming"
-  echo "     git merge sync-$HOST-incoming     # once you're happy, or"
-  echo "     git rebase main sync-$HOST-incoming"
-  exit 1
+echo "== merging into main"
+git checkout -q main
+# A plain merge, not --ff-only: main always has Mac-side commits (tools/ edits,
+# earlier merges) the box never sees, so a fast-forward is never possible in
+# practice. --allow-unrelated-histories covers the first-ever sync from a box
+# that was seeded with a fresh `git init` rather than a clone.
+if ! git merge --no-edit --allow-unrelated-histories "sync-$HOST-incoming"; then
+  conflicted="$(git diff --name-only --diff-filter=U)"
+  if [[ -z "$conflicted" ]]; then
+    echo "!! merge failed for a reason other than conflicts (see above). Fetched commit is on branch 'sync-$HOST-incoming'." >&2
+    exit 1
+  fi
+  if grep -qv "^hosts/$HOST/" <<<"$conflicted"; then
+    echo >&2
+    echo "!! conflicts outside hosts/$HOST/ — not auto-resolving these, look at them by hand:" >&2
+    grep -v "^hosts/$HOST/" <<<"$conflicted" >&2
+    echo "   (git merge --abort  to back out, or resolve + git commit)" >&2
+    exit 1
+  fi
+  # Every conflict is inside hosts/$HOST/. The box is the source of truth for its
+  # own snapshot by definition, so its version wins.
+  echo "== conflicts only under hosts/$HOST/ — taking the box's version"
+  git diff --name-only --diff-filter=U -z | while IFS= read -r -d '' f; do
+    if git cat-file -e ":3:$f" 2>/dev/null; then
+      git checkout --theirs -- "$f"     # box has the file: use its content
+    else
+      git rm -q -- "$f"                 # box deleted it: deletion wins
+    fi
+  done
+  git add "hosts/$HOST"
+  git commit -q --no-edit
 fi
-git branch -d "sync-$HOST-incoming"
+git branch -D "sync-$HOST-incoming" >/dev/null
 
 echo "== pushing to GitHub"
 git push origin main
