@@ -1,0 +1,63 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/312896602.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@lendik007",
+            "@Farfar"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "main",
+        "description": "Skoda Connect - An home assistant plugin to add integration with your car",
+        "domain": "skodaconnect",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"149ef2716471393bf41dbe813b28a06ed5cc2c4933a847e66abc84404e4999d2\"",
+        "file_name": "",
+        "filename": "skodaconnect.zip",
+        "first_install": false,
+        "fork": false,
+        "full_name": "lendy007/homeassistant-skodaconnect",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": true,
+        "homeassistant": "2021.12.0",
+        "id": "312896602",
+        "iot_class": "Cloud Polling",
+        "installed": true,
+        "installed_commit": "06627bf",
+        "installed_version": "1.0.68",
+        "open_issues": 9,
+        "last_commit": "06627bf",
+        "last_version": "1.0.68",
+        "last_updated": "2022-06-09T19:35:25Z",
+        "manifest_name": "Skoda Connect",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-06-09T19:35:25",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "1.0.68",
+            "1.0.67",
+            "1.0.66",
+            "1.0.65",
+            "1.0.64"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 106,
+        "topics": [
+            "custom-component",
+            "hacs",
+            "homeassistant",
+            "skoda-connect"
+        ],
+        "zip_release": false
+    }
+}

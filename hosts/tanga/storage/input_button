@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_button",
+  "data": {
+    "items": [
+      {
+        "id": "alx",
+        "name": "alx"
+      },
+      {
+        "id": "speedtest",
+        "name": "Speedtest",
+        "icon": "mdi:speedometer"
+      },
+      {
+        "id": "fp_lockout_reset",
+        "name": "Reset FP Lockout",
+        "icon": "mdi:lock-reset"
+      },
+      {
+        "id": "enroll_fingerprint",
+        "name": "Enroll Fingerprint"
+      },
+      {
+        "id": "delete_fingerprint",
+        "name": "Delete Fingerprint",
+        "icon": "mdi:delete"
+      },
+      {
+        "id": "delete_all_fingerprints",
+        "name": "Delete All Fingerprints",
+        "icon": "mdi:delete-alert-outline"
+      }
+    ]
+  }
+}

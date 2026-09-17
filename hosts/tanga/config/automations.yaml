@@ -1,0 +1,2938 @@
+- id: '1595834576124'
+  alias: perimeter alarm (away)
+  description: ''
+  trigger:
+  - entity_id:
+    - binary_sensor.bathroom_window_contact
+    - binary_sensor.bay_party_wall_contact
+    - binary_sensor.bay_window_contact
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+    - binary_sensor.guest_win_contact
+    - binary_sensor.kitchen_contact
+    - binary_sensor.landing_window_contact
+    - binary_sensor.main_window_contact
+    - binary_sensor.main_window_party_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.bathroom_window_acceleration
+    - binary_sensor.bay_party_wall_acceleration
+    - binary_sensor.bay_window_acceleration
+    - binary_sensor.front_acceleration
+    - binary_sensor.garage_out_acceleration
+    - binary_sensor.guest_win_acceleration
+    - binary_sensor.kitchen_acceleration
+    - binary_sensor.landing_window_acceleration
+    - binary_sensor.main_window_acceleration
+    - binary_sensor.main_window_party_acceleration
+    - binary_sensor.patio_door_acceleration
+    - binary_sensor.utility_back_door_acceleration
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - after: '18:00'
+      before: '23:59'
+      condition: time
+    - after: 00:00
+      before: 08:00
+      condition: time
+  - condition: state
+    entity_id: input_boolean.away_on_holiday
+    state: 'on'
+  action:
+  - data_template:
+      data:
+        channel: Alarmz
+        importance: high
+        persistent: true
+        tag: persistent
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}}'
+      title: Perimeter Alarm
+    service: notify.all_android
+  mode: single
+- id: '1618488926197'
+  alias: perimeter alarm (at home)
+  description: ''
+  trigger:
+  - entity_id:
+    - binary_sensor.bathroom_window_contact
+    - binary_sensor.bay_party_wall_contact
+    - binary_sensor.bay_window_contact
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+    - binary_sensor.guest_win_contact
+    - binary_sensor.kitchen_contact
+    - binary_sensor.landing_window_contact
+    - binary_sensor.main_window_contact
+    - binary_sensor.main_window_party_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.bathroom_window_acceleration
+    - binary_sensor.bay_party_wall_acceleration
+    - binary_sensor.bay_window_acceleration
+    - binary_sensor.front_acceleration
+    - binary_sensor.garage_out_acceleration
+    - binary_sensor.guest_win_acceleration
+    - binary_sensor.kitchen_acceleration
+    - binary_sensor.landing_window_acceleration
+    - binary_sensor.main_window_acceleration
+    - binary_sensor.main_window_party_acceleration
+    - binary_sensor.patio_door_acceleration
+    - binary_sensor.utility_back_door_acceleration
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - after: '23:00:00'
+      before: '23:59'
+      condition: time
+    - after: 00:00
+      before: 06:00
+      condition: time
+  action:
+  - data_template:
+      data:
+        channel: Alarmz
+        importance: high
+        persistent: true
+        tag: persistent
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}}'
+      title: Perimeter Alarm
+    service: notify.all_android
+  mode: single
+- id: '1606917291219'
+  alias: Mojgan Iphone WiFi
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.iphone_ssid
+    from: Not Connected
+    to: tojgan
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.iphone_wifi
+  - wait_for_trigger:
+    - platform: state
+      entity_id: sensor.iphone_ssid
+      from: tojgan
+      to: Not Connected
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.iphone_wifi
+  mode: single
+- id: '1641497968693'
+  alias: patio and lamps
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_1_button
+      type: short_release
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.lounge_lamp_dimmer
+        state: 2_click
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_100125dac5
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: sensor.lounge_lamp_dimmer
+          state: 3_click
+        - condition: state
+          entity_id: sensor.lounge_lamp_dimmer
+          state: 4_click
+      sequence:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.sonoff_100125dac5
+    default: []
+  mode: single
+- id: '1642517830283'
+  alias: patio and worktop
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: kitchen_switch_button
+      type: short_release
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.kitchen_worktop
+        state: 1_click
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.sonoff_100125dac5
+    - conditions:
+      - condition: state
+        entity_id: sensor.kitchen_worktop
+        state: 4_click
+      sequence:
+      - service: switch.turn_off
+        target:
+          entity_id: switch.sonoff_100125dac5
+    default: []
+  mode: single
+- id: '1642112099034'
+  alias: 'Morning '
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.weekday_shower
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: numeric_state
+    entity_id: sensor.bathroom_temperature_2
+    below: '24'
+  - condition: state
+    entity_id: input_boolean.morning_heater
+    state: 'on'
+  action:
+  - type: turn_on
+    device_id: 94fdf90bf415b3262d25da4c4996398d
+    entity_id: light.hue_smart_plug_1
+    domain: light
+  mode: single
+- id: '1645567096937'
+  alias: lights for Robert
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 791af6c4d0529d2854f90dafb3beff59
+    domain: vacuum
+    entity_id: vacuum.robert
+    type: cleaning
+  condition:
+  - condition: time
+    after: '21:00'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 39
+    target:
+      device_id: 5433856065066b607fc149d441bb7d47
+      entity_id: light.kitchen_worktop
+      area_id: a7bbbf7a4c534eee9fba96faea40b6b4
+  mode: single
+- id: '1646081816959'
+  alias: Garage light timer
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.sonoff_100140291c
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.sonoff_100140291c
+  mode: single
+- id: '1656705377102'
+  alias: Audio
+  description: ''
+  trigger:
+  - device_id: 12f5a2396551d011ab4a5c841067b777
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 1
+    unique_id: 2b3a26ba-ae72-4d6c-b3b0-466698b9181f
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: media_player.projector
+          attribute: sound_output
+          state: soundbar
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.projector
+          attribute: sound_output
+          state: headphone
+      sequence:
+      - service: webostv.select_sound_output
+        data:
+          sound_output: headphone
+          entity_id: media_player.projector
+    - conditions:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.projector
+          attribute: sound_output
+          state: soundbar
+      sequence:
+      - service: webostv.select_sound_output
+        data:
+          entity_id: media_player.projector
+          sound_output: soundbar
+    default:
+    - service: webostv.select_sound_output
+      data:
+        entity_id: media_player.projector
+        sound_output: soundbar
+  mode: single
+- id: '1659019447358'
+  alias: Tag Downstairs Lights Off is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 80a36f97-2779-4e1b-adc9-ef93c1895868
+  - platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: 80a36f97-2779-4e1b-adc9-ef93c1895868
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: group.downstairs_lights
+  mode: single
+- id: '1659303236672'
+  alias: favetune
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 59f194cc-4db6-4d5d-b2e4-a8c02fc33e31
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.kitchen
+    data:
+      media_content_id: FV:2/32
+      media_content_type: favorite_item_id
+    metadata:
+      title: Radio 2
+      thumbnail: https://sounds.files.bbci.co.uk/3.1.5/networks/bbc_radio_two/colour_450x450.png
+      media_class: genre
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: favorites
+        media_content_id: ''
+      - media_content_type: favorites_folder
+        media_content_id: object.item.audioItem.audioBroadcast
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.22
+    target:
+      entity_id: media_player.kitchen
+  mode: single
+- id: '1659304799679'
+  alias: Tag T-light is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 54805471-50ef-43f7-8c19-452ec2e5d80e
+  condition: []
+  action:
+  - service: light.toggle
+    data:
+      brightness_pct: 10
+    target:
+      entity_id: light.t_side
+  mode: single
+- id: '1668696568745'
+  alias: timed pump
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.pump_timer
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: switch.sonoff_1000eced8f
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.sonoff_1000eced8f
+  - delay: '{{(states(''input_number.timer_length'')|int)*60}}'
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.sonoff_1000eced8f
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.pump_timer
+  mode: single
+- id: '1669495424339'
+  alias: Downstairs off tag
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: b2165dbb-5b8d-496d-bdbc-519da9bf0cbb
+  condition:
+  - condition: time
+    after: '21:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      entity_id: group.downstairs_lights
+  mode: single
+- id: '1669496534955'
+  alias: Study lamp
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:00:00'
+    id: Off time
+  - platform: time
+    at: 06:30:00
+    id: 'On time '
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - Off time
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.study_desk_lamp
+  - if:
+    - condition: trigger
+      id:
+      - 'On time '
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.study_desk_lamp
+  mode: single
+- id: '1671457535844'
+  alias: away door alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.front_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.garage_out_contact
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.away_on_holiday
+    state: 'on'
+  action:
+  - service: notify.all_android
+    data:
+      message: Front door was just opened. Camera has started recording
+      title: Alarm
+      data: {}
+  - service: aarlo.camera_start_recording
+    data:
+      entity_id: camera.aarlo_garden_c
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: aarlo.camera_stop_recording
+    data:
+      entity_id: camera.aarlo_garden_c
+  mode: single
+- id: '1673909236249'
+  alias: Dyson Night Mode
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.pure_cool_night_mode
+  mode: single
+- id: '1683826970594'
+  alias: Tap 3 - dining
+  description: 'Controls dining and kitchen spot lights '
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: lamps_dial_button
+      device_id: 3756abd49c3c8e41a4fdc630733b55e8
+      type: short_release
+      subtype: 3
+  condition: []
+  action:
+  - if:
+    - condition: state
+      state: 'on'
+      entity_id: light.kd_spots
+    then:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id:
+        - light.kd_spots
+    else:
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id:
+        - light.kd_spots
+  mode: single
+- id: '1683911066946'
+  alias: Tap 2 - music room
+  description: Controls music room lights
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: lamps_dial_button
+      device_id: 3756abd49c3c8e41a4fdc630733b55e8
+      type: short_release
+      subtype: 2
+  condition: []
+  action:
+  - if:
+    - condition: state
+      state: 'on'
+      entity_id: light.lounge_ceiling_lights
+    then:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.lounge_ceiling_lights
+    else:
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id: light.lounge_ceiling_lights
+  mode: single
+- id: '1683972433242'
+  alias: Tap 4 - dining wall lights
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: lamps_dial_button
+      device_id: 3756abd49c3c8e41a4fdc630733b55e8
+      type: short_release
+      subtype: 4
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: light.dining_wall_lights
+      state: 'on'
+    then:
+    - service: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.dining_wall_lights
+    else:
+    - service: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 60
+      target:
+        entity_id: light.dining_wall_lights
+  mode: single
+- id: '1683972591632'
+  alias: Tap 1 - lounge lamps
+  description: Controls lounge lamps
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: lamps_dial_button
+      device_id: 3756abd49c3c8e41a4fdc630733b55e8
+      type: short_release
+      subtype: 1
+  condition: []
+  action:
+  - if:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.lounges_wall_lamps
+        state: 'on'
+    then:
+    - data: {}
+      target:
+        entity_id:
+        - light.lounges_wall_lamps
+      action: light.turn_off
+    else:
+    - metadata: {}
+      data:
+        brightness_pct: 34
+      target:
+        entity_id: light.lounge_wall_lights
+      action: light.turn_on
+    - metadata: {}
+      data:
+        brightness_pct: 71
+      target:
+        entity_id: light.media_room_wall_lights
+      action: light.turn_on
+  mode: single
+- id: '1684702121322'
+  alias: 'Hannah moving '
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.hannahs_iphone
+    zone: zone.school
+    event: leave
+  - platform: zone
+    entity_id: device_tracker.hannahs_iphone
+    zone: zone.home
+    event: leave
+  - platform: zone
+    entity_id: device_tracker.hannahs_iphone
+    zone: zone.home
+    event: enter
+  - platform: zone
+    entity_id: device_tracker.hannahs_iphone
+    zone: zone.school
+    event: enter
+  condition: []
+  action:
+  - service: notify.all_android
+    data:
+      message: Hannah on the move!
+  mode: single
+- id: '1684917455507'
+  alias: Evie Security
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: state
+    entity_id: group.car_security
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: group.car_security
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+    - condition: state
+      entity_id: binary_sensor.evie_doors_locked
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+  action:
+  - service: notify.all_android
+    data:
+      message: Check Evie, something is open!
+      target: Evie is open!
+  mode: single
+- id: '1686684796572'
+  alias: home alarm
+  description: ''
+  trigger:
+  - entity_id:
+    - binary_sensor.bathroom_window_contact
+    - binary_sensor.bay_party_wall_contact
+    - binary_sensor.bay_window_contact
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+    - binary_sensor.guest_win_contact
+    - binary_sensor.kitchen_contact
+    - binary_sensor.landing_window_contact
+    - binary_sensor.main_window_contact
+    - binary_sensor.main_window_party_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.bathroom_window_acceleration
+    - binary_sensor.bay_party_wall_acceleration
+    - binary_sensor.bay_window_acceleration
+    - binary_sensor.front_acceleration
+    - binary_sensor.garage_out_acceleration
+    - binary_sensor.guest_win_acceleration
+    - binary_sensor.kitchen_acceleration
+    - binary_sensor.landing_window_acceleration
+    - binary_sensor.main_window_acceleration
+    - binary_sensor.main_window_party_acceleration
+    - binary_sensor.patio_door_acceleration
+    - binary_sensor.utility_back_door_acceleration
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - after: '12:00:00'
+      before: '23:59'
+      condition: time
+    - after: 00:00
+      before: 07:00:00
+      condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  - condition: state
+    entity_id: input_boolean.away_on_holiday
+    state: 'on'
+  action:
+  - data_template:
+      data:
+        channel: Alarmz
+        importance: high
+        ttl: 0
+        persistent: true
+        tag: persistent
+        clickAction: /lovelace/check_alarm
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}}'
+      title: Perimeter Alarm
+    service: notify.all_android
+  mode: single
+- id: '1688715055838'
+  alias: 'Perimeter '
+  description: ''
+  trigger:
+  - entity_id:
+    - binary_sensor.bathroom_window_contact
+    - binary_sensor.bay_party_wall_contact
+    - binary_sensor.bay_window_contact
+    - binary_sensor.front_contact
+    - binary_sensor.garage_out_contact
+    - binary_sensor.guest_win_contact
+    - binary_sensor.kitchen_contact
+    - binary_sensor.landing_window_contact
+    - binary_sensor.main_window_contact
+    - binary_sensor.main_window_party_contact
+    - binary_sensor.patio_door_contact
+    - binary_sensor.utility_back_door_contact
+    - binary_sensor.bathroom_window_acceleration
+    - binary_sensor.bay_party_wall_acceleration
+    - binary_sensor.bay_window_acceleration
+    - binary_sensor.front_acceleration
+    - binary_sensor.garage_out_acceleration
+    - binary_sensor.guest_win_acceleration
+    - binary_sensor.kitchen_acceleration
+    - binary_sensor.landing_window_acceleration
+    - binary_sensor.main_window_acceleration
+    - binary_sensor.main_window_party_acceleration
+    - binary_sensor.patio_door_acceleration
+    - binary_sensor.utility_back_door_acceleration
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data_template:
+      data:
+        channel: Alarmz
+        importance: high
+        persistent: true
+        tag: persistent
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}}'
+      title: Perimeter Alarm
+    service: notify.all_android
+  mode: single
+- id: '1689623801210'
+  alias: Reset Alarm Mute
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.mute_alarm
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.mute_alarm
+  mode: single
+- id: '1690232792612'
+  alias: 'Parents Presence '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.monitor_mojgan_phone
+    - binary_sensor.monitor_tongai_phone
+    from:
+  condition: []
+  action:
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.monitor_mojgan_phone
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.monitor_tongai_phone
+        state: 'on'
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id:
+        - input_boolean.all_parents_home
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.all_parents_home
+  - if:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.monitor_tongai_phone
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.monitor_mojgan_phone
+        state: 'on'
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.a_parent_home
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.a_parent_home
+  mode: single
+- id: '1691440079846'
+  alias: Manager Car Perimeter Alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.alarm_mode
+    to: home
+    from: away
+  - platform: state
+    entity_id:
+    - sensor.alarm_mode
+    from: out
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.we_took_the_car
+  mode: single
+- id: '1691440278084'
+  alias: Car Perimeter Alarm Mode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.alarm_mode
+    from: Out
+    to: Home
+  - platform: state
+    entity_id:
+    - sensor.alarm_mode
+    from: Away
+    to: Home
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.we_took_the_car
+  mode: single
+- id: '1696798002604'
+  alias: Hannah Phone Charging
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:30:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.hannahs_iphone_battery_level
+      below: 50
+    - condition: state
+      entity_id: sensor.hannahs_iphone_battery_state
+      state: Not Charging
+  action:
+  - service: notify.all_phones
+    data_template:
+      data:
+        importance: true
+      message: Hannah's phone is at  {{states('sensor.hannahs_iphone_battery_level')}}%  charge
+        and not plugged in!
+      title: Low Battery!
+  mode: single
+- id: '1703931685757'
+  alias: On air - Meta laptop
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.tongai_mbp_wk_camera_in_use
+    from:
+    to:
+    trigger: state
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.tongai_mbp_wk_active_camera
+      state: Logi 4K Stream Edition
+    - condition: state
+      entity_id: sensor.tongai_mbp_wk_active_camera
+      state: FaceTime HD Camera
+    - condition: state
+      entity_id: sensor.tongai_mbp_wk_active_camera
+      state: Inactive
+  - condition: state
+    entity_id: sensor.tongai_mbp_wk_primary_display_name
+    state: BenQ PD2710QC
+  actions:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.tongai_mbp_wk_camera_in_use
+      state: 'on'
+    then:
+    - target:
+        entity_id:
+        - input_select.work_status
+        device_id: []
+        area_id: []
+      data:
+        option: On a call
+      action: input_select.select_option
+    else:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.tongai_mbp_wk_focus
+        state: 'on'
+      then:
+      - target:
+          entity_id:
+          - input_select.work_status
+          device_id: []
+          area_id: []
+        data:
+          option: Focus time
+        action: input_select.select_option
+      else:
+      - target:
+          entity_id:
+          - input_select.work_status
+          device_id: []
+          area_id: []
+        data:
+          option: At work
+        action: input_select.select_option
+  mode: single
+- id: '1703934406917'
+  alias: 'Work Status '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.work_status
+    from:
+    to:
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: input_select.work_status
+      state: At work
+    then:
+    - service: light.turn_on
+      data:
+        color_name: green
+        brightness_pct: 60
+      target:
+        entity_id: light.work_status_on_air_light
+    - service: light.turn_on
+      target:
+        entity_id: light.loft32_desk_light
+      data:
+        color_name: green
+        brightness_pct: 40
+    else:
+    - if:
+      - condition: state
+        entity_id: input_select.work_status
+        state: Focus time
+      then:
+      - service: light.turn_on
+        data:
+          color_name: orange
+          brightness_pct: 70
+        target:
+          entity_id: light.work_status_on_air_light
+      - service: light.turn_on
+        target:
+          entity_id: light.loft32_desk_light
+        data:
+          color_name: darkorange
+          brightness_pct: 40
+      else:
+      - if:
+        - condition: or
+          conditions:
+          - condition: state
+            entity_id: input_select.work_status
+            state: unavailable
+          - condition: state
+            entity_id: input_select.work_status
+            state: unknown
+          - condition: state
+            entity_id: input_select.work_status
+            state: Not working, yay!
+        then:
+        - service: light.turn_off
+          target:
+            entity_id:
+            - light.loft32_desk_light
+            - light.work_status_on_air_light
+          data: {}
+        else:
+        - if:
+          - condition: state
+            entity_id: input_select.work_status
+            state: On a call
+          then:
+          - service: light.turn_on
+            data:
+              color_name: red
+              brightness_pct: 80
+            target:
+              entity_id: light.work_status_on_air_light
+          - service: light.turn_on
+            target:
+              entity_id: light.loft32_desk_light
+            data:
+              color_name: red
+              brightness_pct: 40
+  mode: single
+- id: '1703971587073'
+  alias: '[out of date] On air desk button'
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.loft32_desk_switch
+    to: 'on'
+    trigger: state
+    enabled: false
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: study_switch_button
+      device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+      unique_id: 200cb44d-b280-439e-9420-34ef3a161d8d
+      type: short_release
+      subtype: 1
+    id: On-shelf
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: study_switch_button
+      device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+      unique_id: de7f44f3-f899-45e3-89ca-b737772fbbe6
+      type: initial_press
+      subtype: 2
+    id: Change
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: study_switch_button
+      device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+      type: short_release
+      subtype: 3
+    id: On-litra
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: study_switch_button
+      device_id: 82b358b1c55a0301fdaa1ca8aed855ba
+      unique_id: e0095477-8e2e-476b-8a30-6dc12b1656c1
+      type: short_release
+      subtype: 4
+    id: 'Off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - On-shelf
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.hue_lightstrip_plus_1
+    - conditions:
+      - condition: trigger
+        id:
+        - Change
+      sequence:
+      - if:
+        - condition: state
+          entity_id: input_select.work_status
+          state: Not working, yay!
+        then:
+        - action: input_select.select_option
+          metadata: {}
+          data:
+            option: At work
+          target:
+            entity_id: input_select.work_status
+        else:
+        - target:
+            entity_id: input_select.work_status
+          data:
+            cycle: true
+          action: input_select.select_next
+    - conditions:
+      - condition: trigger
+        id:
+        - On-litra
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.litra_beam
+    - conditions:
+      - condition: trigger
+        id:
+        - 'Off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.hue_lightstrip_plus_1
+          - light.work_status_on_air_light
+          - light.loft32_desk_light
+          - light.litra_beam
+  mode: single
+- id: '1704060038348'
+  alias: Ellie Nightlight goes off
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: device
+    type: is_on
+    device_id: be144131e7472e50b842f461b85c3333
+    entity_id: 3ce57f7a519816f626c62176e18310dc
+    domain: light
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.ellies_bedroom
+    data: {}
+  mode: single
+- id: '1704312712410'
+  alias: Manage Loft Blind
+  description: ''
+  triggers:
+  - at: '19:00:00'
+    trigger: time
+    alias: 7pm
+    id: 7pm
+  - at: 07:00:00
+    trigger: time
+    enabled: true
+    alias: 7am
+    id: 7am
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - 7pm
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - switch.loft_blind_close_loft_suite_blind
+        - switch.landing_blind_close_landing_blind
+    else:
+    - if:
+      - condition: trigger
+        id:
+        - 7am
+      then:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.landing_blind_open_landing_blind
+  mode: single
+- id: '1704793770116'
+  alias: Work Status Bookends
+  description: Automatically set work status at the start or end of a work session
+  triggers:
+  - entity_id:
+    - sensor.study_presence_desk_sensor
+    to:
+    id: Active
+    trigger: state
+    enabled: false
+  - type: distance
+    device_id: 8fb5730a6cb28802e8fd8bc19c141a75
+    entity_id: 4f688294beda58b4f4a6a930a36e8d93
+    domain: sensor
+    id: Away
+    above: 0.5
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: device
+    enabled: false
+  - entity_id:
+    - binary_sensor.tongai_mbp_wk_active
+    to: 'on'
+    id: Laptop Active
+    trigger: state
+  - entity_id:
+    - binary_sensor.tongai_mbp_wk_active
+    to: 'off'
+    id: Laptop off
+    trigger: state
+  conditions: []
+  actions:
+  - if:
+    - condition: or
+      conditions:
+      - condition: trigger
+        id:
+        - Away
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: sensor.tongai_mbp_wk_primary_display_name
+          state: BenQ PD2710QC
+        - condition: trigger
+          id:
+          - Laptop off
+    then:
+    - metadata: {}
+      data:
+        option: Not working, yay!
+      target:
+        entity_id: input_select.work_status
+      action: input_select.select_option
+    else:
+    - if:
+      - condition: or
+        conditions:
+        - condition: and
+          conditions:
+          - condition: trigger
+            id:
+            - Laptop Active
+          - condition: state
+            entity_id: sensor.tongai_mbp_wk_primary_display_name
+            state: BenQ PD2710QC
+          - condition: state
+            entity_id: input_select.work_status
+            state: Not working, yay!
+        - condition: and
+          conditions:
+          - condition: trigger
+            id:
+            - Active
+          - condition: state
+            entity_id: input_select.work_status
+            state: Not working, yay!
+      then:
+      - target:
+          entity_id: input_select.work_status
+        data:
+          option: At work
+        action: input_select.select_option
+  mode: single
+- id: '1708505312139'
+  alias: On-air - Family laptop
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.family_mbp_camera_in_use
+    from:
+    to:
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      state: Logi 4K Stream Edition
+      entity_id: sensor.family_mbp_active_camera
+    - condition: state
+      entity_id: sensor.family_mbp_active_camera
+      state: FaceTime HD Camera
+    - condition: state
+      entity_id: sensor.family_mbp_active_camera
+      state: Inactive
+  - condition: state
+    entity_id: sensor.family_mbp_primary_display_name
+    state: BenQ PD2710QC
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.family_mbp_camera_in_use
+      state: 'on'
+    then:
+    - service: input_select.select_option
+      target:
+        entity_id:
+        - input_select.work_status
+        device_id: []
+        area_id: []
+      data:
+        option: On a call
+    else:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.family_mbp_focus
+        state: 'on'
+      then:
+      - service: input_select.select_option
+        target:
+          entity_id:
+          - input_select.work_status
+          device_id: []
+          area_id: []
+        data:
+          option: Focus time
+      else:
+      - service: input_select.select_option
+        target:
+          entity_id:
+          - input_select.work_status
+          device_id: []
+          area_id: []
+        data:
+          option: At work
+  mode: single
+- id: '1709480751318'
+  alias: Export optimiser
+  description: ''
+  triggers:
+  - alias: End-window
+    at: input_datetime.end_window
+    id: End
+    enabled: false
+    trigger: time
+  - at: input_datetime.start_window
+    alias: Start-window
+    id: Start
+    enabled: false
+    trigger: time
+  - alias: Solar production less than house needs
+    value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<100
+      }}'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    id: Importing
+    trigger: template
+  - value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))>=100
+      }}'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: Exporting
+    trigger: template
+    alias: Solar production more than house needs
+  - event: sunset
+    offset: -02:00:00
+    id: Sunset
+    trigger: sun
+  - event: sunrise
+    offset: 01:00:00
+    id: Sunrise
+    trigger: sun
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Start
+        - Sunrise
+      sequence:
+      - metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.export_window
+        action: input_boolean.turn_on
+        alias: Enable window flag
+    - conditions:
+      - condition: trigger
+        id:
+        - End
+        - Sunset
+      sequence:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Load first
+        alias: Change to Load First (mqtt)
+      - target:
+          entity_id: input_boolean.export_window
+        data: {}
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id:
+        - Importing
+      - condition: state
+        entity_id: input_boolean.export_window
+        state: 'on'
+      sequence:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Load first
+        alias: Change to Load First (mqtt)
+      alias: if there's not enough power from solar during export window then Load
+        First
+    - conditions:
+      - condition: trigger
+        id:
+        - Exporting
+      - condition: state
+        entity_id: input_boolean.export_window
+        state: 'on'
+      - condition: numeric_state
+        entity_id: sensor.growatt_sph_battery_state_of_charge
+        above: 55
+      sequence:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Grid first
+        alias: Change to Grid First (mqtt)
+      alias: If there's too much power and battery is full then export
+    default:
+    - action: script.set_growatt_sph_mode_with_retry
+      data:
+        expected_mode: Load first
+      alias: Change to Load First (mqtt)
+  mode: single
+- id: '1709496362515'
+  alias: Test temp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_number.battery_max_charge
+  condition: []
+  action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.daily_event_count
+    data:
+      value: '{{states(''input_number.battery_max_charge'')}}'
+  mode: single
+- id: '1709909184554'
+  alias: test temp wait
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<=150
+      }}'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - device_id: bb94521fc3eceedc0c2f27d2efaeeb29
+    domain: light
+    entity_id: 66089c2c78dddb0f2fa7a3337aa188bc
+    type: flash
+  mode: single
+- id: '1710089973439'
+  alias: Battery First Scheduler
+  description: ''
+  triggers:
+  - at: 03:00:00
+    id: Start
+    trigger: time
+  - at: 05:30:00
+    id: End
+    trigger: time
+  - entity_id:
+    - sensor.volvo_eva_charging_system_status
+    to: Charging
+    id: Eva Charge Start
+    trigger: state
+  - trigger: state
+    id: Eva Charge Stop
+    entity_id:
+    - sensor.volvo_eva_charging_system_status
+    from: Charging
+    to:
+    - Idle
+    - Done
+    - Error
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Start
+      sequence:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Battery first
+        alias: Change to Battery First (mqtt)
+      - target:
+          entity_id: input_boolean.battery_charging_window
+        data: {}
+        action: input_boolean.turn_on
+    - conditions:
+      - condition: trigger
+        id:
+        - End
+      sequence:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Load first
+        alias: Change to Load First (mqtt)
+      - metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.battery_charging_window
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id:
+        - Eva Charge Start
+      sequence:
+      - if:
+        - condition: state
+          entity_id: input_boolean.battery_charging_window
+          state: 'off'
+        then:
+        - action: script.set_growatt_sph_mode_with_retry
+          data:
+            expected_mode: Load first
+          alias: Change to Load First (mqtt)
+        - metadata: {}
+          data:
+            title: Eva
+            message: Eva started charging. Load First engaged. This isn't a house
+              battery charging window
+          action: notify.mobile_app_tongaism25
+        else:
+        - metadata: {}
+          data:
+            title: Eva
+            message: Evie started charging. Battery First already engaged. This is
+              a house battery charging window
+          action: notify.mobile_app_tongaism25
+    - conditions:
+      - condition: trigger
+        id:
+        - Eva Charge Stop
+      sequence:
+      - if:
+        - condition: state
+          entity_id: input_boolean.battery_charging_window
+          state: 'off'
+        then:
+        - alias: Change to Load First (mqtt)
+          action: script.set_growatt_sph_mode_with_retry
+          data:
+            expected_mode: Load first
+        - metadata: {}
+          data:
+            title: Eva
+            message: Eva stopped charging. Load First engaged. This isn't a house
+              battery charging window
+          action: notify.mobile_app_tongaism25
+        else:
+        - action: script.set_growatt_sph_mode_with_retry
+          data:
+            expected_mode: Battery first
+          alias: Change to Battery First (mqtt)
+        - metadata: {}
+          data:
+            title: Eva
+            message: Eva stopped charging. Battery First still needed. This is a house
+              battery charging window
+          action: notify.mobile_app_tongaism25
+  mode: single
+- id: '1712681075907'
+  alias: audio change
+  description: ''
+  trigger:
+  - device_id: 12f5a2396551d011ab4a5c841067b777
+    domain: hue
+    platform: device
+    type: initial_press
+    subtype: 1
+    unique_id: 2b3a26ba-ae72-4d6c-b3b0-466698b9181f
+  condition: []
+  action:
+  - service: input_boolean.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.audio_switch
+  - service: script.change_sound_output
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1722015002107'
+  alias: Domane alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.bike
+    to: not_home
+  condition:
+  - condition: not
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.domane_phone
+      above: 10
+  action:
+  - data:
+      message: Where's the bike going?
+      title: Bike alarm!
+    action: notify.mobile_app_tongaism25
+  mode: single
+- id: '1722017723783'
+  alias: Domane alert
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.bike
+    to: not_home
+  condition: []
+  action:
+  - service: notify.mobile_app_tongaism25
+    metadata: {}
+    data:
+      title: Bike alert
+      message: Bike left home
+  mode: single
+- id: '1736714739898'
+  alias: downstairs off
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition:
+  - condition: state
+    entity_id: light.downstairs_lights
+    state: 'on'
+  action:
+  - action: script.downstairs_lights_off
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1739571868760'
+  alias: Dawn lamp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.dawn_lamp
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: input_boolean.dawn_lamp
+      state: 'on'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data:
+        brightness_pct: 19
+      target:
+        entity_id: light.study_desk_lamp
+    else:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.study_desk_lamp
+  mode: single
+- id: '1742664762678'
+  alias: Run speedtest
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_button.speedtest
+  conditions: []
+  actions:
+  - action: hassio.addon_start
+    metadata: {}
+    data:
+      addon: 6b87c29e_speedtest_addon
+  mode: single
+- id: '1744811803504'
+  alias: Force Litra Beam State Sync
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: /30
+  conditions: []
+  actions:
+  - action: homeassistant.update_entity
+    metadata: {}
+    data:
+      entity_id:
+      - sensor.litra_beam_power
+  mode: single
+- id: '1747764905471'
+  alias: FP Access
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: esphome.access_granted
+    id: Granted
+    alias: Access Granted
+  - trigger: event
+    event_type: esphome.access_denied
+    id: Denied
+    alias: Access Denied
+  - alias: Access Pending
+    trigger: event
+    event_type: esphome.fingerprint_matched
+    id: Pending
+  - alias: Access Lockout
+    trigger: event
+    event_type: esphome.access_denied_lockout
+    id: Lockout
+    enabled: true
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Granted
+      sequence:
+      - action: notify.mobile_app_tongai_s22
+        metadata: {}
+        data:
+          title: FP Unlock
+          message: 'Unlocking Garage door for {{ trigger.event.data.fingerprint_name
+            }} with {{ trigger.event.data.fingerprint_finger }}  at {{as_datetime(trigger.event.data.time).astimezone().strftime(''%H:%M'')
+            if trigger.event.data.time is defined else now().astimezone().strftime(''%H:%M'')
+            }}.
+
+            '
+        enabled: true
+      - action: mqtt.publish
+        data:
+          evaluate_payload: false
+          qos: 0
+          retain: false
+          topic: /Homeassistant/Auto_Unlock/Status
+          payload: green
+        enabled: false
+      - action: lock.unlock
+        metadata: {}
+        data: {}
+        target:
+          entity_id: lock.mudiki
+        enabled: true
+      - action: light.turn_on
+        metadata: {}
+        data:
+          rgb_color:
+          - 0
+          - 255
+          - 0
+        target:
+          entity_id: light.kitchen_worktop
+        enabled: false
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+        enabled: false
+      - action: light.turn_on
+        metadata: {}
+        data:
+          color_temp: 343
+        target:
+          entity_id: light.kitchen_worktop
+        enabled: false
+    - conditions:
+      - condition: trigger
+        id:
+        - Denied
+      sequence:
+      - action: notify.mobile_app_tongai_s22
+        metadata: {}
+        data:
+          title: FP Unlock FAILED
+          message: Attempted unlock failed because {{ trigger.event.data.reason }}
+            at {{ (as_datetime(trigger.event.data.time).astimezone().strftime('%H:%M')  if
+            trigger.event.data.time is defined  else now().astimezone().strftime('%H:%M'))
+            }}. By {{ trigger.event.data.fingerprint_name | default('unknown') }}  with
+            {{ trigger.event.data.fingerprint_finger | default('') }}.
+        enabled: true
+      - action: mqtt.publish
+        data:
+          evaluate_payload: false
+          qos: 0
+          retain: false
+          topic: /Homeassistant/Auto_Unlock/Status
+          payload: red
+        enabled: true
+    - conditions:
+      - condition: trigger
+        id:
+        - Pending
+      sequence:
+      - action: notify.mobile_app_tongai_s22
+        metadata: {}
+        data:
+          title: FP Unlock In Progress
+          message: '{{ states(''sensor.fp_auth_fp_status'') }}
+
+            '
+        enabled: false
+      - action: mqtt.publish
+        data:
+          evaluate_payload: false
+          qos: 0
+          retain: false
+          topic: /Homeassistant/Auto_Unlock/Status
+          payload: amber
+        enabled: true
+    - conditions:
+      - condition: trigger
+        id:
+        - Lockout
+      sequence:
+      - action: notify.mobile_app_tongai_s22
+        metadata: {}
+        data:
+          title: FP LOCKOUT
+          message: Lockout. Last issue {{ trigger.event.data.reason }} at {{ as_datetime(trigger.event.data.remaining).astimezone().strftime('%H:%M')
+            if trigger.event.data.time is defined else now().astimezone().strftime('%H:%M')
+            }}.
+        enabled: true
+      - action: mqtt.publish
+        data:
+          evaluate_payload: false
+          qos: 0
+          retain: false
+          topic: /Homeassistant/Auto_Unlock/Status
+          payload: red
+        enabled: false
+  mode: single
+- id: '1749894430384'
+  alias: Fingerprint Enrollment Management
+  description: ''
+  triggers:
+  - entity_id:
+    - input_button.enroll_fingerprint
+    trigger: state
+    from:
+    to:
+    id: Enroll
+  - entity_id:
+    - input_button.delete_fingerprint
+    trigger: state
+    from:
+    to:
+    id: DeleteSingle
+  - entity_id:
+    - input_button.delete_all_fingerprints
+    trigger: state
+    from:
+    to:
+    id: DeleteAll
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Enroll
+      sequence:
+      - action: script.auto_allocate_fingerprint_id
+        data: {}
+      - delay: 00:00:01
+      - data:
+          finger_id: '{{ states(''input_number.fp_enroll_id'')|int }}'
+          num_scans: '{{ states(''input_number.fp_enroll_scans'')|int }}'
+        action: esphome.fp_enroll
+      - wait_for_trigger:
+        - event_type: esphome.enrollment_done
+          trigger: event
+        timeout: 00:01:00
+        continue_on_timeout: false
+      - data:
+          action: add
+          record: '{{ states(''input_number.fp_enroll_id'')|int }}:{{ states(''input_text.fp_enroll_name'')
+            }}:{{ states(''input_select.fp_enroll_finger'') }}'
+        action: script.manage_fp_metadata
+      - data:
+          metadata: '{{ states(''input_text.fp_metadata_store'') }}'
+        action: esphome.fp_set_metadata
+      - target:
+          entity_id: input_text.fp_enroll_name
+        data:
+          value: ''
+        action: input_text.set_value
+      - target:
+          entity_id: input_select.fp_enroll_finger
+        data:
+          option: Left Index
+        action: input_select.select_option
+    - conditions:
+      - condition: trigger
+        id:
+        - DeleteSingle
+      sequence:
+      - data:
+          finger_id: '{{ states(''input_number.fp_delete_id'')|int }}'
+        action: esphome.fp_delete_fingerprint
+      - data:
+          action: delete
+          record_id: '{{ states(''input_number.fp_delete_id'')|int }}'
+        action: script.manage_fp_metadata
+      - data:
+          metadata: '{{ states(''input_text.fp_metadata_store'') }}'
+        action: esphome.fp_set_metadata
+    - conditions:
+      - condition: trigger
+        id:
+        - DeleteAll
+      sequence:
+      - action: esphome.fp_delete_all_fingerprints
+        data: {}
+      - target:
+          entity_id: input_text.fp_metadata_store
+        data:
+          value: ''
+        action: input_text.set_value
+      - data:
+          metadata: ''
+        action: esphome.fp_set_metadata
+  mode: restart
+- id: '1750269427938'
+  alias: Sync FP Metadata to ESPHome on Boot
+  triggers:
+  - entity_id: binary_sensor.fp_device_status
+    to: 'on'
+    trigger: state
+  actions:
+  - data:
+      metadata: '{{ states(''input_text.fp_metadata_store'') }}'
+    action: esphome.fp_set_metadata
+- id: '1752418503015'
+  alias: AC Energy Saver Ignore Handler
+  description: Handles ignore actions and auto-resets ignore status
+  triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: IGNORE_AC_WARNING
+    trigger: event
+  - minutes: /1
+    trigger: time_pattern
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.platform == ''event'' }}'
+      sequence:
+      - target:
+          entity_id: input_datetime.ignore_until
+        data:
+          datetime: '{{ (now() + timedelta(hours=1)).strftime(''%Y-%m-%d %H:%M:%S'')
+            }}'
+        action: input_datetime.set_datetime
+      - target:
+          entity_id: input_boolean.ignore_ac_automation
+        action: input_boolean.turn_on
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Snoozing AC Warning
+          message: OK! Leaving AC running - I won't check again for an hour
+      - action: notify.all_phones
+        data:
+          title: Snoozing AC Warning
+          message: OK! Leaving AC running - I won't check again for an hour
+        enabled: true
+      alias: If "Ignore" button was pressed
+    - conditions:
+      - condition: template
+        value_template: '{{ ignore_expired }}'
+        alias: When "snooze" expires
+      sequence:
+      - target:
+          entity_id: input_boolean.ignore_ac_automation
+        action: input_boolean.turn_off
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Snooze Over
+          message: Snooze expired - back to watching for AC waste
+    default: []
+  mode: queued
+  variables:
+    ignore_expired: "{{ states('input_boolean.ignore_ac_automation') == 'on' and\n
+      \  as_timestamp(now()) > as_timestamp(states('input_datetime.ignore_until'))
+      }}\n"
+- id: '1752418581260'
+  alias: AC Energy Saver Automation
+  description: Combined automation for AC energy saving scenarios
+  triggers:
+  - entity_id:
+    - binary_sensor.loft_pir_person_present
+    for:
+      minutes: 1
+    trigger: state
+    from: 'on'
+    to: 'off'
+    id: Room Empty
+  - minutes: /5
+    trigger: time_pattern
+  - trigger: state
+    entity_id:
+    - binary_sensor.loft_pir_bedroom_door
+    from: 'off'
+    to: 'on'
+    id: Door Opened
+  - trigger: state
+    entity_id:
+    - climate.loft_suite_ac
+    from: 'off'
+    to: cool
+    id: AC Cooling
+  - trigger: state
+    entity_id:
+    - climate.loft_suite_ac
+    from: 'off'
+    to: heat
+    id: AC Heating
+  conditions:
+  - condition: time
+    after: 07:00:00
+    before: '20:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ ac_on }}'
+        alias: AC is on
+      - condition: template
+        value_template: '{{ no_presence }}'
+        alias: no presence
+      - condition: template
+        value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(''climate.loft_suite_ac'',
+          ''last_changed'')) > 900 }}'
+        alias: 15 mins passed since AC state last change
+      - condition: template
+        value_template: '{{ not scenario1_active }}'
+        alias: Scenario 1 is not active
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" is not active'
+      sequence:
+      - target:
+          entity_id: light.scenario_1_light
+        action: light.turn_on
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: AC has been on for 15 minutes but it looks like no one is in the
+            room.  If you want to keep the AC going, press "Snooze",  or else press
+            "Open Homeassistant" to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+      - action: notify.all_phones
+        data:
+          message: AC has been on for 15 minutes but it looks like no one is in the
+            room.  If you want to keep the AC going, press "Snooze",  or else press
+            "Open Homeassistant" to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+        enabled: true
+      alias: ac on and no presence
+    - conditions:
+      - condition: template
+        value_template: '{{ scenario1_active }}'
+        alias: scenario 1 is active
+      - condition: template
+        value_template: '{{ ac_on }}'
+        alias: AC is on
+      - condition: template
+        value_template: '{{ no_presence }}'
+        alias: no presence
+      - condition: template
+        value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(''light.scenario_1_light'',
+          ''last_changed'')) > 300 }}'
+        alias: After 5 mins option 1 is still true
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" is not active'
+      sequence:
+      - target:
+          entity_id: climate.loft_suite_ac
+        action: climate.turn_off
+        data: {}
+      - target:
+          entity_id: light.scenario_1_light
+        action: light.turn_off
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+      - action: notify.all_phones
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+        enabled: true
+      alias: after 5 mins scenario 1 is still true. (option 1) - turn off ac
+    - conditions:
+      - condition: template
+        value_template: '{{ ac_on }}'
+        alias: AC is on
+      - condition: template
+        value_template: '{{ door_open }}'
+        alias: door is open
+      - condition: template
+        value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(''climate.loft_suite_ac'',
+          ''last_changed'')) > 300 }}'
+        alias: its been more than 5 mins since ac changed state
+      - condition: template
+        value_template: '{{ not scenario2_active }}'
+        alias: scenario 2 is not active
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" is not active'
+      sequence:
+      - target:
+          entity_id: light.scenario_2_light
+        action: light.turn_on
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: AC has been on for 5 minutes with the door open. If you want to
+            keep the AC going, press "Snooze",  or else press "Open Homeassistant"
+            to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+      - action: notify.all_phones
+        data:
+          message: AC has been on for 5 minutes with the door open. If you want to
+            keep the AC going, press "Snooze",  or else press "Open Homeassistant"
+            to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+        enabled: true
+      alias: ac on and door open
+    - conditions:
+      - condition: template
+        value_template: '{{ scenario2_active }}'
+        alias: scenario 2 is active
+      - condition: template
+        value_template: '{{ ac_on }}'
+        alias: AC is on
+      - condition: template
+        value_template: '{{ door_open }}'
+        alias: door is open
+      - condition: template
+        value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(''light.scenario_2_light'',
+          ''last_changed'')) > 300 }}'
+        alias: Scenario 2 has been active for 5 mins
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" is not active'
+      sequence:
+      - target:
+          entity_id: climate.loft_suite_ac
+        action: climate.turn_off
+        data: {}
+      - target:
+          entity_id: light.scenario_2_light
+        action: light.turn_off
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+      - action: notify.all_phones
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+        enabled: true
+      alias: after 5 mins scenario 2 is still true. (option 3) - turn off ac
+    - conditions:
+      - condition: trigger
+        id:
+        - AC Cooling
+        - AC Heating
+      - condition: state
+        entity_id: binary_sensor.loft_pir_bedroom_door
+        state: 'on'
+      - condition: template
+        value_template: '{{ not scenario3_active }}'
+        alias: scenario 3 is not active
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" not active'
+      sequence:
+      - target:
+          entity_id: light.scenario_3_light
+        action: light.turn_on
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: The bedroom door is open but you turned the AC on. If you want
+            to keep the AC going, press "Snooze",  or else press "Open Homeassistant"
+            to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+      - action: notify.all_phones
+        data:
+          message: The bedroom door is open but you turned the AC on. If you want
+            to keep the AC going, press "Snooze",  or else press "Open Homeassistant"
+            to stop the AC.
+          data:
+            actions:
+            - action: URI
+              title: Open Homeassistant
+              uri: /dashboard-basics/ac-control
+            - action: IGNORE_AC_WARNING
+              title: Snooze
+        enabled: true
+      alias: door is open and ac just turned on
+    - conditions:
+      - condition: template
+        value_template: '{{ scenario3_active }}'
+        alias: scenario 3 is active
+      - condition: template
+        value_template: '{{ ac_on }}'
+        alias: AC is on
+      - condition: template
+        value_template: '{{ door_open }}'
+        alias: door is open
+      - condition: template
+        value_template: '{{ as_timestamp(now()) - as_timestamp(state_attr(''light.scenario_3_light'',
+          ''last_changed'')) > 300 }}'
+        alias: Its been 5 mins since scenario 3 started
+      - condition: template
+        value_template: '{{ not ignore_active }}'
+        alias: '"ignore" not active'
+      sequence:
+      - target:
+          entity_id: climate.loft_suite_ac
+        action: climate.turn_off
+        data: {}
+      - target:
+          entity_id: light.scenario_3_light
+        action: light.turn_off
+        data: {}
+      - action: notify.mobile_app_tongaism25
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+      - action: notify.all_phones
+        data:
+          message: Turned off the AC because it seemed like it was on by mistake.
+        enabled: true
+      alias: after 5 mins scenario 2 is still true. (option 3) - turn off ac
+    default: []
+  mode: queued
+  max: 10
+  variables:
+    scenario1_active: '{{ states(''light.scenario_1_light'') == ''on'' }}'
+    scenario2_active: '{{ states(''light.scenario_2_light'') == ''on'' }}'
+    scenario3_active: '{{ states(''light.scenario_3_light'') == ''on'' }}'
+    ac_on: '{{ states(''climate.loft_suite_ac'') == ''on'' }}'
+    door_open: '{{ states(''binary_sensor.loft_pir_bedroom_door'') == ''on'' }}'
+    no_presence: '{{ states(''binary_sensor.loft_pir_person_present'') == ''off''
+      }}'
+    ignore_active: "{{ states('input_boolean.ignore_ac_automation') == 'on' and\n
+      \  as_timestamp(now()) < as_timestamp(states('input_datetime.ignore_until'))
+      }}\n"
+- id: '1752418625672'
+  alias: AC Reset Scenario Flags When AC Turns Off
+  description: ''
+  triggers:
+  - entity_id: climate.loft_suite_ac
+    to: 'off'
+    trigger: state
+  - trigger: event
+    event_type: RESET_AC_FLAGS
+  actions:
+  - target:
+      entity_id:
+      - light.scenario_1_light
+      - light.scenario_2_light
+      - light.scenario_3_light
+    action: light.turn_off
+    data: {}
+  - target:
+      entity_id: input_boolean.ignore_ac_automation
+    action: input_boolean.turn_off
+    data: {}
+  - target:
+      entity_id: input_datetime.ignore_until
+    data:
+      datetime: '1970-01-01 00:00:00'
+    action: input_datetime.set_datetime
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.alexa_started_ac
+  mode: single
+- id: '1752418667570'
+  alias: AC Alexa Helper - Fan Speed
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.ac_hi_lo_speed
+    from:
+    to:
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.ac_hi_lo_speed
+        state: 'on'
+      sequence:
+      - action: climate.set_fan_mode
+        metadata: {}
+        data:
+          fan_mode: high
+        target:
+          entity_id: climate.loft_suite_ac
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.ac_hi_lo_speed
+        state: 'off'
+      sequence:
+      - action: climate.set_fan_mode
+        metadata: {}
+        data:
+          fan_mode: low
+        target:
+          entity_id: climate.loft_suite_ac
+  mode: single
+- id: '1752418702841'
+  alias: AC Alexa Helper - Snooze
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.alexa_started_ac
+    from:
+    to: 'on'
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - event: mobile_app_notification_action
+    event_data:
+      action: IGNORE_AC_WARNING
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.alexa_started_ac
+  mode: single
+- id: '1752418954085'
+  alias: bedside controller
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: piano_lamp_dimmer_button
+      device_id: a34378fa96f3af09821417a42a930bb7
+      unique_id: 79f28da1-14f4-4489-a267-37a31d937d0e
+      type: short_release
+      subtype: 1
+    id: Lamp
+    enabled: true
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: piano_lamp_dimmer_button
+      device_id: a34378fa96f3af09821417a42a930bb7
+      unique_id: 907974eb-e15f-450c-bb9c-c8ce7f781310
+      type: short_release
+      subtype: 2
+    id: AC
+    enabled: true
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: piano_lamp_dimmer_button
+      device_id: a34378fa96f3af09821417a42a930bb7
+      unique_id: 511cfd87-d52f-4977-8e49-7acc68deb0d7
+      type: short_release
+      subtype: 3
+    id: Fan
+  - trigger: event
+    event_type: hue_event
+    event_data:
+      id: piano_lamp_dimmer_button
+      device_id: a34378fa96f3af09821417a42a930bb7
+      unique_id: 40cda1bf-aa7a-426b-8970-7382796d9e9f
+      type: short_release
+      subtype: 4
+    id: Blinds
+    enabled: true
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Lamp
+      sequence:
+      - action: light.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.bookshelf_lamp
+    - conditions:
+      - condition: trigger
+        id:
+        - AC
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.ac_toggle
+            state: 'on'
+          sequence:
+          - action: climate.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: climate.loft_suite_ac
+          - action: input_boolean.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.ac_toggle
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.ac_toggle
+            state: 'off'
+          sequence:
+          - action: fan.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: fan.pure_cool
+          - action: input_boolean.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.dyson_toggle
+          - action: climate.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: climate.loft_suite_ac
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: input_select.ac_mode
+                state: Fan
+              sequence:
+              - action: climate.set_hvac_mode
+                metadata: {}
+                data:
+                  hvac_mode: fan_only
+                target:
+                  entity_id: climate.loft_suite_ac
+            - conditions:
+              - condition: state
+                entity_id: input_select.ac_mode
+                state: Heat
+              sequence:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  hvac_mode: heat
+                  temperature: '{{ states(''input_number.ac_temp_heat'') | float }}'
+                target:
+                  entity_id: climate.loft_suite_ac
+            - conditions:
+              - condition: state
+                entity_id: input_select.ac_mode
+                state: Cool
+              sequence:
+              - action: climate.set_temperature
+                metadata: {}
+                data:
+                  hvac_mode: cool
+                  temperature: '{{ states(''input_number.ac_temp_cool'') | float }}'
+                target:
+                  entity_id: climate.loft_suite_ac
+          - action: input_boolean.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.ac_toggle
+    - conditions:
+      - condition: trigger
+        id:
+        - Fan
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.dyson_toggle
+            state: 'on'
+          sequence:
+          - action: fan.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: fan.pure_cool
+          - action: input_boolean.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.dyson_toggle
+        - conditions:
+          - condition: state
+            state: 'off'
+            entity_id: input_boolean.dyson_toggle
+          sequence:
+          - action: climate.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: climate.loft_suite_ac
+          - action: input_boolean.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.ac_toggle
+          - action: fan.turn_on
+            metadata: {}
+            data:
+              percentage: '{{ states(''input_number.dyson_speed'') | float *10 }}'
+            target:
+              entity_id: fan.pure_cool
+          - action: switch.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: switch.pure_cool_night_mode
+          - action: input_boolean.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.dyson_toggle
+    - conditions:
+      - condition: trigger
+        id:
+        - Blinds
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.blinds_toggle
+            state: 'on'
+          sequence:
+          - action: switch.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id:
+              - switch.landing_blind_close_landing_blind
+          - action: input_boolean.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.blinds_toggle
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.blinds_toggle
+            state: 'off'
+          sequence:
+          - action: switch.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id:
+              - switch.landing_blind_open_landing_blind
+          - action: input_boolean.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.blinds_toggle
+  mode: single
+- id: '1752419002586'
+  alias: solar mode force
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - select.growatt_sph_work_mode_priority
+    from:
+    id: Change to Battery First
+    to: Battery first
+  - trigger: state
+    entity_id:
+    - select.growatt_sph_work_mode_priority
+    from:
+    to: Load first
+    id: Change to Load First
+    enabled: false
+  - trigger: state
+    entity_id:
+    - select.growatt_sph_work_mode_priority
+    from:
+    to: Grid first
+    id: Change to Grid First
+    enabled: false
+  conditions:
+  - condition: time
+    after: 02:59:30
+    before: 03:05:00
+    enabled: true
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Change to Battery First
+      sequence:
+      - repeat:
+          sequence:
+          - action: select.select_option
+            metadata: {}
+            data:
+              option: Battery first
+            target:
+              entity_id: select.growatt_sph_work_mode_priority
+          - delay:
+              hours: 0
+              minutes: 1
+              seconds: 0
+              milliseconds: 0
+          until:
+          - condition: state
+            entity_id: sensor.growatt_sph_device_mode
+            state: Battery first
+    - conditions:
+      - condition: trigger
+        id:
+        - Change to Load First
+      sequence:
+      - action: notify.mobile_app_tongaism25
+        metadata: {}
+        data:
+          message: 'Test: load first'
+    - conditions:
+      - condition: trigger
+        id:
+        - Change to Grid First
+      sequence:
+      - action: notify.mobile_app_tongaism25
+        metadata: {}
+        data:
+          message: 'Test: grid first'
+  mode: single
+- id: '1753979825308'
+  alias: Eva Lock Backup
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.volvo_eva_engine_status
+    from:
+    to: 'off'
+  - trigger: time
+    at: '22:00:00'
+    id: 10pm
+    enabled: false
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.eva_locator
+        state: home
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 10
+          seconds: 0
+          milliseconds: 0
+      - if:
+        - condition: state
+          entity_id: lock.volvo_eva_lock
+          state: unlocked
+        then:
+        - action: lock.lock
+          metadata: {}
+          data: {}
+          target:
+            entity_id: lock.volvo_eva_lock
+        alias: Lock Eva if unlocked
+      alias: If Eva is home, wait 10 mins then lock if unlocked
+    - conditions:
+      - condition: state
+        entity_id: sensor.eva_locator
+        state: away
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - if:
+        - condition: state
+          entity_id: lock.volvo_eva_lock
+          state: unlocked
+        then:
+        - action: lock.lock
+          metadata: {}
+          data: {}
+          target:
+            entity_id: lock.volvo_eva_lock
+        alias: Lock Eva if unlocked
+      alias: If Eva is away, wait 5 mins then lock if unlocked
+    - conditions:
+      - condition: trigger
+        id:
+        - 10pm
+        enabled: true
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - if:
+        - condition: state
+          entity_id: lock.volvo_eva_lock
+          state: unlocked
+        then:
+        - action: lock.lock
+          metadata: {}
+          data: {}
+          target:
+            entity_id: lock.volvo_eva_lock
+        alias: Lock Eva if unlocked
+      alias: If Eva is away, wait 5 mins then lock if unlocked
+  mode: single
+- id: '1764098343827'
+  alias: Proxy to mock tap (combined, debounce, and reset)
+  triggers:
+  - entity_id:
+    - binary_sensor.front_step_proxy
+    - binary_sensor.front_door_proxy
+    to: 'on'
+    id: front_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.garage_step_proxy
+    - binary_sensor.garage_door_proxy
+    to: 'on'
+    id: garage_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.front_step_proxy
+    - binary_sensor.front_door_proxy
+    to: 'off'
+    id: front_off
+    trigger: state
+  - entity_id:
+    - binary_sensor.garage_step_proxy
+    - binary_sensor.garage_door_proxy
+    to: 'off'
+    id: garage_off
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: front_on
+      - condition: state
+        entity_id: input_boolean.mock_tap_front_door_cooldown
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: input_boolean.mock_tap_front_door
+        action: input_boolean.turn_on
+      - target:
+          entity_id: input_boolean.mock_tap_front_door_cooldown
+        action: input_boolean.turn_on
+      - delay: 00:00:{{ cooldown_duration }}
+      - target:
+          entity_id: input_boolean.mock_tap_front_door_cooldown
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id: garage_on
+      - condition: state
+        entity_id: input_boolean.mock_tap_garage_cooldown
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: input_boolean.mock_tap_garage
+        action: input_boolean.turn_on
+      - target:
+          entity_id: input_boolean.mock_tap_garage_cooldown
+        action: input_boolean.turn_on
+      - delay: 00:00:{{ cooldown_duration }}
+      - target:
+          entity_id: input_boolean.mock_tap_garage_cooldown
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id: front_off
+      sequence:
+      - target:
+          entity_id: input_boolean.mock_tap_front_door
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: trigger
+        id: garage_off
+      sequence:
+      - target:
+          entity_id: input_boolean.mock_tap_garage
+        action: input_boolean.turn_off
+  mode: parallel
+  variables:
+    cooldown_duration: 10

@@ -1,0 +1,914 @@
+# ESPHome Fingerprint Auth - XIAO ESP32C3 with Button LEDs and Wake-on-Touch
+
+substitutions:
+  device_name: "fp"
+  mqtt_topic: "/Homeassistant/Auto_Unlock/Status"
+
+esphome:
+  name: ${device_name}
+  friendly_name: "Fingerprint Authoriser"
+  comment: "Multi-factor authentication with fingerprint and sequence input"
+  on_boot:
+    priority: -100
+    then:
+      - output.turn_off: btn1_blue
+      - output.turn_off: btn1_green
+      - output.turn_off: btn2_blue
+      - output.turn_off: btn2_green
+      - script.execute:
+          id: manage_leds
+          button: 'both'
+          color: 'blue'
+          mode: 'solid'
+          duration: 2
+      - light.turn_on:
+          id: status_led
+          effect: pending_effect
+      - delay: 2s
+      - light.turn_off: status_led
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+    version: 2.0.6
+
+logger:
+  level: DEBUG
+  baud_rate: 0
+
+time:
+  - platform: homeassistant
+    id: ha_time
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: <redacted>
+  actions:
+    - action: enroll
+      variables:
+        finger_id: int
+        num_scans: int
+      then:
+        - fingerprint_grow.enroll:
+            finger_id: !lambda 'return finger_id;'
+            num_scans: !lambda 'return num_scans;'
+    - action: delete_fingerprint
+      variables:
+        finger_id: int
+      then:
+        - fingerprint_grow.delete:
+            finger_id: !lambda 'return finger_id;'
+        - lambda: |-
+            auto it = id(fingerprint_metadata).find(finger_id);
+            if (it != id(fingerprint_metadata).end()) {
+              id(fingerprint_metadata).erase(it);
+            }
+        - script.execute: update_metadata_sensors
+        - text_sensor.template.publish:
+            id: fp_status
+            state: !lambda |-
+              char buf[32];
+              snprintf(buf, sizeof(buf), "Deleted fingerprint ID %d", finger_id);
+              return std::string(buf);
+    - action: delete_all_fingerprints
+      then:
+        - fingerprint_grow.delete_all:
+        - lambda: |-
+            id(fingerprint_metadata).clear();
+        - script.execute: update_metadata_sensors
+        - text_sensor.template.publish:
+            id: fp_status
+            state: "All fingerprints deleted"
+    - action: reset_lockout
+      then:
+        - globals.set: {id: failed_attempts, value: '0'}
+        - globals.set: {id: lockout_until, value: '0'}
+        - text_sensor.template.publish: {id: fp_status, state: "Lockout reset"}
+        - fingerprint_grow.aura_led_control:
+            state: FLASHING
+            speed: 150
+            color: BLUE
+            count: 3
+        - light.turn_on:
+            id: status_led #solid purple
+            brightness: 100%
+            red: 63%
+            green: 13%
+            blue: 94%
+        - delay: 3s
+        - light.turn_off: status_led
+    - action: update_metadata
+      variables:
+        id: int
+        name: string
+        finger: string
+      then:
+        - lambda: |-
+            id(fingerprint_metadata)[id] = std::make_pair(name, finger);
+        - script.execute: update_metadata_sensors
+    - action: set_metadata
+      variables:
+        metadata: string
+      then:
+        - lambda: |-
+            id(fingerprint_metadata).clear();
+            std::string meta = metadata;
+            ESP_LOGI("Metadata", "Received metadata: %s", meta.c_str());
+            size_t start = 0;
+            int record_count = 0;
+            while (start < meta.length()) {
+              size_t end = meta.find(';', start);
+              if (end == std::string::npos) {
+                end = meta.length();
+              }
+              std::string rec = meta.substr(start, end - start);
+              start = end + 1;
+              if (rec.empty()) continue;
+              ESP_LOGD("Metadata", "Processing record: %s", rec.c_str());
+              size_t c1 = rec.find(':');
+              size_t c2 = rec.find(':', c1 + 1);
+              if (c1 == std::string::npos || c2 == std::string::npos) {
+                ESP_LOGW("Metadata", "Invalid record format: %s", rec.c_str());
+                continue;
+              }
+              std::string id_str = rec.substr(0, c1);
+              char* end_ptr;
+              long id_long = strtol(id_str.c_str(), &end_ptr, 10);
+              if (end_ptr == id_str.c_str() || *end_ptr != '\0' || id_long < 1 || id_long > 127) {
+                ESP_LOGE("Metadata", "Invalid ID: %s", id_str.c_str());
+                continue;
+              }
+              int id = static_cast<int>(id_long);
+              std::string name = rec.substr(c1 + 1, c2 - c1 - 1);
+              std::string finger = rec.substr(c2 + 1);
+              ESP_LOGI("Metadata", "Parsed ID: %d, Name: %s, Finger: %s",
+                id, name.c_str(), finger.c_str());
+              id(fingerprint_metadata)[id] = std::make_pair(name, finger);
+              record_count++;
+            }
+            ESP_LOGI("Metadata", "Successfully parsed %d records", record_count);
+        - script.execute: update_metadata_sensors
+
+ota:
+  - platform: esphome
+    password: <redacted>
+
+mqtt:
+  broker: 192.168.179.41
+  username: mqtt_broker
+  password: <redacted>
+  discovery: false
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: LIGHT
+  fast_connect: true
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "C3 Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+# UART for fingerprint sensor - Using correct GPIO mapping
+uart:
+  tx_pin: GPIO43  # D6 - FP RX (green wire)
+  rx_pin: GPIO44  # D7 - FP TX (yellow wire)
+  baud_rate: 57600  # Increased from 57600
+  #data_bits: 8
+  stop_bits: 1
+ # parity: NONE
+
+# Fingerprint sensor with wake-on-touch enabled
+fingerprint_grow:
+  id: fp_reader
+  password: <redacted>
+  # Enable wake-on-touch feature
+  sensing_pin: GPIO6  # D5 - FP wake (blue wire)
+  on_finger_scan_start:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: ALWAYS_ON
+          color: PURPLE
+          speed: 0
+          count: 0
+     # - light.turn_on:
+     #     id: status_led #solid purple
+     #     brightness: 50%
+     #     red: 63%
+     #     green: 13%
+     #     blue: 94%
+  on_enrollment_scan:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: BREATHING
+          speed: 150
+          color: CYAN
+          count: 0
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Enrollment: Scan %d", scan_num);
+            return std::string(buf);
+  on_enrollment_done:
+    then:
+      - light.turn_off: status_led
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          color: GREEN
+          speed: 100
+          count: 3
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[64];
+            snprintf(buf, sizeof(buf), "Enrolled ID %d: %s (%s)",
+              finger_id,
+              id(fp_enroll_name).state.c_str(),
+              id(fp_enroll_finger).state.c_str());
+            return buf;
+      - lambda: |-
+          if (!id(fp_enroll_name).state.empty() && !id(fp_enroll_finger).state.empty()) {
+            id(fingerprint_metadata)[finger_id] = std::make_pair(
+              id(fp_enroll_name).state,
+              id(fp_enroll_finger).state
+            );
+          }
+      - homeassistant.event:
+          event: esphome.enrollment_done
+          data:
+            fingerprint_name: !lambda |-
+              auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+              return (meta_it != id(fingerprint_metadata).end()) ?
+                meta_it->second.first.c_str() :
+                "Unknown";
+            fingerprint_finger: !lambda |-
+              auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+              return (meta_it != id(fingerprint_metadata).end()) ?
+                meta_it->second.second.c_str() :
+                "Unknown";
+      - script.execute: update_metadata_sensors
+  on_enrollment_failed:
+    then:
+      - light.turn_off: status_led
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          color: RED
+          speed: 100
+          count: 3
+      - text_sensor.template.publish:
+          id: fp_status
+          state: "Scan failed"
+  on_finger_scan_matched:
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return id(lockout_until) > id(ha_time).now().timestamp;
+          then:
+            - script.execute: lockout_sequence
+          else:
+            - lambda: |-
+                id(btn_sequence).clear();
+                id(last_fp_time) = 0;
+            - fingerprint_grow.aura_led_control:
+                state: BREATHING 
+                speed: 150
+                color: BLUE
+                count: 0
+            - light.turn_on:
+                id: status_led
+                effect: pending_effect
+            #- light.turn_on:
+            #    id: status_led
+            #    brightness: 30%
+            #    red: 0%
+            #    green: 0%
+            #    blue: 100%
+            - lambda: |-
+                id(matched_finger_id) = finger_id;
+                id(last_fp_time) = id(ha_time).now().timestamp;
+            - text_sensor.template.publish:
+                id: fp_status
+                state: "Fingerprint matched, enter sequence"
+            - homeassistant.event:
+                event: esphome.fingerprint_matched
+                data:
+                  fingerprint_name: !lambda |-
+                    auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                    return (meta_it != id(fingerprint_metadata).end()) ?
+                      meta_it->second.first.c_str() :
+                      "Unknown";
+                  fingerprint_finger: !lambda |-
+                    auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                    return (meta_it != id(fingerprint_metadata).end()) ?
+                      meta_it->second.second.c_str() :
+                      "Unknown";
+  on_finger_scan_unmatched:
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return id(lockout_until) > id(ha_time).now().timestamp;
+          then:
+            - script.execute: lockout_sequence
+          else:
+            - text_sensor.template.publish:
+                id: fp_status
+                state: "Fingerprint not recognised"
+            - lambda: |-
+                id(failure_reason) = "fingerprint";
+            - script.execute: handle_failed_attempt
+  on_finger_scan_misplaced:
+    then:
+      - light.turn_off: status_led
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          color: PURPLE
+          speed: 200
+          count: 3
+  on_finger_scan_invalid:
+    then:
+      - light.turn_off: status_led
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          color: PURPLE
+          speed: 200
+          count: 3
+
+# NeoPixel status LED
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: 800KBPS
+    pin: GPIO5  # D4 - NeoPixel DIN
+    num_leds: 1
+    id: status_led
+    name: "Auth Status LED"
+    effects:
+      - strobe:
+          name: "pending_effect"
+          colors:
+            - state: true
+              brightness: 100%
+              red: 0%
+              green: 0%
+              blue: 100%
+              duration: 500ms
+            - state: false
+              duration: 250ms
+            - state: true
+              brightness: 100%
+              red: 0%
+              green: 0%
+              blue: 100%
+              duration: 500ms
+
+# Button inputs with correct GPIO mapping
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO2  # D1 - Button 1
+      mode: INPUT_PULLUP
+    id: button_a
+    name: "Button A"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(last_fp_time) > 0) {
+              id(btn_sequence).push_back('A');
+              id(last_input_time) = id(ha_time).now().timestamp;
+            }
+        - output.turn_off: btn1_blue
+    on_release:
+      then:
+        - output.turn_on: btn1_blue
+  - platform: gpio
+    pin:
+      number: GPIO9  # D10 - Button 2
+      mode: INPUT_PULLUP
+    id: button_b
+    name: "Button B"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(last_fp_time) > 0) {
+              id(btn_sequence).push_back('B');
+              id(last_input_time) = id(ha_time).now().timestamp;
+            }
+        - output.turn_off: btn2_blue
+    on_release:
+      then:
+        - output.turn_on: btn2_blue
+        
+  - platform: status
+    name: "Device Status"
+    id: "device_status"
+
+# RGB Button LED outputs with strapping pin protection
+output:
+  # Button 1 RGB LEDs (GPIO4, GPIO5 - safe pins)
+  - platform: ledc
+    pin: GPIO3  # D2 - Button 1 Green cathode
+    id: btn1_green
+    inverted: true  # Common anode configuration
+    frequency: 1000 Hz
+  - platform: ledc
+    pin: 
+      number: GPIO4  # D3 - Button 1 Blue cathode
+      mode: OUTPUT_OPEN_DRAIN
+    id: btn1_blue
+    inverted: true  # Common anode configuration
+    frequency: 1000 Hz
+  
+  # Button 2 RGB LEDs 
+  - platform: ledc
+    pin: 
+      number: GPIO8  # D9 - Button 2 Green cathode 
+    id: btn2_green
+    inverted: true
+    frequency: 1000 Hz
+  - platform: ledc
+    pin: 
+      number: GPIO7  # D8 - Button 2 Blue cathode 
+    id: btn2_blue
+    inverted: true
+    frequency: 1000 Hz
+
+# Text sensors for status and metadata
+text_sensor:
+  - platform: template
+    name: "Authentication Status"
+    id: fp_status
+    lambda: |-
+      return {};
+  - platform: template
+    name: "Fingerprint Metadata Part 1"
+    id: metadata_1
+    lambda: |-
+      std::string output;
+      int count = 0;
+      for (const auto& entry : id(fingerprint_metadata)) {
+        if (count >= 7) break;
+        output += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+        count++;
+      }
+      return output;
+    update_interval: never
+  - platform: template
+    name: "Fingerprint Metadata Part 2"
+    id: metadata_2
+    lambda: |-
+      std::string output;
+      int count = 0;
+      int skip_count = 0;
+      for (const auto& entry : id(fingerprint_metadata)) {
+        if (skip_count < 7) {
+          skip_count++;
+          continue;
+        }
+        if (count >= 7) break;
+        output += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+        count++;
+      }
+      return output;
+    update_interval: never
+  - platform: template
+    name: "Fingerprint Metadata Part 3"
+    id: metadata_3
+    lambda: |-
+      std::string output;
+      int count = 0;
+      int skip_count = 0;
+      for (const auto& entry : id(fingerprint_metadata)) {
+        if (skip_count < 14) {
+          skip_count++;
+          continue;
+        }
+        if (count >= 7) break;
+        output += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+        count++;
+      }
+      return output;
+    update_interval: never
+  - platform: homeassistant
+    id: valid_sequence_ha
+    entity_id: input_text.valid_button_sequence
+    on_value:
+      then:
+        - lambda: |-
+            id(valid_sequence) = x;
+  - platform: homeassistant
+    id: fp_enroll_name
+    entity_id: input_text.fp_enroll_name
+  - platform: homeassistant
+    id: fp_enroll_finger
+    entity_id: input_select.fp_enroll_finger
+
+# Home Assistant number inputs
+number:
+  - platform: homeassistant
+    id: lockout_duration
+    entity_id: input_number.lockout_duration
+    on_value:
+      then:
+        - lambda: |-
+            id(lockout_seconds) = x;
+  - platform: homeassistant
+    id: lockout_attempts
+    entity_id: input_number.max_lockout_attempts
+    on_value:
+      then:
+        - lambda: |-
+            id(max_attempts) = x;
+  - platform: homeassistant
+    id: authentication_time_window
+    entity_id: input_number.authentication_time_window
+    on_value:
+      then:
+        - lambda: |-
+            id(timeout_seconds) = x;
+
+# Sensor for fingerprint count
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Stored Fingerprints"
+  - platform: fingerprint_grow
+    status:
+      name: "FP Device Status"
+  - platform: fingerprint_grow
+    capacity:
+      name: "FP Capacity"
+  - platform: fingerprint_grow
+    last_confidence:
+      name: "Confidence Last Match"
+  - platform: internal_temperature
+    name: "ESP32 Internal Temperature"
+    id: esp_temperature
+    update_interval: 30s
+
+# Global variables for state management
+globals:
+  - id: btn_sequence
+    type: std::string
+    initial_value: '""'
+    restore_value: no
+  - id: valid_sequence
+    type: std::string
+    initial_value: '"ABBA"'
+    restore_value: yes
+  - id: failed_attempts
+    type: int
+    initial_value: '0'
+    restore_value: no
+  - id: lockout_until
+    type: int
+    initial_value: '0'
+  - id: last_input_time
+    type: int
+    initial_value: '0'
+  - id: lockout_seconds
+    type: int
+    initial_value: '300'
+  - id: max_attempts
+    type: int
+    initial_value: '3'
+  - id: timeout_seconds
+    type: int
+    initial_value: '10'
+  - id: last_fp_time
+    type: int
+    initial_value: '0'
+  - id: matched_finger_id
+    type: int
+    initial_value: '0'
+  - id: failure_reason
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: deny_reason
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: fingerprint_metadata
+    type: 'std::map<int, std::pair<std::string, std::string>>'
+    restore_value: no
+  - id: led_pairs
+    type: std::vector<std::pair<output::FloatOutput*, output::FloatOutput*>>
+    restore_value: no
+  - id: led_end_time
+    type: int
+    restore_value: no
+  - id: led_state
+    type: bool
+    restore_value: no
+  - id: led_last_toggle
+    type: int
+    restore_value: no
+
+# Scripts for authentication logic
+script:
+  - id: process_authentication
+    mode: single
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return id(lockout_until) > id(ha_time).now().timestamp;
+          then:
+            - script.execute: lockout_sequence
+          else:
+            - if:
+                condition:
+                  lambda: |-
+                    const std::string &input = id(btn_sequence);
+                    const std::string &pattern = id(valid_sequence);
+                    if (input.length() != pattern.length()) return false;
+                    for (size_t i = 0; i < pattern.length(); i++) {
+                      if (pattern[i] == 'X') continue;
+                      if (input[i] != pattern[i]) return false;
+                    }
+                    return true;
+                then:
+                  - text_sensor.template.publish:
+                      id: fp_status
+                      state: "Access granted"
+                  - fingerprint_grow.aura_led_control:
+                      state: FLASHING
+                      speed: 100
+                      color: GREEN
+                      count: 3
+                  - light.turn_off: status_led
+                  - light.turn_on:
+                      id: status_led
+                      brightness: 100%
+                      red: 100% #this is actually green
+                      green: 0%
+                      blue: 0%
+                  - homeassistant.event:
+                      event: esphome.access_granted
+                      data:
+                        fingerprint_name: !lambda |-
+                          auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                          return (meta_it != id(fingerprint_metadata).end()) ?
+                            meta_it->second.first.c_str() :
+                            "Unknown";
+                        fingerprint_finger: !lambda |-
+                          auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                          return (meta_it != id(fingerprint_metadata).end()) ?
+                            meta_it->second.second.c_str() :
+                            "Unknown";
+                  - delay: 2s
+                  - light.turn_off: status_led
+                else:
+                  - text_sensor.template.publish:
+                      id: fp_status
+                      state: "Invalid sequence - access denied"
+                  - lambda: |-
+                      id(failure_reason) = "sequence";
+                  - script.execute: handle_failed_attempt
+            - lambda: |-
+                id(btn_sequence).clear();
+                id(last_input_time) = 0;
+                id(last_fp_time) = 0;
+
+  - id: handle_failed_attempt
+    mode: single
+    then:
+      - lambda: |-
+          id(failed_attempts) += 1;
+          if (!id(failure_reason).empty()) {
+            id(deny_reason) = id(failure_reason);
+            id(failure_reason).clear();
+          } else {
+            id(deny_reason) = "unknown";
+          }
+      - if:
+          condition:
+            lambda: |-
+              return id(failed_attempts) >= id(max_attempts);
+          then:
+            - lambda: |-
+                id(lockout_until) = id(ha_time).now().timestamp + id(lockout_seconds);
+                id(failed_attempts) = 0;
+            - script.execute: lockout_sequence
+          else:
+            - fingerprint_grow.aura_led_control:
+                state: FLASHING
+                speed: 100
+                color: RED
+                count: 3
+            - light.turn_off: status_led
+            - light.turn_on:
+                id: status_led
+                brightness: 100%
+                red: 0%
+                green: 100% # this is actually red
+                blue: 0%
+            - homeassistant.event:
+                event: esphome.access_denied
+                data:
+                  reason: !lambda 'return id(deny_reason).c_str();'
+                  fingerprint_name: !lambda |-
+                    auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                    return (meta_it != id(fingerprint_metadata).end()) ?
+                      meta_it->second.first.c_str() :
+                      "Unknown";
+                  fingerprint_finger: !lambda |-
+                    auto meta_it = id(fingerprint_metadata).find(id(matched_finger_id));
+                    return (meta_it != id(fingerprint_metadata).end()) ?
+                      meta_it->second.second.c_str() :
+                      "Unknown";
+                  entered_sequence: !lambda 'return id(btn_sequence).c_str();'
+            - delay: 2s
+            - light.turn_off: status_led
+            - lambda: |-
+                id(btn_sequence).clear();
+                id(last_input_time) = 0;
+                id(last_fp_time) = 0;
+  - id: update_metadata_sensors
+    mode: single
+    then:
+      - lambda: |-
+          ESP_LOGI("Metadata", "Updating sensors with %d records:", id(fingerprint_metadata).size());
+          for (const auto &entry : id(fingerprint_metadata)) {
+            ESP_LOGD("Metadata", "Record: %d:%s:%s",
+              entry.first,
+              entry.second.first.c_str(),
+              entry.second.second.c_str());
+          }
+          std::string output1;
+          int count1 = 0;
+          for (const auto& entry : id(fingerprint_metadata)) {
+            if (count1 >= 7) break;
+            output1 += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+            count1++;
+          }
+          id(metadata_1).publish_state(output1);
+          std::string output2;
+          int count2 = 0;
+          int skip2 = 0;
+          for (const auto& entry : id(fingerprint_metadata)) {
+            if (skip2 < 7) {
+              skip2++;
+              continue;
+            }
+            if (count2 >= 7) break;
+            output2 += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+            count2++;
+          }
+          id(metadata_2).publish_state(output2);
+          std::string output3;
+          int count3 = 0;
+          int skip3 = 0;
+          for (const auto& entry : id(fingerprint_metadata)) {
+            if (skip3 < 14) {
+              skip3++;
+              continue;
+            }
+            if (count3 >= 7) break;
+            output3 += std::to_string(entry.first) + ":" + entry.second.first + ":" + entry.second.second + ";";
+            count3++;
+          }
+          id(metadata_3).publish_state(output3);
+  - id: lockout_sequence
+    then:
+      - text_sensor.template.publish:
+          id: fp_status
+          state: "LOCKOUT"
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          speed: 100
+          color: RED
+          count: 3
+      - light.turn_on:
+          id: status_led
+          brightness: 100%
+          red: 0%
+          green: 100%
+          blue: 0%
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[60];
+            snprintf(buf, sizeof(buf), "LOCKOUT - %d seconds remaining",
+              id(lockout_until) - id(ha_time).now().timestamp);
+            return buf;
+      - homeassistant.event:
+          event: esphome.access_denied_lockout
+          data:
+            reason: !lambda 'return id(deny_reason).c_str();'
+            remaining: !lambda 'return id(lockout_until) - id(ha_time).now().timestamp;'
+      - lambda: |-
+          id(btn_sequence).clear();
+          id(last_input_time) = 0;
+          id(last_fp_time) = 0;
+      - delay: 2s
+      - light.turn_off: status_led
+  - id: manage_leds
+    mode: restart
+    parameters:
+      button: string
+      color: string
+      mode: string
+      duration: int
+    then:
+      # Create LED control pairs
+      - lambda: |-
+          id(led_pairs).clear();
+          if (button == "a" || button == "both") {
+            id(led_pairs).push_back(std::make_pair(id(btn1_blue), id(btn1_green)));
+          }
+          if (button == "b" || button == "both") {
+            id(led_pairs).push_back(std::make_pair(id(btn2_blue), id(btn2_green)));
+          }
+          id(led_end_time) = millis() + (duration * 1000);
+          id(led_state) = true;
+          id(led_last_toggle) = millis();
+
+      # Initial state setup
+      - lambda: |-
+          for (auto &pair : id(led_pairs)) {
+            if (color == "blue") {
+              pair.first->set_level(1.0f);
+              pair.second->set_level(0.0f);
+            } else if (color == "green") {
+              pair.first->set_level(0.0f);
+              pair.second->set_level(1.0f);
+            } else { // off
+              pair.first->set_level(0.0f);
+              pair.second->set_level(0.0f);
+            }
+          }
+
+      # Flash mode handler
+      - if:
+          condition:
+            lambda: 'return mode == "flash" && color != "off";'
+          then:
+            - while:
+                condition:
+                  lambda: 'return millis() < id(led_end_time);'
+                then:
+                  - if:
+                      condition:
+                        lambda: 'return millis() - id(led_last_toggle) >= 500;'
+                      then:
+                        - lambda: |-
+                            id(led_state) = !id(led_state);
+                            for (auto &pair : id(led_pairs)) {
+                              float level = id(led_state) ? 1.0f : 0.0f;
+                              if (color == "blue") {
+                                pair.first->set_level(level);
+                              } else {
+                                pair.second->set_level(level);
+                              }
+                            }
+                            id(led_last_toggle) = millis();
+
+      # Solid mode handler
+      - if:
+          condition:
+            lambda: 'return mode == "solid" && color != "off";'
+          then:
+            - delay: !lambda 'return duration * 1000;'
+
+      # Final turn off
+      - lambda: |-
+          for (auto &pair : id(led_pairs)) {
+            pair.first->set_level(0.0f);
+            pair.second->set_level(0.0f);
+          }
+
+# Periodic checks for timeouts and sequence validation
+interval:
+  - interval: 1000ms
+    then:
+      - if:
+        # Handle timeouts since a matched fingerprint
+          condition:
+            lambda: |-
+              return id(last_fp_time) > 0 &&
+                (id(ha_time).now().timestamp - id(last_fp_time)) > id(timeout_seconds);
+          then:
+            - text_sensor.template.publish:
+                id: fp_status
+                state: "Timeout - access denied"
+            - lambda: |-
+                id(failure_reason) = "timeout";
+            - script.execute: handle_failed_attempt
+            - lambda: |-
+                id(btn_sequence).clear();
+                id(last_input_time) = 0;
+                id(last_fp_time) = 0;
+      - if:
+        # Handle sequence - when enough presses, begin authentication check
+          condition:
+            lambda: |-
+              return id(btn_sequence).length() == id(valid_sequence).length();
+          then:
+            - script.execute: process_authentication

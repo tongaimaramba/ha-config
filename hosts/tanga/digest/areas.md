@@ -1,0 +1,36 @@
+# tanga — areas
+
+- Basement
+- Bathroom
+- Bathroom heating
+- Coats
+- Dining Area
+- Downstairs
+- Driveway
+- Ellies Bedroom
+- Garage
+- Garden
+- Hallway
+- Hannahs Bedroom
+- Home General
+- Hot Water
+- Isla
+- Isla Bedroom
+- Kitchen
+- Landing
+- Living Room
+- Loft
+- Loft Bathroom
+- Loft Suite
+- Lounge Lamps
+- M Bedside
+- Main Bedroom
+- Media area
+- Room 6
+- Study
+- Swings
+- T Bedside
+- Upstairs
+- Utility
+- Utility - Laundry
+- Utility - Pantry

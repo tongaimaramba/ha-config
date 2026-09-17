@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "minor_version": 1,
+  "key": "person",
+  "data": {
+    "items": [
+      {
+        "device_trackers": [
+          "device_tracker.garmin_device",
+          "device_tracker.bermuda_tongai_phone_bermuda_tracker",
+          "device_tracker.tongai_samsung25"
+        ],
+        "id": "tongai",
+        "name": "Tongai",
+        "user_id": "654b5cdf36f8494cb948a9d13e1c17c7",
+        "picture": null
+      },
+      {
+        "device_trackers": [
+          "device_tracker.mm_iphone",
+          "device_tracker.iphone_32"
+        ],
+        "id": "mojgan",
+        "name": "Mojgan",
+        "user_id": "06495997aca44e59a54f1b3138ad088e",
+        "picture": null
+      },
+      {
+        "name": "Feasby",
+        "device_trackers": [],
+        "user_id": "c99ca07941bd4465a02d08ecb04551bc",
+        "picture": null,
+        "id": "feasby"
+      },
+      {
+        "id": "hannah",
+        "name": "Hannah",
+        "device_trackers": [
+          "device_tracker.hannahs_iphone",
+          "device_tracker.hannah_hockey_bag",
+          "device_tracker.hannah_keys",
+          "device_tracker.hannah_iphone",
+          "device_tracker.hannahs_iphone13"
+        ],
+        "user_id": "f23d493823c54dfea81dad50a9091d37",
+        "picture": null
+      },
+      {
+        "id": "ellie",
+        "name": "Ellie",
+        "device_trackers": [
+          "device_tracker.ellie_s_gym_bag",
+          "device_tracker.ellie_s_phone",
+          "device_tracker.ellie_bag",
+          "device_tracker.ellie_s_hockey_bag"
+        ],
+        "user_id": null,
+        "picture": null
+      }
+    ]
+  }
+}

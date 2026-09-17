@@ -1,0 +1,553 @@
+###############################
+# ESPHome Fingerprint Auth - Event Driven
+###############################
+# Home Assistant Helpers/Entities:
+# - input_text.valid_button_sequence (e.g. "ABA")
+# - input_number.authentication_time_window (seconds)
+# - input_number.fp_enroll_id (slot for enrollment)
+# - input_text.fp_enroll_name (name for slot)
+# - input_number.fp_enroll_scans (number of scans for enrollment)
+# - sensor.stored_fingerprints
+# - text_sensor.fp_status (status feedback)
+# - text_sensor.current_button_sequence (live sequence)
+# - text_sensor.fingerprint_names (slot:name mapping for Lovelace)
+# Services:
+# - esphome.fp_auth_enroll (finger_id, num_scans)
+# - esphome.fp_auth_delete_fingerprint (finger_id)
+# - esphome.fp_auth_delete_all_fingerprints
+
+substitutions:
+  device_name: "fp-auth"
+  mqtt_topic: "/Homeassistant/Auto_Unlock/Status"
+
+esphome:
+  name: ${device_name}
+  friendly_name: "Fingerprint Authoriser"
+
+esp32:
+  board: wemos_d1_mini32
+  framework:
+    type: arduino
+
+logger:
+ # level: WARN
+  
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+api:
+  encryption:
+    key: <redacted>
+  actions:
+    - action: enroll
+      variables:
+        finger_id: int
+        num_scans: int
+      then:
+        - fingerprint_grow.enroll:
+            finger_id: !lambda 'return finger_id;'
+            num_scans: !lambda 'return num_scans;'
+        # Optionally add MQTT callout here for "enrollment started"
+    - action: delete_fingerprint
+      variables:
+        finger_id: int
+      then:
+        - fingerprint_grow.delete:
+            finger_id: !lambda 'return finger_id;'
+        # Optionally add MQTT callout here for "delete started"
+    - action: delete_all_fingerprints
+      then:
+        - fingerprint_grow.delete_all:
+        # Optionally add MQTT callout here for "delete all started"
+
+ota:
+ - platform: esphome
+   password: <redacted>
+
+mqtt:
+  broker: 192.168.179.41
+  username: mqtt_broker
+  password: <redacted>
+  discovery: false
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "Fingerprint-Auth"
+    password: <redacted>
+ # power_save_mode: none  # Disable power saving
+ # fast_connect: true  # Skip full scan
+ # reboot_timeout: 0s  # No auto-reboot
+ # output_power: 20dB  # If signal is strong
+
+captive_portal:
+
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: 800KBPS
+    pin: GPIO21           
+    num_leds: 1
+    id: status_led
+    name: "Status LED"
+    default_transition_length: 0s
+    effects:
+      - pulse:
+          name: "Breathing"
+          update_interval: 50ms
+          min_brightness: 10%
+          max_brightness: 30%
+
+uart:
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 57600  # 115200
+
+fingerprint_grow:
+  id: fp_reader
+  password: <redacted>
+
+  on_enrollment_scan:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: BREATHING
+          speed: 150
+          color: BLUE
+          count: 0
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Enrollment: Scan %d", scan_num);
+            return std::string(buf);
+      
+  on_enrollment_done:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: ALWAYS_ON
+          color: GREEN
+          speed: 100
+          count: 0
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Enrollment: Success (ID %d)", finger_id);
+            return std::string(buf);
+      - lambda: |-
+          // Store name only if HA helper is not empty
+          if (!id(fp_enroll_name_ha).state.empty()) {
+          id(fingerprint_names)[finger_id] = id(fp_enroll_name_ha).state;
+          }
+          if (!id(fp_enroll_finger_ha).state.empty()) {  
+          id(fingerprint_fingers)[finger_id] = id(fp_enroll_finger_ha).state;
+          }
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 3;'
+
+  on_enrollment_failed:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: ALWAYS_ON
+          color: RED
+          speed: 100
+          count: 0
+      - text_sensor.template.publish:
+          id: fp_status
+          state: !lambda |-
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Enrollment: Failed (ID %d)", finger_id);
+            return std::string(buf);
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 3;'
+
+  on_finger_scan_matched:
+    then:
+      - delay: 100ms  # Shorter post-scan delay
+      - lambda: |-
+          id(btn_sequence).clear();  // Reset sequence on new scan
+      - fingerprint_grow.aura_led_control:
+          state: BREATHING
+          speed: 150
+          color: BLUE
+          count: 0
+      - light.turn_on:
+          id: status_led
+          effect: "Breathing"
+          red: 0%
+          green: 0%
+          blue: 100%
+      - globals.set:
+          id: matched_finger_id
+          value: !lambda 'return finger_id;'
+      - globals.set:
+          id: last_fp_time
+          value: !lambda 'return id(esptime).now().timestamp;'
+      - text_sensor.template.publish:
+          id: fp_status
+          state: "Fingerprint matched, enter sequence"
+      - homeassistant.event:
+          event: esphome.fingerprint_matched
+          data:
+            finger_id: !lambda 'return finger_id;'
+  
+  on_finger_scan_unmatched:
+    then:
+      - fingerprint_grow.aura_led_control:
+          speed: 200
+          state: FLASHING
+          color: RED
+          count: 3
+      - light.turn_on:
+          id: status_led
+          brightness: !lambda 'return id(led_brightness) / 100.0;'
+          red: 50%
+          green: 0%
+          blue: 0%
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 2;'
+      - text_sensor.template.publish:
+          id: fp_status
+          state: "Fingerprint not recognized"
+      - homeassistant.event:
+          event: esphome.access_denied
+          data:
+            reason: "Fingerprint not recognized"
+      # Optionally add MQTT callout here for "unmatched"
+
+binary_sensor:
+  - platform: gpio
+    pin: 
+      number: GPIO23
+      mode: INPUT_PULLUP
+    id: button_a
+    name: "Button A"
+    on_press:
+      then:
+        - lambda: |-
+            id(btn_sequence) += "A";
+            id(first_btn_time) = id(esptime).now().timestamp;
+            id(button_pressed_feedback)->execute(1);  
+
+  - platform: gpio
+    pin: 
+      number: GPIO22
+      mode: INPUT_PULLUP
+    id: button_b
+    name: "Button B"
+    on_press:
+      then:
+        - lambda: |-
+            id(btn_sequence) += "B";
+            id(first_btn_time) = id(esptime).now().timestamp;
+            id(button_pressed_feedback)->execute(1);  
+
+globals:
+  - id: last_fp_time
+    type: int
+    initial_value: '0'
+  - id: btn_sequence
+    type: std::string
+    initial_value: '""'
+  - id: valid_sequence
+    type: std::string
+    restore_value: yes
+    initial_value: '"AABA"'
+  - id: time_window
+    type: int
+    restore_value: yes
+    initial_value: '5'
+  - id: first_btn_time
+    type: int
+    initial_value: '0'
+  - id: led_reset_time
+    type: int
+    initial_value: '0'
+  - id: fingerprint_names
+    type: std::map<int, std::string>
+    initial_value: 'std::map<int, std::string>{}'  
+    restore_value: no
+  - id: fingerprint_fingers  
+    type: std::map<int, std::string>
+    initial_value: 'std::map<int, std::string>{}'
+    restore_value: no
+  - id: matched_finger_id
+    type: int
+    initial_value: '0'
+  - id: led_brightness
+    type: int
+    initial_value: '30'
+
+# Sync valid sequence, time window, and enrollment params from HA
+text_sensor:
+  - platform: homeassistant
+    id: valid_sequence_ha
+    entity_id: input_text.valid_button_sequence
+    on_value:
+      then:
+        - lambda: |-
+            id(valid_sequence) = x;
+
+  - platform: homeassistant
+    id: fp_enroll_name_ha
+    entity_id: input_text.fp_enroll_name
+
+  - platform: homeassistant
+    id: fp_enroll_finger_ha  
+    entity_id: input_text.fp_enroll_finger
+
+  - platform: template
+    name: "FP Status"
+    id: fp_status
+    lambda: |-
+      return {};
+
+  - platform: template
+    name: "Current Button Sequence"
+    lambda: |-
+      if (id(btn_sequence).empty()) {
+        return {};
+      }
+      return id(btn_sequence);
+
+  - platform: template
+    name: "Fingerprint Names"
+    lambda: |-
+      std::string names;
+      for (auto const& entry : id(fingerprint_names)) {
+        names += std::to_string(entry.first) + ": " + entry.second + "; ";
+      }
+      return names;
+  
+  - platform: homeassistant
+    id: fp_metadata_ha
+    entity_id: input_text.fp_metadata
+    on_value:
+      then:
+        - lambda: |-
+            // Parse "ID:Name:Finger;ID2:Name2:Finger2"
+            id(fingerprint_names).clear();
+            id(fingerprint_fingers).clear();
+            std::string meta = x;
+            size_t pos = 0;
+            while ((pos = meta.find(';')) != std::string::npos) {
+              std::string entry = meta.substr(0, pos);
+              size_t colon1 = entry.find(':');
+              size_t colon2 = entry.find(':', colon1+1);
+              if (colon1 != std::string::npos && colon2 != std::string::npos) {
+                int fid = std::stoi(entry.substr(0, colon1));
+                std::string name = entry.substr(colon1+1, colon2-colon1-1);
+                std::string finger = entry.substr(colon2+1);
+                id(fingerprint_names)[fid] = name;
+                id(fingerprint_fingers)[fid] = finger;
+              }
+              meta.erase(0, pos + 1);
+            }
+
+number:
+  - platform: homeassistant
+    id: time_window_ha
+    entity_id: input_number.authentication_time_window
+    on_value:
+      then:
+        - lambda: |-
+            id(time_window) = x;
+
+  - platform: homeassistant
+    id: fp_enroll_id_ha
+    entity_id: input_number.fp_enroll_id
+
+  - platform: homeassistant
+    id: fp_enroll_scans_ha
+    entity_id: input_number.fp_enroll_scans
+
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Stored Fingerprints"
+
+interval:
+  - interval: 50ms  # 
+    then:
+      # 1. Sequence validation
+      - if:
+          condition:
+            #finger matched and still in time window
+            lambda: |-    
+              return id(last_fp_time) > 0 && id(esptime).now().timestamp - id(last_fp_time) <= id(time_window);
+          then:
+            - if:
+                condition:
+                # enough buttons have been pushed
+                  lambda: |-
+                    return id(btn_sequence).length() >= id(valid_sequence).length();
+                then:
+                  - if:
+                      condition:
+                      # correct sequence entered
+                        lambda: |-
+                          return id(btn_sequence) == id(valid_sequence);
+                      then:
+                        - fingerprint_grow.aura_led_control:
+                            state: ALWAYS_ON
+                            color: GREEN
+                            speed: 100
+                            count: 0
+                        - light.turn_on:
+                            id: status_led
+                            brightness: !lambda 'return id(led_brightness) / 100.0;'
+                            red: 0%
+                            green: 100%
+                            blue: 0%
+                        - text_sensor.template.publish:
+                            id: fp_status
+                            state: "Access granted"
+                        - script.execute:
+                            id: grant_access
+                            finger_id: !lambda 'return id(matched_finger_id);'
+                      else: 
+                        - fingerprint_grow.aura_led_control:
+                            state: FLASHING
+                            color: RED
+                            speed: 200
+                            count: 3
+                        - light.turn_on:
+                            id: status_led
+                            brightness: !lambda 'return id(led_brightness) / 100.0;'
+                            red: 100%
+                            green: 0%
+                            blue: 0%
+                        - text_sensor.template.publish:
+                            id: fp_status
+                            state: "Wrong sequence"
+                        - script.execute:
+                            id: access_denied
+                            entered_sequence: !lambda 'return id(btn_sequence).c_str();'
+                            expected_sequence: !lambda 'return id(valid_sequence).c_str();'
+
+      # 2. Timeout handling
+      - if:
+          condition:
+            lambda: |-
+              return id(last_fp_time) > 0 && id(esptime).now().timestamp - id(last_fp_time) > id(time_window);
+          then:
+            - fingerprint_grow.aura_led_control:
+                state: FLASHING
+                color: RED
+                speed: 200
+                count: 3
+            - light.turn_on:
+                id: status_led
+                brightness: !lambda 'return id(led_brightness) / 100.0;'
+                red: 100%
+                green: 0%
+                blue: 0%
+            - script.execute:
+                id: authentication_timeout
+                last_sequence: !lambda 'return id(btn_sequence).c_str();'
+
+      # 3. LED cleanup - switch off Green
+      - if:
+         condition:
+           lambda: |-
+             return id(led_reset_time) > 0 && id(esptime).now().timestamp >= id(led_reset_time);
+         then:
+           - fingerprint_grow.aura_led_control:
+               state: ALWAYS_OFF
+               color: GREEN
+               speed: 100
+               count: 0
+           - light.turn_off: status_led
+           - text_sensor.template.publish:
+               id: fp_status
+               state: ""
+           - globals.set:
+               id: led_reset_time
+               value: '0'
+              
+
+script:
+  - id: grant_access
+    mode: queued
+    parameters:
+      finger_id: int
+    then:
+      - homeassistant.event:
+          event: esphome.access_granted
+          data:
+            time: !lambda 'return id(esptime).now().timestamp;'
+            fingerprint_id: !lambda 'return finger_id;'
+            fingerprint_name: !lambda |-
+              auto it = id(fingerprint_names).find(finger_id);
+              return (it != id(fingerprint_names).end()) ? it->second : "Unknown";
+            fingerprint_finger: !lambda |-
+              auto it = id(fingerprint_fingers).find(finger_id);
+              return (it != id(fingerprint_fingers).end()) ? it->second : "Unknown";
+      - globals.set:    # clear button sequence 
+          id: btn_sequence
+          value: '""'
+      - globals.set:    # clear fingerprint match flag
+          id: last_fp_time
+          value: '0'
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 2;'
+
+  - id: access_denied
+    #mode: queued
+    parameters:
+      entered_sequence: std::string
+      expected_sequence: std::string
+    then:
+      - homeassistant.event:
+          event: esphome.access_denied
+          data:
+            reason: "incorrect_sequence"
+            entered_sequence: !lambda 'return entered_sequence;'
+            expected_sequence: !lambda 'return expected_sequence;'
+      - globals.set:    # clear button sequence 
+          id: btn_sequence
+          value: '""'
+      - globals.set:    # clear fingerprint match flag
+          id: last_fp_time
+          value: '0'
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 2;'
+      
+  - id: authentication_timeout
+    #mode: queued
+    parameters:
+      last_sequence: std::string
+    then:
+      - homeassistant.event:
+          event: esphome.access_denied
+          data:
+            reason: "timeout"
+            last_sequence: !lambda 'return last_sequence;'
+      - globals.set:    # clear button sequence 
+          id: btn_sequence
+          value: '""'
+      - globals.set:    # clear fingerprint match flag
+          id: last_fp_time
+          value: '0'
+      - globals.set:
+          id: led_reset_time
+          value: !lambda 'return id(esptime).now().timestamp + 2;'
+      
+  - id: button_pressed_feedback
+    mode: parallel  # Non-blocking
+    parameters:
+      color_code: int  # 1=RED, 2=BLUE, 4=GREEN
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          speed: 200
+          color: !lambda 'return color_code;'
+          count: 1

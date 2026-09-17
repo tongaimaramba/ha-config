@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "counter",
+  "data": {
+    "items": [
+      {
+        "id": "event_counting",
+        "name": "event counting",
+        "step": 1,
+        "maximum": null,
+        "restore": true,
+        "initial": 0,
+        "minimum": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+esphome:
+  name: loft-blind
+  friendly_name: loft-blind
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "bVuLfk5zBzG1SInfRQzjsEXVJpz0E8IJCP5ZmOo9r+0="
+
+ota:
+  password: <redacted>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Office Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+
+# Control bedroom velux blind
+switch:
+  - platform: gpio
+    pin: D1
+    name: "Close - Loft Suite Blind"
+    id: blind_down
+    on_turn_on:
+      - delay: 500ms
+      - switch.turn_off: blind_down
+  - platform: gpio
+    pin: D2
+    name: "Stop - Loft Suite Blind"
+    id: blind_stop
+    on_turn_on:
+      - delay: 500ms
+      - switch.turn_off: blind_stop
+  - platform: gpio
+    pin: D4
+    name: "Open - Loft Suite Blind"
+    id: blind_up
+    on_turn_on:
+      - delay: 500ms
+      - switch.turn_off: blind_up

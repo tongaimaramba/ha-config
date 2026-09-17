@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "zone",
+  "data": {
+    "items": [
+      {
+        "id": "school",
+        "latitude": 51.39945666354604,
+        "longitude": -0.3033095598220826,
+        "name": "School",
+        "icon": "mdi:school",
+        "passive": false,
+        "radius": 110.39644167948852
+      },
+      {
+        "id": "m_work",
+        "latitude": 51.394462979231,
+        "longitude": -0.3082783520221711,
+        "name": "Maple Works",
+        "icon": "mdi:office-building",
+        "passive": false,
+        "radius": 7.305791288997416
+      },
+      {
+        "id": "t_work",
+        "latitude": 51.538114321228925,
+        "longitude": -0.12655735015869143,
+        "name": "Meta Office Kings Cross",
+        "icon": "mdi:office-building",
+        "passive": false,
+        "radius": 184.0
+      }
+    ]
+  }
+}

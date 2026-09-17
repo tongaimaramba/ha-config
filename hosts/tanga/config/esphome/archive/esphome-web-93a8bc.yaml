@@ -1,0 +1,191 @@
+substitutions:
+  device_name: "fp-auth"
+  mqtt_topic: "/Homeassistant/Auto_Unlock/Status"
+
+esphome:
+  name: ${device_name}
+  friendly_name: "Fingerprint Authoriser"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# MQTT configuration with explicit ID
+mqtt:
+  id: mqtt_client  # Critical fix for MQTT reference
+  broker: 192.168.179.41
+  username: mqtt_broker
+  password: <redacted>
+  discovery: false
+
+api:
+  encryption:
+    key: <redacted>
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+logger:
+  level: INFO
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+uart:
+  tx_pin: GPIO03
+  rx_pin: GPIO01
+  baud_rate: 57600
+
+fingerprint_grow:
+  id: fp_reader
+  password: <redacted>
+  
+  on_finger_scan_matched:
+    then:
+      - mqtt.publish:
+          topic: "${mqtt_topic}"
+          payload: "amber"
+      - globals.set:
+          id: last_fp_time
+          value: !lambda 'return id(esptime).now().timestamp;'
+      - fingerprint_grow.aura_led_control:
+          state: BREATHING
+          speed: 150
+          color: BLUE
+          count: 0
+
+  on_finger_scan_unmatched:
+    then:
+      - mqtt.publish:
+          topic: "${mqtt_topic}"
+          payload: "amber"
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          speed: 100
+          color: RED
+          count: 3
+
+binary_sensor:
+  - platform: gpio
+    pin: 
+      number: GPIO25
+      mode: INPUT_PULLUP
+    id: button_a
+    name: "Button A"
+    on_press:
+      then:
+        - lambda: |-
+            id(btn_sequence) += "A";
+            id(last_btn_time) = id(esptime).now().timestamp;
+
+  - platform: gpio
+    pin: 
+      number: GPIO26
+      mode: INPUT_PULLUP
+    id: button_b
+    name: "Button B"
+    on_press:
+      then:
+        - lambda: |-
+            id(btn_sequence) += "B";
+            id(last_btn_time) = id(esptime).now().timestamp;
+
+globals:
+  - id: last_fp_time
+    type: int
+    initial_value: '0'
+  - id: last_btn_time
+    type: int
+    initial_value: '0'
+  - id: btn_sequence
+    type: std::string
+    initial_value: '""'
+  - id: valid_sequence
+    type: std::string
+    restore_value: yes
+    initial_value: '"ABA"'
+  - id: time_window
+    type: int
+    restore_value: yes
+    initial_value: '5'
+
+interval:
+  - interval: 500ms
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return id(esptime).now().timestamp - id(last_btn_time) > id(time_window);
+          then:
+            - fingerprint_grow.aura_led_control:
+                state: FLASHING
+                speed: 100
+                color: RED
+                count: 3
+            - mqtt.publish:
+                topic: "${mqtt_topic}"
+                payload: "red"
+            - globals.set:
+                id: btn_sequence
+                value: '""'
+                
+      - if:
+          condition:
+            lambda: |-
+              return id(last_fp_time) > 0 && 
+                     (id(esptime).now().timestamp - id(last_fp_time) <= id(time_window)) &&
+                     id(btn_sequence) == id(valid_sequence);
+          then:
+            - mqtt.publish:
+                topic: "${mqtt_topic}"
+                payload: "green"
+            - fingerprint_grow.aura_led_control:
+                state: FLASHING
+                speed: 100
+                color: GREEN
+                count: 2
+            - delay: 2s
+            - fingerprint_grow.aura_led_control:
+                state: BREATHING
+                speed: 250
+                color: BLUE
+                count: 0
+            - globals.set:
+                id: last_fp_time
+                value: '0'
+            - globals.set:
+                id: btn_sequence
+                value: '""'
+
+text_sensor:
+  - platform: template
+    name: "Current Button Sequence"
+    lambda: |-
+      if (id(btn_sequence).empty()) {
+        return {};  
+      }
+      return id(btn_sequence);
+
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Stored Fingerprints"
+
+number:
+  - platform: template
+    name: "Authentication Time Window"
+    min_value: 1
+    max_value: 30
+    step: 1
+    restore_value: yes
+    set_action:
+      then:
+        - lambda: |-
+            id(time_window) = x;

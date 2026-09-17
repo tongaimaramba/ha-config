@@ -1,0 +1,63 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/162808336.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@bigbadblunt"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Lightwave RF custom component for Home Assistant. Requires generation 2 (\"Link Plus\") hub, but will control both generation 1 (\"Connect Series\") and generation 2 (\"Smart Series\") devices.",
+        "domain": "lightwave2",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"3979d28ce69f163c554847a19831f4c07a70d0de81544e77f81313164d11e6d8\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "bigbadblunt/homeassistant-lightwave2",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "162808336",
+        "iot_class": null,
+        "installed": true,
+        "installed_commit": "ab1ca2a",
+        "installed_version": "v3.5.15",
+        "open_issues": 9,
+        "last_commit": "ab1ca2a",
+        "last_version": "v3.5.15",
+        "last_updated": "2022-06-18T16:18:46Z",
+        "manifest_name": "Lightwave v2 (Smart Series) custom component",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-06-18T16:18:46",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v3.5.15",
+            "v3.5.13",
+            "v3.5.10",
+            "v3.5.9",
+            "v3.5.8"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 31,
+        "topics": [
+            "home-assistant",
+            "home-automation",
+            "homeassistant",
+            "lightwave",
+            "lightwaverf"
+        ],
+        "zip_release": false
+    }
+}

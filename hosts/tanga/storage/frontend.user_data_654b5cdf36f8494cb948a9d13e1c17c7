@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_654b5cdf36f8494cb948a9d13e1c17c7",
+  "data": {
+    "core": {
+      "showAdvanced": true
+    },
+    "language": {
+      "language": "en-GB",
+      "number_format": "language",
+      "time_format": "language",
+      "date_format": "language",
+      "time_zone": "local",
+      "first_weekday": "language"
+    },
+    "sidebar": {
+      "panelOrder": [
+        "tongai-test",
+        "dashboard-basics",
+        "lovelace-new",
+        "logbook",
+        "history",
+        "5c53de3b_esphome",
+        "core_configurator",
+        "hacs",
+        "ccf28a08_ssh",
+        "a0d7b954_sqlite-web",
+        "cebe7a76_hassio_google_drive_backup",
+        "developer-tools"
+      ],
+      "hiddenPanels": [
+        "lovelace-guest",
+        "mdiindex",
+        "map",
+        "media-browser",
+        "energy"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+esphome:
+  name: fp-auth
+  friendly_name: fp auth
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: <redacted>
+
+ota:
+  - platform: esphome
+    password: <redacted>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Fp-Auth Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+    

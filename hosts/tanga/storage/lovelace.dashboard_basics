@@ -1,0 +1,673 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_basics",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "icon": "mdi:home-account",
+          "badges": [],
+          "cards": [
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": false,
+              "entities": [
+                {
+                  "entity": "group.fave_lights_downstairs",
+                  "name": "Hall and Lounge Lamps On",
+                  "icon": "mdi:sofa",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "data": {
+                      "entity_id": "group.fave_lights_downstairs"
+                    }
+                  }
+                },
+                {
+                  "entity": "light.downstairs_lights"
+                }
+              ],
+              "title": "Downstairs Lights",
+              "type": "glance",
+              "columns": 2
+            },
+            {
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_contact",
+                  "name": "Unlock Front Door",
+                  "icon": "mdi:door",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "nuki/lock/action",
+                      "payload": "unlatch"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.garage_out_contact",
+                  "name": "Unlock Garage Door",
+                  "icon": "mdi:door",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "lock.unlock",
+                    "service_data": {
+                      "entity_id": "lock.mudiki"
+                    }
+                  }
+                },
+                {
+                  "entity": "input_button.fp_lockout_reset",
+                  "name": "Reset FP",
+                  "icon": "mdi:lock-reset",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_button.press",
+                    "target": {
+                      "entity_id": "input_button.fp_lockout_reset"
+                    }
+                  }
+                }
+              ],
+              "title": "Doors",
+              "type": "glance"
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": false,
+              "entities": [
+                {
+                  "entity": "light.bookshelf_lamp",
+                  "icon": "mdi:bed",
+                  "name": "Bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "switch.sonoff_100125dac5",
+                  "icon": "mdi:outdoor-lamp",
+                  "name": "Patio",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.dining_wall_lights",
+                  "name": "Dining Wall",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.dining_wall_lights",
+                      "brightness_pct": 40
+                    }
+                  }
+                },
+                {
+                  "entity": "light.media_room_wall_lights",
+                  "name": "Media Room Wall",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.media_room_wall_lights"
+                    }
+                  }
+                },
+                {
+                  "entity": "light.lounge_wall_lights",
+                  "name": "Lounge Wall",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.toggle",
+                    "service_data": {
+                      "entity_id": "light.lounge_wall_lights"
+                    }
+                  }
+                },
+                {
+                  "entity": "light.lounge_pendant"
+                }
+              ],
+              "type": "glance",
+              "title": "Others",
+              "columns": 3
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.loft_suite_ac",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "off",
+                    "cool",
+                    "heat",
+                    "fan_only",
+                    "dry",
+                    "auto"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "input_select.work_status"
+              ],
+              "title": "What's happing in the study?"
+            },
+            {
+              "type": "gauge",
+              "min": 0,
+              "max": 100,
+              "needle": true,
+              "severity": {
+                "green": 15,
+                "yellow": 5,
+                "red": 0
+              },
+              "entity": "sensor.skoda_enyaq_battery_percentage"
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Solar Stats!",
+              "cards": [
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Import Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_in",
+                  "icon": "mdi:transmission-tower-import"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Export Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_out",
+                  "icon": "mdi:transmission-tower-export"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "button",
+                  "name": "Reset Lookcout",
+                  "icon": "mdi:lock-reset",
+                  "action_name": "Press",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.fp_reset"
+                  }
+                }
+              ],
+              "title": "Configure"
+            }
+          ]
+        },
+        {
+          "title": "Blinds",
+          "path": "blinds",
+          "icon": "mdi:blinds",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "markdown",
+                  "content": "## 🎯 Motion Data Logger\n**High-frequency sensor polling for auto-unlock analysis**\n\nCurrent frequency: **10 Hz** (10 readings/second)\n"
+                },
+                {
+                  "type": "entities",
+                  "title": "Recording Controls",
+                  "entities": [
+                    {
+                      "entity": "input_select.motion_travel_path",
+                      "name": "Travel Path"
+                    },
+                    {
+                      "entity": "input_boolean.motion_recording_active",
+                      "name": "Recording Active",
+                      "icon": "mdi:record-rec"
+                    }
+                  ]
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "name": "Start Recording",
+                  "icon": "mdi:play-circle",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.turn_on",
+                    "target": {
+                      "entity_id": "input_boolean.motion_recording_active"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "name": "Stop Recording",
+                  "icon": "mdi:stop-circle",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.turn_off",
+                    "target": {
+                      "entity_id": "input_boolean.motion_recording_active"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "📁 **Files saved to:** `/config/www/motion_logs/`\n\nAccess via: `https://tanga.hass.net:8123/local/motion_logs/`\n"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "cover.loft_blind_loft_suite_blind",
+                  "name": "Room Blind"
+                }
+              ],
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "cover.landing_blind_landing_blind",
+                  "name": "Landing Blind"
+                }
+              ],
+              "state_color": true
+            }
+          ]
+        },
+        {
+          "icon": "mdi:cctv",
+          "panel": false,
+          "path": "check_alarm",
+          "title": "Alarm",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "type": "picture-entity",
+              "entity": "camera.camera",
+              "camera_view": "live"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.backyard",
+              "camera_view": "live"
+            },
+            {
+              "entity": "camera.aarlo_swings",
+              "image_click": "play",
+              "light": "light.aarlo_front_light",
+              "name": "Swings",
+              "image_bottom": [
+                "snapshot",
+                "stream",
+                "motion"
+              ],
+              "image_top": [
+                "name",
+                "onoff",
+                "date",
+                "status"
+              ],
+              "image_view": [
+                "smart-modal",
+                "start-stream",
+                "arlo-stream",
+                "numeric"
+              ],
+              "type": "custom:aarlo-glance"
+            },
+            {
+              "card": {
+                "columns": 2,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's Open?",
+                "type": "glance"
+              },
+              "entities": [
+                "binary_sensor.bathroom_window_contact",
+                "binary_sensor.bay_party_wall_contact",
+                "binary_sensor.bay_window_contact",
+                "binary_sensor.front_contact",
+                "binary_sensor.garage_out_contact",
+                "binary_sensor.guest_win_contact",
+                "binary_sensor.kitchen_contact",
+                "binary_sensor.landing_window_contact",
+                "binary_sensor.loft_hatch_contact",
+                "binary_sensor.main_window_contact",
+                "binary_sensor.main_window_party_contact",
+                "binary_sensor.patio_door_contact",
+                "binary_sensor.utility_back_door_contact"
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            },
+            {
+              "card": {
+                "columns": 3,
+                "show_icons": false,
+                "show_state": false,
+                "title": "What's On?",
+                "type": "glance"
+              },
+              "entities": [
+                {
+                  "entity": "light.armchair_lamp",
+                  "name": "armchair",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bathroom_sink",
+                  "name": "bathroom",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.coats",
+                  "name": "coats",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.dining_spotlights",
+                  "name": "dining spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.hall_downlights",
+                  "name": "hall spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_downlight",
+                  "name": "isla spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_wall",
+                  "name": "isla wall",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_spotlights",
+                  "name": "kitchen spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.kitchen_worktop",
+                  "name": "kitchen worktop",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.loft_main",
+                  "name": "loft",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_1",
+                  "name": "lounge pendant",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_dim_2",
+                  "name": "lounge spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_1",
+                  "name": "mic lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.lounge_lamp_2",
+                  "name": "printer lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.m_side",
+                  "name": "m bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.main_downlights",
+                  "name": "main br spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.movie_lamp",
+                  "name": "movie lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_bedside_lamp",
+                  "name": "guest lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.study_desk_lamp",
+                  "name": "study lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.t_side",
+                  "name": "t bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.utility",
+                  "name": "utility",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "state_filter": [
+                "on"
+              ],
+              "type": "entity-filter"
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "TV",
+          "path": "tv",
+          "icon": "mdi:projector",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:lg-remote-control",
+              "entity": "media_player.projector",
+              "color_buttons": true
+            }
+          ]
+        },
+        {
+          "title": "Solar System",
+          "path": "solar",
+          "icon": "mdi:solar-power-variant-outline",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.growatt_sph_load_power",
+                  "name": "House Consumption Now"
+                },
+                {
+                  "entity": "sensor.growatt_sph_pv_power",
+                  "name": "Solar Output Now"
+                },
+                {
+                  "entity": "sensor.growatt_sph_grid_power",
+                  "name": "Grid Input Now"
+                },
+                {
+                  "entity": "sensor.growatt_sph_battery_state_of_charge",
+                  "name": "Battery Level"
+                }
+              ],
+              "title": "Happening Now"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Home Consumption Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_load_energy",
+                  "icon": "mdi:home"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Solar Output Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_pv_energy",
+                  "icon": "mdi:solar-power"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Import Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_in",
+                  "icon": "mdi:transmission-tower-import"
+                },
+                {
+                  "type": "statistic",
+                  "period": {
+                    "calendar": {
+                      "period": "day"
+                    }
+                  },
+                  "stat_type": "change",
+                  "name": "Grid Export Today",
+                  "unit": "kWh",
+                  "entity": "sensor.growatt_sph_grid_energy_out",
+                  "icon": "mdi:transmission-tower-export"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,208 @@
+power_row, channel_row, apps_row, source_row and media_control_row
+volume_row and navigation_row, but these requires a string as value.
+
+
+
+
+type: custom:tv-card
+entity: media_player.tojgantv
+title: Shield Buttons
+power_row:
+  - power
+  - settings
+  - home
+media_control_row:
+  - rewind
+  - play
+  - pause
+  - forward
+navigation_row: touchpad
+source_row:
+  - back
+custom_keys:
+  power:
+    icon: "mdiPowerCycle"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "POWER"
+  settings:
+    icon: "mdiMenu"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "MENU"
+  up:
+    icon: "mdiChevronUp"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "UP"
+  down:
+    icon: "mdiChevronDown"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "DOWN"
+  left:
+    icon: "mdiChevronLeft"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "LEFT"
+  right:
+    icon: "mdiChevronRight"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "RIGHT"
+  ok:
+    icon: "mdiKeyboardReturn"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "ENTER"
+  back:
+    icon: "mdiArrowLeftCircle"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "BACK"
+  home:
+    icon: "mdiHome"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "HOME"
+  forward:
+    icon: "mdiFastForward"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "FAST_FORWARD"
+  rewind:
+    icon: "mdiRewind"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "REWIND"
+  play:
+    icon: "mdiPlay"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "input keyevent 126"
+  pause:
+    icon: "mdiPause"
+    service: androidtv.adb_command
+    service_data:
+      entity_id: media_player.tojgantv
+      command: "input keyevent 127"
+
+
+
+
+
+power_row:
+  - power
+  - settings
+  - home
+media_control_row:
+  - rewind
+  - play
+  - pause
+  - forward
+navigation_row: touchpad
+source_row:
+  - back
+  
+apps_row:
+  - netflix
+  - bbc_iplayer
+  - disney_plus
+  - prime
+
+channel_row:
+apps_row:
+source_row:
+volume_row
+navigation_row
+
+
+
+  input_tv:
+    icon: "mdiTelevisionBox"
+    key: KEY_TV
+  browser:
+    icon: "mdiWeb"
+    source: "browser"
+  toggle_light:
+    icon: "mdiLightbulb"
+    service: light.toggle
+    service_data:
+      entity_id: light.bedroom
+      
+#custom_sources:
+#  browser:
+#    icon: "mdiWeb"
+#    source: "browser"
+
+power_row:
+  - power
+media_control_row:
+  - rewind
+  - play
+  - pause
+  - fast_forward
+  
+channel_row:
+apps_row:
+source_row:
+volume_row
+navigation_row
+
+
+
+
+# select source service
+start_netflix:
+  sequence:
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.fire_tv_living_room
+    data:
+      source: "com.netflix.ninja"
+
+stop_netflix:
+  sequence:
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.fire_tv_living_room
+    data:
+      source: "!com.netflix.ninja"
+      
+      
+      service: androidtv.adb_command
+  target:
+    entity_id: media_player.androidtv_tv_living_room
+  data:
+    command: "HOME"
+    
+    
+ANDROIDTV.LEARN_SENDEVENT
+
+POWER
+SLEEP
+HOME
+UP
+DOWN
+LEFT
+RIGHT
+CENTER
+BACK
+MENU
+
+
+
+
+

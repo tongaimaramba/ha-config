@@ -1,0 +1,217 @@
+esphome:
+  name: c3
+  friendly_name: c3
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "HrZ2o/KIxLIjSU/YKBg3oEsOWgypPFaNwlpY9yg35Mg="
+
+ota:
+  - platform: esphome
+    password: <redacted>
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "C3 Fallback Hotspot"
+    password: <redacted>
+
+captive_portal:
+# UART for fingerprint sensor
+uart:
+  tx_pin: GPIO43  # D6 - connects to FP RXD (green wire)
+  rx_pin: GPIO44  # D7 - connects to FP TXD (yellow wire)
+  baud_rate: 57600
+
+# Fingerprint sensor
+fingerprint_grow:
+  sensing_pin: GPIO6  # D5 - FP wake (blue wire)
+  on_finger_scan_start:
+    then:
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          speed: 200
+          color: BLUE
+          count: 3
+      # Flash blue when wake/scan starts
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 0%
+          blue: 100%
+      - delay: 500ms
+      - light.turn_off: neopixel
+  on_finger_scan_unmatched:
+    then:
+      # Flash red on unmatched
+      - fingerprint_grow.aura_led_control:
+          state: FLASHING
+          speed: 200
+          color: RED
+          count: 3
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 100%
+          green: 0%
+          blue: 0%
+      - delay: 1s
+      - light.turn_off: neopixel
+  on_finger_scan_matched:
+    then:
+      # Flash green on matched
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 100%
+          blue: 0%
+      - delay: 1s
+      - light.turn_off: neopixel
+
+# NeoPixel LED
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: 800KBPS
+    pin: GPIO5  # D4 - NeoPixel DIN
+    num_leds: 1
+    id: neopixel
+    name: "Status LED"
+
+# Button inputs
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO2  # D1 - Button 1
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Button 1"
+    id: button1
+    on_press:
+      then:
+        - script.execute: button1_sequence
+        
+  - platform: gpio
+    pin:
+      number: GPIO9  # D10 - Button 2
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Button 2"
+    id: button2
+    on_press:
+      then:
+        - script.execute: button2_sequence
+
+# LED cathode outputs (inverted logic for common anode)
+output:
+  # Button 1 LEDs
+  - platform: ledc
+    pin: GPIO3  # D2 - Button 1 Blue cathode
+    id: btn1_blue
+    inverted: true  # Common anode, so invert
+    frequency: 1000Hz
+    
+  - platform: ledc
+    pin: GPIO4  # D3 - Button 1 Green cathode
+    id: btn1_green
+    inverted: true  # Common anode, so invert
+    frequency: 1000Hz
+    
+  # Button 2 LEDs  
+  - platform: ledc
+    pin: GPIO8  # D9 - Button 2 Blue cathode
+    id: btn2_blue
+    inverted: true  # Common anode, so invert
+    frequency: 1000Hz
+    
+  - platform: ledc
+    pin: GPIO7  # D8 - Button 2 Green cathode
+    id: btn2_green
+    inverted: true  # Common anode, so invert
+    frequency: 1000Hz
+
+# Test sequences
+script:
+  - id: button1_sequence
+    mode: restart
+    then:
+      # Button 1: Blue then Green, NeoPixel mirrors
+      - logger.log: "Button 1 pressed - Blue phase"
+      - output.turn_on: btn1_blue
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 0%
+          blue: 100%
+      - delay: 500ms
+      - output.turn_off: btn1_blue
+      - logger.log: "Button 1 pressed - Green phase"
+      - output.turn_on: btn1_green
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 100%
+          blue: 0%
+      - delay: 500ms
+      - output.turn_off: btn1_green
+      - light.turn_off: neopixel
+      - logger.log: "Button 1 sequence complete"
+      
+  - id: button2_sequence
+    mode: restart
+    then:
+      # Button 2: Blue then Green, NeoPixel mirrors
+      - logger.log: "Button 2 pressed - Blue phase"
+      - output.turn_on: btn2_blue
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 0%
+          blue: 100%
+      - delay: 500ms
+      - output.turn_off: btn2_blue
+      - logger.log: "Button 2 pressed - Green phase"
+      - output.turn_on: btn2_green
+      - light.turn_on:
+          id: neopixel
+          brightness: 50%
+          red: 0%
+          green: 100%
+          blue: 0%
+      - delay: 500ms
+      - output.turn_off: btn2_green
+      - light.turn_off: neopixel
+      - logger.log: "Button 2 sequence complete"
+
+# Status sensors for monitoring
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Stored Fingerprints"
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+text_sensor:
+  - platform: template
+    name: "Test Status"
+    id: test_status
+    lambda: |-
+      return {"System Ready - Test all components"};  

@@ -1,0 +1,565 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.lovelace_new",
+  "data": {
+    "config": {
+      "title": "Mojgan",
+      "views": [
+        {
+          "icon": "",
+          "path": "lights",
+          "title": "Overview",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            }
+          ],
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_contact",
+                  "name": "Front Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "/Homeassistant/Auto_Unlock/Action",
+                      "payload": "open"
+                    }
+                  }
+                },
+                {
+                  "entity": "binary_sensor.garage_out_contact",
+                  "name": "Garage Door",
+                  "icon": "mdi:door",
+                  "show_state": true,
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "lock.unlock",
+                    "service_data": {
+                      "entity_id": "lock.mudiki"
+                    }
+                  }
+                }
+              ],
+              "title": "Doors",
+              "type": "glance"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "group.lounge_lamps",
+                  "icon": "mdi:lightbulb",
+                  "name": "Lounge Lamps",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.bookshelf_lamp",
+                  "name": "Hallway Lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.isla_wall",
+                  "name": "Friends Light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "group.eating_lights",
+                  "name": "Dining Lighting",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon": "mdi:lightbulb"
+                },
+                {
+                  "entity": "group.upstairs_lights",
+                  "icon": "mdi:lightbulb",
+                  "name": "Upstairs",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "group.downstairs_lights",
+                  "icon": "mdi:lightbulb",
+                  "name": "Downstairs",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.m_side",
+                  "icon": "mdi:bed",
+                  "name": "M Bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "light.t_side",
+                  "icon": "mdi:bed",
+                  "name": "T Bedside",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "switch.sonoff_100125dac5",
+                  "icon": "mdi:outdoor-lamp",
+                  "name": "Patio Lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ],
+              "show_state": false,
+              "title": "Lights",
+              "type": "glance",
+              "columns": 3
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "entities",
+                "title": "What's On",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "light",
+                    "state": "on"
+                  }
+                ],
+                "exclude": []
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "tap_action": {
+                "action": "toggle"
+              }
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "glance",
+                "title": "What's Open?",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*_contact"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "*doorstep*"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "show_empty": true
+            },
+            {
+              "type": "glance",
+              "title": "Garden",
+              "entities": [
+                {
+                  "entity": "switch.sonoff_1000eced8f",
+                  "name": "pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_boolean.pump_timer",
+                  "name": "timed pump",
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "entity": "input_number.timer_length",
+                  "name": "run time",
+                  "show_state": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Heating",
+          "path": "heating",
+          "icon": "mdi:radiator",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "type": "thermostat",
+              "entity": "climate.main",
+              "name": "Main Bedroom Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.friends",
+              "name": "Kids Room Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.study",
+              "name": "Study Radiator"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.downstairs",
+              "name": "Downstairs Heating (Nest)"
+            }
+          ]
+        },
+        {
+          "path": null,
+          "title": "House Lights",
+          "icon": "mdi:lightbulb",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "group.downstairs_lights",
+                "group.upstairs_lights"
+              ],
+              "title": "all_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "group.main_lights",
+                "group.isla_lights",
+                "light.bathroom_sink",
+                "light.study_desk_lamp",
+                "light.loft_main"
+              ],
+              "title": "upstairs_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "switch.sonoff_100125dac5",
+                "group.utility_lights",
+                "group.kitchen_lights",
+                "group.lounge_lamps",
+                "group.lounge_spots",
+                "group.hall_lights"
+              ],
+              "title": "downstairs_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.dining_spotlights"
+                },
+                {
+                  "entity": "light.kitchen_spotlights"
+                },
+                {
+                  "entity": "light.kitchen_worktop"
+                }
+              ],
+              "title": "kitchen_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.armchair_lamp",
+                "light.lounge_lamp_1",
+                "light.lounge_lamp_2",
+                "light.movie_lamp"
+              ],
+              "title": "lounge_lamps",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.lounge_spotlights"
+                },
+                {
+                  "entity": "light.lounge_pendant"
+                }
+              ],
+              "title": "lounge_spots",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "group.utility_laundry_lights",
+                "group.utility_pantry_lights"
+              ],
+              "title": "utility_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.hall_spotlights"
+                },
+                {
+                  "entity": "light.bookshelf_lamp"
+                },
+                {
+                  "entity": "light.coats"
+                }
+              ],
+              "title": "hall_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.main_spotlights"
+                },
+                {
+                  "entity": "light.m_side"
+                },
+                {
+                  "entity": "light.t_side"
+                }
+              ],
+              "title": "main_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.isla_spotlights",
+                "light.isla_wall"
+              ],
+              "title": "isla_lights",
+              "show_header_toggle": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.loft_main",
+                "binary_sensor.loft_hatch_contact"
+              ],
+              "title": "loft",
+              "show_header_toggle": true
+            }
+          ]
+        },
+        {
+          "icon": "mdi:cctv",
+          "path": "check_alarm",
+          "title": "Alarm",
+          "visible": [
+            {
+              "user": "9c5a287905c54f3fb4f87ba57d071235"
+            },
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "06495997aca44e59a54f1b3138ad088e"
+            },
+            {
+              "user": "d5123706ae0e442ba2cf5105457efd62"
+            }
+          ],
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "group.perimeter_contact",
+                "group.perimeter_movement"
+              ],
+              "title": "perimeter",
+              "show_header_toggle": true
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "glance",
+                "title": "What's open?",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*_contact"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "*doorstep*"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "show_empty": true
+            },
+            {
+              "type": "custom:auto-entities",
+              "card": {
+                "type": "glance",
+                "title": "Did any doors or windows just move?",
+                "state_color": true,
+                "columns": 2,
+                "show_header_toggle": true,
+                "show_state": false,
+                "show_friendly_name": true
+              },
+              "filter": {
+                "include": [
+                  {
+                    "domain": "binary_sensor",
+                    "state": "on",
+                    "entity_id": "*_acceleration"
+                  }
+                ],
+                "exclude": [
+                  {
+                    "entity_id": "*doorstep*"
+                  },
+                  {
+                    "entity_id": "*loft*"
+                  }
+                ]
+              },
+              "sort": {
+                "method": "last_changed",
+                "reverse": false
+              },
+              "show_empty": true
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.camera",
+              "camera_view": "live"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.backyard",
+              "camera_view": "live"
+            },
+            {
+              "entity": "camera.aarlo_swings",
+              "image_click": "play",
+              "light": "light.aarlo_front_light",
+              "name": "Swings",
+              "show": [
+                "motion",
+                "sound",
+                "snapshot",
+                "captured_today"
+              ],
+              "type": "custom:aarlo-glance"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "binary_sensor.bathroom_window_acceleration",
+                "binary_sensor.bay_party_wall_acceleration",
+                "binary_sensor.bay_window_acceleration",
+                "binary_sensor.front_acceleration",
+                "binary_sensor.garage_out_acceleration",
+                "binary_sensor.guest_win_acceleration",
+                "binary_sensor.kitchen_acceleration",
+                "binary_sensor.landing_window_acceleration",
+                "binary_sensor.main_window_acceleration",
+                "binary_sensor.main_window_party_acceleration",
+                "binary_sensor.patio_door_acceleration",
+                "binary_sensor.utility_back_door_acceleration"
+              ],
+              "title": "Perimeter Motion Sensors",
+              "state_color": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
