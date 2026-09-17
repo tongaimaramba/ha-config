@@ -886,6 +886,20 @@
             "should_expose": false
           }
         }
+      },
+      "sensor.ha_config_sync_pamba": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.ha_config_sync_tanga": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
       }
     }
   }

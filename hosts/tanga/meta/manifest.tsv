@@ -150,14 +150,14 @@
 212	./meta/export-info.yaml
 0	./meta/manifest.tsv
 2214	./meta/redaction-report.txt
-2677	./meta/skipped.txt
+10359	./meta/skipped.txt
 1091	./storage/assist_pipeline.pipelines
 282	./storage/camera
 13113	./storage/core.area_registry
 431	./storage/core.config
 124216	./storage/core.config_entries
-312864	./storage/core.device_registry
-2759831	./storage/core.entity_registry
+312894	./storage/core.device_registry
+2760460	./storage/core.entity_registry
 96	./storage/core.logger
 116	./storage/core.uuid
 295	./storage/counter
@@ -169,7 +169,7 @@
 564	./storage/frontend.user_data_f23d493823c54dfea81dad50a9091d37
 295	./storage/hacs.critical
 9633	./storage/hacs.hacs
-2864613	./storage/hacs.repositories
+2843686	./storage/hacs.repositories
 1912	./storage/hacs/148520838.hacs
 1871	./storage/hacs/151280062.hacs
 1831	./storage/hacs/158654878.hacs
@@ -209,7 +209,7 @@
 1929	./storage/hacs/448323715.hacs
 1764	./storage/hacs/454951296.hacs
 120	./storage/hassio
-19596	./storage/homeassistant.exposed_entities
+19910	./storage/homeassistant.exposed_entities
 3374	./storage/input_boolean
 743	./storage/input_button
 971	./storage/input_datetime
@@ -223,7 +223,7 @@
 75477	./storage/lovelace.lovelace_tab
 154	./storage/lovelace.map
 265	./storage/lovelace.mdiindex
-138705	./storage/lovelace.tongai_test
+138970	./storage/lovelace.tongai_test
 1727	./storage/lovelace_dashboards
 7605	./storage/lovelace_resources
 94	./storage/map

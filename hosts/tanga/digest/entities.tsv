@@ -905,6 +905,7 @@ script.fp_delete_fingerprint	script				Delete Single Fingerprint			fp_delete_fin
 script.fp_enroll_fingerprint	script				fp_enroll_fingerprint			fp_enroll_fingerprint
 script.fp_reset	script				fp reset			fp_reset
 script.grid	script				Grid			grid
+script.ha_config_sync_tanga	script				Sync tanga config snapshot			ha_config_sync_tanga
 script.home_fires	script				Home Fires			home_fires
 script.ignore_ac_automation_for_1_hour	script				Ignore AC Automation for 1 Hour			ignore_ac_automation_for_1_hour
 script.leave_to_away	script				Leave to Away			leave_to_away

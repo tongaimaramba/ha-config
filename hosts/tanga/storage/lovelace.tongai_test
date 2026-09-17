@@ -2810,6 +2810,13 @@
                       "entity_id": "script.ha_config_sync_tanga"
                     }
                   }
+                },
+                {
+                  "type": "attribute",
+                  "entity": "sensor.ha_config_sync_tanga",
+                  "attribute": "message",
+                  "name": "Status",
+                  "icon": "mdi:information-outline"
                 }
               ]
             },
