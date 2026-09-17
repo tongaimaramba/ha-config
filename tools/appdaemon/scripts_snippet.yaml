@@ -1,0 +1,20 @@
+# Paste into your scripts.yaml (or scripts/ split-config folder).
+# These just fire an event AppDaemon's ha_config_sync.py listens for — the
+# AppDaemon-recommended way to trigger an app from a button, since AppDaemon's
+# direct register_service() path is unreliable in practice.
+
+ha_config_sync_pamba:
+  alias: "Sync pamba config snapshot"
+  icon: mdi:cloud-sync
+  sequence:
+    - event: ha_config_sync
+      event_data:
+        host: pamba
+
+ha_config_sync_tanga:
+  alias: "Sync tanga config snapshot"
+  icon: mdi:cloud-sync
+  sequence:
+    - event: ha_config_sync
+      event_data:
+        host: tanga
