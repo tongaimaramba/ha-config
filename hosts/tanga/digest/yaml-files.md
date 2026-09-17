@@ -18,7 +18,7 @@
 | recorder_config.yaml | 21 | purge_keep_days |
 | scenes.yaml | 791 | list[2] |
 | scratch.yaml | 156 | _parse_error |
-| scripts.yaml | 18244 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
+| scripts.yaml | 18405 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
 | secrets.yaml | 543 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password, oppy_client_id, oppy_client_secret |
 | espbck/doorstep-presence.yaml | 797 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
 | espbck/driveway-detector.yaml | 1022 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
@@ -39,6 +39,16 @@
 | espbck/trash/rpi-rebooter.yaml | 513 | esphome, esp32, logger, api, ota, wifi, captive_portal |
 | espbck/trash/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
 | packages/auto_unlock_v2_sandbox.yaml | 919 | input_boolean, input_select, input_number, input_text |
+| floorplan_repo/binary_sensors.yaml | 239 | list[2] |
+| floorplan_repo/configuration.yaml | 323 | homeassistant, frontend, panel_custom, binary_sensor |
+| floorplan_repo/customize.yaml | 116 | binary_sensor.floorplan |
+| floorplan_repo/floorplan.yaml | 4172 | name, image, stylesheet, last_motion_entity, last_motion_class, groups |
+| floorplan_repo/frontend.yaml | 67 | extra_html_url |
+| floorplan_repo/panel_custom.yaml | 136 | list[1] |
+| blueprints/automation/homeassistant/motion_light.yaml | 1219 | blueprint, mode, max_exceeded, trigger, action |
+| blueprints/automation/homeassistant/notify_leaving_zone.yaml | 1260 | blueprint, trigger, variables, condition, action |
+| blueprints/template/homeassistant/inverted_binary_sensor.yaml | 971 | blueprint, variables, binary_sensor |
+| blueprints/script/homeassistant/confirmable_notification.yaml | 2164 | blueprint, mode, sequence |
 | esphome/c3.yaml | 29134 | substitutions, esphome, esp32, logger, time, api, ota, mqtt, wifi, captive_portal, uart, fingerprint_grow, light, binary_sensor, output |
 | esphome/doorstep-presence.yaml | 761 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
 | esphome/driveway-detector.yaml | 986 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
@@ -72,13 +82,3 @@
 | esphome/archive/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
 | esphome/archive/test-c3.yaml | 496 | esphome, esp32, logger, api, ota, wifi, captive_portal |
 | esphome/archive/test.yaml | 2607 | sensor, cover, switch |
-| floorplan_repo/binary_sensors.yaml | 239 | list[2] |
-| floorplan_repo/configuration.yaml | 323 | homeassistant, frontend, panel_custom, binary_sensor |
-| floorplan_repo/customize.yaml | 116 | binary_sensor.floorplan |
-| floorplan_repo/floorplan.yaml | 4172 | name, image, stylesheet, last_motion_entity, last_motion_class, groups |
-| floorplan_repo/frontend.yaml | 67 | extra_html_url |
-| floorplan_repo/panel_custom.yaml | 136 | list[1] |
-| blueprints/automation/homeassistant/motion_light.yaml | 1219 | blueprint, mode, max_exceeded, trigger, action |
-| blueprints/automation/homeassistant/notify_leaving_zone.yaml | 1260 | blueprint, trigger, variables, condition, action |
-| blueprints/script/homeassistant/confirmable_notification.yaml | 2164 | blueprint, mode, sequence |
-| blueprints/template/homeassistant/inverted_binary_sensor.yaml | 971 | blueprint, variables, binary_sensor |

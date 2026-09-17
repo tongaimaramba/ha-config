@@ -284,6 +284,7 @@ device_tracker.bacpl_lr_4455_11fd	ibeacon	iBeacon Tracker	bacpl-LR 4455 11FD				
 device_tracker.bacpl_lr_4818_00c8	ibeacon	iBeacon Tracker	bacpl-LR 4818 00C8					7777772e-6b6b-6d63-6e2e-636f6d000001_0_4818_BC:57:29:23:00:C8
 device_tracker.bacpl_lr_4821_00cb	ibeacon	iBeacon Tracker	bacpl-LR 4821 00CB					7777772e-6b6b-6d63-6e2e-636f6d000001_0_4821_BC:57:29:23:00:CB
 device_tracker.battery_monitor_a130	ibeacon	iBeacon Tracker	Battery Monitor A130					655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30
+device_tracker.battery_monitor_a130_2	ibeacon	iBeacon Tracker	Battery Monitor A130					655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30
 device_tracker.bermuda_tongai_phone_bermuda_tracker	bermuda	Bermuda BLE Trilateration	Tongai's SM25		Bermuda Tracker			94332533261f4c25806d5320a803683b_100_40004
 device_tracker.carabc_bt_le_4a22	ibeacon	iBeacon Tracker	CARABC-BT-LE 4A22					fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DD:0D:30:24:4A:22
 device_tracker.care_01ea	ibeacon	iBeacon Tracker	CARe 01EA					8063ae90-d8b7-11e6-9598-0800200c9a66_490_22804_B4:B8:59:14:01:EA
@@ -308,7 +309,7 @@ device_tracker.care_364f	ibeacon	iBeacon Tracker	CARe 364F					8063ae90-d8b7-11e
 device_tracker.care_375c	ibeacon	iBeacon Tracker	CARe 375C					8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C
 device_tracker.care_3ea5	ibeacon	iBeacon Tracker	CARe 3EA5					8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5
 device_tracker.care_4d06	ibeacon	iBeacon Tracker	CARe 4D06					8063ae90-d8b7-11e6-9598-0800200c9a66_19718_22798_B4:B8:59:0E:4D:06
-device_tracker.care_50ac	ibeacon	iBeacon Tracker	CARe 50AC					8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC
+device_tracker.care_50ac	ibeacon	iBeacon Tracker	DP_2_0_TOVHT165242  50AC					8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC
 device_tracker.care_5735	ibeacon	iBeacon Tracker	CARe 5735					8063ae90-d8b7-11e6-9598-0800200c9a66_22325_22846_B4:B8:59:3E:57:35
 device_tracker.care_6192	ibeacon	iBeacon Tracker	CARe 6192					8063ae90-d8b7-11e6-9598-0800200c9a66_24978_22854_B4:B8:59:46:61:92
 device_tracker.care_621d	ibeacon	iBeacon Tracker	CARe 621D					8063ae90-d8b7-11e6-9598-0800200c9a66_25117_22854_B4:B8:59:46:62:1D
@@ -458,6 +459,7 @@ device_tracker.qmhconnect_8202_9c66	ibeacon	iBeacon Tracker	QMHConnect-8202 9C66
 device_tracker.qmhconnect_9272_3fda	ibeacon	iBeacon Tracker	QMHConnect-9272 3FDA					e08d4118-15d6-11e6-a148-3e1d05defe78_42481_55368_D0:CE:4A:0B:3F:DA
 device_tracker.qmhconnect_9393_9a57	ibeacon	iBeacon Tracker	QMHConnect-9393 9A57					e08d4118-15d6-11e6-a148-3e1d05defe78_41595_12881_E5:AE:88:BE:9A:57
 device_tracker.qmhconnect_9434_0171	ibeacon	iBeacon Tracker	QMHConnect-9434 0171					e08d4118-15d6-11e6-a148-3e1d05defe78_56512_15610_EC:06:71:7A:01:71
+device_tracker.qmhconnect_9573_419d	ibeacon	iBeacon Tracker	QMHConnect-9573 419D					e08d4118-15d6-11e6-a148-3e1d05defe78_61714_45333_FB:9C:46:93:41:9D
 device_tracker.qmhconnect_9645_1b29	ibeacon	iBeacon Tracker	QMHConnect-9645 1B29					e08d4118-15d6-11e6-a148-3e1d05defe78_10078_19869_C6:9A:C7:07:1B:29
 device_tracker.qmhconnect_9727_925a	ibeacon	iBeacon Tracker	QMHConnect-9727 925A					e08d4118-15d6-11e6-a148-3e1d05defe78_9225_41663_FB:A7:09:4F:92:5A
 device_tracker.qmhconnect_9983_c72e	ibeacon	iBeacon Tracker	QMHConnect-9983 C72E					e08d4118-15d6-11e6-a148-3e1d05defe78_2279_6623_EF:B6:49:05:C7:2E
@@ -903,6 +905,7 @@ script.fp_delete_fingerprint	script				Delete Single Fingerprint			fp_delete_fin
 script.fp_enroll_fingerprint	script				fp_enroll_fingerprint			fp_enroll_fingerprint
 script.fp_reset	script				fp reset			fp_reset
 script.grid	script				Grid			grid
+script.ha_config_sync_tanga	script				Sync tanga config snapshot			ha_config_sync_tanga
 script.home_fires	script				Home Fires			home_fires
 script.ignore_ac_automation_for_1_hour	script				Ignore AC Automation for 1 Hour			ignore_ac_automation_for_1_hour
 script.leave_to_away	script				Leave to Away			leave_to_away
@@ -1175,9 +1178,13 @@ sensor.bathroom_sink_zigbee_connectivity_2	hue	Hue Bridge 0017882791a0	Bathroom 
 sensor.bathtime	eventsensor	bathtime			bathtime			hue_event_id_bath_heater_event_1000_1_click_1001_1_hold_1002_1_click_up_1003_1_hold_up_2000_2_click_2001_2_hold_2002_2_click_up_2003_2_hold_up_3000_3_click_3001_3_hold_3002_3_click_up_3003_3_hold_up_4000_4_click_4001_4_hold_4002_4_click_up_4003_4_hold_up
 sensor.batteries_battery_level	attributes				Batteries			group_batteries_batteries_battery_level
 sensor.battery_monitor_a130_estimated_distance	ibeacon	iBeacon Tracker	Battery Monitor A130		Estimated distance			655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_estimated_distance
+sensor.battery_monitor_a130_estimated_distance_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Estimated distance			655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_estimated_distance
 sensor.battery_monitor_a130_power	ibeacon	iBeacon Tracker	Battery Monitor A130		Power	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_power
+sensor.battery_monitor_a130_power_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Power	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_power
 sensor.battery_monitor_a130_signal_strength	ibeacon	iBeacon Tracker	Battery Monitor A130		Signal strength	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_rssi
+sensor.battery_monitor_a130_signal_strength_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Signal strength	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_rssi
 sensor.battery_monitor_a130_vendor	ibeacon	iBeacon Tracker	Battery Monitor A130		Vendor	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_vendor
+sensor.battery_monitor_a130_vendor_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Vendor	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_vendor
 sensor.bcm4350c0_uart_37_4_mhz_area_last_seen	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Area Last Seen			64:16:66:71:9f:74_area_last_seen
 sensor.bcm4350c0_uart_37_4_mhz_area_switch_diagnostic	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Area Switch Diagnostic	integration		64:16:66:71:9f:74_area_switch_reason
 sensor.bcm4350c0_uart_37_4_mhz_distance_to_kai_proxy	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Distance to kai_proxy			64:16:66:71:9f:74_f4:65:0b:08:8b:88_range
@@ -1363,10 +1370,10 @@ sensor.care_4d06_estimated_distance	ibeacon	iBeacon Tracker	CARe 4D06		Estimated
 sensor.care_4d06_power	ibeacon	iBeacon Tracker	CARe 4D06		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19718_22798_B4:B8:59:0E:4D:06_power
 sensor.care_4d06_signal_strength	ibeacon	iBeacon Tracker	CARe 4D06		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19718_22798_B4:B8:59:0E:4D:06_rssi
 sensor.care_4d06_vendor	ibeacon	iBeacon Tracker	CARe 4D06		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19718_22798_B4:B8:59:0E:4D:06_vendor
-sensor.care_50ac_estimated_distance	ibeacon	iBeacon Tracker	CARe 50AC		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_estimated_distance
-sensor.care_50ac_power	ibeacon	iBeacon Tracker	CARe 50AC		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_power
-sensor.care_50ac_signal_strength	ibeacon	iBeacon Tracker	CARe 50AC		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_rssi
-sensor.care_50ac_vendor	ibeacon	iBeacon Tracker	CARe 50AC		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_vendor
+sensor.care_50ac_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHT165242  50AC		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_estimated_distance
+sensor.care_50ac_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHT165242  50AC		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_power
+sensor.care_50ac_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHT165242  50AC		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_rssi
+sensor.care_50ac_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHT165242  50AC		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC_vendor
 sensor.care_5735_estimated_distance	ibeacon	iBeacon Tracker	CARe 5735		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_22325_22846_B4:B8:59:3E:57:35_estimated_distance
 sensor.care_5735_power	ibeacon	iBeacon Tracker	CARe 5735		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_22325_22846_B4:B8:59:3E:57:35_power
 sensor.care_5735_signal_strength	ibeacon	iBeacon Tracker	CARe 5735		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_22325_22846_B4:B8:59:3E:57:35_rssi
@@ -2323,6 +2330,10 @@ sensor.qmhconnect_9434_0171_estimated_distance	ibeacon	iBeacon Tracker	QMHConnec
 sensor.qmhconnect_9434_0171_power	ibeacon	iBeacon Tracker	QMHConnect-9434 0171		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_56512_15610_EC:06:71:7A:01:71_power
 sensor.qmhconnect_9434_0171_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-9434 0171		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_56512_15610_EC:06:71:7A:01:71_rssi
 sensor.qmhconnect_9434_0171_vendor	ibeacon	iBeacon Tracker	QMHConnect-9434 0171		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_56512_15610_EC:06:71:7A:01:71_vendor
+sensor.qmhconnect_9573_419d_estimated_distance	ibeacon	iBeacon Tracker	QMHConnect-9573 419D		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_61714_45333_FB:9C:46:93:41:9D_estimated_distance
+sensor.qmhconnect_9573_419d_power	ibeacon	iBeacon Tracker	QMHConnect-9573 419D		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_61714_45333_FB:9C:46:93:41:9D_power
+sensor.qmhconnect_9573_419d_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-9573 419D		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_61714_45333_FB:9C:46:93:41:9D_rssi
+sensor.qmhconnect_9573_419d_vendor	ibeacon	iBeacon Tracker	QMHConnect-9573 419D		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_61714_45333_FB:9C:46:93:41:9D_vendor
 sensor.qmhconnect_9645_1b29_estimated_distance	ibeacon	iBeacon Tracker	QMHConnect-9645 1B29		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_10078_19869_C6:9A:C7:07:1B:29_estimated_distance
 sensor.qmhconnect_9645_1b29_power	ibeacon	iBeacon Tracker	QMHConnect-9645 1B29		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_10078_19869_C6:9A:C7:07:1B:29_power
 sensor.qmhconnect_9645_1b29_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-9645 1B29		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_10078_19869_C6:9A:C7:07:1B:29_rssi

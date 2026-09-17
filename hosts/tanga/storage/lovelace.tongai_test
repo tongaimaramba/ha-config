@@ -2797,6 +2797,31 @@
           "cards": [
             {
               "type": "entities",
+              "title": "HA config → GitHub",
+              "entities": [
+                {
+                  "entity": "script.ha_config_sync_tanga",
+                  "name": "Sync tanga",
+                  "icon": "mdi:raspberry-pi",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.turn_on",
+                    "target": {
+                      "entity_id": "script.ha_config_sync_tanga"
+                    }
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "entity": "sensor.ha_config_sync_tanga",
+                  "attribute": "message",
+                  "name": "Status",
+                  "icon": "mdi:information-outline"
+                }
+              ]
+            },
+            {
+              "type": "entities",
               "entities": [
                 {
                   "entity": "input_boolean.test_bridge_from_rpi5"

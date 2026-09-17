@@ -88,7 +88,7 @@
 | homekit_controller | tado Internet Bridge IB0210636544 | ignore | core | 0 | 0 |  | a2d9cc23459a1c24cd1f785553005238 |
 | hue | Hue Bridge 0017882791a0 | zeroconf | core | 58 | 313 |  | 01K5BX4CSA7VRHH4QA38N0K1ZW |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| ibeacon | iBeacon Tracker | bluetooth | core | 173 | 865 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
+| ibeacon | iBeacon Tracker | bluetooth | core | 175 | 875 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |

@@ -2,22 +2,22 @@
 
 ```
 host: tanga
-exported_at: 2026-09-16T19:19:33+01:00
+exported_at: 2026-09-17T16:09:11+01:00
 config_dir: /homeassistant
 ha_version: 2025.11.1
-uname: Linux ccf28a08-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 Linux
+uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
 - config entries: 140  (custom components on disk: 29)
-- devices: 419
-- entities: 2934 across 56 platforms
+- devices: 421
+- entities: 2945 across 56 platforms
 - areas: 34
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| ibeacon | 865 |
+| ibeacon | 875 |
 | mobile_app | 337 |
 | hue | 313 |
 | hassio | 137 |
@@ -33,7 +33,7 @@ uname: Linux ccf28a08-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 U
 | growatt_server_api | 37 |
 | input_boolean | 36 |
 | aarlo | 31 |
-| script | 29 |
+| script | 30 |
 | nut | 27 |
 | ble_monitor | 27 |
 | group | 24 |
@@ -77,13 +77,12 @@ uname: Linux ccf28a08-ssh 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 U
 ## files deliberately not exported
 
 ```
-get-pip.py (1886796 bytes) — db/log/binary
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
 home-assistant_v2.db (16729014272 bytes) — db/log/binary
-home-assistant_v2.db-shm (32342016 bytes) — db/log/binary
-home-assistant_v2.db-wal (4923432 bytes) — db/log/binary
+home-assistant_v2.db-shm (32768 bytes) — db/log/binary
+home-assistant_v2.db-wal (5055272 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -125,7 +124,121 @@ home-assistant_v2.db-wal (4923432 bytes) — db/log/binary
 .storage/zz.tongai_test_old — not in allow-list
 .storage/zzz_old - dash list — not in allow-list
 .storage/.edgeos — not in allow-list
-addon_configs/core_matter_server — fabric keys, excluded
+ha CLI not available — using Supervisor REST API instead (token present)
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /addons failed
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /supervisor/info failed
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /core/info failed
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /os/info failed
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /host/info failed
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/share/uv/python/cpython-3.13.15-linux-aarch64-gnu/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+Supervisor API GET /network/info failed
 ```
 
 ## digests written

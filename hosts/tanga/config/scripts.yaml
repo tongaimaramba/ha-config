@@ -576,3 +576,10 @@ leave_to_away:
       entity_id: input_boolean.mock_tap_front_door
     action: input_boolean.turn_off
   description: ''
+ha_config_sync_tanga:
+  alias: "Sync tanga config snapshot"
+  icon: mdi:cloud-sync
+  sequence:
+    - event: ha_config_sync
+      event_data:
+        host: tanga

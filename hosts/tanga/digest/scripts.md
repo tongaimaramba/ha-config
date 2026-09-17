@@ -1,4 +1,4 @@
-# tanga — scripts.yaml (29 scripts)
+# tanga — scripts.yaml (30 scripts)
 
 | entity_id | alias | mode | actions | entities referenced |
 |---|---|---|---|---|
@@ -31,3 +31,4 @@
 | script.take_calibration_snapshot | Take Calibration Snapshot | single | notify.send_message | device_tracker.bermuda_tongai_phone_bermuda_tracker, input_select.calibration_location, notify.file, notify.send_message, sensor.bermuda_tongai_phone_area, sensor.bermuda_tongai_phone_distance, sensor.tongaism25_wi_fi_bssid, sensor.tongaism25_wi_fi_signal_strength |
 | script.arrive_at_front_door | Arrive at Front Door | single | input_boolean.turn_on, input_number.set_value, input_select.select_option, input_text.set_value | input_boolean.mock_tap_front_door, input_boolean.turn_on, input_number.mock_ble_distance, input_number.set_value, input_select.mock_location_area, input_select.select_option, input_text.mock_user, input_text.set_value |
 | script.leave_to_away | Leave to Away | single | input_boolean.turn_off, input_select.select_option | input_boolean.mock_tap_front_door, input_boolean.turn_off, input_select.mock_location_area, input_select.select_option |
+| script.ha_config_sync_tanga | Sync tanga config snapshot | single |  |  |

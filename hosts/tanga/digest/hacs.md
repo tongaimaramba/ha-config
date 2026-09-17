@@ -85,7 +85,7 @@
 | jampez77/Multiline-Entity-Card | plugin | 1.2.2 | 1.2.2 | 351472550 |
 | kalkih/mini-graph-card | plugin | v0.11.0 | v0.13.0 | 151280062 |
 | kalkih/mini-media-player | plugin | v1.16.5 | v1.16.12 | 148520838 |
-| ljmerza/light-entity-card | plugin | 6.1.3 | v6.3.1 | 168744428 |
+| ljmerza/light-entity-card | plugin | 6.1.3 | v6.4.0 | 168744428 |
 | lozzd/octopus-energy-rates-card | plugin | v0.1.2 | v0.9.0 | 596085141 |
 | madmicio/LG-WebOS-Remote-Control | plugin | 2.0.2 | 2.0.4 | 257005990 |
 | marcokreeft87/room-card | plugin | 1.08.04 | 1.08.04 | 454440949 |
