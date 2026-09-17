@@ -122,7 +122,7 @@
 207	./meta/export-info.yaml
 0	./meta/manifest.tsv
 1443	./meta/redaction-report.txt
-2475	./meta/skipped.txt
+8438	./meta/skipped.txt
 615	./storage/assist_pipeline.pipelines
 282	./storage/camera
 15023	./storage/core.area_registry
