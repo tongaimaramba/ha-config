@@ -114,7 +114,7 @@ class HAConfigSync(hass.Hass):
             self._succeed(host, "unchanged", "No changes since last snapshot.")
         else:
             self._succeed(host, "committed",
-                          f"Committed locally. Run: hasync {host}   (or bash tools/pull_and_push.sh {host})")
+                          f"Committed locally. Run: hasync {host}")
 
     def _set_status(self, host, state, message):
         self.set_state(
