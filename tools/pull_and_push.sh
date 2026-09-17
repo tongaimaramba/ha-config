@@ -13,8 +13,8 @@
 # in your shell profile instead): the SSH target for each box's SSH add-on, as you'd
 # pass to `ssh`. Find the port in the add-on's own config page if it's not 22.
 
-PAMBA_SSH="${HA_PAMBA_SSH:-root@pamba.local}"     # e.g. "root@pamba.local -p 22222"
-TANGA_SSH="${HA_TANGA_SSH:-root@tanga.local}"
+PAMBA_SSH="${HA_PAMBA_SSH:-hassio@192.168.179.41}"     # e.g. "root@pamba.local -p 22222"
+TANGA_SSH="${HA_TANGA_SSH:-hassio@192.168.179.199}"
 
 set -euo pipefail
 HOST="${1:-}"
