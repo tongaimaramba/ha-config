@@ -2652,6 +2652,13 @@
                       "entity_id": "script.ha_config_sync_pamba"
                     }
                   }
+                },
+                {
+                  "type": "attribute",
+                  "entity": "sensor.ha_config_sync_pamba",
+                  "attribute": "message",
+                  "name": "Status",
+                  "icon": "mdi:information-outline"
                 }
               ]
             },

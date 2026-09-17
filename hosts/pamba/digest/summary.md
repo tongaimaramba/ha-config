@@ -2,7 +2,7 @@
 
 ```
 host: pamba
-exported_at: 2026-09-17T12:31:35+01:00
+exported_at: 2026-09-17T16:09:05+01:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
@@ -85,10 +85,10 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (3109715968 bytes) — db/log/binary
 home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (6328352 bytes) — db/log/binary
+home-assistant_v2.db-wal (6212992 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
-zigbee.db-wal (53592 bytes) — db/log/binary
+zigbee.db-wal (140112 bytes) — db/log/binary
 .storage/androidtv_adbkey — not in allow-list
 .storage/androidtv_adbkey.pub — not in allow-list
 .storage/androidtv_remote_cert.pem — not in allow-list
