@@ -1,7 +1,16 @@
-# Paste as a card into any Lovelace dashboard/view. Two buttons, one per host.
-# Feedback (success or failure) arrives as a persistent notification in HA, since
-# the sync runs in the background and a button press alone wouldn't otherwise
-# tell you anything.
+# Paste as a card into a Lovelace dashboard. IMPORTANT: pamba and tanga are
+# separate HA instances — each box can only see its own local entities, so
+# only add the block for THAT box's own host, not both. (i.e. pamba's
+# dashboard gets the "pamba" block below; tanga's dashboard gets the "tanga"
+# block. Never both on the same box.)
+#
+# Each block is a button (fires the sync) plus a status row showing the
+# result right on the dashboard — no more needing to check the AppDaemon log
+# to see whether a press worked. The status row updates to "Sync in
+# progress…" the instant you press the button, then to the final result once
+# repo_sync.sh finishes (~30-60s later).
+
+# --- pamba block: use this on pamba's dashboard only -------------------------
 type: entities
 title: HA config → GitHub
 entities:
@@ -13,11 +22,26 @@ entities:
       service: script.turn_on
       target:
         entity_id: script.ha_config_sync_pamba
-  - entity: script.ha_config_sync_tanga
-    name: "Sync tanga"
-    icon: mdi:raspberry-pi
-    tap_action:
-      action: call-service
-      service: script.turn_on
-      target:
-        entity_id: script.ha_config_sync_tanga
+  - type: attribute
+    entity: sensor.ha_config_sync_pamba
+    attribute: message
+    name: "Status"
+    icon: mdi:information-outline
+
+# --- tanga block: use this on tanga's dashboard only --------------------------
+# type: entities
+# title: HA config → GitHub
+# entities:
+#   - entity: script.ha_config_sync_tanga
+#     name: "Sync tanga"
+#     icon: mdi:raspberry-pi
+#     tap_action:
+#       action: call-service
+#       service: script.turn_on
+#       target:
+#         entity_id: script.ha_config_sync_tanga
+#   - type: attribute
+#     entity: sensor.ha_config_sync_tanga
+#     attribute: message
+#     name: "Status"
+#     icon: mdi:information-outline
