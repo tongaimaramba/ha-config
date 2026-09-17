@@ -116,12 +116,17 @@ or add `-p 22222` if the SSH add-on uses a non-default port).
    merges it into `main`, and pushes to GitHub.
 
 The merge is a plain merge, not a fast-forward: `main` always carries Mac-side
-commits (tools/ edits, earlier merges) that the box never sees. If the merge
-conflicts *inside* `hosts/<host>/`, the box's version is taken automatically —
-the box is the source of truth for its own snapshot by definition (this also
-covers the first-ever sync from a freshly `git init`'d box, where every file
-shows up as an add/add conflict). A conflict anywhere *outside* `hosts/<host>/`
-is the one case the script won't guess at: it stops and lists the files.
+commits (tools/ edits, earlier merges) that the box never sees. Conflicts are
+resolved by a fixed rule that follows from how the repo is meant to work, and
+each decision is printed:
+
+- inside `hosts/<host>/` → the **box** wins (it is the source of truth for its own snapshot)
+- anywhere else (`tools/`, `README.md`, …) → **main** wins (these are authored on the
+  Mac and flow *to* the box via `hadeploy`; the box only has them from its one-time
+  seed commit)
+
+This also covers the first-ever sync from a freshly `git init`'d box, where every
+file present on both sides shows up as an add/add conflict.
 
 ## Project-knowledge sync
 

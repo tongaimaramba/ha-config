@@ -50,24 +50,25 @@ if ! git merge --no-edit --allow-unrelated-histories "sync-$HOST-incoming"; then
     echo "!! merge failed for a reason other than conflicts (see above). Fetched commit is on branch 'sync-$HOST-incoming'." >&2
     exit 1
   fi
-  if grep -qv "^hosts/$HOST/" <<<"$conflicted"; then
-    echo >&2
-    echo "!! conflicts outside hosts/$HOST/ — not auto-resolving these, look at them by hand:" >&2
-    grep -v "^hosts/$HOST/" <<<"$conflicted" >&2
-    echo "   (git merge --abort  to back out, or resolve + git commit)" >&2
-    exit 1
-  fi
-  # Every conflict is inside hosts/$HOST/. The box is the source of truth for its
-  # own snapshot by definition, so its version wins.
-  echo "== conflicts only under hosts/$HOST/ — taking the box's version"
+  # Resolution rule, straight from how this repo is meant to work:
+  #   inside  hosts/$HOST/ -> the box wins  (it is the source of truth for its own snapshot)
+  #   anywhere else        -> main wins     (tools/ etc. are authored on the Mac and flow
+  #                                          TO the box via hadeploy, never back; the box
+  #                                          only ever has them from its one-time seed commit)
+  # Stage 2 = ours (main), stage 3 = theirs (the box). If the winning side has no
+  # copy of the file, the winner's deletion stands.
+  echo "== resolving conflicts:"
   git diff --name-only --diff-filter=U -z | while IFS= read -r -d '' f; do
-    if git cat-file -e ":3:$f" 2>/dev/null; then
-      git checkout --theirs -- "$f"     # box has the file: use its content
-    else
-      git rm -q -- "$f"                 # box deleted it: deletion wins
+    if [[ "$f" == hosts/$HOST/* ]]; then side=theirs; stage=3; who="box"
+    else                                side=ours;   stage=2; who="main"
     fi
+    if git cat-file -e ":$stage:$f" 2>/dev/null; then
+      git checkout -q --"$side" -- "$f" && git add -- "$f"
+    else
+      git rm -q -- "$f"
+    fi
+    printf '   %-5s wins  %s\n' "$who" "$f"
   done
-  git add "hosts/$HOST"
   git commit -q --no-edit
 fi
 git branch -D "sync-$HOST-incoming" >/dev/null
