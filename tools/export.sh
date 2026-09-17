@@ -165,6 +165,20 @@ if [[ -d "$ADDON_CFG" ]]; then
 fi
 
 # --- 6. Supervisor / core metadata via `ha` CLI ----------------------------------
+sup_api() {  # sup_api <path> — GET Supervisor REST API <path>, same JSON shape as `ha ... --raw-json`
+  local path="$1"
+  SUP_TOKEN="${SUPERVISOR_TOKEN:-${HASSIO_TOKEN:-}}" python3 - "$path" <<'PYEOF'
+import os, sys, urllib.request
+path = sys.argv[1]
+token = os.environ.get("SUP_TOKEN")
+if not token:
+    sys.exit("no SUPERVISOR_TOKEN/HASSIO_TOKEN in environment")
+req = urllib.request.Request(f"http://supervisor{path}", headers={"Authorization": f"Bearer {token}"})
+with urllib.request.urlopen(req, timeout=10) as r:
+    sys.stdout.write(r.read().decode())
+PYEOF
+}
+
 if command -v ha >/dev/null 2>&1; then
   ha addons --raw-json        > "$OUT/meta/ha-addons.json"     2>/dev/null || true
   ha supervisor info --raw-json > "$OUT/meta/ha-supervisor.json" 2>/dev/null || true
@@ -172,8 +186,30 @@ if command -v ha >/dev/null 2>&1; then
   ha os info --raw-json       > "$OUT/meta/ha-os.json"         2>/dev/null || true
   ha host info --raw-json     > "$OUT/meta/ha-host.json"       2>/dev/null || true
   ha network info --raw-json  > "$OUT/meta/ha-network.json"    2>/dev/null || true
+elif [[ -n "${SUPERVISOR_TOKEN:-}${HASSIO_TOKEN:-}" ]]; then
+  # No `ha` CLI here (e.g. running from AppDaemon's container), but a Supervisor
+  # token is present — the CLI is just a thin wrapper over this same REST API,
+  # so hit it directly instead of shelling out.
+  echo "ha CLI not available — using Supervisor REST API instead (token present)" >> "$SKIPPED"
+  fetch_meta() {  # fetch_meta <api-path> <out-file> — on failure, log it and leave no
+                  # (or no new) file rather than a 0-byte one that could clobber /
+                  # conflict with a good snapshot from an earlier successful export.
+    local path="$1" out="$2"
+    if ! sup_api "$path" > "$out.tmp" 2>>"$SKIPPED"; then
+      echo "Supervisor API GET $path failed" >> "$SKIPPED"
+      rm -f "$out.tmp"
+      return
+    fi
+    mv "$out.tmp" "$out"
+  }
+  fetch_meta /addons          "$OUT/meta/ha-addons.json"
+  fetch_meta /supervisor/info "$OUT/meta/ha-supervisor.json"
+  fetch_meta /core/info       "$OUT/meta/ha-core.json"
+  fetch_meta /os/info         "$OUT/meta/ha-os.json"
+  fetch_meta /host/info       "$OUT/meta/ha-host.json"
+  fetch_meta /network/info    "$OUT/meta/ha-network.json"
 else
-  echo "ha CLI not available — meta/*.json not captured" >> "$SKIPPED"
+  echo "ha CLI not available and no SUPERVISOR_TOKEN/HASSIO_TOKEN in environment — meta/*.json not captured" >> "$SKIPPED"
 fi
 {
   echo "host: $HOST"; echo "exported_at: $(date -Iseconds)"; echo "config_dir: $CFG"
