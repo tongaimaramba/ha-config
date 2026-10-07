@@ -2710,7 +2710,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-09-17T12:52:30.195046+00:00",
+        "modified_at": "2026-10-07T19:56:29.457401+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3264,7 +3264,7 @@
         "domain": "tado",
         "entry_id": "01JSCJF0V9J60GA1YF14QMGEG0",
         "minor_version": 1,
-        "modified_at": "2026-09-14T13:41:08.937071+00:00",
+        "modified_at": "2026-10-07T21:21:32.576461+00:00",
         "options": {
           "_redacted_keys": [
             "fallback"
@@ -3697,7 +3697,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-09-17T14:15:14.488169+00:00",
+        "modified_at": "2026-10-07T21:21:12.176656+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4261,7 +4261,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-09-17T13:52:33.249572+00:00",
+        "modified_at": "2026-10-07T19:45:21.667820+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4399,7 +4399,7 @@
         "domain": "mobile_app",
         "entry_id": "01KXXQJDAKHYW963D1AF4RABRC",
         "minor_version": 1,
-        "modified_at": "2026-09-17T07:06:37.424994+00:00",
+        "modified_at": "2026-10-05T07:07:40.639808+00:00",
         "options": {
           "_redacted_keys": []
         },

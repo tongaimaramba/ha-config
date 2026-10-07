@@ -259,23 +259,6 @@ sensor:
     entities:
       - group.batteries
 
-## monit
-#
-# rest:
-#   - authentication: basic
-#     username: "admin"
-#     password: "<redacted>"
-#     scan_interval: 60
-#     resource: http://192.168.179.33:2812/_status?format=xml
-#     sensor:
-#       - name:  Monit Hassio 
-#         json_attributes_path: "$.monit" 
-#    value_template: 'OK' 
-#        json_attributes: 
-#           - "platform" 
-#           - "server" 
-#           - "service"
-
 #
 ## Others on Arlo
 #

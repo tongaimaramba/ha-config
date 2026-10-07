@@ -44,23 +44,23 @@
 
 | repository | category | installed | latest | id |
 |---|---|---|---|---|
-| AlexxIT/SonoffLAN | integration | v3.8.2 | v3.13.0 | 222118751 |
+| AlexxIT/SonoffLAN | integration | v3.8.2 | v3.13.1 | 222118751 |
 | ExperienceLovelace/ha-floorplan | plugin | 1.0.44 | v1.1.5 | 188323494 |
-| FutureTense/keymaster | integration | v0.0.87 | v0.6.1 | 318359434 |
+| FutureTense/keymaster | integration | v0.0.87 | v0.6.2 | 318359434 |
 | LightwaveSmartHome/homeassistant-lightwave-smart | integration | v5.0.1 | v5.0.1 | 719179733 |
 | alandtse/alexa_media_player | integration | v5.15.0 | v5.16.1 | 139664351 |
 | arifwn/homeassistant-whatspie-integration | integration |  |  | 556789449 |
 | azogue/eventsensor | integration | v3.4.0 | v3.4.0 | 250866164 |
 | benct/lovelace-battery-entity-row | plugin | v1.3.1 | v1.3.1 | 303857065 |
-| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.11.1 | 178921037 |
+| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.13.0 | 178921037 |
 | bernikr/lovelace-notify-card | plugin |  | v0.3.0 | 358962656 |
 | custom-cards/entity-attributes-card | plugin | 0.1.2 | 0.1.2 | 187245461 |
-| custom-cards/flex-table-card | plugin | v0.7.5 | v1.4 | 156292058 |
+| custom-cards/flex-table-card | plugin | v0.7.5 | v1.5 | 156292058 |
 | custom-cards/group-card | plugin | 0.0.6 | 0.0.6 | 187245511 |
 | custom-cards/group-element | plugin | 0.9.2 | 0.9.2 | 179491130 |
 | custom-components/places | integration | v2.8.3 | v3.0.1 | 131915802 |
-| cyberjunky/home-assistant-garmin_connect | integration | 0.2.30 | 3.0.17 | 383732864 |
-| danielkaldheim/ha_airstage | integration | v1.3.2 | v1.8.4 | 665025312 |
+| cyberjunky/home-assistant-garmin_connect | integration | 0.2.30 | 3.0.19 | 383732864 |
+| danielkaldheim/ha_airstage | integration | v1.3.2 | v1.9.0 | 665025312 |
 | elad-bar/ha-edgeos | integration | v2.0.31 | v2.1.9 | 169467285 |
 | finity69x2/fan-control-entity-row | plugin | 2.2 | 2.3 | 191663150 |
 | finity69x2/fan-percent-button-row | plugin | 1.8 | 4.0 | 345753205 |
@@ -74,7 +74,7 @@
 | iantrich/config-template-card | plugin | 1.3.6 | 1.3.6 | 172177543 |
 | iantrich/roku-card | plugin | 1.2.4 | 1.2.4 | 164367214 |
 | ikb42/homeassistant-lightwave2 | integration | v3.5.20 | v3.5.20 | 162808336 |
-| ilguala/navimow_pro | integration | v0.6.0 | v0.6.0 | 1309777882 |
+| ilguala/navimow_pro | integration | v0.6.0 | v0.7.6 | 1309777882 |
 | jampez77/Multiline-Entity-Card | plugin | 1.2.2 | 1.2.2 | 351472550 |
 | kalkih/mini-graph-card | plugin | v0.11.0 | v0.13.0 | 151280062 |
 | kalkih/mini-media-player | plugin | v1.16.5 | v1.16.12 | 148520838 |

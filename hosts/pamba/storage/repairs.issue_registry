@@ -269,13 +269,6 @@
         "domain": "hacs",
         "is_persistent": false,
         "issue_id": "restart_required_1309777882_tags/v0.6.0"
-      },
-      {
-        "created": "2026-09-15T07:38:11.716585+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_tado_01JSCJF0V9J60GA1YF14QMGEG0"
       }
     ]
   }
