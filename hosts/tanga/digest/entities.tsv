@@ -12,8 +12,15 @@ automation.audio_change	automation				audio change			1712681075907
 automation.away_door_alarm	automation				away door alarm			1671457535844
 automation.battery_first_scheduler	automation				Battery First Scheduler			1710089973439
 automation.bedside_controller	automation				bedside controller			1752418954085
+automation.boiler_alert_not_heating_after_a_call_for_heat	automation				Boiler alert - not heating after a call for heat			boiler_alert_not_heating
+automation.boiler_alert_record_pipe_temperature_at_call_start	automation				Boiler alert - record pipe temperature at call start			boiler_alert_record_start
 automation.boost_main_tag_scan	automation				Study lamp			1669496534955
 automation.car_perimeter_alarm_mode	automation				Car Perimeter Alarm Mode			1691440278084
+automation.climate_health_daily_battery_digest	automation				Climate health - daily battery digest			climate_health_battery_digest
+automation.climate_health_device_unavailable	automation				Climate health - device unavailable			climate_health_device_unavailable
+automation.climate_health_device_went_silent	automation				Climate health - device went silent			climate_health_device_silent
+automation.climate_health_devices_recovered	automation				Climate health - devices recovered			climate_health_devices_recovered
+automation.climate_health_integration_needs_signing_in	automation				Climate health - integration needs signing in			climate_health_reauth_needed
 automation.dawn_lamp	automation				Dawn lamp			1739571868760
 automation.domane_alarm	automation				Domane alarm			1722015002107
 automation.domane_alert	automation				Domane alert			1722017723783
@@ -74,6 +81,15 @@ binary_sensor.appdaemon_4_running	hassio	Supervisor	AppDaemon		Running			a0d7b95
 binary_sensor.appdaemon_4_update_available	hassio	Supervisor	AppDaemon		Update available	integration		a0d7b954_appdaemon_update_available
 binary_sensor.bathroom_motion	hue	Hue Bridge 0017882791a0	Bathroom	Bathroom	Motion			1d9cc0e6-2f7d-4122-90cd-9f42e776c39e
 binary_sensor.bathroom_sink_motion	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom	Motion			dffb3e3d-9480-4c62-a7a6-6f492fef6439
+binary_sensor.bathroom_window_acceleration	smartthings	My home	Bathroom Window	Kids Bathroom	Acceleration			54a189c6-b3b9-428c-a515-278d74f401a1_main_accelerationSensor_acceleration_acceleration
+binary_sensor.bathroom_window_door	smartthings	My home	Bathroom Window	Kids Bathroom	Door			54a189c6-b3b9-428c-a515-278d74f401a1_main_contactSensor_contact_contact
+binary_sensor.bay_party_wall_acceleration	smartthings	My home	Bay Party Wall	Living Room	Acceleration			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_accelerationSensor_acceleration_acceleration
+binary_sensor.bay_party_wall_door	smartthings	My home	Bay Party Wall	Living Room	Door			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_contactSensor_contact_contact
+binary_sensor.bay_window_acceleration	smartthings	My home	Bay Window	Living Room	Acceleration			9af80a4d-e520-4fab-95ec-f297b19d9721_main_accelerationSensor_acceleration_acceleration
+binary_sensor.bay_window_door	smartthings	My home	Bay Window	Living Room	Door			9af80a4d-e520-4fab-95ec-f297b19d9721_main_contactSensor_contact_contact
+binary_sensor.boiler_called_for_heat	template				Boiler called for heat			boiler_alert_called_for_heat
+binary_sensor.boiler_temp_acceleration	smartthings	My home	Boiler Temp	Garage	Acceleration			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_accelerationSensor_acceleration_acceleration
+binary_sensor.boiler_temp_door	smartthings	My home	Boiler Temp	Garage	Door			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_contactSensor_contact_contact
 binary_sensor.car_security	group	Car Security			Car Security			32512a8a1e1341f8ca6d8d8f791537e9
 binary_sensor.cloudflared_running	hassio	Supervisor	Cloudflared		Running	integration		9074a9fa_cloudflared_state
 binary_sensor.coats_motion	hue	Hue Bridge 0017882791a0	Coats	Hallway	Motion			265cef33-851c-4bc0-98b9-5d436059dd82
@@ -85,6 +101,10 @@ binary_sensor.ellie_s_hockey_bag_lost	tile	tongaimaramba@gmail.com	Ellie's Hocke
 binary_sensor.ellie_s_phone_lost	tile	tongaimaramba@gmail.com	Ellie's Phone		Lost			tongaimaramba@gmail.com_3c9084d6616575bd_lost
 binary_sensor.ellie_s_phone_lost_2	tile	tongaimaramba@gmail.com	Ellie's Phone		Lost			tongaimaramba@gmail.com_9fac610bf616b6d8_lost
 binary_sensor.ellie_s_school_bag_lost	tile	tongaimaramba@gmail.com	Ellie's School Bag	Coats	Lost			tongaimaramba@gmail.com_92dee031bfd76ee3_lost
+binary_sensor.ellie_window_acceleration	smartthings	My home	Ellie Window	Ellie	Acceleration			85663cb9-cccb-4637-8eac-6b0af998e502_main_accelerationSensor_acceleration_acceleration
+binary_sensor.ellie_window_door	smartthings	My home	Ellie Window	Ellie	Door			85663cb9-cccb-4637-8eac-6b0af998e502_main_contactSensor_contact_contact
+binary_sensor.ellie_window_party_acceleration	smartthings	My home	Ellie Window Party	Ellie	Acceleration			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_accelerationSensor_acceleration_acceleration
+binary_sensor.ellie_window_party_door	smartthings	My home	Ellie Window Party	Ellie	Door			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_contactSensor_contact_contact
 binary_sensor.esphome_device_builder_running	hassio	Supervisor	ESPHome Device Builder		Running	integration		5c53de3b_esphome_state
 binary_sensor.expensive_grid	tod	Expensive Grid			Peak Electric Time			50927a8ead8f82fc58015b029996f384
 binary_sensor.family_mac_active	mobile_app	family_mac	family_mac		family_mac Active			2fca3312f88edc81ada813e7612bb62b55bf1acddd7d661d1d53f631938400e7_active
@@ -105,10 +125,22 @@ binary_sensor.fp_auth_device_status	esphome	Fingerprint Authoriser	Fingerprint A
 binary_sensor.fp_button_a	esphome	c3	Fingerprint Authoriser	Garage	Button A			D8:3B:DA:73:D9:F4-binary_sensor-button_a
 binary_sensor.fp_button_b	esphome	c3	Fingerprint Authoriser	Garage	Button B			D8:3B:DA:73:D9:F4-binary_sensor-button_b
 binary_sensor.fp_device_status	esphome	c3	Fingerprint Authoriser	Garage	Device Status			D8:3B:DA:73:D9:F4-binary_sensor-device_status
+binary_sensor.front_acceleration	smartthings	My home	Front	Hallway	Acceleration			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_accelerationSensor_acceleration_acceleration
+binary_sensor.front_door	smartthings	My home	Front	Hallway	Door			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_contactSensor_contact_contact
+binary_sensor.front_doorstep_acceleration	smartthings	My home	Front Doorstep	Hallway	Acceleration			63f52bf8-6915-467a-a199-c5ece8c50de1_main_accelerationSensor_acceleration_acceleration
+binary_sensor.front_doorstep_door	smartthings	My home	Front Doorstep	Hallway	Door			63f52bf8-6915-467a-a199-c5ece8c50de1_main_contactSensor_contact_contact
 binary_sensor.front_perimeter_contact	group	Front Perimeter Contact			Front Perimeter Contact			aac00270760a49337665a3788afa04a9
 binary_sensor.front_perimeter_movement	group	Front Perimeter Movement			Front Perimeter Movement			4a5b2578b6f5d1a0d194a1cc02b7dcf2
+binary_sensor.garage_doorstep_acceleration	smartthings	My home	Garage Doorstep	Garage	Acceleration			6285b535-9737-45e6-9361-e4a71ce7f387_main_accelerationSensor_acceleration_acceleration
+binary_sensor.garage_doorstep_door	smartthings	My home	Garage Doorstep	Garage	Door			6285b535-9737-45e6-9361-e4a71ce7f387_main_contactSensor_contact_contact
+binary_sensor.garage_out_acceleration	smartthings	My home	Garage - out	Garage	Acceleration			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_accelerationSensor_acceleration_acceleration
+binary_sensor.garage_out_door	smartthings	My home	Garage - out	Garage	Door			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_contactSensor_contact_contact
+binary_sensor.garage_utility_door_acceleration	smartthings	My home	Garage Utility Door	Loft	Acceleration			bfbccace-0438-4d40-8506-28f0e5439eda_main_accelerationSensor_acceleration_acceleration
+binary_sensor.garage_utility_door_door	smartthings	My home	Garage Utility Door	Loft	Door			bfbccace-0438-4d40-8506-28f0e5439eda_main_contactSensor_contact_contact
 binary_sensor.garmin_device_battery_is_charging	mobile_app	Garmin Device	Garmin Device		Garmin Device Battery is Charging	integration		af61dee633a644bcf6ee5f21817c868ed00087e3c55f771699f5b1eea217c3e2_battery_is_charging
 binary_sensor.get_hacs_running	hassio	Supervisor	Get HACS		Running	integration		cb646a50_get_state
+binary_sensor.guest_win_acceleration	smartthings	My home	Guest Win	Study	Acceleration			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_accelerationSensor_acceleration_acceleration
+binary_sensor.guest_win_door	smartthings	My home	Guest Win	Study	Door			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_contactSensor_contact_contact
 binary_sensor.hannah_hockey_bag_lost	tile	tongaimaramba@gmail.com	Hannah Hockey Bag		Lost			tongaimaramba@gmail.com_4bead49220aebc67_lost
 binary_sensor.hannah_keys_lost	tile	tongaimaramba@gmail.com	Hannah Keys	Coats	Lost			tongaimaramba@gmail.com_3f1f04667e938b3e_lost
 binary_sensor.hannahs_iphone13_camera_motion	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Motion			5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_cameraMotion
@@ -123,7 +155,11 @@ binary_sensor.home_assistant_operating_system_update_available	hassio	Supervisor
 binary_sensor.hue_motion_sensor_1_motion	hue	Hue Bridge 0017882791a0	Loft Bathroom 	Loft Bathroom	Motion			2b9c5f43-f5a8-49b6-af8f-a7a0eda29240
 binary_sensor.hue_motion_sensor_2_motion	hue	Hue Bridge 0017882791a0	Garage Laundry	Kitchen	Motion			f16b3ee0-4986-45d1-b8ca-ad76fb0053d6
 binary_sensor.iphone_32_focus	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Focus			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_focus
+binary_sensor.kitchen_acceleration	smartthings	My home	Kitchen	Kitchen	Acceleration			e6821393-e06c-439c-baad-d48f38e8cd5b_main_accelerationSensor_acceleration_acceleration
+binary_sensor.kitchen_door	smartthings	My home	Kitchen	Kitchen	Door			e6821393-e06c-439c-baad-d48f38e8cd5b_main_contactSensor_contact_contact
 binary_sensor.kitchen_motion	hue	Hue Bridge 0017882791a0	Kitchen	Kitchen	Motion			d02614b7-d1a2-4547-a6eb-6691276df2c6
+binary_sensor.landing_window_acceleration	smartthings	My home	Landing Window	Hallway	Acceleration			74325601-0eb6-48bf-a640-e09d74995351_main_accelerationSensor_acceleration_acceleration
+binary_sensor.landing_window_door	smartthings	My home	Landing Window	Hallway	Door			74325601-0eb6-48bf-a640-e09d74995351_main_contactSensor_contact_contact
 binary_sensor.loft32_desk_switch	esphome	study work status	work status	Study	Desk Switch			94:3C:C6:37:67:84-binary_sensor-desk_switch
 binary_sensor.loft_bathroom_motion	hue	Hue Bridge 0017882791a0	Loft Bathroom	Loft Bathroom	Motion			fdb0eabd-9031-4adb-90d4-0b1fb2ce11f0
 binary_sensor.loft_controller_atom_button	esphome	Loft Controller	Loft Controller	Loft	Atom Button			F4:65:0B:07:AB:34-binary_sensor-atom_button
@@ -144,6 +180,8 @@ binary_sensor.network_ups_tools_running	hassio	Supervisor	Network UPS Tools		Run
 binary_sensor.network_ups_tools_update_available	hassio	Supervisor	Network UPS Tools		Update available	integration		ccf28a08_nut_update_available
 binary_sensor.nginx_home_assistant_ssl_proxy_running	hassio	Supervisor	NGINX Home Assistant SSL proxy		Running	integration		core_nginx_proxy_state
 binary_sensor.nginx_home_assistant_ssl_proxy_update_available	hassio	Supervisor	NGINX Home Assistant SSL proxy		Update available	integration		core_nginx_proxy_update_available
+binary_sensor.patio_door_acceleration	smartthings	My home	Patio Door	Kitchen	Acceleration			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_accelerationSensor_acceleration_acceleration
+binary_sensor.patio_door_door	smartthings	My home	Patio Door	Kitchen	Door			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_contactSensor_contact_contact
 binary_sensor.peak_window	tod	peak window			peak window			833a2c8b1fbaf18dd54691091202be7b
 binary_sensor.perimeter_contacts	group	Perimeter Contacts			Perimeter Contacts			7bb42dcf512573dd7abdbedb0ebe1528
 binary_sensor.perimeter_movement	group	Perimeter Movement			Perimeter Movement			38652b66a5ab91af73e3560989e05f03
@@ -199,6 +237,8 @@ binary_sensor.tongaism25_wi_fi_state	mobile_app	TongaiSM25	TongaiSM25		TongaiSM2
 binary_sensor.tongaism25_work_profile	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Work profile	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_is_work_profile
 binary_sensor.updater	updater				Updater	user		updater
 binary_sensor.upstairs_indoor_motion	group	Upstairs Indoor Motion			Upstairs Indoor Motion			361b9a06a3b2cb159d38521763c2c00d
+binary_sensor.utility_back_door	smartthings	My home	Utility Back Door	Utility				d37e06db-a7e8-474f-802e-cad844952232_main_contactSensor_contact_contact
+binary_sensor.utility_back_door_acceleration	smartthings	My home	Utility Back Door	Utility	Acceleration			d37e06db-a7e8-474f-802e-cad844952232_main_accelerationSensor_acceleration_acceleration
 binary_sensor.utility_motion_motion	hue	Hue Bridge 0017882791a0	Utility Motion	Utility	Motion			fe4b2176-fd5d-4c3c-a0c2-5a3e302ab64c
 binary_sensor.volvo_eva_brake_fluid_level_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake fluid			volvo_yv1xzehr5t2686253_brake_fluid_level_warning
 binary_sensor.volvo_eva_brake_light_center_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake light center			volvo_yv1xzehr5t2686253_brake_light_center_warning
@@ -285,20 +325,21 @@ device_tracker.bacpl_lr_4818_00c8	ibeacon	iBeacon Tracker	bacpl-LR 4818 00C8				
 device_tracker.bacpl_lr_4821_00cb	ibeacon	iBeacon Tracker	bacpl-LR 4821 00CB					7777772e-6b6b-6d63-6e2e-636f6d000001_0_4821_BC:57:29:23:00:CB
 device_tracker.battery_monitor_a130	ibeacon	iBeacon Tracker	Battery Monitor A130					655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30
 device_tracker.battery_monitor_a130_2	ibeacon	iBeacon Tracker	Battery Monitor A130					655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30
+device_tracker.battery_monitor_a130_3	ibeacon	iBeacon Tracker	Battery Monitor A130					655f83ca-ae16-a10a-702e-31f30d58dd82_63044_20385_F8:30:02:14:A1:30
 device_tracker.bermuda_tongai_phone_bermuda_tracker	bermuda	Bermuda BLE Trilateration	Tongai's SM25		Bermuda Tracker			94332533261f4c25806d5320a803683b_100_40004
 device_tracker.carabc_bt_le_4a22	ibeacon	iBeacon Tracker	CARABC-BT-LE 4A22					fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DD:0D:30:24:4A:22
 device_tracker.care_01ea	ibeacon	iBeacon Tracker	CARe 01EA					8063ae90-d8b7-11e6-9598-0800200c9a66_490_22804_B4:B8:59:14:01:EA
 device_tracker.care_02bd	ibeacon	iBeacon Tracker	CARe 02BD					8063ae90-d8b7-11e6-9598-0800200c9a66_701_22795_B4:B8:59:0B:02:BD
 device_tracker.care_03b3	ibeacon	iBeacon Tracker	DP_2_0_TOVHT125940  03B3					8063ae90-d8b7-11e6-9598-0800200c9a66_947_22789_B4:B8:59:05:03:B3
 device_tracker.care_03bb	ibeacon	iBeacon Tracker	CARe 03BB					8063ae90-d8b7-11e6-9598-0800200c9a66_955_22845_B4:B8:59:3D:03:BB
-device_tracker.care_0661	ibeacon	iBeacon Tracker	DP_2_0_TOVJX272369  0661					8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61
+device_tracker.care_0661	ibeacon	iBeacon Tracker	CARe 0661					8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61
 device_tracker.care_0704	ibeacon	iBeacon Tracker	CARe 0704					8063ae90-d8b7-11e6-9598-0800200c9a66_1796_22832_B4:B8:59:30:07:04
 device_tracker.care_075d	ibeacon	iBeacon Tracker	CARe 075D					8063ae90-d8b7-11e6-9598-0800200c9a66_1885_22848_B4:B8:59:40:07:5D
 device_tracker.care_0760	ibeacon	iBeacon Tracker	DP_2_1_TORNY061592  0760					8063ae90-d8b7-11e6-9598-0800200c9a66_1888_22848_B4:B8:59:40:07:60
 device_tracker.care_0b31	ibeacon	iBeacon Tracker	CARe 0B31					8063ae90-d8b7-11e6-9598-0800200c9a66_2865_22848_B4:B8:59:40:0B:31
-device_tracker.care_0c06	ibeacon	iBeacon Tracker	CARe 0C06					8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06
+device_tracker.care_0c06	ibeacon	iBeacon Tracker	DP_2_0_TOVHT269060  0C06					8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06
 device_tracker.care_118c	ibeacon	iBeacon Tracker	CARe 118C					8063ae90-d8b7-11e6-9598-0800200c9a66_4492_22818_B4:B8:59:22:11:8C
-device_tracker.care_144e	ibeacon	iBeacon Tracker	DP_2_0_TOVHX311313  144E					8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E
+device_tracker.care_144e	ibeacon	iBeacon Tracker	CARe 144E					8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E
 device_tracker.care_1581	ibeacon	iBeacon Tracker	CARe 1581					8063ae90-d8b7-11e6-9598-0800200c9a66_5505_22792_B4:B8:59:08:15:81
 device_tracker.care_163c	ibeacon	iBeacon Tracker	CARe 163C					8063ae90-d8b7-11e6-9598-0800200c9a66_5692_22795_B4:B8:59:0B:16:3C
 device_tracker.care_1ae1	ibeacon	iBeacon Tracker	CARe 1AE1					8063ae90-d8b7-11e6-9598-0800200c9a66_6881_22788_B4:B8:59:04:1A:E1
@@ -318,11 +359,13 @@ device_tracker.care_6a15	ibeacon	iBeacon Tracker	CARe 6A15					8063ae90-d8b7-11e
 device_tracker.care_6bd7	ibeacon	iBeacon Tracker	CARe 6BD7					8063ae90-d8b7-11e6-9598-0800200c9a66_27607_22854_B4:B8:59:46:6B:D7
 device_tracker.care_6d36	ibeacon	iBeacon Tracker	CARe 6D36					8063ae90-d8b7-11e6-9598-0800200c9a66_27958_22842_B4:B8:59:3A:6D:36
 device_tracker.care_6dfc	ibeacon	iBeacon Tracker	CARe 6DFC					8063ae90-d8b7-11e6-9598-0800200c9a66_28156_22796_B4:B8:59:0C:6D:FC
-device_tracker.care_7fec	ibeacon	iBeacon Tracker	CARe 7FEC					8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC
+device_tracker.care_7fec	ibeacon	iBeacon Tracker	DP_2_0_TOVHX287247  7FEC					8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC
 device_tracker.care_86ce	ibeacon	iBeacon Tracker	CARe 86CE					8063ae90-d8b7-11e6-9598-0800200c9a66_34510_22797_B4:B8:59:0D:86:CE
 device_tracker.care_9c9b	ibeacon	iBeacon Tracker	CARe 9C9B					8063ae90-d8b7-11e6-9598-0800200c9a66_40091_22842_B4:B8:59:3A:9C:9B
 device_tracker.care_a4d8	ibeacon	iBeacon Tracker	CARe A4D8					8063ae90-d8b7-11e6-9598-0800200c9a66_42200_22797_B4:B8:59:0D:A4:D8
 device_tracker.care_a557	ibeacon	iBeacon Tracker	DP_2_0_TOVHX334971  A557					8063ae90-d8b7-11e6-9598-0800200c9a66_42327_22797_B4:B8:59:0D:A5:57
+device_tracker.care_a708	ibeacon	iBeacon Tracker	CARe A708					8063ae90-d8b7-11e6-9598-0800200c9a66_42760_22799_B4:B8:59:0F:A7:08
+device_tracker.care_ab7f	ibeacon	iBeacon Tracker	CARe AB7F					8063ae90-d8b7-11e6-9598-0800200c9a66_43903_22796_B4:B8:59:0C:AB:7F
 device_tracker.care_c75d	ibeacon	iBeacon Tracker	CARe C75D					8063ae90-d8b7-11e6-9598-0800200c9a66_51037_22796_B4:B8:59:0C:C7:5D
 device_tracker.care_c8a0	ibeacon	iBeacon Tracker	DP_2_0_TOVHX300480  C8A0					8063ae90-d8b7-11e6-9598-0800200c9a66_51360_22796_B4:B8:59:0C:C8:A0
 device_tracker.care_cdd4	ibeacon	iBeacon Tracker	CARe CDD4					8063ae90-d8b7-11e6-9598-0800200c9a66_52692_22847_B4:B8:59:3F:CD:D4
@@ -332,20 +375,22 @@ device_tracker.care_d910	ibeacon	iBeacon Tracker	CARe D910					8063ae90-d8b7-11e
 device_tracker.care_d9a0	ibeacon	iBeacon Tracker	CARe D9A0					8063ae90-d8b7-11e6-9598-0800200c9a66_55712_22793_B4:B8:59:09:D9:A0
 device_tracker.care_e8b7	ibeacon	iBeacon Tracker	CARe E8B7					8063ae90-d8b7-11e6-9598-0800200c9a66_59575_22844_B4:B8:59:3C:E8:B7
 device_tracker.care_eb38	ibeacon	iBeacon Tracker	CARe EB38					8063ae90-d8b7-11e6-9598-0800200c9a66_60216_22805_B4:B8:59:15:EB:38
+device_tracker.care_ec69	ibeacon	iBeacon Tracker	CARe EC69					8063ae90-d8b7-11e6-9598-0800200c9a66_60521_22840_B4:B8:59:38:EC:69
 device_tracker.care_efaf	ibeacon	iBeacon Tracker	CARe EFAF					8063ae90-d8b7-11e6-9598-0800200c9a66_61359_22820_B4:B8:59:24:EF:AF
 device_tracker.care_f65e	ibeacon	iBeacon Tracker	CARe F65E					8063ae90-d8b7-11e6-9598-0800200c9a66_63070_22789_B4:B8:59:05:F6:5E
 device_tracker.cas6c3e0m6sf607534_7dd7	ibeacon	iBeacon Tracker	CAS6C3E0M6SF607534 7DD7					9f6f7f2b-0809-2ef0-6773-a383936308c7_1_2_00:60:37:78:7D:D7
 device_tracker.cas6c3e0m6sf607534_7dd7_2	ibeacon	iBeacon Tracker	CAS6C3E0M6SF607534 7DD7					2bb47b38-4bc1-99ac-5bac-53ea54600cb0_1_2_00:60:37:78:7D:D7
 device_tracker.domane	tile	tongaimaramba@gmail.com	Domane	Garage				tongaimaramba@gmail.com_93a9f62adee24a79
 device_tracker.dp_2_0_tovht067072_f26b	ibeacon	iBeacon Tracker	DP_2_0_TOVHT067072  F26B					8063ae90-d8b7-11e6-9598-0800200c9a66_62059_22787_B4:B8:59:03:F2:6B
+device_tracker.dp_2_0_tovht110559_bb8a	ibeacon	iBeacon Tracker	DP_2_0_TOVHT110559  BB8A					8063ae90-d8b7-11e6-9598-0800200c9a66_48010_22788_B4:B8:59:04:BB:8A
 device_tracker.dp_2_0_tovhx094489_5d30	ibeacon	iBeacon Tracker	DP_2_0_TOVHX094489  5D30					8063ae90-d8b7-11e6-9598-0800200c9a66_23856_22791_B4:B8:59:07:5D:30
 device_tracker.dp_2_0_tovhx288267_83e7	ibeacon	iBeacon Tracker	DP_2_0_TOVHX288267  83E7					8063ae90-d8b7-11e6-9598-0800200c9a66_33767_22796_B4:B8:59:0C:83:E7
 device_tracker.dp_2_0_tovhx325558_6dd7	ibeacon	iBeacon Tracker	DP_2_0_TOVHX325558  6DD7					8063ae90-d8b7-11e6-9598-0800200c9a66_28119_22797_B4:B8:59:0D:6D:D7
 device_tracker.dp_2_0_tovjt076630_a46b	ibeacon	iBeacon Tracker	CARe A46B					8063ae90-d8b7-11e6-9598-0800200c9a66_42091_22804_B4:B8:59:14:A4:6B
-device_tracker.dp_2_0_tovjt101970_9b35	ibeacon	iBeacon Tracker	CARe 9B35					8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35
+device_tracker.dp_2_0_tovjt101970_9b35	ibeacon	iBeacon Tracker	DP_2_0_TOVJT101970  9B35					8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35
 device_tracker.dp_2_0_tovjt229263_a4a4	ibeacon	iBeacon Tracker	CARe A4A4					8063ae90-d8b7-11e6-9598-0800200c9a66_42148_22812_B4:B8:59:1C:A4:A4
 device_tracker.dp_2_0_tovjx011750_50f2	ibeacon	iBeacon Tracker	DP_2_0_TOVJX011750  50F2					8063ae90-d8b7-11e6-9598-0800200c9a66_20722_22798_B4:B8:59:0E:50:F2
-device_tracker.dp_2_0_tovjx036112_d8f5	ibeacon	iBeacon Tracker	CARe D8F5					8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5
+device_tracker.dp_2_0_tovjx036112_d8f5	ibeacon	iBeacon Tracker	DP_2_0_TOVJX036112  D8F5					8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5
 device_tracker.dp_2_0_tovjx136320_1142	ibeacon	iBeacon Tracker	CARe 1142					8063ae90-d8b7-11e6-9598-0800200c9a66_4418_22801_B4:B8:59:11:11:42
 device_tracker.dp_2_0_tovjx137228_18c2	ibeacon	iBeacon Tracker	DP_2_0_TOVJX137228  18C2					8063ae90-d8b7-11e6-9598-0800200c9a66_6338_22801_B4:B8:59:11:18:C2
 device_tracker.dp_2_0_tovjx207599_a517	ibeacon	iBeacon Tracker	DP_2_0_TOVJX207599  A517					8063ae90-d8b7-11e6-9598-0800200c9a66_42263_22802_B4:B8:59:12:A5:17
@@ -355,7 +400,7 @@ device_tracker.dp_2_0_tovjx359186_b2bf	ibeacon	iBeacon Tracker	CARe B2BF					806
 device_tracker.dp_2_0_tovjx365218_db35	ibeacon	iBeacon Tracker	DP_2_0_TOVJX365218  DB35					8063ae90-d8b7-11e6-9598-0800200c9a66_56117_22806_B4:B8:59:16:DB:35
 device_tracker.dp_2_1_togjy034638_bd61	ibeacon	iBeacon Tracker	DP_2_1_TOGJY034638  BD61					8063ae90-d8b7-11e6-9598-0800200c9a66_48481_22815_B4:B8:59:1F:BD:61
 device_tracker.dp_2_1_togkx173498_4dc7	ibeacon	iBeacon Tracker	CARe 4DC7					8063ae90-d8b7-11e6-9598-0800200c9a66_19911_22822_B4:B8:59:26:4D:C7
-device_tracker.dp_2_1_togkx230125_4054	ibeacon	iBeacon Tracker	CARe 4054					8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54
+device_tracker.dp_2_1_togkx230125_4054	ibeacon	iBeacon Tracker	DP_2_1_TOGKX230125  4054					8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54
 device_tracker.dp_2_1_togkx405536_4902	ibeacon	iBeacon Tracker	DP_2_1_TOGKX405536  4902					8063ae90-d8b7-11e6-9598-0800200c9a66_18690_22831_B4:B8:59:2F:49:02
 device_tracker.dp_2_1_toglx018004_f9f4	ibeacon	iBeacon Tracker	DP_2_1_TOGLX018004  F9F4					8063ae90-d8b7-11e6-9598-0800200c9a66_63988_22831_B4:B8:59:2F:F9:F4
 device_tracker.dp_2_1_tormx054934_63bd	ibeacon	iBeacon Tracker	DP_2_1_TORMX054934  63BD					8063ae90-d8b7-11e6-9598-0800200c9a66_25533_22841_B4:B8:59:39:63:BD
@@ -403,9 +448,12 @@ device_tracker.ims_3179_d4ee	ibeacon	iBeacon Tracker	IMS-3179 D4EE					e08d4118-
 device_tracker.ims_3289_62ca	ibeacon	iBeacon Tracker	IMS-3289 62CA					e08d4118-15d6-11e6-a148-3e1d05defe78_19206_56425_F6:E6:7A:69:62:CA
 device_tracker.ims_4561_cdb0	ibeacon	iBeacon Tracker	IMS-4561 CDB0					e08d4118-15d6-11e6-a148-3e1d05defe78_62570_63233_EC:64:09:14:CD:B0
 device_tracker.ims_5193_1d48	ibeacon	iBeacon Tracker	IMS-5193 1D48					e08d4118-15d6-11e6-a148-3e1d05defe78_48372_19465_D9:8F:7A:83:1D:48
+device_tracker.ims_5484_7042	ibeacon	iBeacon Tracker	IMS-5484 7042					e08d4118-15d6-11e6-a148-3e1d05defe78_40736_38316_F2:F7:45:F1:70:42
 device_tracker.ims_5514_3ea1	ibeacon	iBeacon Tracker	IMS-5514 3EA1					e08d4118-15d6-11e6-a148-3e1d05defe78_42759_58762_D3:40:CB:A3:3E:A1
+device_tracker.ims_6979_7a16	ibeacon	iBeacon Tracker	IMS-6979 7A16					e08d4118-15d6-11e6-a148-3e1d05defe78_32041_3155_FC:5D:8B:6D:7A:16
 device_tracker.ims_7046_0aa3	ibeacon	iBeacon Tracker	IMS-7046 0AA3					e08d4118-15d6-11e6-a148-3e1d05defe78_53246_50614_D6:1C:B4:73:0A:A3
 device_tracker.ims_7658_ae46	ibeacon	iBeacon Tracker	IMS-7658 AE46					e08d4118-15d6-11e6-a148-3e1d05defe78_28717_24010_E5:02:F3:D4:AE:46
+device_tracker.ims_9911_1114	ibeacon	iBeacon Tracker	IMS-9911 1114					e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14
 device_tracker.ipad	mobile_app	iPad	Hanpad		Hanpad			0AB541E1-497F-4057-A2E6-8E3649F446B3
 device_tracker.iphone_32	mobile_app	iPhone (32)	iPhone (32)		iPhone (32)			D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
 device_tracker.leapmotor_digitalkey_6b0c	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 6B0C					feff0000-0000-0000-0000-000000000000_0_0_44:3E:8A:9D:6B:0C
@@ -427,6 +475,7 @@ device_tracker.patio_nmap	nmap_tracker	patio_nmap			patio_nmap			b8:27:eb:e7:09:
 device_tracker.ps2525a0150179_0eaf	ibeacon	iBeacon Tracker	PS2525A0150179 0EAF					2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0E:AF
 device_tracker.ps2525a0255426_0aa5	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5					2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0A:A5
 device_tracker.ps2525a0255426_0aa5_2	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5					2f234454-cf6d-0f09-5053-323532354130_12853_13620_11:89:01:A1:0A:A5
+device_tracker.ps2525a0255426_0aa5_3	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5					2f234454-cf6d-4a0f-adf2-0f0950533235_12853_16688_11:89:01:A1:0A:A5
 device_tracker.ps2525a0369781_086c	ibeacon	iBeacon Tracker	PS2525A0369781 086C					2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:08:6C
 device_tracker.qmhconnect_0399_3966	ibeacon	iBeacon Tracker	QMHConnect-0399 3966					e08d4118-15d6-11e6-a148-3e1d05defe78_17683_2671_E6:1B:45:26:39:66
 device_tracker.qmhconnect_0568_1390	ibeacon	iBeacon Tracker	QMHConnect-0568 1390					e08d4118-15d6-11e6-a148-3e1d05defe78_4488_38488_FF:7B:4D:EB:13:90
@@ -445,6 +494,7 @@ device_tracker.qmhconnect_2909_df98	ibeacon	iBeacon Tracker	QMHConnect-2909 DF98
 device_tracker.qmhconnect_3368_5439	ibeacon	iBeacon Tracker	QMHConnect-3368 5439					e08d4118-15d6-11e6-a148-3e1d05defe78_24660_51624_D6:C3:E6:F1:54:39
 device_tracker.qmhconnect_3544_ebc1	ibeacon	iBeacon Tracker	QMHConnect-3544 EBC1					e08d4118-15d6-11e6-a148-3e1d05defe78_12024_59704_F4:49:CC:A2:EB:C1
 device_tracker.qmhconnect_4287_304d	ibeacon	iBeacon Tracker	QMHConnect-4287 304D					e08d4118-15d6-11e6-a148-3e1d05defe78_28701_7119_EC:3F:CB:7D:30:4D
+device_tracker.qmhconnect_4314_b423	ibeacon	iBeacon Tracker	QMHConnect-4314 B423					e08d4118-15d6-11e6-a148-3e1d05defe78_54694_54042_F7:88:3F:C8:B4:23
 device_tracker.qmhconnect_4361_51fe	ibeacon	iBeacon Tracker	QMHConnect-4361 51FE					e08d4118-15d6-11e6-a148-3e1d05defe78_8002_34889_D4:F9:C4:03:51:FE
 device_tracker.qmhconnect_5074_cfb9	ibeacon	iBeacon Tracker	QMHConnect-5074 CFB9					e08d4118-15d6-11e6-a148-3e1d05defe78_22243_9314_E4:A9:D1:4B:CF:B9
 device_tracker.qmhconnect_5207_f87a	ibeacon	iBeacon Tracker	QMHConnect-5207 F87A					e08d4118-15d6-11e6-a148-3e1d05defe78_25920_17079_EB:CC:F4:31:F8:7A
@@ -465,9 +515,11 @@ device_tracker.qmhconnect_9727_925a	ibeacon	iBeacon Tracker	QMHConnect-9727 925A
 device_tracker.qmhconnect_9983_c72e	ibeacon	iBeacon Tracker	QMHConnect-9983 C72E					e08d4118-15d6-11e6-a148-3e1d05defe78_2279_6623_EF:B6:49:05:C7:2E
 device_tracker.se559a297aaca9e00c_db27	ibeacon	iBeacon Tracker	Se559a297aaca9e00C DB27					74278bda-b644-4520-8f0c-720eaf059935_0_50955_80:C4:1B:92:DB:27
 device_tracker.smartvehicle869_1c7f	ibeacon	iBeacon Tracker	smartVehicle869 1C7F					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:BB:27:53:1C:7F
+device_tracker.smartvehicle869_2d9d	ibeacon	iBeacon Tracker	smartVehicle869 2D9D					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:C7:AF:C7:2D:9D
 device_tracker.smartvehicle869_7e90	ibeacon	iBeacon Tracker	smartVehicle869 7E90					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_5B:8A:D2:98:7E:90
 device_tracker.smartvehicle869_8ccd	ibeacon	iBeacon Tracker	smartVehicle869 8CCD					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_63:1E:1D:0A:8C:CD
 device_tracker.smartvehicle869_f53c	ibeacon	iBeacon Tracker	smartVehicle869 F53C					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6F:9B:2F:FC:F5:3C
+device_tracker.smartvehicle869_fc1c	ibeacon	iBeacon Tracker	smartVehicle869 FC1C					a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_57:68:FA:D0:FC:1C
 device_tracker.spr20_0af9	ibeacon	iBeacon Tracker	SPR20             0AF9					fda50693-a4e2-4fb1-afcf-c6eb07647825_10100_27629_10:15:00:00:0A:F9
 device_tracker.swings_nmap	nmap_tracker	swings_nmap			swings_nmap			b8:27:eb:0a:60:97
 device_tracker.tongai_mbp_2	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2)			8E0FE9E5-9AF1-59F0-99C9-4B38BA45C38D
@@ -479,9 +531,12 @@ device_tracker.tongaism25	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25			dff7a66
 device_tracker.volvo_eva_location	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Location			volvo_yv1xzehr5t2686253_location
 device_tracker.wsbc002015575t_1b05	ibeacon	iBeacon Tracker	WSBC002015575T 1B05					54555242-4f48-4d49-3230-313701000000_55100_13062_D0:66:BD:77:1B:05
 device_tracker.wsbc014415574v_7026	ibeacon	iBeacon Tracker	WSBC014415574V 7026					54555242-4f48-4d49-3230-313701000000_54844_13063_F7:EF:23:EF:70:26
+device_tracker.wsbc014446825x_a1d2	ibeacon	iBeacon Tracker	WSBC014446825X A1D2					54555242-4f48-4d49-3230-313701000000_59830_13063_E1:2B:E0:7F:A1:D2
+device_tracker.wsbc023036094t_6b78	ibeacon	iBeacon Tracker	WSBC023036094T 6B78					54555242-4f48-4d49-3230-313701000000_65164_13062_F0:CA:61:B1:6B:78
 device_tracker.wsbc025073760v_36c0	ibeacon	iBeacon Tracker	WSBC025073760V 36C0					54555242-4f48-4d49-3230-313701000000_45070_13062_D0:A1:98:7A:36:C0
 device_tracker.wsbc025088514v_0bbd	ibeacon	iBeacon Tracker	WSBC025088514V 0BBD					54555242-4f48-4d49-3230-313701000000_16929_13062_D9:0A:33:2E:0B:BD
 device_tracker.wsbc025100240t_b362	ibeacon	iBeacon Tracker	WSBC025100240T B362					54555242-4f48-4d49-3230-313701000000_61440_13062_CB:A1:E8:B9:B3:62
+device_tracker.wsbc025124757s_6d50	ibeacon	iBeacon Tracker	WSBC025124757S 6D50					54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50
 event.audio_button_1	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Button 1			2b3a26ba-ae72-4d6c-b3b0-466698b9181f
 event.backup_automatic_backup	backup	Backup	Backup		Automatic backup			automatic_backup_event
 event.bathroom_dimmer_button_1	hue	Hue Bridge 0017882791a0	Bathroom Dimmer	Bathroom	Button 1			d98c86ba-2ca3-4bea-af01-c2dd38247cab
@@ -539,7 +594,10 @@ input_boolean.audio_switch	input_boolean				audio-switch			audio_switch
 input_boolean.away_on_holiday	input_boolean				away on holiday			just_got_home
 input_boolean.battery_charging_window	input_boolean				Battery Charging Window			battery_charging_window
 input_boolean.bedroom_presence_debug	input_boolean				Bedroom Presence Debug			bedroom_presence_debug
+input_boolean.boiler_alert_enabled	input_boolean				Boiler failure alerts			boiler_alert_enabled
 input_boolean.boiler_anomaly_alert	input_boolean				boiler_anomaly_alert			boiler_anomaly_alert
+input_boolean.climate_health_alert_active	input_boolean				Climate health alert active			climate_health_alert_active
+input_boolean.climate_health_enabled	input_boolean				Climate health alerts			climate_health_enabled
 input_boolean.dawn_lamp	input_boolean				Dawn lamp			dawn_lamp
 input_boolean.device_presence	input_boolean				device_presence			device_presence
 input_boolean.disable_auto_modes	input_boolean				Disable Alarm Auto Modes			just_knocked
@@ -585,6 +643,7 @@ input_number.authentication_time_window	input_number				fp_authentication_time_w
 input_number.battery_max_charge	input_number				Battery Max Charge			battery_max_charge
 input_number.blind_close_duration	input_number				blind_close_duration			blind_close_duration
 input_number.blind_open_duration	input_number				blind_open_duration			blind_open_duration
+input_number.boiler_call_start_temp	input_number				Boiler call start temperature			boiler_call_start_temp
 input_number.daily_event_count	input_number				daily event count			daily_event_count
 input_number.fp_delete_id	input_number				Fingerprint ID to Delete			fp_delete_id
 input_number.fp_enroll_id	input_number				Fingerprint ID (Auto-assigned)			fp_slot_id
@@ -728,6 +787,7 @@ lock.loft_suite_spotlights_lock	lightwave2	tongaimaramba@gmail.com	Loft Suite Sp
 lock.lounge_dim_lock	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632
 lock.lounge_dim_lock_2	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge dim Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633
 lock.main_downlights_lock	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Downlights Lock			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43
+lock.mudiki	smartthings	My home	Mudiki	Hallway		user		744e0f56-d1ce-454b-9c22-cf972ccee78d_main
 lock.switch_276_lock	lightwave2	tongaimaramba@gmail.com	switch 276		switch 276 Lock			5d17143ac42a3075031ca5a8-651404a8349ed709befcfa18
 lock.switch_351_lock	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74
 lock.volvo_eva_lock	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Central lock			volvo_yv1xzehr5t2686253_lock
@@ -1175,16 +1235,36 @@ sensor.bathroom_sink_light_level	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathr
 sensor.bathroom_sink_temperature	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom	Temperature			37d4f944-286f-4c98-9218-c48fe6d1874e
 sensor.bathroom_sink_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom	Zigbee connectivity	integration		a2e0ed31-817c-453e-a27c-2f4576bbb74b
 sensor.bathroom_sink_zigbee_connectivity_2	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom	Zigbee connectivity	integration		a53cf277-38ed-47b3-bc80-9af4d56f35c6
+sensor.bathroom_window_battery	smartthings	My home	Bathroom Window	Kids Bathroom	Battery			54a189c6-b3b9-428c-a515-278d74f401a1_main_battery_battery_battery
+sensor.bathroom_window_temperature	smartthings	My home	Bathroom Window	Kids Bathroom	Temperature			54a189c6-b3b9-428c-a515-278d74f401a1_main_temperatureMeasurement_temperature_temperature
+sensor.bathroom_window_x_coordinate	smartthings	My home	Bathroom Window	Kids Bathroom	X-coordinate			54a189c6-b3b9-428c-a515-278d74f401a1_main_threeAxis_threeAxis_x_coordinate
+sensor.bathroom_window_y_coordinate	smartthings	My home	Bathroom Window	Kids Bathroom	Y-coordinate			54a189c6-b3b9-428c-a515-278d74f401a1_main_threeAxis_threeAxis_y_coordinate
+sensor.bathroom_window_z_coordinate	smartthings	My home	Bathroom Window	Kids Bathroom	Z-coordinate			54a189c6-b3b9-428c-a515-278d74f401a1_main_threeAxis_threeAxis_z_coordinate
 sensor.bathtime	eventsensor	bathtime			bathtime			hue_event_id_bath_heater_event_1000_1_click_1001_1_hold_1002_1_click_up_1003_1_hold_up_2000_2_click_2001_2_hold_2002_2_click_up_2003_2_hold_up_3000_3_click_3001_3_hold_3002_3_click_up_3003_3_hold_up_4000_4_click_4001_4_hold_4002_4_click_up_4003_4_hold_up
 sensor.batteries_battery_level	attributes				Batteries			group_batteries_batteries_battery_level
+sensor.batteries_low	template				Batteries low			climate_health_batteries_low
 sensor.battery_monitor_a130_estimated_distance	ibeacon	iBeacon Tracker	Battery Monitor A130		Estimated distance			655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_estimated_distance
 sensor.battery_monitor_a130_estimated_distance_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Estimated distance			655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_estimated_distance
+sensor.battery_monitor_a130_estimated_distance_3	ibeacon	iBeacon Tracker	Battery Monitor A130		Estimated distance			655f83ca-ae16-a10a-702e-31f30d58dd82_63044_20385_F8:30:02:14:A1:30_estimated_distance
 sensor.battery_monitor_a130_power	ibeacon	iBeacon Tracker	Battery Monitor A130		Power	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_power
 sensor.battery_monitor_a130_power_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Power	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_power
+sensor.battery_monitor_a130_power_3	ibeacon	iBeacon Tracker	Battery Monitor A130		Power	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_20385_F8:30:02:14:A1:30_power
 sensor.battery_monitor_a130_signal_strength	ibeacon	iBeacon Tracker	Battery Monitor A130		Signal strength	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_rssi
 sensor.battery_monitor_a130_signal_strength_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Signal strength	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_rssi
+sensor.battery_monitor_a130_signal_strength_3	ibeacon	iBeacon Tracker	Battery Monitor A130		Signal strength	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_20385_F8:30:02:14:A1:30_rssi
 sensor.battery_monitor_a130_vendor	ibeacon	iBeacon Tracker	Battery Monitor A130		Vendor	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14066_F8:30:02:14:A1:30_vendor
 sensor.battery_monitor_a130_vendor_2	ibeacon	iBeacon Tracker	Battery Monitor A130		Vendor	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_14098_F8:30:02:14:A1:30_vendor
+sensor.battery_monitor_a130_vendor_3	ibeacon	iBeacon Tracker	Battery Monitor A130		Vendor	integration		655f83ca-ae16-a10a-702e-31f30d58dd82_63044_20385_F8:30:02:14:A1:30_vendor
+sensor.bay_party_wall_battery	smartthings	My home	Bay Party Wall	Living Room	Battery			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_battery_battery_battery
+sensor.bay_party_wall_temperature	smartthings	My home	Bay Party Wall	Living Room	Temperature			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_temperatureMeasurement_temperature_temperature
+sensor.bay_party_wall_x_coordinate	smartthings	My home	Bay Party Wall	Living Room	X-coordinate			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_threeAxis_threeAxis_x_coordinate
+sensor.bay_party_wall_y_coordinate	smartthings	My home	Bay Party Wall	Living Room	Y-coordinate			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_threeAxis_threeAxis_y_coordinate
+sensor.bay_party_wall_z_coordinate	smartthings	My home	Bay Party Wall	Living Room	Z-coordinate			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main_threeAxis_threeAxis_z_coordinate
+sensor.bay_window_battery	smartthings	My home	Bay Window	Living Room	Battery			9af80a4d-e520-4fab-95ec-f297b19d9721_main_battery_battery_battery
+sensor.bay_window_temperature	smartthings	My home	Bay Window	Living Room	Temperature			9af80a4d-e520-4fab-95ec-f297b19d9721_main_temperatureMeasurement_temperature_temperature
+sensor.bay_window_x_coordinate	smartthings	My home	Bay Window	Living Room	X-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_x_coordinate
+sensor.bay_window_y_coordinate	smartthings	My home	Bay Window	Living Room	Y-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_y_coordinate
+sensor.bay_window_z_coordinate	smartthings	My home	Bay Window	Living Room	Z-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_z_coordinate
 sensor.bcm4350c0_uart_37_4_mhz_area_last_seen	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Area Last Seen			64:16:66:71:9f:74_area_last_seen
 sensor.bcm4350c0_uart_37_4_mhz_area_switch_diagnostic	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Area Switch Diagnostic	integration		64:16:66:71:9f:74_area_switch_reason
 sensor.bcm4350c0_uart_37_4_mhz_distance_to_kai_proxy	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Distance to kai_proxy			64:16:66:71:9f:74_f4:65:0b:08:8b:88_range
@@ -1274,6 +1354,11 @@ sensor.body_battery_lowest	garmin_connect	tongaimaramba@gmail.com	Garmin Connect
 sensor.body_battery_most_recent	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Most Recent			tongaimaramba@gmail.com_bodyBatteryMostRecentValue
 sensor.body_fat	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Fat	integration		tongaimaramba@gmail.com_bodyFat
 sensor.body_water	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Water	integration		tongaimaramba@gmail.com_bodyWater
+sensor.boiler_temp_battery	smartthings	My home	Boiler Temp	Garage	Battery			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_battery_battery_battery
+sensor.boiler_temp_temperature	smartthings	My home	Boiler Temp	Garage	Temperature			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_temperatureMeasurement_temperature_temperature
+sensor.boiler_temp_x_coordinate	smartthings	My home	Boiler Temp	Garage	X-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_x_coordinate
+sensor.boiler_temp_y_coordinate	smartthings	My home	Boiler Temp	Garage	Y-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_y_coordinate
+sensor.boiler_temp_z_coordinate	smartthings	My home	Boiler Temp	Garage	Z-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_z_coordinate
 sensor.bone_mass	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Bone Mass	integration		tongaimaramba@gmail.com_boneMass
 sensor.bookshelf_lamp_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Loft Bedside Lamp	Study	Zigbee connectivity	integration		bd79950f-72db-48c2-b8bc-ce97a293b02d
 sensor.burned_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Burned KiloCalories			tongaimaramba@gmail.com_burnedKilocalories
@@ -1298,10 +1383,10 @@ sensor.care_03bb_estimated_distance	ibeacon	iBeacon Tracker	CARe 03BB		Estimated
 sensor.care_03bb_power	ibeacon	iBeacon Tracker	CARe 03BB		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_955_22845_B4:B8:59:3D:03:BB_power
 sensor.care_03bb_signal_strength	ibeacon	iBeacon Tracker	CARe 03BB		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_955_22845_B4:B8:59:3D:03:BB_rssi
 sensor.care_03bb_vendor	ibeacon	iBeacon Tracker	CARe 03BB		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_955_22845_B4:B8:59:3D:03:BB_vendor
-sensor.care_0661_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVJX272369  0661		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_estimated_distance
-sensor.care_0661_power	ibeacon	iBeacon Tracker	DP_2_0_TOVJX272369  0661		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_power
-sensor.care_0661_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVJX272369  0661		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_rssi
-sensor.care_0661_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVJX272369  0661		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_vendor
+sensor.care_0661_estimated_distance	ibeacon	iBeacon Tracker	CARe 0661		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_estimated_distance
+sensor.care_0661_power	ibeacon	iBeacon Tracker	CARe 0661		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_power
+sensor.care_0661_signal_strength	ibeacon	iBeacon Tracker	CARe 0661		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_rssi
+sensor.care_0661_vendor	ibeacon	iBeacon Tracker	CARe 0661		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1633_22804_B4:B8:59:14:06:61_vendor
 sensor.care_0704_estimated_distance	ibeacon	iBeacon Tracker	CARe 0704		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_1796_22832_B4:B8:59:30:07:04_estimated_distance
 sensor.care_0704_power	ibeacon	iBeacon Tracker	CARe 0704		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1796_22832_B4:B8:59:30:07:04_power
 sensor.care_0704_signal_strength	ibeacon	iBeacon Tracker	CARe 0704		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_1796_22832_B4:B8:59:30:07:04_rssi
@@ -1318,18 +1403,18 @@ sensor.care_0b31_estimated_distance	ibeacon	iBeacon Tracker	CARe 0B31		Estimated
 sensor.care_0b31_power	ibeacon	iBeacon Tracker	CARe 0B31		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_2865_22848_B4:B8:59:40:0B:31_power
 sensor.care_0b31_signal_strength	ibeacon	iBeacon Tracker	CARe 0B31		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_2865_22848_B4:B8:59:40:0B:31_rssi
 sensor.care_0b31_vendor	ibeacon	iBeacon Tracker	CARe 0B31		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_2865_22848_B4:B8:59:40:0B:31_vendor
-sensor.care_0c06_estimated_distance	ibeacon	iBeacon Tracker	CARe 0C06		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_estimated_distance
-sensor.care_0c06_power	ibeacon	iBeacon Tracker	CARe 0C06		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_power
-sensor.care_0c06_signal_strength	ibeacon	iBeacon Tracker	CARe 0C06		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_rssi
-sensor.care_0c06_vendor	ibeacon	iBeacon Tracker	CARe 0C06		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_vendor
+sensor.care_0c06_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHT269060  0C06		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_estimated_distance
+sensor.care_0c06_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHT269060  0C06		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_power
+sensor.care_0c06_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHT269060  0C06		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_rssi
+sensor.care_0c06_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHT269060  0C06		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_3078_22796_B4:B8:59:0C:0C:06_vendor
 sensor.care_118c_estimated_distance	ibeacon	iBeacon Tracker	CARe 118C		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_4492_22818_B4:B8:59:22:11:8C_estimated_distance
 sensor.care_118c_power	ibeacon	iBeacon Tracker	CARe 118C		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_4492_22818_B4:B8:59:22:11:8C_power
 sensor.care_118c_signal_strength	ibeacon	iBeacon Tracker	CARe 118C		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_4492_22818_B4:B8:59:22:11:8C_rssi
 sensor.care_118c_vendor	ibeacon	iBeacon Tracker	CARe 118C		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_4492_22818_B4:B8:59:22:11:8C_vendor
-sensor.care_144e_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHX311313  144E		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_estimated_distance
-sensor.care_144e_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHX311313  144E		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_power
-sensor.care_144e_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHX311313  144E		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_rssi
-sensor.care_144e_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHX311313  144E		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_vendor
+sensor.care_144e_estimated_distance	ibeacon	iBeacon Tracker	CARe 144E		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_estimated_distance
+sensor.care_144e_power	ibeacon	iBeacon Tracker	CARe 144E		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_power
+sensor.care_144e_signal_strength	ibeacon	iBeacon Tracker	CARe 144E		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_rssi
+sensor.care_144e_vendor	ibeacon	iBeacon Tracker	CARe 144E		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5198_22797_B4:B8:59:0D:14:4E_vendor
 sensor.care_1581_estimated_distance	ibeacon	iBeacon Tracker	CARe 1581		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_5505_22792_B4:B8:59:08:15:81_estimated_distance
 sensor.care_1581_power	ibeacon	iBeacon Tracker	CARe 1581		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5505_22792_B4:B8:59:08:15:81_power
 sensor.care_1581_signal_strength	ibeacon	iBeacon Tracker	CARe 1581		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_5505_22792_B4:B8:59:08:15:81_rssi
@@ -1406,10 +1491,10 @@ sensor.care_6dfc_estimated_distance	ibeacon	iBeacon Tracker	CARe 6DFC		Estimated
 sensor.care_6dfc_power	ibeacon	iBeacon Tracker	CARe 6DFC		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_28156_22796_B4:B8:59:0C:6D:FC_power
 sensor.care_6dfc_signal_strength	ibeacon	iBeacon Tracker	CARe 6DFC		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_28156_22796_B4:B8:59:0C:6D:FC_rssi
 sensor.care_6dfc_vendor	ibeacon	iBeacon Tracker	CARe 6DFC		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_28156_22796_B4:B8:59:0C:6D:FC_vendor
-sensor.care_7fec_estimated_distance	ibeacon	iBeacon Tracker	CARe 7FEC		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_estimated_distance
-sensor.care_7fec_power	ibeacon	iBeacon Tracker	CARe 7FEC		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_power
-sensor.care_7fec_signal_strength	ibeacon	iBeacon Tracker	CARe 7FEC		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_rssi
-sensor.care_7fec_vendor	ibeacon	iBeacon Tracker	CARe 7FEC		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_vendor
+sensor.care_7fec_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHX287247  7FEC		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_estimated_distance
+sensor.care_7fec_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHX287247  7FEC		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_power
+sensor.care_7fec_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHX287247  7FEC		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_rssi
+sensor.care_7fec_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHX287247  7FEC		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_32748_22796_B4:B8:59:0C:7F:EC_vendor
 sensor.care_86ce_estimated_distance	ibeacon	iBeacon Tracker	CARe 86CE		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_34510_22797_B4:B8:59:0D:86:CE_estimated_distance
 sensor.care_86ce_power	ibeacon	iBeacon Tracker	CARe 86CE		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_34510_22797_B4:B8:59:0D:86:CE_power
 sensor.care_86ce_signal_strength	ibeacon	iBeacon Tracker	CARe 86CE		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_34510_22797_B4:B8:59:0D:86:CE_rssi
@@ -1426,6 +1511,14 @@ sensor.care_a557_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHX334971  
 sensor.care_a557_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHX334971  A557		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42327_22797_B4:B8:59:0D:A5:57_power
 sensor.care_a557_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHX334971  A557		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42327_22797_B4:B8:59:0D:A5:57_rssi
 sensor.care_a557_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHX334971  A557		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42327_22797_B4:B8:59:0D:A5:57_vendor
+sensor.care_a708_estimated_distance	ibeacon	iBeacon Tracker	CARe A708		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_42760_22799_B4:B8:59:0F:A7:08_estimated_distance
+sensor.care_a708_power	ibeacon	iBeacon Tracker	CARe A708		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42760_22799_B4:B8:59:0F:A7:08_power
+sensor.care_a708_signal_strength	ibeacon	iBeacon Tracker	CARe A708		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42760_22799_B4:B8:59:0F:A7:08_rssi
+sensor.care_a708_vendor	ibeacon	iBeacon Tracker	CARe A708		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42760_22799_B4:B8:59:0F:A7:08_vendor
+sensor.care_ab7f_estimated_distance	ibeacon	iBeacon Tracker	CARe AB7F		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_43903_22796_B4:B8:59:0C:AB:7F_estimated_distance
+sensor.care_ab7f_power	ibeacon	iBeacon Tracker	CARe AB7F		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_43903_22796_B4:B8:59:0C:AB:7F_power
+sensor.care_ab7f_signal_strength	ibeacon	iBeacon Tracker	CARe AB7F		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_43903_22796_B4:B8:59:0C:AB:7F_rssi
+sensor.care_ab7f_vendor	ibeacon	iBeacon Tracker	CARe AB7F		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_43903_22796_B4:B8:59:0C:AB:7F_vendor
 sensor.care_c75d_estimated_distance	ibeacon	iBeacon Tracker	CARe C75D		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_51037_22796_B4:B8:59:0C:C7:5D_estimated_distance
 sensor.care_c75d_power	ibeacon	iBeacon Tracker	CARe C75D		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_51037_22796_B4:B8:59:0C:C7:5D_power
 sensor.care_c75d_signal_strength	ibeacon	iBeacon Tracker	CARe C75D		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_51037_22796_B4:B8:59:0C:C7:5D_rssi
@@ -1462,6 +1555,10 @@ sensor.care_eb38_estimated_distance	ibeacon	iBeacon Tracker	CARe EB38		Estimated
 sensor.care_eb38_power	ibeacon	iBeacon Tracker	CARe EB38		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60216_22805_B4:B8:59:15:EB:38_power
 sensor.care_eb38_signal_strength	ibeacon	iBeacon Tracker	CARe EB38		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60216_22805_B4:B8:59:15:EB:38_rssi
 sensor.care_eb38_vendor	ibeacon	iBeacon Tracker	CARe EB38		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60216_22805_B4:B8:59:15:EB:38_vendor
+sensor.care_ec69_estimated_distance	ibeacon	iBeacon Tracker	CARe EC69		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_60521_22840_B4:B8:59:38:EC:69_estimated_distance
+sensor.care_ec69_power	ibeacon	iBeacon Tracker	CARe EC69		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60521_22840_B4:B8:59:38:EC:69_power
+sensor.care_ec69_signal_strength	ibeacon	iBeacon Tracker	CARe EC69		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60521_22840_B4:B8:59:38:EC:69_rssi
+sensor.care_ec69_vendor	ibeacon	iBeacon Tracker	CARe EC69		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_60521_22840_B4:B8:59:38:EC:69_vendor
 sensor.care_efaf_estimated_distance	ibeacon	iBeacon Tracker	CARe EFAF		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_61359_22820_B4:B8:59:24:EF:AF_estimated_distance
 sensor.care_efaf_power	ibeacon	iBeacon Tracker	CARe EFAF		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_61359_22820_B4:B8:59:24:EF:AF_power
 sensor.care_efaf_signal_strength	ibeacon	iBeacon Tracker	CARe EFAF		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_61359_22820_B4:B8:59:24:EF:AF_rssi
@@ -1479,6 +1576,7 @@ sensor.cas6c3e0m6sf607534_7dd7_signal_strength_2	ibeacon	iBeacon Tracker	CAS6C3E
 sensor.cas6c3e0m6sf607534_7dd7_vendor	ibeacon	iBeacon Tracker	CAS6C3E0M6SF607534 7DD7		Vendor	integration		9f6f7f2b-0809-2ef0-6773-a383936308c7_1_2_00:60:37:78:7D:D7_vendor
 sensor.cas6c3e0m6sf607534_7dd7_vendor_2	ibeacon	iBeacon Tracker	CAS6C3E0M6SF607534 7DD7		Vendor	integration		2bb47b38-4bc1-99ac-5bac-53ea54600cb0_1_2_00:60:37:78:7D:D7_vendor
 sensor.cert_expiry_timestamp_192_168_179_41_8123	cert_expiry	192.168.179.41:8123	192.168.179.41:8123		Cert expiry			192.168.179.41:8123-timestamp
+sensor.climate_devices_unavailable	template				Climate devices unavailable			climate_health_devices_unavailable
 sensor.cloudflared_cpu_percent	hassio	Supervisor	Cloudflared		CPU percent	integration		9074a9fa_cloudflared_cpu_percent
 sensor.cloudflared_memory_percent	hassio	Supervisor	Cloudflared		Memory percent	integration		9074a9fa_cloudflared_memory_percent
 sensor.cloudflared_newest_version	hassio	Supervisor	Cloudflared		Newest version	integration		9074a9fa_cloudflared_version_latest
@@ -1491,6 +1589,7 @@ sensor.coats_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Coats	Hallway	Zigbe
 sensor.coats_zigbee_connectivity_2	hue	Hue Bridge 0017882791a0	Coats	Hallway	Zigbee connectivity	integration		6e69e53c-94ac-45a1-bfe2-677c61edca53
 sensor.consumed_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Consumed KiloCalories	integration		tongaimaramba@gmail.com_consumedKilocalories
 sensor.daily_step_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Daily Step Goal			tongaimaramba@gmail.com_dailyStepGoal
+sensor.devices_silent	template				Devices silent			climate_health_devices_silent
 sensor.domane	places	Domane			domane			39f987824bcbeb5fb52c6298b39f17ed
 sensor.domane_2	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Domane			tongaimaramba@gmail.com_4c2da3c5b9db494fae4ac75c9998f3db
 sensor.domane_phone	template	domane-phone			domane-phone			beb242e4857e47fcd043cbcadff46069
@@ -1506,6 +1605,10 @@ sensor.dp_2_0_tovht067072_f26b_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0
 sensor.dp_2_0_tovht067072_f26b_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHT067072  F26B		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_62059_22787_B4:B8:59:03:F2:6B_power
 sensor.dp_2_0_tovht067072_f26b_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHT067072  F26B		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_62059_22787_B4:B8:59:03:F2:6B_rssi
 sensor.dp_2_0_tovht067072_f26b_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHT067072  F26B		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_62059_22787_B4:B8:59:03:F2:6B_vendor
+sensor.dp_2_0_tovht110559_bb8a_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHT110559  BB8A		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_48010_22788_B4:B8:59:04:BB:8A_estimated_distance
+sensor.dp_2_0_tovht110559_bb8a_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHT110559  BB8A		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_48010_22788_B4:B8:59:04:BB:8A_power
+sensor.dp_2_0_tovht110559_bb8a_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHT110559  BB8A		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_48010_22788_B4:B8:59:04:BB:8A_rssi
+sensor.dp_2_0_tovht110559_bb8a_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHT110559  BB8A		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_48010_22788_B4:B8:59:04:BB:8A_vendor
 sensor.dp_2_0_tovhx094489_5d30_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHX094489  5D30		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_23856_22791_B4:B8:59:07:5D:30_estimated_distance
 sensor.dp_2_0_tovhx094489_5d30_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHX094489  5D30		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_23856_22791_B4:B8:59:07:5D:30_power
 sensor.dp_2_0_tovhx094489_5d30_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHX094489  5D30		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_23856_22791_B4:B8:59:07:5D:30_rssi
@@ -1522,10 +1625,10 @@ sensor.dp_2_0_tovjt076630_a46b_estimated_distance	ibeacon	iBeacon Tracker	CARe A
 sensor.dp_2_0_tovjt076630_a46b_power	ibeacon	iBeacon Tracker	CARe A46B		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42091_22804_B4:B8:59:14:A4:6B_power
 sensor.dp_2_0_tovjt076630_a46b_signal_strength	ibeacon	iBeacon Tracker	CARe A46B		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42091_22804_B4:B8:59:14:A4:6B_rssi
 sensor.dp_2_0_tovjt076630_a46b_vendor	ibeacon	iBeacon Tracker	CARe A46B		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42091_22804_B4:B8:59:14:A4:6B_vendor
-sensor.dp_2_0_tovjt101970_9b35_estimated_distance	ibeacon	iBeacon Tracker	CARe 9B35		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_estimated_distance
-sensor.dp_2_0_tovjt101970_9b35_power	ibeacon	iBeacon Tracker	CARe 9B35		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_power
-sensor.dp_2_0_tovjt101970_9b35_signal_strength	ibeacon	iBeacon Tracker	CARe 9B35		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_rssi
-sensor.dp_2_0_tovjt101970_9b35_vendor	ibeacon	iBeacon Tracker	CARe 9B35		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_vendor
+sensor.dp_2_0_tovjt101970_9b35_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVJT101970  9B35		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_estimated_distance
+sensor.dp_2_0_tovjt101970_9b35_power	ibeacon	iBeacon Tracker	DP_2_0_TOVJT101970  9B35		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_power
+sensor.dp_2_0_tovjt101970_9b35_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVJT101970  9B35		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_rssi
+sensor.dp_2_0_tovjt101970_9b35_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVJT101970  9B35		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_39733_22806_B4:B8:59:16:9B:35_vendor
 sensor.dp_2_0_tovjt229263_a4a4_estimated_distance	ibeacon	iBeacon Tracker	CARe A4A4		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_42148_22812_B4:B8:59:1C:A4:A4_estimated_distance
 sensor.dp_2_0_tovjt229263_a4a4_power	ibeacon	iBeacon Tracker	CARe A4A4		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42148_22812_B4:B8:59:1C:A4:A4_power
 sensor.dp_2_0_tovjt229263_a4a4_signal_strength	ibeacon	iBeacon Tracker	CARe A4A4		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_42148_22812_B4:B8:59:1C:A4:A4_rssi
@@ -1534,10 +1637,10 @@ sensor.dp_2_0_tovjx011750_50f2_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0
 sensor.dp_2_0_tovjx011750_50f2_power	ibeacon	iBeacon Tracker	DP_2_0_TOVJX011750  50F2		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20722_22798_B4:B8:59:0E:50:F2_power
 sensor.dp_2_0_tovjx011750_50f2_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVJX011750  50F2		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20722_22798_B4:B8:59:0E:50:F2_rssi
 sensor.dp_2_0_tovjx011750_50f2_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVJX011750  50F2		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_20722_22798_B4:B8:59:0E:50:F2_vendor
-sensor.dp_2_0_tovjx036112_d8f5_estimated_distance	ibeacon	iBeacon Tracker	CARe D8F5		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_estimated_distance
-sensor.dp_2_0_tovjx036112_d8f5_power	ibeacon	iBeacon Tracker	CARe D8F5		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_power
-sensor.dp_2_0_tovjx036112_d8f5_signal_strength	ibeacon	iBeacon Tracker	CARe D8F5		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_rssi
-sensor.dp_2_0_tovjx036112_d8f5_vendor	ibeacon	iBeacon Tracker	CARe D8F5		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_vendor
+sensor.dp_2_0_tovjx036112_d8f5_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVJX036112  D8F5		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_estimated_distance
+sensor.dp_2_0_tovjx036112_d8f5_power	ibeacon	iBeacon Tracker	DP_2_0_TOVJX036112  D8F5		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_power
+sensor.dp_2_0_tovjx036112_d8f5_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVJX036112  D8F5		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_rssi
+sensor.dp_2_0_tovjx036112_d8f5_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVJX036112  D8F5		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_55541_22798_B4:B8:59:0E:D8:F5_vendor
 sensor.dp_2_0_tovjx136320_1142_estimated_distance	ibeacon	iBeacon Tracker	CARe 1142		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_4418_22801_B4:B8:59:11:11:42_estimated_distance
 sensor.dp_2_0_tovjx136320_1142_power	ibeacon	iBeacon Tracker	CARe 1142		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_4418_22801_B4:B8:59:11:11:42_power
 sensor.dp_2_0_tovjx136320_1142_signal_strength	ibeacon	iBeacon Tracker	CARe 1142		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_4418_22801_B4:B8:59:11:11:42_rssi
@@ -1574,10 +1677,10 @@ sensor.dp_2_1_togkx173498_4dc7_estimated_distance	ibeacon	iBeacon Tracker	CARe 4
 sensor.dp_2_1_togkx173498_4dc7_power	ibeacon	iBeacon Tracker	CARe 4DC7		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19911_22822_B4:B8:59:26:4D:C7_power
 sensor.dp_2_1_togkx173498_4dc7_signal_strength	ibeacon	iBeacon Tracker	CARe 4DC7		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19911_22822_B4:B8:59:26:4D:C7_rssi
 sensor.dp_2_1_togkx173498_4dc7_vendor	ibeacon	iBeacon Tracker	CARe 4DC7		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_19911_22822_B4:B8:59:26:4D:C7_vendor
-sensor.dp_2_1_togkx230125_4054_estimated_distance	ibeacon	iBeacon Tracker	CARe 4054		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_estimated_distance
-sensor.dp_2_1_togkx230125_4054_power	ibeacon	iBeacon Tracker	CARe 4054		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_power
-sensor.dp_2_1_togkx230125_4054_signal_strength	ibeacon	iBeacon Tracker	CARe 4054		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_rssi
-sensor.dp_2_1_togkx230125_4054_vendor	ibeacon	iBeacon Tracker	CARe 4054		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_vendor
+sensor.dp_2_1_togkx230125_4054_estimated_distance	ibeacon	iBeacon Tracker	DP_2_1_TOGKX230125  4054		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_estimated_distance
+sensor.dp_2_1_togkx230125_4054_power	ibeacon	iBeacon Tracker	DP_2_1_TOGKX230125  4054		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_power
+sensor.dp_2_1_togkx230125_4054_signal_strength	ibeacon	iBeacon Tracker	DP_2_1_TOGKX230125  4054		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_rssi
+sensor.dp_2_1_togkx230125_4054_vendor	ibeacon	iBeacon Tracker	DP_2_1_TOGKX230125  4054		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16468_22825_B4:B8:59:29:40:54_vendor
 sensor.dp_2_1_togkx405536_4902_estimated_distance	ibeacon	iBeacon Tracker	DP_2_1_TOGKX405536  4902		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_18690_22831_B4:B8:59:2F:49:02_estimated_distance
 sensor.dp_2_1_togkx405536_4902_power	ibeacon	iBeacon Tracker	DP_2_1_TOGKX405536  4902		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_18690_22831_B4:B8:59:2F:49:02_power
 sensor.dp_2_1_togkx405536_4902_signal_strength	ibeacon	iBeacon Tracker	DP_2_1_TOGKX405536  4902		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_18690_22831_B4:B8:59:2F:49:02_rssi
@@ -1660,6 +1763,16 @@ sensor.ellie_school_bag_distance_to_zane_proxy	bermuda	Bermuda BLE Trilateration
 sensor.ellie_school_bag_nearest_rssi	bermuda	Bermuda BLE Trilateration	Ellie School Bag	Home General	Nearest RSSI			d2:de:e0:31:bf:d7_rssi
 sensor.ellie_school_bag_nearest_scanner	bermuda	Bermuda BLE Trilateration	Ellie School Bag	Home General	Nearest Scanner			d2:de:e0:31:bf:d7_scanner
 sensor.ellie_school_bag_unfiltered_distance_to_loft_controller	bermuda	Bermuda BLE Trilateration	Ellie School Bag	Home General	Unfiltered Distance to Loft Controller	integration		d2:de:e0:31:bf:d7_f4:65:0b:07:ab:34_range_raw
+sensor.ellie_window_battery	smartthings	My home	Ellie Window	Ellie	Battery			85663cb9-cccb-4637-8eac-6b0af998e502_main_battery_battery_battery
+sensor.ellie_window_party_battery	smartthings	My home	Ellie Window Party	Ellie	Battery			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_battery_battery_battery
+sensor.ellie_window_party_temperature	smartthings	My home	Ellie Window Party	Ellie	Temperature			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_temperatureMeasurement_temperature_temperature
+sensor.ellie_window_party_x_coordinate	smartthings	My home	Ellie Window Party	Ellie	X-coordinate			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_threeAxis_threeAxis_x_coordinate
+sensor.ellie_window_party_y_coordinate	smartthings	My home	Ellie Window Party	Ellie	Y-coordinate			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_threeAxis_threeAxis_y_coordinate
+sensor.ellie_window_party_z_coordinate	smartthings	My home	Ellie Window Party	Ellie	Z-coordinate			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_threeAxis_threeAxis_z_coordinate
+sensor.ellie_window_temperature	smartthings	My home	Ellie Window	Ellie	Temperature			85663cb9-cccb-4637-8eac-6b0af998e502_main_temperatureMeasurement_temperature_temperature
+sensor.ellie_window_x_coordinate	smartthings	My home	Ellie Window	Ellie	X-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_x_coordinate
+sensor.ellie_window_y_coordinate	smartthings	My home	Ellie Window	Ellie	Y-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_y_coordinate
+sensor.ellie_window_z_coordinate	smartthings	My home	Ellie Window	Ellie	Z-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_z_coordinate
 sensor.esphome_device_builder_cpu_percent	hassio	Supervisor	ESPHome Device Builder		CPU percent	integration		5c53de3b_esphome_cpu_percent
 sensor.esphome_device_builder_memory_percent	hassio	Supervisor	ESPHome Device Builder		Memory percent	integration		5c53de3b_esphome_memory_percent
 sensor.esphome_device_builder_newest_version	hassio	Supervisor	ESPHome Device Builder		Newest version	integration		5c53de3b_esphome_version_latest
@@ -1719,6 +1832,31 @@ sensor.fp_fingerprint_metadata_part_2	esphome	c3	Fingerprint Authoriser	Garage	F
 sensor.fp_fingerprint_metadata_part_3	esphome	c3	Fingerprint Authoriser	Garage	Fingerprint Metadata Part 3			D8:3B:DA:73:D9:F4-text_sensor-fingerprint_metadata_part_3
 sensor.fp_fp_capacity	esphome	c3	Fingerprint Authoriser	Garage	FP Capacity			D8:3B:DA:73:D9:F4-sensor-fp_capacity
 sensor.fp_fp_device_status	esphome	c3	Fingerprint Authoriser	Garage	FP Device Status			D8:3B:DA:73:D9:F4-sensor-fp_device_status
+sensor.front_battery	smartthings	My home	Front	Hallway	Battery			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_battery_battery_battery
+sensor.front_doorstep_battery	smartthings	My home	Front Doorstep	Hallway	Battery			63f52bf8-6915-467a-a199-c5ece8c50de1_main_battery_battery_battery
+sensor.front_doorstep_temperature	smartthings	My home	Front Doorstep	Hallway	Temperature			63f52bf8-6915-467a-a199-c5ece8c50de1_main_temperatureMeasurement_temperature_temperature
+sensor.front_doorstep_x_coordinate	smartthings	My home	Front Doorstep	Hallway	X-coordinate			63f52bf8-6915-467a-a199-c5ece8c50de1_main_threeAxis_threeAxis_x_coordinate
+sensor.front_doorstep_y_coordinate	smartthings	My home	Front Doorstep	Hallway	Y-coordinate			63f52bf8-6915-467a-a199-c5ece8c50de1_main_threeAxis_threeAxis_y_coordinate
+sensor.front_doorstep_z_coordinate	smartthings	My home	Front Doorstep	Hallway	Z-coordinate			63f52bf8-6915-467a-a199-c5ece8c50de1_main_threeAxis_threeAxis_z_coordinate
+sensor.front_temperature	smartthings	My home	Front	Hallway	Temperature			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_temperatureMeasurement_temperature_temperature
+sensor.front_x_coordinate	smartthings	My home	Front	Hallway	X-coordinate			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_threeAxis_threeAxis_x_coordinate
+sensor.front_y_coordinate	smartthings	My home	Front	Hallway	Y-coordinate			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_threeAxis_threeAxis_y_coordinate
+sensor.front_z_coordinate	smartthings	My home	Front	Hallway	Z-coordinate			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_threeAxis_threeAxis_z_coordinate
+sensor.garage_doorstep_battery	smartthings	My home	Garage Doorstep	Garage	Battery			6285b535-9737-45e6-9361-e4a71ce7f387_main_battery_battery_battery
+sensor.garage_doorstep_temperature	smartthings	My home	Garage Doorstep	Garage	Temperature			6285b535-9737-45e6-9361-e4a71ce7f387_main_temperatureMeasurement_temperature_temperature
+sensor.garage_doorstep_x_coordinate	smartthings	My home	Garage Doorstep	Garage	X-coordinate			6285b535-9737-45e6-9361-e4a71ce7f387_main_threeAxis_threeAxis_x_coordinate
+sensor.garage_doorstep_y_coordinate	smartthings	My home	Garage Doorstep	Garage	Y-coordinate			6285b535-9737-45e6-9361-e4a71ce7f387_main_threeAxis_threeAxis_y_coordinate
+sensor.garage_doorstep_z_coordinate	smartthings	My home	Garage Doorstep	Garage	Z-coordinate			6285b535-9737-45e6-9361-e4a71ce7f387_main_threeAxis_threeAxis_z_coordinate
+sensor.garage_out_battery	smartthings	My home	Garage - out	Garage	Battery			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_battery_battery_battery
+sensor.garage_out_temperature	smartthings	My home	Garage - out	Garage	Temperature			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_temperatureMeasurement_temperature_temperature
+sensor.garage_out_x_coordinate	smartthings	My home	Garage - out	Garage	X-coordinate			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_threeAxis_threeAxis_x_coordinate
+sensor.garage_out_y_coordinate	smartthings	My home	Garage - out	Garage	Y-coordinate			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_threeAxis_threeAxis_y_coordinate
+sensor.garage_out_z_coordinate	smartthings	My home	Garage - out	Garage	Z-coordinate			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main_threeAxis_threeAxis_z_coordinate
+sensor.garage_utility_door_battery	smartthings	My home	Garage Utility Door	Loft	Battery			bfbccace-0438-4d40-8506-28f0e5439eda_main_battery_battery_battery
+sensor.garage_utility_door_temperature	smartthings	My home	Garage Utility Door	Loft	Temperature			bfbccace-0438-4d40-8506-28f0e5439eda_main_temperatureMeasurement_temperature_temperature
+sensor.garage_utility_door_x_coordinate	smartthings	My home	Garage Utility Door	Loft	X-coordinate			bfbccace-0438-4d40-8506-28f0e5439eda_main_threeAxis_threeAxis_x_coordinate
+sensor.garage_utility_door_y_coordinate	smartthings	My home	Garage Utility Door	Loft	Y-coordinate			bfbccace-0438-4d40-8506-28f0e5439eda_main_threeAxis_threeAxis_y_coordinate
+sensor.garage_utility_door_z_coordinate	smartthings	My home	Garage Utility Door	Loft	Z-coordinate			bfbccace-0438-4d40-8506-28f0e5439eda_main_threeAxis_threeAxis_z_coordinate
 sensor.garmin_device_activity	mobile_app	Garmin Device	Garmin Device		Garmin Device Activity	integration		af61dee633a644bcf6ee5f21817c868ed00087e3c55f771699f5b1eea217c3e2_activity
 sensor.garmin_device_battery_level	mobile_app	Garmin Device	Garmin Device		Garmin Device Battery Level	integration		af61dee633a644bcf6ee5f21817c868ed00087e3c55f771699f5b1eea217c3e2_battery_level
 sensor.garmin_device_floors_climbed_today	mobile_app	Garmin Device	Garmin Device		Garmin Device Floors climbed today	integration		af61dee633a644bcf6ee5f21817c868ed00087e3c55f771699f5b1eea217c3e2_floors_climbed_today
@@ -1761,6 +1899,11 @@ sensor.growatt_sph_pv_voltage_2	mqtt	Mosquitto broker	Growatt SPH		PV voltage 2	
 sensor.growatt_sph_response	mqtt	Mosquitto broker	Growatt SPH		Response			solar_assistant_set
 sensor.growatt_sph_serial_number	mqtt	Mosquitto broker	Growatt SPH		Serial number			inverter_1_serial_number
 sensor.growatt_sph_temperature	mqtt	Mosquitto broker	Growatt SPH		Temperature			inverter_1_temperature
+sensor.guest_win_battery	smartthings	My home	Guest Win	Study	Battery			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_battery_battery_battery
+sensor.guest_win_temperature	smartthings	My home	Guest Win	Study	Temperature			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_temperatureMeasurement_temperature_temperature
+sensor.guest_win_x_coordinate	smartthings	My home	Guest Win	Study	X-coordinate			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_threeAxis_threeAxis_x_coordinate
+sensor.guest_win_y_coordinate	smartthings	My home	Guest Win	Study	Y-coordinate			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_threeAxis_threeAxis_y_coordinate
+sensor.guest_win_z_coordinate	smartthings	My home	Guest Win	Study	Z-coordinate			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_threeAxis_threeAxis_z_coordinate
 sensor.gvh5075_194e_estimated_distance	ibeacon	iBeacon Tracker	GVH5075_194E		Estimated distance			494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:43:19:4E_estimated_distance
 sensor.gvh5075_194e_power	ibeacon	iBeacon Tracker	GVH5075_194E		Power	integration		494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:43:19:4E_power
 sensor.gvh5075_194e_signal_strength	ibeacon	iBeacon Tracker	GVH5075_194E		Signal strength	integration		494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:43:19:4E_rssi
@@ -1931,10 +2074,18 @@ sensor.ims_5193_1d48_estimated_distance	ibeacon	iBeacon Tracker	IMS-5193 1D48		E
 sensor.ims_5193_1d48_power	ibeacon	iBeacon Tracker	IMS-5193 1D48		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_48372_19465_D9:8F:7A:83:1D:48_power
 sensor.ims_5193_1d48_signal_strength	ibeacon	iBeacon Tracker	IMS-5193 1D48		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_48372_19465_D9:8F:7A:83:1D:48_rssi
 sensor.ims_5193_1d48_vendor	ibeacon	iBeacon Tracker	IMS-5193 1D48		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_48372_19465_D9:8F:7A:83:1D:48_vendor
+sensor.ims_5484_7042_estimated_distance	ibeacon	iBeacon Tracker	IMS-5484 7042		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_40736_38316_F2:F7:45:F1:70:42_estimated_distance
+sensor.ims_5484_7042_power	ibeacon	iBeacon Tracker	IMS-5484 7042		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_40736_38316_F2:F7:45:F1:70:42_power
+sensor.ims_5484_7042_signal_strength	ibeacon	iBeacon Tracker	IMS-5484 7042		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_40736_38316_F2:F7:45:F1:70:42_rssi
+sensor.ims_5484_7042_vendor	ibeacon	iBeacon Tracker	IMS-5484 7042		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_40736_38316_F2:F7:45:F1:70:42_vendor
 sensor.ims_5514_3ea1_estimated_distance	ibeacon	iBeacon Tracker	IMS-5514 3EA1		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_42759_58762_D3:40:CB:A3:3E:A1_estimated_distance
 sensor.ims_5514_3ea1_power	ibeacon	iBeacon Tracker	IMS-5514 3EA1		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_42759_58762_D3:40:CB:A3:3E:A1_power
 sensor.ims_5514_3ea1_signal_strength	ibeacon	iBeacon Tracker	IMS-5514 3EA1		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_42759_58762_D3:40:CB:A3:3E:A1_rssi
 sensor.ims_5514_3ea1_vendor	ibeacon	iBeacon Tracker	IMS-5514 3EA1		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_42759_58762_D3:40:CB:A3:3E:A1_vendor
+sensor.ims_6979_7a16_estimated_distance	ibeacon	iBeacon Tracker	IMS-6979 7A16		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_32041_3155_FC:5D:8B:6D:7A:16_estimated_distance
+sensor.ims_6979_7a16_power	ibeacon	iBeacon Tracker	IMS-6979 7A16		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_32041_3155_FC:5D:8B:6D:7A:16_power
+sensor.ims_6979_7a16_signal_strength	ibeacon	iBeacon Tracker	IMS-6979 7A16		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_32041_3155_FC:5D:8B:6D:7A:16_rssi
+sensor.ims_6979_7a16_vendor	ibeacon	iBeacon Tracker	IMS-6979 7A16		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_32041_3155_FC:5D:8B:6D:7A:16_vendor
 sensor.ims_7046_0aa3_estimated_distance	ibeacon	iBeacon Tracker	IMS-7046 0AA3		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_53246_50614_D6:1C:B4:73:0A:A3_estimated_distance
 sensor.ims_7046_0aa3_power	ibeacon	iBeacon Tracker	IMS-7046 0AA3		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_53246_50614_D6:1C:B4:73:0A:A3_power
 sensor.ims_7046_0aa3_signal_strength	ibeacon	iBeacon Tracker	IMS-7046 0AA3		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_53246_50614_D6:1C:B4:73:0A:A3_rssi
@@ -1943,6 +2094,10 @@ sensor.ims_7658_ae46_estimated_distance	ibeacon	iBeacon Tracker	IMS-7658 AE46		E
 sensor.ims_7658_ae46_power	ibeacon	iBeacon Tracker	IMS-7658 AE46		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28717_24010_E5:02:F3:D4:AE:46_power
 sensor.ims_7658_ae46_signal_strength	ibeacon	iBeacon Tracker	IMS-7658 AE46		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28717_24010_E5:02:F3:D4:AE:46_rssi
 sensor.ims_7658_ae46_vendor	ibeacon	iBeacon Tracker	IMS-7658 AE46		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28717_24010_E5:02:F3:D4:AE:46_vendor
+sensor.ims_9911_1114_estimated_distance	ibeacon	iBeacon Tracker	IMS-9911 1114		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14_estimated_distance
+sensor.ims_9911_1114_power	ibeacon	iBeacon Tracker	IMS-9911 1114		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14_power
+sensor.ims_9911_1114_signal_strength	ibeacon	iBeacon Tracker	IMS-9911 1114		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14_rssi
+sensor.ims_9911_1114_vendor	ibeacon	iBeacon Tracker	IMS-9911 1114		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14_vendor
 sensor.intensity_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Intensity Goal	integration		tongaimaramba@gmail.com_intensityMinutesGoal
 sensor.inverter_all_pv_wattage	growatt_server_api	tojgan-solar	Inverter	Garage	Inverter All PV Wattage			KTM0CM50CC-mix_wattage_pv_all
 sensor.inverter_battery_charged_today	growatt_server_api	tojgan-solar	Inverter	Garage	Inverter Battery charged today			KTM0CM50CC-mix_battery_charge_today
@@ -1996,16 +2151,26 @@ sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage
 sensor.isla_switch_battery_level	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Battery			476abea5-3c36-460c-a6e4-96fbdf49eaab
 sensor.isla_switch_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Zigbee connectivity	integration		b57a5118-a936-4f4d-b33c-f5f060b43fd1
 sensor.john_s_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	John's Bike			tongaimaramba@gmail.com_e5ab3b1e7fba4a878a2672364d43068b
+sensor.kitchen_battery	smartthings	My home	Kitchen	Kitchen	Battery			e6821393-e06c-439c-baad-d48f38e8cd5b_main_battery_battery_battery
 sensor.kitchen_current_consumption	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_power
 sensor.kitchen_current_consumption_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Kitchen Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_power
 sensor.kitchen_illuminance	hue	Hue Bridge 0017882791a0	Kitchen	Kitchen	Illuminance			c443c177-eb57-4725-b91b-dff49e49aba8
 sensor.kitchen_switch_battery_level	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Battery			c5189302-8a39-4057-bab3-3aa494dc3332
 sensor.kitchen_switch_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Zigbee connectivity	integration		ad36a418-35fc-4c65-8151-f8563eb49329
+sensor.kitchen_temperature	smartthings	My home	Kitchen	Kitchen	Temperature			e6821393-e06c-439c-baad-d48f38e8cd5b_main_temperatureMeasurement_temperature_temperature
 sensor.kitchen_total_consumption	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_energy
 sensor.kitchen_total_consumption_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Kitchen Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_energy
 sensor.kitchen_worktop	eventsensor	kitchen_worktop			kitchen_worktop			hue_event_id_kitchen_switch_button_subtype_1_1_click_2_2_click_3_3_click_4_4_click
 sensor.kitchen_worktop_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Kitchen Worktop	Kitchen	Zigbee connectivity	integration		3358131b-393a-4f64-b2dd-aa448fe06980
+sensor.kitchen_x_coordinate	smartthings	My home	Kitchen	Kitchen	X-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_x_coordinate
+sensor.kitchen_y_coordinate	smartthings	My home	Kitchen	Kitchen	Y-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_y_coordinate
+sensor.kitchen_z_coordinate	smartthings	My home	Kitchen	Kitchen	Z-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_z_coordinate
 sensor.landing_blind_landing_blind_position	esphome	landing-blind	landing-blind	Loft	Landing Blind Position			34:85:18:03:D8:A8-sensor-landing_blind_position
+sensor.landing_window_battery	smartthings	My home	Landing Window	Hallway	Battery			74325601-0eb6-48bf-a640-e09d74995351_main_battery_battery_battery
+sensor.landing_window_temperature	smartthings	My home	Landing Window	Hallway	Temperature			74325601-0eb6-48bf-a640-e09d74995351_main_temperatureMeasurement_temperature_temperature
+sensor.landing_window_x_coordinate	smartthings	My home	Landing Window	Hallway	X-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_x_coordinate
+sensor.landing_window_y_coordinate	smartthings	My home	Landing Window	Hallway	Y-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_y_coordinate
+sensor.landing_window_z_coordinate	smartthings	My home	Landing Window	Hallway	Z-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_z_coordinate
 sensor.last_7_days_avg_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Last 7 Days Avg Heart Rate	integration		tongaimaramba@gmail.com_lastSevenDaysAvgRestingHeartRate
 sensor.last_activities	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Last Activities	integration		tongaimaramba@gmail.com_lastActivities
 sensor.latest_respiration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Latest Respiration	integration		tongaimaramba@gmail.com_latestRespirationValue
@@ -2108,6 +2273,7 @@ sensor.mosquitto_broker_newest_version	hassio	Supervisor	Mosquitto broker		Newes
 sensor.mosquitto_broker_version	hassio	Supervisor	Mosquitto broker		Version	integration		core_mosquitto_version
 sensor.mountain_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Mountain bike 			tongaimaramba@gmail.com_bea704f07f374bc2b4e8bda4c45a3090
 sensor.movie_lamp_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Zigbee connectivity	integration		043f8c5b-e44a-4f40-996c-6a7c2ab98cda
+sensor.mudiki_battery	smartthings	My home	Mudiki	Hallway	Battery	user		744e0f56-d1ce-454b-9c22-cf972ccee78d_main_battery_battery_battery
 sensor.muscle_mass	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Muscle Mass	integration		tongaimaramba@gmail.com_muscleMass
 sensor.myups_battery_charge	nut	ccf28a08-nut:3493	Myups	Garage	Battery charge			American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _battery.charge
 sensor.myups_battery_chemistry	nut	ccf28a08-nut:3493	Myups	Garage	Battery chemistry	integration		American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _battery.type
@@ -2163,6 +2329,11 @@ sensor.ooono_bcc8_estimated_distance	ibeacon	iBeacon Tracker	Ooono BCC8		Estimat
 sensor.ooono_bcc8_power	ibeacon	iBeacon Tracker	Ooono BCC8		Power	integration		cf757c79-d27a-4bea-aaf2-a2908e49fc19_1_1_C8:51:56:99:BC:C8_power
 sensor.ooono_bcc8_signal_strength	ibeacon	iBeacon Tracker	Ooono BCC8		Signal strength	integration		cf757c79-d27a-4bea-aaf2-a2908e49fc19_1_1_C8:51:56:99:BC:C8_rssi
 sensor.ooono_bcc8_vendor	ibeacon	iBeacon Tracker	Ooono BCC8		Vendor	integration		cf757c79-d27a-4bea-aaf2-a2908e49fc19_1_1_C8:51:56:99:BC:C8_vendor
+sensor.patio_door_battery	smartthings	My home	Patio Door	Kitchen	Battery			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_battery_battery_battery
+sensor.patio_door_temperature	smartthings	My home	Patio Door	Kitchen	Temperature			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_temperatureMeasurement_temperature_temperature
+sensor.patio_door_x_coordinate	smartthings	My home	Patio Door	Kitchen	X-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_x_coordinate
+sensor.patio_door_y_coordinate	smartthings	My home	Patio Door	Kitchen	Y-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_y_coordinate
+sensor.patio_door_z_coordinate	smartthings	My home	Patio Door	Kitchen	Z-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_z_coordinate
 sensor.physique_rating	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Physique Rating	integration		tongaimaramba@gmail.com_physiqueRating
 sensor.private_ble_device_3e965b_estimated_broadcast_interval	private_ble_device	54:6C:8D:27:C1:1C	Hannah iPhone13	Home General	Estimated broadcast interval	integration		3e965b2a301d81c5895fa7957e771120_estimated_broadcast_interval
 sensor.private_ble_device_3e965b_power	private_ble_device	54:6C:8D:27:C1:1C	Hannah iPhone13	Home General	Power	integration		3e965b2a301d81c5895fa7957e771120_power
@@ -2180,12 +2351,16 @@ sensor.ps2525a0150179_0eaf_signal_strength	ibeacon	iBeacon Tracker	PS2525A015017
 sensor.ps2525a0150179_0eaf_vendor	ibeacon	iBeacon Tracker	PS2525A0150179 0EAF		Vendor	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0E:AF_vendor
 sensor.ps2525a0255426_0aa5_estimated_distance	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Estimated distance			2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0A:A5_estimated_distance
 sensor.ps2525a0255426_0aa5_estimated_distance_2	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Estimated distance			2f234454-cf6d-0f09-5053-323532354130_12853_13620_11:89:01:A1:0A:A5_estimated_distance
+sensor.ps2525a0255426_0aa5_estimated_distance_3	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Estimated distance			2f234454-cf6d-4a0f-adf2-0f0950533235_12853_16688_11:89:01:A1:0A:A5_estimated_distance
 sensor.ps2525a0255426_0aa5_power	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Power	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0A:A5_power
 sensor.ps2525a0255426_0aa5_power_2	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Power	integration		2f234454-cf6d-0f09-5053-323532354130_12853_13620_11:89:01:A1:0A:A5_power
+sensor.ps2525a0255426_0aa5_power_3	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Power	integration		2f234454-cf6d-4a0f-adf2-0f0950533235_12853_16688_11:89:01:A1:0A:A5_power
 sensor.ps2525a0255426_0aa5_signal_strength	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Signal strength	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0A:A5_rssi
 sensor.ps2525a0255426_0aa5_signal_strength_2	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Signal strength	integration		2f234454-cf6d-0f09-5053-323532354130_12853_13620_11:89:01:A1:0A:A5_rssi
+sensor.ps2525a0255426_0aa5_signal_strength_3	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Signal strength	integration		2f234454-cf6d-4a0f-adf2-0f0950533235_12853_16688_11:89:01:A1:0A:A5_rssi
 sensor.ps2525a0255426_0aa5_vendor	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Vendor	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:0A:A5_vendor
 sensor.ps2525a0255426_0aa5_vendor_2	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Vendor	integration		2f234454-cf6d-0f09-5053-323532354130_12853_13620_11:89:01:A1:0A:A5_vendor
+sensor.ps2525a0255426_0aa5_vendor_3	ibeacon	iBeacon Tracker	PS2525A0255426 0AA5		Vendor	integration		2f234454-cf6d-4a0f-adf2-0f0950533235_12853_16688_11:89:01:A1:0A:A5_vendor
 sensor.ps2525a0369781_086c_estimated_distance	ibeacon	iBeacon Tracker	PS2525A0369781 086C		Estimated distance			2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:08:6C_estimated_distance
 sensor.ps2525a0369781_086c_power	ibeacon	iBeacon Tracker	PS2525A0369781 086C		Power	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:08:6C_power
 sensor.ps2525a0369781_086c_signal_strength	ibeacon	iBeacon Tracker	PS2525A0369781 086C		Signal strength	integration		2f234454-cf6d-4a0f-adf2-f4911ba9ffa6_10_7_11:89:01:A1:08:6C_rssi
@@ -2274,6 +2449,10 @@ sensor.qmhconnect_4287_304d_estimated_distance	ibeacon	iBeacon Tracker	QMHConnec
 sensor.qmhconnect_4287_304d_power	ibeacon	iBeacon Tracker	QMHConnect-4287 304D		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28701_7119_EC:3F:CB:7D:30:4D_power
 sensor.qmhconnect_4287_304d_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-4287 304D		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28701_7119_EC:3F:CB:7D:30:4D_rssi
 sensor.qmhconnect_4287_304d_vendor	ibeacon	iBeacon Tracker	QMHConnect-4287 304D		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_28701_7119_EC:3F:CB:7D:30:4D_vendor
+sensor.qmhconnect_4314_b423_estimated_distance	ibeacon	iBeacon Tracker	QMHConnect-4314 B423		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_54694_54042_F7:88:3F:C8:B4:23_estimated_distance
+sensor.qmhconnect_4314_b423_power	ibeacon	iBeacon Tracker	QMHConnect-4314 B423		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_54694_54042_F7:88:3F:C8:B4:23_power
+sensor.qmhconnect_4314_b423_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-4314 B423		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_54694_54042_F7:88:3F:C8:B4:23_rssi
+sensor.qmhconnect_4314_b423_vendor	ibeacon	iBeacon Tracker	QMHConnect-4314 B423		Vendor	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_54694_54042_F7:88:3F:C8:B4:23_vendor
 sensor.qmhconnect_4361_51fe_estimated_distance	ibeacon	iBeacon Tracker	QMHConnect-4361 51FE		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_8002_34889_D4:F9:C4:03:51:FE_estimated_distance
 sensor.qmhconnect_4361_51fe_power	ibeacon	iBeacon Tracker	QMHConnect-4361 51FE		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_8002_34889_D4:F9:C4:03:51:FE_power
 sensor.qmhconnect_4361_51fe_signal_strength	ibeacon	iBeacon Tracker	QMHConnect-4361 51FE		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_8002_34889_D4:F9:C4:03:51:FE_rssi
@@ -2379,6 +2558,10 @@ sensor.smartvehicle869_1c7f_estimated_distance	ibeacon	iBeacon Tracker	smartVehi
 sensor.smartvehicle869_1c7f_power	ibeacon	iBeacon Tracker	smartVehicle869 1C7F		Power	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:BB:27:53:1C:7F_power
 sensor.smartvehicle869_1c7f_signal_strength	ibeacon	iBeacon Tracker	smartVehicle869 1C7F		Signal strength	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:BB:27:53:1C:7F_rssi
 sensor.smartvehicle869_1c7f_vendor	ibeacon	iBeacon Tracker	smartVehicle869 1C7F		Vendor	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:BB:27:53:1C:7F_vendor
+sensor.smartvehicle869_2d9d_estimated_distance	ibeacon	iBeacon Tracker	smartVehicle869 2D9D		Estimated distance			a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:C7:AF:C7:2D:9D_estimated_distance
+sensor.smartvehicle869_2d9d_power	ibeacon	iBeacon Tracker	smartVehicle869 2D9D		Power	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:C7:AF:C7:2D:9D_power
+sensor.smartvehicle869_2d9d_signal_strength	ibeacon	iBeacon Tracker	smartVehicle869 2D9D		Signal strength	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:C7:AF:C7:2D:9D_rssi
+sensor.smartvehicle869_2d9d_vendor	ibeacon	iBeacon Tracker	smartVehicle869 2D9D		Vendor	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6A:C7:AF:C7:2D:9D_vendor
 sensor.smartvehicle869_7e90_estimated_distance	ibeacon	iBeacon Tracker	smartVehicle869 7E90		Estimated distance			a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_5B:8A:D2:98:7E:90_estimated_distance
 sensor.smartvehicle869_7e90_power	ibeacon	iBeacon Tracker	smartVehicle869 7E90		Power	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_5B:8A:D2:98:7E:90_power
 sensor.smartvehicle869_7e90_signal_strength	ibeacon	iBeacon Tracker	smartVehicle869 7E90		Signal strength	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_5B:8A:D2:98:7E:90_rssi
@@ -2391,6 +2574,10 @@ sensor.smartvehicle869_f53c_estimated_distance	ibeacon	iBeacon Tracker	smartVehi
 sensor.smartvehicle869_f53c_power	ibeacon	iBeacon Tracker	smartVehicle869 F53C		Power	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6F:9B:2F:FC:F5:3C_power
 sensor.smartvehicle869_f53c_signal_strength	ibeacon	iBeacon Tracker	smartVehicle869 F53C		Signal strength	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6F:9B:2F:FC:F5:3C_rssi
 sensor.smartvehicle869_f53c_vendor	ibeacon	iBeacon Tracker	smartVehicle869 F53C		Vendor	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_6F:9B:2F:FC:F5:3C_vendor
+sensor.smartvehicle869_fc1c_estimated_distance	ibeacon	iBeacon Tracker	smartVehicle869 FC1C		Estimated distance			a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_57:68:FA:D0:FC:1C_estimated_distance
+sensor.smartvehicle869_fc1c_power	ibeacon	iBeacon Tracker	smartVehicle869 FC1C		Power	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_57:68:FA:D0:FC:1C_power
+sensor.smartvehicle869_fc1c_signal_strength	ibeacon	iBeacon Tracker	smartVehicle869 FC1C		Signal strength	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_57:68:FA:D0:FC:1C_rssi
+sensor.smartvehicle869_fc1c_vendor	ibeacon	iBeacon Tracker	smartVehicle869 FC1C		Vendor	integration		a6b084c7-4ebb-4fb8-929b-ee9e448a75fe_0_0_57:68:FA:D0:FC:1C_vendor
 sensor.sonoff_1000eced8f_rssi	sonoff	tongaimaramba@gmail.com	Fan		Fan RSSI	integration		1000eced8f_rssi
 sensor.sonoff_100125dac5_rssi	sonoff	tongaimaramba@gmail.com	patio lights		patio lights RSSI	integration		100125dac5_rssi
 sensor.sonoff_100140291c_rssi	sonoff	tongaimaramba@gmail.com	Garage		Garage RSSI	integration		100140291c_rssi
@@ -2610,6 +2797,11 @@ sensor.utility_6_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Utility 6	Utili
 sensor.utility_7_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Utility 7	Utility	Zigbee connectivity	integration		8bc3cc82-efbd-4b70-b11a-0322a81ea91b
 sensor.utility_8_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Utility 8	Utility	Zigbee connectivity	integration		58e98c26-4dbd-4291-9e6c-d2d727d23be0
 sensor.utility_9_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Utility 9	Utility	Zigbee connectivity	integration		753ec09b-9b3c-4686-a590-24b75019dbcf
+sensor.utility_back_door_battery	smartthings	My home	Utility Back Door	Utility	Battery			d37e06db-a7e8-474f-802e-cad844952232_main_battery_battery_battery
+sensor.utility_back_door_temperature	smartthings	My home	Utility Back Door	Utility	Temperature			d37e06db-a7e8-474f-802e-cad844952232_main_temperatureMeasurement_temperature_temperature
+sensor.utility_back_door_x_coordinate	smartthings	My home	Utility Back Door	Utility	X-coordinate			d37e06db-a7e8-474f-802e-cad844952232_main_threeAxis_threeAxis_x_coordinate
+sensor.utility_back_door_y_coordinate	smartthings	My home	Utility Back Door	Utility	Y-coordinate			d37e06db-a7e8-474f-802e-cad844952232_main_threeAxis_threeAxis_y_coordinate
+sensor.utility_back_door_z_coordinate	smartthings	My home	Utility Back Door	Utility	Z-coordinate			d37e06db-a7e8-474f-802e-cad844952232_main_threeAxis_threeAxis_z_coordinate
 sensor.utility_lights_battery_level	hue	Hue Bridge 0017882791a0	Utility Lights	Utility	Battery			1fd1278a-688f-4432-b274-e480c1cfcf27
 sensor.utility_lights_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Utility Lights	Utility	Zigbee connectivity	integration		d6e4a3ec-ef68-4d57-aabe-2b7d1d05c33d
 sensor.utility_motion_battery	hue	Hue Bridge 0017882791a0	Utility Motion	Utility	Battery			ac6a4eec-bd14-4256-9782-90ef4e07f6e1
@@ -2655,6 +2847,14 @@ sensor.wsbc014415574v_7026_estimated_distance	ibeacon	iBeacon Tracker	WSBC014415
 sensor.wsbc014415574v_7026_power	ibeacon	iBeacon Tracker	WSBC014415574V 7026		Power	integration		54555242-4f48-4d49-3230-313701000000_54844_13063_F7:EF:23:EF:70:26_power
 sensor.wsbc014415574v_7026_signal_strength	ibeacon	iBeacon Tracker	WSBC014415574V 7026		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_54844_13063_F7:EF:23:EF:70:26_rssi
 sensor.wsbc014415574v_7026_vendor	ibeacon	iBeacon Tracker	WSBC014415574V 7026		Vendor	integration		54555242-4f48-4d49-3230-313701000000_54844_13063_F7:EF:23:EF:70:26_vendor
+sensor.wsbc014446825x_a1d2_estimated_distance	ibeacon	iBeacon Tracker	WSBC014446825X A1D2		Estimated distance			54555242-4f48-4d49-3230-313701000000_59830_13063_E1:2B:E0:7F:A1:D2_estimated_distance
+sensor.wsbc014446825x_a1d2_power	ibeacon	iBeacon Tracker	WSBC014446825X A1D2		Power	integration		54555242-4f48-4d49-3230-313701000000_59830_13063_E1:2B:E0:7F:A1:D2_power
+sensor.wsbc014446825x_a1d2_signal_strength	ibeacon	iBeacon Tracker	WSBC014446825X A1D2		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_59830_13063_E1:2B:E0:7F:A1:D2_rssi
+sensor.wsbc014446825x_a1d2_vendor	ibeacon	iBeacon Tracker	WSBC014446825X A1D2		Vendor	integration		54555242-4f48-4d49-3230-313701000000_59830_13063_E1:2B:E0:7F:A1:D2_vendor
+sensor.wsbc023036094t_6b78_estimated_distance	ibeacon	iBeacon Tracker	WSBC023036094T 6B78		Estimated distance			54555242-4f48-4d49-3230-313701000000_65164_13062_F0:CA:61:B1:6B:78_estimated_distance
+sensor.wsbc023036094t_6b78_power	ibeacon	iBeacon Tracker	WSBC023036094T 6B78		Power	integration		54555242-4f48-4d49-3230-313701000000_65164_13062_F0:CA:61:B1:6B:78_power
+sensor.wsbc023036094t_6b78_signal_strength	ibeacon	iBeacon Tracker	WSBC023036094T 6B78		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_65164_13062_F0:CA:61:B1:6B:78_rssi
+sensor.wsbc023036094t_6b78_vendor	ibeacon	iBeacon Tracker	WSBC023036094T 6B78		Vendor	integration		54555242-4f48-4d49-3230-313701000000_65164_13062_F0:CA:61:B1:6B:78_vendor
 sensor.wsbc025073760v_36c0_estimated_distance	ibeacon	iBeacon Tracker	WSBC025073760V 36C0		Estimated distance			54555242-4f48-4d49-3230-313701000000_45070_13062_D0:A1:98:7A:36:C0_estimated_distance
 sensor.wsbc025073760v_36c0_power	ibeacon	iBeacon Tracker	WSBC025073760V 36C0		Power	integration		54555242-4f48-4d49-3230-313701000000_45070_13062_D0:A1:98:7A:36:C0_power
 sensor.wsbc025073760v_36c0_signal_strength	ibeacon	iBeacon Tracker	WSBC025073760V 36C0		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_45070_13062_D0:A1:98:7A:36:C0_rssi
@@ -2667,6 +2867,10 @@ sensor.wsbc025100240t_b362_estimated_distance	ibeacon	iBeacon Tracker	WSBC025100
 sensor.wsbc025100240t_b362_power	ibeacon	iBeacon Tracker	WSBC025100240T B362		Power	integration		54555242-4f48-4d49-3230-313701000000_61440_13062_CB:A1:E8:B9:B3:62_power
 sensor.wsbc025100240t_b362_signal_strength	ibeacon	iBeacon Tracker	WSBC025100240T B362		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_61440_13062_CB:A1:E8:B9:B3:62_rssi
 sensor.wsbc025100240t_b362_vendor	ibeacon	iBeacon Tracker	WSBC025100240T B362		Vendor	integration		54555242-4f48-4d49-3230-313701000000_61440_13062_CB:A1:E8:B9:B3:62_vendor
+sensor.wsbc025124757s_6d50_estimated_distance	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Estimated distance			54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_estimated_distance
+sensor.wsbc025124757s_6d50_power	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Power	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_power
+sensor.wsbc025124757s_6d50_signal_strength	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_rssi
+sensor.wsbc025124757s_6d50_vendor	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Vendor	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_vendor
 sensor.z_wave_js_cpu_percent	hassio	Supervisor	Z-Wave JS		CPU percent	integration		core_zwave_js_cpu_percent
 sensor.z_wave_js_memory_percent	hassio	Supervisor	Z-Wave JS		Memory percent	integration		core_zwave_js_memory_percent
 sensor.z_wave_js_newest_version	hassio	Supervisor	Z-Wave JS		Newest version	integration		core_zwave_js_version_latest
@@ -2846,10 +3050,14 @@ update.arlo_camera_support_update	hacs		Arlo Camera Support		Arlo Camera Support
 update.attributes_extractor_update	hacs		Attributes extractor		Attributes extractor update			196057008
 update.auto_entities_update	hacs		auto-entities		auto-entities update			167744584
 update.badge_card_update	hacs		badge-card		badge-card update			281453608
+update.bathroom_window_firmware	smartthings	My home	Bathroom Window	Kids Bathroom	Firmware			54a189c6-b3b9-428c-a515-278d74f401a1_main
 update.battery_entity_row_update	hacs		Battery Entity Row		Battery Entity Row update			303857065
+update.bay_party_wall_firmware	smartthings	My home	Bay Party Wall	Living Room	Firmware			aeb2ed3a-a530-4c2d-a784-ff44c833b76e_main
+update.bay_window_firmware	smartthings	My home	Bay Window	Living Room	Firmware			9af80a4d-e520-4fab-95ec-f297b19d9721_main
 update.bedroom_presence_firmware	esphome	Bedroom Presence	Bedroom Presence	Loft	Firmware	integration		D8:3B:DA:75:E6:90
 update.bermuda_ble_trilateration_update	hacs		Bermuda BLE Trilateration		Bermuda BLE Trilateration update			676091897
 update.bha_icon_pack_update	hacs		BHA Icon Pack		BHA Icon Pack update			179808576
+update.boiler_temp_firmware	smartthings	My home	Boiler Temp	Garage	Firmware			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main
 update.card_mod_update	hacs		card-mod		card-mod update			190927524
 update.charger_card_update	hacs		Charger Card		Charger Card update			308752409
 update.cloudflared_update	hassio	Supervisor	Cloudflared		Update			9074a9fa_cloudflared_version_latest
@@ -2859,6 +3067,8 @@ update.driveway_detector_firmware	esphome	driveway detector	driveway detector	Ga
 update.dyson_cloud_update	hacs		Dyson Cloud		Dyson Cloud update			338244244
 update.dyson_local_update	hacs		Dyson Local		Dyson Local update			334928907
 update.edgeos_ubiquiti_update	hacs		EdgeOS (Ubiquiti)		EdgeOS (Ubiquiti) update			169467285
+update.ellie_window_firmware	smartthings	My home	Ellie Window	Ellie	Firmware			85663cb9-cccb-4637-8eac-6b0af998e502_main
+update.ellie_window_party_firmware	smartthings	My home	Ellie Window Party	Ellie	Firmware			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main
 update.entities_button_group_update	hacs		Entities Button Group		Entities Button Group update			373857882
 update.entity_attributes_card_update	hacs		Entity Attributes Card		Entity Attributes Card update			187245461
 update.esphome_device_builder_update	hassio	Supervisor	ESPHome Device Builder		Update			5c53de3b_esphome_version_latest
@@ -2870,13 +3080,19 @@ update.fingerprint_authoriser_firmware	esphome	Fingerprint Authoriser	Fingerprin
 update.fingerprint_authoriser_firmware_2	esphome	c3	Fingerprint Authoriser	Garage	Firmware	integration		D8:3B:DA:73:D9:F4
 update.flex_table_highly_customizable_data_visualization_update	hacs		Flex Table - Highly customizable, Data visualization		Flex Table - Highly customizable, Data visualization update			156292058
 update.front_door_proxy_firmware	esphome	zane-proxy	zane-proxy	Dining Area	Firmware	integration		D8:3B:DA:73:D6:BC
+update.front_doorstep_firmware	smartthings	My home	Front Doorstep	Hallway	Firmware			63f52bf8-6915-467a-a199-c5ece8c50de1_main
+update.front_firmware	smartthings	My home	Front	Hallway	Firmware			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main
 update.fujitsu_airstage_home_assistant_component_update	hacs		Fujitsu Airstage Home Assistant component		Fujitsu Airstage Home Assistant component update			665025312
 update.fully_kiosk_browser_update	hacs		Fully Kiosk Browser		Fully Kiosk Browser update			257988102
+update.garage_doorstep_firmware	smartthings	My home	Garage Doorstep	Garage	Firmware			6285b535-9737-45e6-9361-e4a71ce7f387_main
+update.garage_out_firmware	smartthings	My home	Garage - out	Garage	Firmware			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main
+update.garage_utility_door_firmware	smartthings	My home	Garage Utility Door	Loft	Firmware			bfbccace-0438-4d40-8506-28f0e5439eda_main
 update.garmin_connect_update	hacs		Garmin Connect		Garmin Connect update			383732864
 update.get_hacs_update	hassio	Supervisor	Get HACS		Update			cb646a50_get_version_latest
 update.group_card_update	hacs		group-card		group-card update			187245511
 update.group_element_update	hacs		Group Element		Group Element update			179491130
 update.growatt_server_api_update	hacs		Growatt Server API		Growatt Server API update			585307805
+update.guest_win_firmware	smartthings	My home	Guest Win	Study	Firmware			90c6a3f6-77e5-4205-8782-c6828e52bf60_main
 update.ha_dashboard_update	hacs		HA Dashboard		HA Dashboard update			329411371
 update.ha_floorplan_your_imagination_almost_defines_the_limits_update	hacs		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits update			188323494
 update.hacs_update	hacs		HACS		HACS update			172733314
@@ -2886,8 +3102,10 @@ update.home_assistant_operating_system_update	hassio	Supervisor	Home Assistant O
 update.home_assistant_supervisor_update	hassio	Supervisor	Home Assistant Supervisor		Update			home_assistant_supervisor_version_latest
 update.kai_proxy_firmware	esphome	kai_proxy	kai_proxy	Hallway	Firmware	integration		F4:65:0B:08:8B:88
 update.keymaster_update	hacs		keymaster		keymaster update			318359434
+update.kitchen_firmware	smartthings	My home	Kitchen	Kitchen	Firmware			e6821393-e06c-439c-baad-d48f38e8cd5b_main
 update.kitchen_nfc_firmware	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Firmware			40:91:51:4E:DB:EA
 update.landing_blind_firmware	esphome	landing-blind	landing-blind	Loft	Firmware	integration		34:85:18:03:D8:A8
+update.landing_window_firmware	smartthings	My home	Landing Window	Hallway	Firmware			74325601-0eb6-48bf-a640-e09d74995351_main
 update.lg_webos_remote_control_update	hacs		LG WebOS Remote Control		LG WebOS Remote Control update			257005990
 update.light_entity_card_update	hacs		Light Entity Card		Light Entity Card update			168744428
 update.lightwave_rf_update	hacs		Lightwave RF		Lightwave RF update			162808336
@@ -2918,6 +3136,7 @@ update.nya_proxy_firmware	esphome	nya-proxy	nya-proxy	Garage	Firmware	integratio
 update.octopus_agile_update	hacs		Octopus Agile		Octopus Agile update			259739166
 update.octopus_energy_rates_card_update	hacs		octopus-energy-rates-card		octopus-energy-rates-card update			596085141
 update.passive_ble_monitor_integration_update	hacs		Passive BLE monitor integration		Passive BLE monitor integration update			223993584
+update.patio_door_firmware	smartthings	My home	Patio Door	Kitchen	Firmware			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main
 update.places_update	hacs		Places		Places update			131915802
 update.portainer_update	hacs		Portainer		Portainer update			636943975
 update.raspberry_pi_gpio_update	hacs		Raspberry Pi GPIO		Raspberry Pi GPIO update			454951296
@@ -2936,6 +3155,7 @@ update.terminal_ssh_update	hassio	Supervisor	Terminal & SSH		Update			core_ssh_v
 update.timer_bar_card_update	hacs		Timer Bar Card		Timer Bar Card update			376904517
 update.toggle_control_button_row_update	hacs		Toggle Control Button Row		Toggle Control Button Row update			326033921
 update.tv_remote_card_with_touchpad_and_haptic_feedback_update	hacs		TV Remote Card (with touchpad and haptic feedback)		TV Remote Card (with touchpad and haptic feedback) update			505459170
+update.utility_back_door_firmware	smartthings	My home	Utility Back Door	Utility	Firmware			d37e06db-a7e8-474f-802e-cad844952232_main
 update.volvo_cars_update	hacs		Volvo Cars		Volvo Cars update			899977910
 update.whatspie_update	hacs		WhatsPie		WhatsPie update			556789449
 update.z_wave_js_update	hassio	Supervisor	Z-Wave JS		Update			core_zwave_js_version_latest

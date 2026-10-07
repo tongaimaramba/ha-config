@@ -88,7 +88,7 @@
 | homekit_controller | tado Internet Bridge IB0210636544 | ignore | core | 0 | 0 |  | a2d9cc23459a1c24cd1f785553005238 |
 | hue | Hue Bridge 0017882791a0 | zeroconf | core | 58 | 313 |  | 01K5BX4CSA7VRHH4QA38N0K1ZW |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| ibeacon | iBeacon Tracker | bluetooth | core | 175 | 875 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
+| ibeacon | iBeacon Tracker | bluetooth | core | 190 | 950 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
@@ -125,7 +125,7 @@
 | raspberry_pi | Raspberry Pi | system | core | 0 | 0 |  | 5be085a78cace913594f60a9f28d9f4b |
 | roomba | Robert | dhcp | core | 1 | 15 |  | 13a73bc11cbc0137864e88c6018f4cfd |
 | rpi_power | Raspberry Pi Power Supply Checker | onboarding | core | 0 | 1 |  | 7b836b3f62de3ad9780a91384a6731bf |
-| smartthings | smartthings | ignore | core | 0 | 0 |  | 01K4CGZVJ3SY4HE7S977KAH6JT |
+| smartthings | My home | dhcp | core | 18 | 130 |  | 01M4C2C1GC5VF0KEE1D3N2DQ3K |
 | sonoff | tongaimaramba@gmail.com | import | custom | 3 | 15 |  | 12f06ff59bd93b7861bbe8ffab486772 |
 | speedtestdotnet | SpeedTest | user | core | 1 | 3 |  | 01JPZE8P6BTFZ9AE5FXGADTVSS |
 | spotify | Spotify | ignore | core | 0 | 0 |  | 7c0befa83904312eb73fddd2e49e334f |

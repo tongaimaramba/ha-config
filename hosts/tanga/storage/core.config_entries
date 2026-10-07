@@ -367,7 +367,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-09-17T14:18:14.304204+00:00",
+        "modified_at": "2026-10-07T20:53:02.944547+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3585,36 +3585,6 @@
         "version": 1
       },
       {
-        "created_at": "2025-09-05T08:48:18.499812+00:00",
-        "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {
-          "dhcp": [
-            {
-              "domain": "dhcp",
-              "key": "286d977c5d00",
-              "version": 1
-            }
-          ]
-        },
-        "domain": "smartthings",
-        "entry_id": "01K4CGZVJ3SY4HE7S977KAH6JT",
-        "minor_version": 2,
-        "modified_at": "2025-09-05T08:48:18.499818+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "ignore",
-        "subentries": [],
-        "title": "smartthings",
-        "unique_id": null,
-        "version": 3
-      },
-      {
         "created_at": "2025-09-17T13:16:57.514113+00:00",
         "data": {
           "_redacted_keys": [
@@ -4405,6 +4375,41 @@
         "title": "Hannah’s iPhone13",
         "unique_id": "io.robbie.HomeAssistant-4B5C009B-C745-420C-8318-3C681F53E330",
         "version": 1
+      },
+      {
+        "created_at": "2026-10-07T20:55:07.532773+00:00",
+        "data": {
+          "_redacted_keys": [
+            "auth_implementation",
+            "location_id",
+            "subscription_id",
+            "token"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "dhcp": [
+            {
+              "domain": "dhcp",
+              "key": "286d977c5d00",
+              "version": 1
+            }
+          ]
+        },
+        "domain": "smartthings",
+        "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
+        "minor_version": 2,
+        "modified_at": "2026-10-07T20:57:08.788794+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "dhcp",
+        "subentries": [],
+        "title": "My home",
+        "unique_id": "f41c2e37-7496-4f6c-8c03-04e81d2ebbbb",
+        "version": 3
       }
     ]
   }

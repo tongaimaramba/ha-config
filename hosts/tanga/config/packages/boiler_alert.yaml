@@ -1,0 +1,94 @@
+# Boiler failure alert v1 (M1a step 3; decision M1-G). Tells Tongai within ~30 min of a call for heat if the boiler
+# isn't heating, instead of finding out at the shower. Alerts only: nothing here controls the boiler or heating.
+# Signal: the SmartThings sensor on the boiler outlet pipe (sensor.boiler_temp_temperature). When something calls for
+# heat (any non-AC climate device with hvac_action "heating"), the pipe must warm by at least MIN_RISE (4 °C, from
+# the old boiler_alert app; tune here, in the repo) within 30 min, or be hot (>= 27.5 °C, the old app's lower peak
+# bound). Hot water is not a signal yet: its mode (heat/eco/auto) isn't proof it's heating; added once tado is on
+# tanga and its real attributes are known. Gate: input_boolean.boiler_alert_enabled (starts off; hard rule 6).
+# Manual fallback: check the boiler display / tado app; the boiler runs on its own controls regardless of HA.
+
+input_boolean:
+  boiler_alert_enabled:
+    name: Boiler failure alerts
+    icon: mdi:water-boiler-alert
+
+input_number:
+  # Pipe temperature when the current call for heat started (set by the automation below).
+  boiler_call_start_temp:
+    name: Boiler call start temperature
+    min: -20
+    max: 100
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+
+template:
+  - binary_sensor:
+      # On while a heating zone actually calls for heat: Nest/tado hvac_action "heating" (AC units and the Dyson
+      # excluded).
+      - name: Boiler called for heat
+        unique_id: boiler_alert_called_for_heat
+        icon: mdi:fire
+        state: >-
+          {{ states.climate
+             | rejectattr('entity_id', 'search', '_ac$|pure_hot_cool')
+             | selectattr('attributes.hvac_action', 'defined')
+             | selectattr('attributes.hvac_action', 'eq', 'heating') | list | count > 0 }}
+
+automation:
+  # Remember the pipe temperature when a call for heat starts; -20 (the helper's minimum) means "unknown" when the
+  # sensor can't be read, so a stale start from an earlier call is never used. Manual fallback: none (bookkeeping).
+  - id: boiler_alert_record_start
+    alias: Boiler alert - record pipe temperature at call start
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.boiler_called_for_heat
+        to: "on"
+    actions:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.boiler_call_start_temp
+        data:
+          value: "{{ states('sensor.boiler_temp_temperature') | float(-20) }}"
+
+  # 30 min into a call for heat the pipe hasn't warmed enough: critical alert. Also alerts if the pipe sensor can't be
+  # read during the call (the check would otherwise be silently blind). Manual fallback: boiler display, tado app.
+  - id: boiler_alert_not_heating
+    alias: Boiler alert - not heating after a call for heat
+    mode: single
+    variables:
+      min_rise: 4  # MIN_RISE: expected pipe warm-up in 30 min (°C)
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.boiler_called_for_heat
+        to: "on"
+        for: {minutes: 30}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.boiler_alert_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set t = states('sensor.boiler_temp_temperature') %}
+          {% set start = states('input_number.boiler_call_start_temp') | float(-20) %}
+          {% if not t | is_number %}true
+          {% elif t | float >= 27.5 %}false
+          {% elif start <= -20 %}true
+          {% else %}{{ t | float - start < min_rise }}
+          {% endif %}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Boiler may not be heating
+          message: >-
+            {% set t = states('sensor.boiler_temp_temperature') %}
+            {% if t | is_number %}Called for heat 30 min ago, but the outlet pipe has only gone from
+            {{ states('input_number.boiler_call_start_temp') }} °C to {{ t }} °C (expected +{{ min_rise }} °C).
+            {% else %}Called for heat 30 min ago, and the boiler pipe sensor isn't reporting.{% endif %}
+            Check the boiler display.
+          data:
+            tag: boiler_alert
+            ttl: 0
+            priority: high
+            channel: alarm_stream
