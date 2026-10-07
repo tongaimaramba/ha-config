@@ -5,7 +5,7 @@
 | aarlo.yaml | 21 | version, aarlo |
 | automations.yaml | 77609 | list[60] |
 | binary_sensors.yaml | 638 | list[4] |
-| configuration.yaml | 16064 | default_config, automation, group, script, notify, homeassistant, ble_monitor, alexa, http, binary_sensor, recorder, device_tracker, stream, tts, sonoff |
+| configuration.yaml | 15660 | default_config, automation, group, script, notify, homeassistant, ble_monitor, alexa, http, binary_sensor, recorder, device_tracker, stream, tts, sonoff |
 | customize.yaml | 71 | zone.home |
 | emulated_hue.yaml | 448 | switch.landing_blind_close_landing_blind, switch.landing_blind_stop_landing_blind, switch.landing_blind_open_landing_blind, switch.loft_blind_close_loft_suite_blind, switch.loft_blind_stop_loft_suite_ |
 | floorplan.yaml | 1885 | name, image, stylesheet, warnings, pan_zoom, hide_app_toolbar, date_format, last_motion_entity, last_motion_class, groups |
@@ -19,7 +19,7 @@
 | scenes.yaml | 791 | list[2] |
 | scratch.yaml | 156 | _parse_error |
 | scripts.yaml | 18405 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
-| secrets.yaml | 543 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password, oppy_client_id, oppy_client_secret |
+| secrets.yaml | 675 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password, oppy_client_id, oppy_client_secret |
 | espbck/doorstep-presence.yaml | 797 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
 | espbck/driveway-detector.yaml | 1022 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
 | espbck/landing-blind.yaml | 2268 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
@@ -39,6 +39,8 @@
 | espbck/trash/rpi-rebooter.yaml | 513 | esphome, esp32, logger, api, ota, wifi, captive_portal |
 | espbck/trash/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
 | packages/auto_unlock_v2_sandbox.yaml | 919 | input_boolean, input_select, input_number, input_text |
+| packages/boiler_alert.yaml | 4282 | input_boolean, input_number, template, automation |
+| packages/climate_health.yaml | 11367 | input_boolean, template, automation |
 | floorplan_repo/binary_sensors.yaml | 239 | list[2] |
 | floorplan_repo/configuration.yaml | 323 | homeassistant, frontend, panel_custom, binary_sensor |
 | floorplan_repo/customize.yaml | 116 | binary_sensor.floorplan |
@@ -61,24 +63,5 @@
 | esphome/loft32.yaml | 1260 | esphome, esp32, logger, api, ota, wifi, web_server, esp32_ble_tracker, bluetooth_proxy, captive_portal, light, binary_sensor |
 | esphome/nya-proxy.yaml | 664 | esphome, esp32, logger, api, ota, wifi, web_server, esp32_ble_tracker, bluetooth_proxy, captive_portal |
 | esphome/rpi-rebooter.yaml | 824 | esphome, esp32, logger, api, ota, wifi, web_server, captive_portal, switch |
-| esphome/secrets.yaml | 79 | wifi_ssid, wifi_password |
+| esphome/secrets.yaml | 1586 | wifi_ssid, wifi_password, c3_ap_password, c3_api_key, c3_mqtt_password, c3_ota_password, doorstep_presence_ap_password, doorstep_presence_api_key, doorstep_presence_ota_password, driveway_detector_ap_ |
 | esphome/zane-proxy.yaml | 653 | esphome, esp32, logger, api, ota, wifi, esp32_ble_tracker, bluetooth_proxy, captive_portal |
-| esphome/archive/bed-proxy.yaml | 502 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/c32-auth.yaml | 502 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/car.yaml | 545 | esphome, esp8266, logger, api, ota, wifi, captive_portal, light |
-| esphome/archive/esphome-web-93a8bc.yaml | 4254 | substitutions, esphome, esp32, wifi, mqtt, api, ota, logger, time, uart, fingerprint_grow, binary_sensor, globals, interval, text_sensor |
-| esphome/archive/fingerprint-auth.yaml | 16691 | substitutions, esphome, esp32, logger, time, api, ota, mqtt, wifi, captive_portal, light, uart, fingerprint_grow, binary_sensor, globals |
-| esphome/archive/fp-auth.yaml | 486 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/front-door-proxy.yaml | 869 | esphome, esp32, logger, api, ota, wifi, captive_portal, web_server, esp32_ble_tracker, bluetooth_proxy, light |
-| esphome/archive/kitchen-nfc.yaml | 231 | substitutions, packages, esphome, wifi |
-| esphome/archive/landing-blind.yaml | 2273 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, cover, switch |
-| esphome/archive/loft-blind.yaml | 1239 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
-| esphome/archive/office-door.yaml | 474 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/office-esp.yaml | 471 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/office.yaml | 945 | esphome, esp8266, logger, api, ota, wifi, captive_portal, switch |
-| esphome/archive/on-air.yaml | 467 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/room-pir.yaml | 2598 | substitutions, esphome, esp32, logger, api, ota, wifi, captive_portal, binary_sensor, number, event |
-| esphome/archive/rpi-rebooter.yaml | 477 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
-| esphome/archive/test-c3.yaml | 496 | esphome, esp32, logger, api, ota, wifi, captive_portal |
-| esphome/archive/test.yaml | 2607 | sensor, cover, switch |

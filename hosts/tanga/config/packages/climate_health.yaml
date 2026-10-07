@@ -1,0 +1,234 @@
+# Climate health watchdog (M1a step 2; decisions M1-E, M1-F, M1-H, M1-I).
+# Tells Tongai when a heating/AC device stops reporting, when an integration needs signing in again, which batteries
+# are getting low, and which SmartThings sensors (perimeter contacts, boiler pipe) have gone silent: on 2026-10-07
+# several had been dead since August, one at 46% battery, so battery % alone is not a warning. Alerts only: nothing
+# here controls a device.
+# Gate: input_boolean.climate_health_enabled (starts off; hard rule 6). Manual fallback for everything here: the tado,
+# Nest and SmartThings apps show the same device status.
+
+input_boolean:
+  climate_health_enabled:
+    name: Climate health alerts
+    icon: mdi:thermometer-alert
+  # Internal: set when the "device unavailable" alert was sent, so "recovered" only follows a real alert.
+  climate_health_alert_active:
+    name: Climate health alert active
+    icon: mdi:alert
+
+template:
+  - sensor:
+      # Climate devices that are unavailable. Ignored: climate.downstairs (stale Nest duplicate of
+      # climate.downstairs_2) and climate.pure_hot_cool (Dyson, owned by pamba per OWNERSHIP.md).
+      - name: Climate devices unavailable
+        unique_id: climate_health_devices_unavailable
+        icon: mdi:thermometer-off
+        state: >-
+          {{ (states.climate | list + states.water_heater | list)
+             | rejectattr('entity_id', 'in', ['climate.downstairs', 'climate.pure_hot_cool'])
+             | selectattr('state', 'in', ['unavailable', 'unknown']) | list | count }}
+        attributes:
+          devices: >-
+            {{ (states.climate | list + states.water_heater | list)
+               | rejectattr('entity_id', 'in', ['climate.downstairs', 'climate.pure_hot_cool'])
+               | selectattr('state', 'in', ['unavailable', 'unknown'])
+               | map(attribute='name') | list | join(', ') }}
+      # Battery-powered house devices under 25%. Left out, by exact device-name fragments (not loose substrings, so
+      # e.g. an "upstairs" sensor is kept): phones, Macs, iPads, the solar battery, the UPS and the car.
+      - name: Batteries low
+        unique_id: climate_health_batteries_low
+        icon: mdi:battery-alert
+        state: >-
+          {{ states.sensor | selectattr('attributes.device_class', 'defined')
+             | selectattr('attributes.device_class', 'eq', 'battery')
+             | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|myups_|volvo_')
+             | map(attribute='state') | select('is_number') | map('float') | select('lt', 25) | list | count }}
+        attributes:
+          devices: >-
+            {% set ns = namespace(out=[]) %}
+            {% for s in states.sensor
+                 | selectattr('attributes.device_class', 'defined')
+                 | selectattr('attributes.device_class', 'eq', 'battery')
+                 | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|myups_|volvo_')
+                 if s.state | is_number and s.state | float < 25 %}
+              {% set ns.out = ns.out + [s.name ~ ' ' ~ (s.state | float | round(0) | int) ~ '%'] %}
+            {% endfor %}
+            {{ ns.out | join(', ') }}
+
+      # SmartThings devices that have gone silent: every entity unavailable, or nothing reported for 12 h (a starting
+      # guess; tune once their normal check-in interval is known). Excludes the deprecated SmartThings Mudiki lock.
+      # Known limit: an HA restart resets last_reported, so a device that died while still showing its last values
+      # looks fresh for up to 12 h after a restart; devices SmartThings marks unavailable are caught regardless.
+      - name: Devices silent
+        unique_id: climate_health_devices_silent
+        icon: mdi:access-point-network-off
+        state: >-
+            {% set ns = namespace(out=[]) %}
+            {% for d in integration_entities('smartthings') | map('device_id') | reject('none') | unique %}
+              {% set name = device_attr(d, 'name_by_user') or device_attr(d, 'name') %}
+              {% set st = expand(device_entities(d) | reject('match', 'update\\.') | list) %}
+              {% if st and name is not search('mudiki', ignorecase=True) %}
+                {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
+                {% set last = st | map(attribute='last_reported') | max %}
+                {% if alive == 0 or (now() - last).total_seconds() > 12 * 3600 %}
+                  {% set ns.out = ns.out + [name] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.out | count }}
+        attributes:
+          devices: >-
+            {% set ns = namespace(out=[]) %}
+            {% for d in integration_entities('smartthings') | map('device_id') | reject('none') | unique %}
+              {% set name = device_attr(d, 'name_by_user') or device_attr(d, 'name') %}
+              {% set st = expand(device_entities(d) | reject('match', 'update\\.') | list) %}
+              {% if st and name is not search('mudiki', ignorecase=True) %}
+                {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
+                {% set last = st | map(attribute='last_reported') | max %}
+                {% if alive == 0 or (now() - last).total_seconds() > 12 * 3600 %}
+                  {% set ns.out = ns.out + [name] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.out }}
+
+automation:
+  # A climate device has been unavailable for 15 minutes (would have caught tado's 2026-10-06 outage within the hour).
+  # Critical alert: breaks through Do Not Disturb. Manual fallback: check the device in the tado/Nest app.
+  - id: climate_health_device_unavailable
+    alias: Climate health - device unavailable
+    mode: single
+    triggers:
+      # One trigger only: the list changing (incl. the first outage) and staying so for 15 min.
+      - trigger: state
+        entity_id: sensor.climate_devices_unavailable
+        attribute: devices
+        for: {minutes: 15}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      - condition: numeric_state
+        entity_id: sensor.climate_devices_unavailable
+        above: 0
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Heating/AC device not responding
+          message: "Unavailable for 15+ min: {{ state_attr('sensor.climate_devices_unavailable', 'devices') }}"
+          data:
+            tag: climate_health_unavailable
+            ttl: 0
+            priority: high
+            channel: alarm_stream
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.climate_health_alert_active
+
+  # All climate devices are back after an alert was sent: replace the alert so it doesn't linger. Manual fallback:
+  # none needed.
+  - id: climate_health_devices_recovered
+    alias: Climate health - devices recovered
+    mode: single
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.climate_devices_unavailable
+        below: 1
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.climate_health_alert_active
+        state: "on"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.climate_health_alert_active
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Heating/AC devices back
+          message: All climate devices are reporting again.
+          data:
+            tag: climate_health_unavailable
+
+  # An integration needs signing in again (tado, Volvo, ...). HA raises a repair issue `config_entry_reauth_*` when a
+  # sign-in lapses; this alerts straight away instead of when a room goes cold. Unverified until the next lapse.
+  # Manual fallback: Settings → Repairs on the box.
+  - id: climate_health_reauth_needed
+    alias: Climate health - integration needs signing in
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: repairs_issue_registry_updated
+        event_data:
+          action: create
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ trigger.event.data.issue_id is search('reauth') }}"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Integration needs signing in (tanga)
+          message: "{{ trigger.event.data.issue_id }}: open Settings → Repairs on tanga to sign in again."
+          data:
+            tag: "reauth_{{ trigger.event.data.issue_id }}"
+            priority: high
+
+  # Daily battery digest at 08:00 (M1-F). Manual fallback: the device's own app.
+  - id: climate_health_battery_digest
+    alias: Climate health - daily battery digest
+    mode: single
+    triggers:
+      - trigger: time
+        at: "08:00:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ states('sensor.batteries_low') | int(0) > 0 or states('sensor.devices_silent') | int(0) > 0 }}"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "Batteries low ({{ states('sensor.batteries_low') }}), devices silent ({{ states('sensor.devices_silent') }})"
+          message: >-
+            Low: {{ state_attr('sensor.batteries_low', 'devices') or 'none' }}.
+            Silent: {{ (state_attr('sensor.devices_silent', 'devices') or []) | join(', ') or 'none' }}.
+          data:
+            tag: climate_health_batteries
+
+  # A SmartThings device newly went silent (and stayed so 30 min): normal-priority alert, so a dead sensor is
+  # replaced before it matters. Manual fallback: SmartThings app → device status.
+  - id: climate_health_device_silent
+    alias: Climate health - device went silent
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.devices_silent
+        attribute: devices
+        for: {minutes: 30}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      # Ignore the jump from "no list" after a restart or reload, which would re-announce every silent device.
+      - condition: template
+        value_template: >-
+          {{ trigger.from_state is not none
+             and trigger.from_state.state not in ['unavailable', 'unknown']
+             and trigger.from_state.attributes.devices is defined
+             and (trigger.to_state.attributes.devices or []) | reject('in', trigger.from_state.attributes.devices)
+                 | list | count > 0 }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Sensor gone silent
+          message: >-
+            Not reporting: {{ (trigger.to_state.attributes.devices or [])
+              | reject('in', trigger.from_state.attributes.devices or []) | join(', ') }}.
+            Check its battery (CR2450) or wake it by opening and closing it.
+          data:
+            tag: climate_health_silent

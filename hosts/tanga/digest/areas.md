@@ -7,6 +7,7 @@
 - Dining Area
 - Downstairs
 - Driveway
+- Ellie
 - Ellies Bedroom
 - Garage
 - Garden
@@ -16,6 +17,7 @@
 - Hot Water
 - Isla
 - Isla Bedroom
+- Kids Bathroom
 - Kitchen
 - Landing
 - Living Room

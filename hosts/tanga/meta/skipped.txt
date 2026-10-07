@@ -1,9 +1,9 @@
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
-home-assistant_v2.db (16729014272 bytes) — db/log/binary
-home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (5055272 bytes) — db/log/binary
+home-assistant_v2.db (17703129088 bytes) — db/log/binary
+home-assistant_v2.db-shm (65536 bytes) — db/log/binary
+home-assistant_v2.db-wal (5446672 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
