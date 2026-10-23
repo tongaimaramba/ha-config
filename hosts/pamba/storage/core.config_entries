@@ -231,35 +231,6 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "api_key",
-            "latitude",
-            "longitude",
-            "name"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "accuweather",
-        "entry_id": "a1167d55689b4ce48bc85b58149d034b",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "forecast"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Alexandra_Drive",
-        "unique_id": "323328",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
             "event",
             "event_data",
             "name",
@@ -309,7 +280,7 @@
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-07-15T17:17:42.546961+00:00",
+        "modified_at": "2026-10-23T02:20:32.236546+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -1564,33 +1535,6 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "api_key",
-            "latitude",
-            "longitude",
-            "name"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "metoffice",
-        "entry_id": "f7b8d9997ddcfe2ae565662674a87386",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Kingston Upon Thames",
-        "unique_id": "51.38846682703228_-0.28486720905804624",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
             "app_data",
             "app_id",
             "app_name",
@@ -2710,7 +2654,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-10-07T19:56:29.457401+00:00",
+        "modified_at": "2026-10-23T09:08:51.016089+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3242,43 +3186,6 @@
         "version": 1
       },
       {
-        "created_at": "2025-04-21T16:21:23.945744+00:00",
-        "data": {
-          "_redacted_keys": [
-            "refresh_token"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {
-          "zeroconf": [
-            {
-              "domain": "zeroconf",
-              "key": [
-                "_hap._tcp.local.",
-                "tado Internet Bridge IB0210636544._hap._tcp.local."
-              ],
-              "version": 1
-            }
-          ]
-        },
-        "domain": "tado",
-        "entry_id": "01JSCJF0V9J60GA1YF14QMGEG0",
-        "minor_version": 1,
-        "modified_at": "2026-10-07T21:21:32.576461+00:00",
-        "options": {
-          "_redacted_keys": [
-            "fallback"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "homekit",
-        "subentries": [],
-        "title": "Pamba",
-        "unique_id": "526919",
-        "version": 2
-      },
-      {
         "created_at": "2025-04-26T18:15:04.237553+00:00",
         "data": {
           "_redacted_keys": [
@@ -3697,7 +3604,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-10-07T21:21:12.176656+00:00",
+        "modified_at": "2026-10-23T09:44:22.379274+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3837,37 +3744,6 @@
         "version": 1
       },
       {
-        "created_at": "2025-07-26T19:43:59.016615+00:00",
-        "data": {
-          "_redacted_keys": [
-            "friendly_name",
-            "username",
-            "vcc_api_key",
-            "vin"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "volvo_cars",
-        "entry_id": "01K1446Z182X5CKHWQVVNR942C",
-        "minor_version": 3,
-        "modified_at": "2025-11-02T09:44:58.948108+00:00",
-        "options": {
-          "_redacted_keys": [
-            "device_tracker_picture",
-            "energy_consumption_unit",
-            "vcc_api_key"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Volvo EX40 (YV1XZEHR5T2686253)",
-        "unique_id": "YV1XZEHR5T2686253",
-        "version": 1
-      },
-      {
         "created_at": "2025-08-05T12:25:37.988293+00:00",
         "data": {
           "_redacted_keys": [
@@ -3927,7 +3803,7 @@
         "domain": "mobile_app",
         "entry_id": "01K2PQCB1ZFTPF9PG3JJCHCFPZ",
         "minor_version": 1,
-        "modified_at": "2026-09-17T06:50:34.116277+00:00",
+        "modified_at": "2026-10-22T09:06:35.619881+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4234,7 +4110,7 @@
         "domain": "mobile_app",
         "entry_id": "01KCW0QXSZ4M4H0HVWT1THFYX3",
         "minor_version": 1,
-        "modified_at": "2026-09-15T06:35:37.752498+00:00",
+        "modified_at": "2026-10-19T14:59:40.038489+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4261,7 +4137,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-10-07T19:45:21.667820+00:00",
+        "modified_at": "2026-10-23T09:08:03.792549+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4399,7 +4275,7 @@
         "domain": "mobile_app",
         "entry_id": "01KXXQJDAKHYW963D1AF4RABRC",
         "minor_version": 1,
-        "modified_at": "2026-10-05T07:07:40.639808+00:00",
+        "modified_at": "2026-10-18T22:35:53.912082+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4470,7 +4346,7 @@
         "domain": "navimow_pro",
         "entry_id": "01M2J126F0N1RASMM1ZJ1CYZKP",
         "minor_version": 1,
-        "modified_at": "2026-09-15T07:56:19.296736+00:00",
+        "modified_at": "2026-10-15T20:21:38.231202+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4481,6 +4357,39 @@
         "title": "Oppy",
         "unique_id": "0EBDA2506K0129",
         "version": 1
+      },
+      {
+        "created_at": "2026-10-12T13:03:06.823554+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544._hap._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "tado",
+        "entry_id": "01M4R3BBJ7J7FMYPG2ZGDZG7WS",
+        "minor_version": 1,
+        "modified_at": "2026-10-12T13:03:06.823563+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "Tado",
+        "unique_id": null,
+        "version": 2
       }
     ]
   }

@@ -3,7 +3,6 @@
 | domain | title | source | kind | devices | entities | disabled | entry_id |
 |---|---|---|---|---|---|---|---|
 | aarlo | Aarlo for tongai.maramba@gmail.com | user | custom | 6 | 33 |  | 01JZ81G3E3A5HHJ29RNN3YVSB7 |
-| accuweather | Alexandra_Drive | user | core | 1 | 132 |  | a1167d55689b4ce48bc85b58149d034b |
 | androidtv_remote | SHIELD | zeroconf | core | 1 | 2 |  | 5b8948e607aa97eaeead31a660937afa |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | d7ffc6642b3f4c063b57e99eaf74852f |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | 95c1fa6206d6f0b7a51e67a2d67baf42 |
@@ -91,7 +90,6 @@
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
 | lightwave_smart | RPI4 | user | custom | 21 | 80 |  | 01KAF4KAJNW194B6P66DG42YWP |
 | matter | matter | ignore | core | 0 | 0 |  | 01JWRZHFKXWZM1S5826TX6A4D0 |
-| metoffice | Kingston Upon Thames | user | core | 1 | 25 |  | f7b8d9997ddcfe2ae565662674a87386 |
 | miele | Miele | ignore | core | 0 | 0 |  | 01JMJZQZFNPBMM5KERGXS4NXQA |
 | mobile_app | Ellie iPhone | registration | core | 1 | 30 |  | 01KXXQJDAKHYW963D1AF4RABRC |
 | mobile_app | Garmin Device | registration | core | 1 | 6 |  | 01JSSMYR9DKJ1ZNMC5EXAMVH57 |
@@ -102,7 +100,7 @@
 | mobile_app | MacBook Pro | registration | core | 1 | 21 |  | c1e2f77695764f64b7d4b620ac9c7781 |
 | mobile_app | TongaiPix | registration | core | 1 | 125 |  | 01K1X33GE4NXBMY7HHSFAG9QP9 |
 | mobile_app | TongaiPix9 | registration | core | 1 | 125 |  | 01JZN0BZ3SEPDQ4QY05ZTPTMYT |
-| mobile_app | TongaiSM25 | registration | core | 1 | 133 |  | 01K2PQCB1ZFTPF9PG3JJCHCFPZ |
+| mobile_app | TongaiSM25 | registration | core | 1 | 134 |  | 01K2PQCB1ZFTPF9PG3JJCHCFPZ |
 | mobile_app | family_mac | registration | core | 1 | 23 |  | dd4b052e1d5475ec87e7c2ac905c4aa7 |
 | mobile_app | iPad | registration | core | 1 | 9 |  | d9e1afc9673d0cdc068f01f0111d380f |
 | mobile_app | iPhone (3) | registration | core | 1 | 18 |  | 9c660d7fffd4deaddb4635e9f7fc99e9 |
@@ -132,7 +130,7 @@
 | speedtestdotnet | SpeedTest | user | core | 1 | 3 |  | 01JPZE8P6BTFZ9AE5FXGADTVSS |
 | spotify | Spotify | ignore | core | 0 | 0 |  | 7c0befa83904312eb73fddd2e49e334f |
 | sun | Sun | import | core | 1 | 10 |  | fb23c1fe8cd83a23977a89578999be3f |
-| tado | Pamba | homekit | core | 19 | 101 |  | 01JSCJF0V9J60GA1YF14QMGEG0 |
+| tado | Tado | ignore | core | 0 | 0 |  | 01M4R3BBJ7J7FMYPG2ZGDZG7WS |
 | template | domane-phone | user | core | 0 | 1 |  | beb242e4857e47fcd043cbcadff46069 |
 | thread | Thread | ignore | core | 0 | 0 |  | 3d9eba59b677cb7c16ca2f86dcaa43f5 |
 | tile | tongaimaramba@gmail.com | import | core | 11 | 22 |  | 73fe37afe4688b4555452dd59f8ef3ea |
@@ -144,7 +142,6 @@
 | upnp | Ignored | ignore | core | 0 | 0 |  | 47b477b249704c2d8fb7730da25fe42f |
 | upnp | Ignored | ignore | core | 0 | 0 |  | 0d97beee6cb7418c9620a6f1220f1449 |
 | upnp | UPnP/IGD: RBR50 (AP) | ignore | core | 0 | 0 |  | df5f30b30096eeefe03dae0745e8ea3d |
-| volvo_cars | Volvo EX40 (YV1XZEHR5T2686253) | user | custom | 1 | 70 |  | 01K1446Z182X5CKHWQVVNR942C |
 | webostv | Projector | user | core | 1 | 1 |  | a64420808c99104e10612453353d0b78 |
 | zha | Sonoff Zigbee 3.0 USB Dongle Plus | usb | core | 8 | 52 |  | 01KSG71FD6SJ6F1JBRSX0XXQ7Z |
 
@@ -175,7 +172,7 @@
 | rpi_gpio | 2022.7.0 | Raspberry Pi GPIO | NO — installed but not configured | https://github.com/thecode/ha-rpi_gpio |
 | sonoff | 3.8.2 | Sonoff | yes | https://github.com/AlexxIT/SonoffLAN |
 | velux |  | Velux | NO — installed but not configured | https://www.home-assistant.io/integrations/velux |
-| volvo_cars | 1.5.6 | Volvo Cars | yes | https://github.com/thomasddn/ha-volvo-cars |
+| volvo_cars | 1.5.7 | Volvo Cars | NO — installed but not configured | https://github.com/thomasddn/ha-volvo-cars |
 | whatspie | 1.0.0 | Send WhatsApp Messages via WhatsPie | NO — installed but not configured | https://github.com/arifwn/homeassistant-whatspie-integration |
 
 ## configuration.yaml top-level keys

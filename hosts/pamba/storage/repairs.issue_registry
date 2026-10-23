@@ -180,20 +180,6 @@
         "issue_id": "accuweather.markdown_accuweather"
       },
       {
-        "created": "2025-11-19T20:11:51.924978+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_metoffice_f7b8d9997ddcfe2ae565662674a87386"
-      },
-      {
-        "created": "2025-11-19T20:11:54.591109+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_accuweather_a1167d55689b4ce48bc85b58149d034b"
-      },
-      {
         "created": "2025-11-19T20:16:36.155750+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -257,18 +243,32 @@
         "issue_id": "restart_required_139664351_tags/v5.15.0"
       },
       {
-        "created": "2026-06-16T13:36:52.644832+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_volvo_cars_01K1446Z182X5CKHWQVVNR942C"
-      },
-      {
         "created": "2026-09-15T06:08:41.632714+00:00",
         "dismissed_version": null,
         "domain": "hacs",
         "is_persistent": false,
         "issue_id": "restart_required_1309777882_tags/v0.6.0"
+      },
+      {
+        "created": "2026-10-09T11:48:21.623879+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_899977910_tags/v1.5.7"
+      },
+      {
+        "created": "2026-10-14T16:22:53.116772+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "e11de5f1ab29435fb768bf697f843d2a"
+      },
+      {
+        "created": "2026-10-14T18:51:30.111433+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "927d163d2eec444db62dc55dabfeab90"
       }
     ]
   }

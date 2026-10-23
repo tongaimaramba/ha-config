@@ -73,7 +73,6 @@ binary_sensor.bay_window_acceleration	smartthings	My home	Bay Window	Living Room
 binary_sensor.bay_window_door	smartthings	My home	Bay Window	Living Room	Door			9af80a4d-e520-4fab-95ec-f297b19d9721_main_contactSensor_contact_contact
 binary_sensor.boiler_temp_acceleration	smartthings	My home	Boiler Temp	Garage	Acceleration			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_accelerationSensor_acceleration_acceleration
 binary_sensor.boiler_temp_door	smartthings	My home	Boiler Temp	Garage	Door			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_contactSensor_contact_contact
-binary_sensor.bp2367888896_connection_state	tado	Pamba	BP2367888896	Garage	Connection state			connection state BP2367888896 526919
 binary_sensor.car_security	group	Car Security			Car Security			32512a8a1e1341f8ca6d8d8f791537e9
 binary_sensor.closed_e	zha	Sonoff Zigbee 3.0 USB Dongle Plus	closed-e	Ellies Bedroom				c0:9b:9e:ff:fe:ae:b1:e6-1-1280
 binary_sensor.closed_e_tamper	zha	Sonoff Zigbee 3.0 USB Dongle Plus	closed-e	Ellies Bedroom	Tamper			c0:9b:9e:ff:fe:ae:b1:e6-1-tamper
@@ -89,20 +88,15 @@ binary_sensor.coats_motion_2	hue	tojgan bright	Coats	Coats	Motion			9fffb4ac-6b8
 binary_sensor.deconz_running	hassio	Supervisor	deCONZ		Running	integration		core_deconz_state
 binary_sensor.domane_lost	tile	tongaimaramba@gmail.com	Domane	Garage	Lost			tongaimaramba@gmail.com_93a9f62adee24a79_lost
 binary_sensor.downstairs_indoor_movement	group	Downstairs Indoor Movement			Downstairs Indoor Movement			60bed65316a7857969c58ad2fcbf18f9
-binary_sensor.ellie_connectivity	tado	Pamba	Ellie	Ellie	Connectivity			link 3 526919
-binary_sensor.ellie_early_start	tado	Pamba	Ellie	Ellie	Early start			early start 3 526919
 binary_sensor.ellie_iphone_camera_motion	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Camera Motion	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_cameraMotion
 binary_sensor.ellie_iphone_focus	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Focus			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_focus
 binary_sensor.ellie_iphone_kiosk_mode	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Mode	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskMode
 binary_sensor.ellie_iphone_kiosk_screensaver	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Screensaver			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskScreensaver
-binary_sensor.ellie_overlay	tado	Pamba	Ellie	Ellie	Overlay			overlay 3 526919
-binary_sensor.ellie_power	tado	Pamba	Ellie	Ellie	Power			power 3 526919
 binary_sensor.ellie_s_gym_bag_lost	tile	tongaimaramba@gmail.com	Ellie's Gym Bag		Lost			tongaimaramba@gmail.com_e4bba3984d007315_lost
 binary_sensor.ellie_s_hockey_bag_lost	tile	tongaimaramba@gmail.com	Ellie's Hockey Bag		Lost			tongaimaramba@gmail.com_3c22b05cbd0f0356_lost
 binary_sensor.ellie_s_phone_lost	tile	tongaimaramba@gmail.com	Ellie's Phone		Lost			tongaimaramba@gmail.com_3c9084d6616575bd_lost
 binary_sensor.ellie_s_phone_lost_2	tile	tongaimaramba@gmail.com	Ellie's Phone		Lost			tongaimaramba@gmail.com_9fac610bf616b6d8_lost
 binary_sensor.ellie_s_school_bag_lost	tile	tongaimaramba@gmail.com	Ellie's School Bag	Coats	Lost			tongaimaramba@gmail.com_92dee031bfd76ee3_lost
-binary_sensor.ellie_window	tado	Pamba	Ellie	Ellie	Window			open window 3 526919
 binary_sensor.ellie_window_acceleration	smartthings	My home	Ellie Window	Ellie	Acceleration			85663cb9-cccb-4637-8eac-6b0af998e502_main_accelerationSensor_acceleration_acceleration
 binary_sensor.ellie_window_door	smartthings	My home	Ellie Window	Ellie	Door			85663cb9-cccb-4637-8eac-6b0af998e502_main_contactSensor_contact_contact
 binary_sensor.ellie_window_party_acceleration	smartthings	My home	Ellie Window Party	Ellie	Acceleration			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_accelerationSensor_acceleration_acceleration
@@ -138,14 +132,9 @@ binary_sensor.garmin_device_battery_is_charging_2	mobile_app	Garmin Device	Garmi
 binary_sensor.get_hacs_running	hassio	Supervisor	Get HACS		Running	integration		cb646a50_get_state
 binary_sensor.guest_win_acceleration	smartthings	My home	Guest Win	Study	Acceleration			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_accelerationSensor_acceleration_acceleration
 binary_sensor.guest_win_door	smartthings	My home	Guest Win	Study	Door			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_contactSensor_contact_contact
-binary_sensor.hannah_connectivity	tado	Pamba	Hannah	Hannah	Connectivity			link 4 526919
-binary_sensor.hannah_early_start	tado	Pamba	Hannah	Hannah	Early start			early start 4 526919
 binary_sensor.hannah_hockey_bag_lost	tile	tongaimaramba@gmail.com	Hannah Hockey Bag		Lost			tongaimaramba@gmail.com_4bead49220aebc67_lost
 binary_sensor.hannah_keys_lost	tile	tongaimaramba@gmail.com	Hannah Keys	Coats	Lost			tongaimaramba@gmail.com_3f1f04667e938b3e_lost
-binary_sensor.hannah_overlay	tado	Pamba	Hannah	Hannah	Overlay			overlay 4 526919
-binary_sensor.hannah_power	tado	Pamba	Hannah	Hannah	Power			power 4 526919
-binary_sensor.hannah_window	tado	Pamba	Hannah	Hannah	Window			open window 4 526919
-binary_sensor.hannahs_iphone13_camera_motion	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Motion			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_cameraMotion
+binary_sensor.hannahs_iphone13_camera_motion	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Motion	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_cameraMotion
 binary_sensor.hannahs_iphone13_focus	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Focus			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_focus
 binary_sensor.hannahs_iphone13_kiosk_mode	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Mode			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskMode
 binary_sensor.hannahs_iphone13_kiosk_screensaver	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Screensaver			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskScreensaver
@@ -154,26 +143,12 @@ binary_sensor.home_assistant_google_drive_backup_running	hassio	Supervisor	Home 
 binary_sensor.home_assistant_google_drive_backup_update_available	hassio	Supervisor	Home Assistant Google Drive Backup		Update available	integration		cebe7a76_hassio_google_drive_backup_update_available
 binary_sensor.home_assistant_operating_system_running	hassio	Supervisor	Home Assistant Operating System		Home Assistant Operating System: Running	integration		home_assistant_os_state
 binary_sensor.home_assistant_operating_system_update_available	hassio	Supervisor	Home Assistant Operating System		Update available	integration		home_assistant_os_update_available
-binary_sensor.hot_water_connectivity	tado	Pamba	Hot Water	Hot Water	Connectivity			link 0 526919
-binary_sensor.hot_water_overlay	tado	Pamba	Hot Water	Hot Water	Overlay			overlay 0 526919
-binary_sensor.hot_water_power	tado	Pamba	Hot Water	Hot Water	Power			power 0 526919
 binary_sensor.hue_motion_sensor_1_motion	hue	tojgan bright	Loft Bathroom 	Loft Bathroom	Motion			2b9c5f43-f5a8-49b6-af8f-a7a0eda29240
 binary_sensor.hue_motion_sensor_2_motion	hue	tojgan bright	Garage Laundry	Kitchen	Motion			f16b3ee0-4986-45d1-b8ca-ad76fb0053d6
-binary_sensor.ib0210636544_connection_state	tado	Pamba	IB0210636544	Garage	Connection state			connection state IB0210636544 526919
 binary_sensor.iphone_32_focus	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Focus			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_focus
-binary_sensor.kids_bathroom_connectivity	tado	Pamba	Kids Bathroom	Kids Bathroom	Connectivity			link 11 526919
-binary_sensor.kids_bathroom_early_start	tado	Pamba	Kids Bathroom	Kids Bathroom	Early start			early start 11 526919
-binary_sensor.kids_bathroom_overlay	tado	Pamba	Kids Bathroom	Kids Bathroom	Overlay			overlay 11 526919
-binary_sensor.kids_bathroom_power	tado	Pamba	Kids Bathroom	Kids Bathroom	Power			power 11 526919
-binary_sensor.kids_bathroom_window	tado	Pamba	Kids Bathroom	Kids Bathroom	Window			open window 11 526919
 binary_sensor.kitchen_acceleration	smartthings	My home	Kitchen	Kitchen	Acceleration			e6821393-e06c-439c-baad-d48f38e8cd5b_main_accelerationSensor_acceleration_acceleration
 binary_sensor.kitchen_door	smartthings	My home	Kitchen	Kitchen	Door			e6821393-e06c-439c-baad-d48f38e8cd5b_main_contactSensor_contact_contact
 binary_sensor.kitchen_motion	hue	tojgan bright	Kitchen	Kitchen	Motion			d02614b7-d1a2-4547-a6eb-6691276df2c6
-binary_sensor.landing_connectivity	tado	Pamba	Landing	Landing	Connectivity			link 9 526919
-binary_sensor.landing_early_start	tado	Pamba	Landing	Landing	Early start			early start 9 526919
-binary_sensor.landing_overlay	tado	Pamba	Landing	Landing	Overlay			overlay 9 526919
-binary_sensor.landing_power	tado	Pamba	Landing	Landing	Power			power 9 526919
-binary_sensor.landing_window	tado	Pamba	Landing	Landing	Window			open window 9 526919
 binary_sensor.landing_window_acceleration	smartthings	My home	Landing Window	Hallway	Acceleration			74325601-0eb6-48bf-a640-e09d74995351_main_accelerationSensor_acceleration_acceleration
 binary_sensor.landing_window_door	smartthings	My home	Landing Window	Hallway	Door			74325601-0eb6-48bf-a640-e09d74995351_main_contactSensor_contact_contact
 binary_sensor.let_s_encrypt_running	hassio	Supervisor	Let's Encrypt		Running	integration		core_letsencrypt_state
@@ -183,11 +158,6 @@ binary_sensor.loft_pir_bed_area	esphome	Bedroom Presence	Bedroom Presence	Loft	B
 binary_sensor.loft_pir_bedroom_door	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Door			D8:3B:DA:75:E6:90-binary_sensor-bedroom_door
 binary_sensor.loft_pir_person_present	esphome	Bedroom Presence	Bedroom Presence	Loft	Person Present			D8:3B:DA:75:E6:90-binary_sensor-person_present
 binary_sensor.loft_pir_window_area	esphome	Bedroom Presence	Bedroom Presence	Loft	Window Area			D8:3B:DA:75:E6:90-binary_sensor-window_area
-binary_sensor.loft_suite_connectivity	tado	Pamba	Loft Suite	Loft Suite	Connectivity			link 12 526919
-binary_sensor.loft_suite_early_start	tado	Pamba	Loft Suite	Loft Suite	Early start			early start 12 526919
-binary_sensor.loft_suite_overlay	tado	Pamba	Loft Suite	Loft Suite	Overlay			overlay 12 526919
-binary_sensor.loft_suite_power	tado	Pamba	Loft Suite	Loft Suite	Power			power 12 526919
-binary_sensor.loft_suite_window	tado	Pamba	Loft Suite	Loft Suite	Window			open window 12 526919
 binary_sensor.mm_iphone_focus	mobile_app	iPhone (3)	mm iphone		mm iphone Focus			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_focus
 binary_sensor.mosquitto_broker_running	hassio	Supervisor	Mosquitto broker		Running	integration		core_mosquitto_state
 binary_sensor.mosquitto_broker_update_available	hassio	Supervisor	Mosquitto broker		Update available	integration		core_mosquitto_update_available
@@ -234,17 +204,6 @@ binary_sensor.samba_share_update_available	hassio	Supervisor	Samba share		Update
 binary_sensor.speedtest_running	hassio	Supervisor	Speedtest		Running	integration		6b87c29e_speedtest_addon_state
 binary_sensor.sqlite_web_running	hassio	Supervisor	SQLite Web		Running	integration		a0d7b954_sqlite-web_state
 binary_sensor.sqlite_web_update_available	hassio	Supervisor	SQLite Web		Update available	integration		a0d7b954_sqlite-web_update_available
-binary_sensor.study_connectivity	tado	Pamba	Study	Study	Connectivity			link 1 526919
-binary_sensor.study_early_start	tado	Pamba	Study	Study	Early start			early start 1 526919
-binary_sensor.study_overlay	tado	Pamba	Study	Study	Overlay			overlay 1 526919
-binary_sensor.study_power	tado	Pamba	Study	Study	Power			power 1 526919
-binary_sensor.study_window	tado	Pamba	Study	Study	Window			open window 1 526919
-binary_sensor.su2586204416_battery	tado	Pamba	SU2586204416	Loft Suite	Battery			battery state SU2586204416 526919
-binary_sensor.su2586204416_connection_state	tado	Pamba	SU2586204416	Loft Suite	Connection state			connection state SU2586204416 526919
-binary_sensor.su3124240128_battery	tado	Pamba	SU3124240128	Ellie	Battery			battery state SU3124240128 526919
-binary_sensor.su3124240128_connection_state	tado	Pamba	SU3124240128	Ellie	Connection state			connection state SU3124240128 526919
-binary_sensor.su3283363072_battery	tado	Pamba	SU3283363072	Hannah	Battery			battery state SU3283363072 526919
-binary_sensor.su3283363072_connection_state	tado	Pamba	SU3283363072	Hannah	Connection state			connection state SU3283363072 526919
 binary_sensor.sun_solar_rising	sun	Sun	Sun		Solar rising	integration		fb23c1fe8cd83a23977a89578999be3f-solar_rising
 binary_sensor.tagreader_status	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Status			KITCHEN-NFC-binary_sensor-tagreader_status
 binary_sensor.tagreader_status_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Status			40:91:51:4E:DB:EA-binary_sensor-tagreader_status
@@ -360,57 +319,6 @@ binary_sensor.upstairs_indoor_motion	group	Upstairs Indoor Motion			Upstairs Ind
 binary_sensor.utility_back_door	smartthings	My home	Utility Back Door	Utility				d37e06db-a7e8-474f-802e-cad844952232_main_contactSensor_contact_contact
 binary_sensor.utility_back_door_acceleration	smartthings	My home	Utility Back Door	Utility	Acceleration			d37e06db-a7e8-474f-802e-cad844952232_main_accelerationSensor_acceleration_acceleration
 binary_sensor.utility_motion_motion	hue	tojgan bright	Utility Motion	Utility	Motion			fe4b2176-fd5d-4c3c-a0c2-5a3e302ab64c
-binary_sensor.va0572855296_battery	tado	Pamba	VA0572855296	Ellie	Battery			battery state VA0572855296 526919
-binary_sensor.va0572855296_connection_state	tado	Pamba	VA0572855296	Ellie	Connection state			connection state VA0572855296 526919
-binary_sensor.va0611323648_battery	tado	Pamba	VA0611323648	Study	Battery			battery state VA0611323648 526919
-binary_sensor.va0611323648_connection_state	tado	Pamba	VA0611323648	Study	Connection state			connection state VA0611323648 526919
-binary_sensor.va0748706304_battery	tado	Pamba	VA0748706304	Loft Suite	Battery			battery state VA0748706304 526919
-binary_sensor.va0748706304_connection_state	tado	Pamba	VA0748706304	Loft Suite	Connection state			connection state VA0748706304 526919
-binary_sensor.va0796464128_battery	tado	Pamba	VA0796464128	Kids Bathroom	Battery			battery state VA0796464128 526919
-binary_sensor.va0796464128_connection_state	tado	Pamba	VA0796464128	Kids Bathroom	Connection state			connection state VA0796464128 526919
-binary_sensor.va1226511360_battery	tado	Pamba	VA1226511360	Hannah	Battery			battery state VA1226511360 526919
-binary_sensor.va1226511360_connection_state	tado	Pamba	VA1226511360	Hannah	Connection state			connection state VA1226511360 526919
-binary_sensor.va2390168576_battery	tado	Pamba	VA2390168576	Landing	Battery			battery state VA2390168576 526919
-binary_sensor.va2390168576_connection_state	tado	Pamba	VA2390168576	Landing	Connection state			connection state VA2390168576 526919
-binary_sensor.volvo_eva_brake_fluid_level_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake fluid			volvo_yv1xzehr5t2686253_brake_fluid_level_warning
-binary_sensor.volvo_eva_brake_light_center_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake light center			volvo_yv1xzehr5t2686253_brake_light_center_warning
-binary_sensor.volvo_eva_brake_light_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake light left			volvo_yv1xzehr5t2686253_brake_light_left_warning
-binary_sensor.volvo_eva_brake_light_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Brake light right			volvo_yv1xzehr5t2686253_brake_light_right_warning
-binary_sensor.volvo_eva_coolant_level_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Coolant level			volvo_yv1xzehr5t2686253_coolant_level_warning
-binary_sensor.volvo_eva_daytime_running_light_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Daytime running light left			volvo_yv1xzehr5t2686253_daytime_running_light_left_warning
-binary_sensor.volvo_eva_daytime_running_light_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Daytime running light right			volvo_yv1xzehr5t2686253_daytime_running_light_right_warning
-binary_sensor.volvo_eva_door_front_left	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Door front left			volvo_yv1xzehr5t2686253_door_front_left
-binary_sensor.volvo_eva_door_front_right	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Door front right			volvo_yv1xzehr5t2686253_door_front_right
-binary_sensor.volvo_eva_door_rear_left	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Door rear left			volvo_yv1xzehr5t2686253_door_rear_left
-binary_sensor.volvo_eva_door_rear_right	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Door rear right			volvo_yv1xzehr5t2686253_door_rear_right
-binary_sensor.volvo_eva_engine_status	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Engine status			volvo_yv1xzehr5t2686253_engine_status
-binary_sensor.volvo_eva_fog_light_front_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Fog light front			volvo_yv1xzehr5t2686253_fog_light_front_warning
-binary_sensor.volvo_eva_fog_light_rear_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Fog light rear			volvo_yv1xzehr5t2686253_fog_light_rear_warning
-binary_sensor.volvo_eva_high_beam_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	High beam left			volvo_yv1xzehr5t2686253_high_beam_left_warning
-binary_sensor.volvo_eva_high_beam_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	High beam right			volvo_yv1xzehr5t2686253_high_beam_right_warning
-binary_sensor.volvo_eva_hood	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Hood			volvo_yv1xzehr5t2686253_hood
-binary_sensor.volvo_eva_low_beam_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Low beam left			volvo_yv1xzehr5t2686253_low_beam_left_warning
-binary_sensor.volvo_eva_low_beam_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Low beam right			volvo_yv1xzehr5t2686253_low_beam_right_warning
-binary_sensor.volvo_eva_oil_level_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Oil level			volvo_yv1xzehr5t2686253_oil_level_warning
-binary_sensor.volvo_eva_position_light_front_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Position light front left			volvo_yv1xzehr5t2686253_position_light_front_left_warning
-binary_sensor.volvo_eva_position_light_front_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Position light front right			volvo_yv1xzehr5t2686253_position_light_front_right_warning
-binary_sensor.volvo_eva_position_light_rear_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Position light rear left			volvo_yv1xzehr5t2686253_position_light_rear_left_warning
-binary_sensor.volvo_eva_position_light_rear_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Position light rear right			volvo_yv1xzehr5t2686253_position_light_rear_right_warning
-binary_sensor.volvo_eva_registration_plate_light_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Registration plate light			volvo_yv1xzehr5t2686253_registration_plate_light_warning
-binary_sensor.volvo_eva_service_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Service			volvo_yv1xzehr5t2686253_service_warning
-binary_sensor.volvo_eva_side_mark_lights_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Side mark lights			volvo_yv1xzehr5t2686253_side_mark_lights_warning
-binary_sensor.volvo_eva_sunroof	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Sunroof			volvo_yv1xzehr5t2686253_sunroof
-binary_sensor.volvo_eva_tailgate	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Tailgate			volvo_yv1xzehr5t2686253_tailgate
-binary_sensor.volvo_eva_tank_lid	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Tank lid			volvo_yv1xzehr5t2686253_tank_lid
-binary_sensor.volvo_eva_turn_indication_front_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Turn indication front left			volvo_yv1xzehr5t2686253_turn_indication_front_left_warning
-binary_sensor.volvo_eva_turn_indication_front_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Turn indication front right			volvo_yv1xzehr5t2686253_turn_indication_front_right_warning
-binary_sensor.volvo_eva_turn_indication_rear_left_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Turn indication rear left			volvo_yv1xzehr5t2686253_turn_indication_rear_left_warning
-binary_sensor.volvo_eva_turn_indication_rear_right_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Turn indication rear right			volvo_yv1xzehr5t2686253_turn_indication_rear_right_warning
-binary_sensor.volvo_eva_washer_fluid_level_warning	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Washer fluid			volvo_yv1xzehr5t2686253_washer_fluid_level_warning
-binary_sensor.volvo_eva_window_front_left	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Window front left			volvo_yv1xzehr5t2686253_window_front_left
-binary_sensor.volvo_eva_window_front_right	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Window front right			volvo_yv1xzehr5t2686253_window_front_right
-binary_sensor.volvo_eva_window_rear_left	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Window rear left			volvo_yv1xzehr5t2686253_window_rear_left
-binary_sensor.volvo_eva_window_rear_right	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Window rear right			volvo_yv1xzehr5t2686253_window_rear_right
 binary_sensor.worktop_sensor_motion	hue	tojgan bright	Worktop Sensor	Kitchen	Motion			e069b5fc-2ed4-477d-93f3-9a0beeb0806f
 button.cancel_writing	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Cancel writing			KITCHEN-NFC-button-cancel_writing
 button.cancel_writing_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Cancel writing			40:91:51:4E:DB:EA-button-cancel_writing
@@ -459,12 +367,6 @@ button.pres_h_identify	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h	Hannahs Bedr
 button.pres_l_identify	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite	Identify			44:e2:f8:ff:fe:24:03:c4-1-3
 button.tagreader_restart	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Restart			KITCHEN-NFC-button-tagreader_restart
 button.tagreader_restart_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Restart			40:91:51:4E:DB:EA-button-tagreader_restart
-button.volvo_eva_climatization_start	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Start climatization			volvo_yv1xzehr5t2686253_climatization_start
-button.volvo_eva_climatization_stop	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Stop climatization			volvo_yv1xzehr5t2686253_climatization_stop
-button.volvo_eva_flash	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Flash			volvo_yv1xzehr5t2686253_flash
-button.volvo_eva_honk	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Honk			volvo_yv1xzehr5t2686253_honk
-button.volvo_eva_honk_flash	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Honk & flash			volvo_yv1xzehr5t2686253_honk_flash
-button.volvo_eva_update_data	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Update data			volvo_yv1xzehr5t2686253_update_data
 button.write_tag_random	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			KITCHEN-NFC-button-write_tag_random
 button.write_tag_random_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			40:91:51:4E:DB:EA-button-write_tag_random
 calendar.oppy_mowing_schedule	navimow_pro	Oppy	Oppy	Garden	Mowing schedule			0EBDA2506K0129_schedule
@@ -474,16 +376,10 @@ camera.front_door	nest	Pamba	Front Door	Hallway				enterprises/e949facd-de30-429
 camera.garden_a	nest	Pamba	Garden A	Backyard				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera
 camera.oppy_map	navimow_pro	Oppy	Oppy	Garden	Map			0EBDA2506K0129_map
 climate.downstairs	nest	Pamba	Downstairs	Dining Area				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA
-climate.ellie	tado	Pamba	Ellie	Ellie				HEATING 3 526919
 climate.ellie_ac	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom				50BBB5FFAB85
-climate.hannah	tado	Pamba	Hannah	Hannah				HEATING 4 526919
 climate.hannah_ac	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom				9CC7D3ADCA69
-climate.kids_bathroom	tado	Pamba	Kids Bathroom	Kids Bathroom				HEATING 11 526919
-climate.landing	tado	Pamba	Landing	Landing				HEATING 9 526919
-climate.loft_suite	tado	Pamba	Loft Suite	Loft Suite				HEATING 12 526919
 climate.loft_suite_ac	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft				106838B4B505
 climate.pure_hot_cool	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool			ZZ9-UK-NEA5537A
-climate.study	tado	Pamba	Study	Study				HEATING 1 526919
 climate.study_ac	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study				50BBB5FFC481
 counter.event_counting	counter				event counting			event_counting
 cover.blind_left	template				Loft Blind			loft_blind
@@ -510,8 +406,6 @@ device_tracker.hannahs_iphone13	mobile_app	Hannah’s iPhone13	Hannah’s iPhone
 device_tracker.ipad	mobile_app	iPad	Hanpad		Hanpad			0AB541E1-497F-4057-A2E6-8E3649F446B3
 device_tracker.iphone_32	mobile_app	iPhone (32)	iPhone (32)		iPhone (32)			D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
 device_tracker.mm_iphone	mobile_app	iPhone (3)	mm iphone		mm iphone			8B5159F5-CCA4-4CDA-BD26-786BC595FCAC
-device_tracker.mojgans_phone	tado	Pamba			Mojgan’s Phone			4127924
-device_tracker.mphone	tado	Pamba			mPhone			11944585
 device_tracker.mummy_s_keys	tile	tongaimaramba@gmail.com	Mummy's Keys					tongaimaramba@gmail.com_e331cdcbc83d600e
 device_tracker.nmap_tracker_02_90_8f_b5_9e_41	nmap_tracker	patio_nmap			Nmap Tracker 02:90:8F:B5:9E:41	integration		02:90:8f:b5:9e:41
 device_tracker.nmap_tracker_4e_72_7e_d5_d3_91	nmap_tracker	swings_nmap			Nmap Tracker 4E:72:7E:D5:D3:91	integration		4e:72:7e:d5:d3:91
@@ -519,11 +413,7 @@ device_tracker.nmap_tracker_ca_ee_60_18_15_1a	nmap_tracker	swings_nmap			Nmap Tr
 device_tracker.oppy	navimow_pro	Oppy	Oppy	Garden				0EBDA2506K0129_location
 device_tracker.patio_nmap	nmap_tracker	patio_nmap			patio_nmap			b8:27:eb:e7:09:90
 device_tracker.swings_nmap	nmap_tracker	swings_nmap			swings_nmap			b8:27:eb:0a:60:97
-device_tracker.tojgan_21	tado	Pamba			tojgan 21			2795213
-device_tracker.tojganpix	tado	Pamba			Tojganpix			1765849
-device_tracker.tongai	tado	Pamba			Tongai			10311720
 device_tracker.tongai22	mobile_app	tongai22	tongai22		tongai22			35b7560bcb075368
-device_tracker.tongai22_2	tado	Pamba			Tongai22			7556312
 device_tracker.tongai_mbp	mobile_app	tongai-mbp	tongai-mbp		tongai-mbp			700C8E37-C3B5-5DD4-B178-9715BF405D58
 device_tracker.tongai_mbp_2	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2)			8E0FE9E5-9AF1-59F0-99C9-4B38BA45C38D
 device_tracker.tongai_mbp_work	mobile_app	tongai-mbp_work	tongai-mbp_work		tongai-mbp_work			6C618A7A-9C9D-5F33-852D-877E2F2593F6
@@ -532,8 +422,6 @@ device_tracker.tongai_s_s25	tile	tongaimaramba@gmail.com	Tongai's S25					tongai
 device_tracker.tongaipix	mobile_app	TongaiPix	TongaiPix		TongaiPix			3609fff27e5c6a7d
 device_tracker.tongaipix9	mobile_app	TongaiPix9	TongaiPix9		TongaiPix9			aeb6ff640d3ac5fa
 device_tracker.tongaism25	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25			dff7a66141b72a6a
-device_tracker.tongaism25_2	tado	Pamba			TongaiSM25			11551289
-device_tracker.volvo_eva_location	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Location			volvo_yv1xzehr5t2686253_location
 event.audio_button_1	hue	tojgan bright	Piano Lamp	Media area	Button 1			2b3a26ba-ae72-4d6c-b3b0-466698b9181f
 event.backup_automatic_backup	backup	Backup	Backup		Automatic backup			automatic_backup_event
 event.bathroom_dimmer_button_1	hue	tojgan bright	Bathroom Dimmer	Bathroom	Button 1			d98c86ba-2ca3-4bea-af01-c2dd38247cab
@@ -593,9 +481,6 @@ event.utility_lights_button_3	hue	tojgan bright	Utility Lights	Utility	Button 3	
 event.utility_lights_button_4	hue	tojgan bright	Utility Lights	Utility	Button 4			8af0c25a-b489-43c5-b190-dadf62bc90a0
 fan.pure_cool	dyson_local	Pure Cool	Pure Cool	Main Bedroom	Pure Cool			VS7-UK-MFA2757A
 fan.pure_hot_cool	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool			ZZ9-UK-NEA5537A
-image.volvo_eva_exterior	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Exterior side passenger			volvo_yv1xzehr5t2686253_exterior
-image.volvo_eva_interior	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Interior			volvo_yv1xzehr5t2686253_interior
-image.volvo_viv_exterior_front	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Exterior front			volvo_yv1xzehr5t2686253_exterior_front
 input_boolean.a_parent_home	input_boolean				A Parent Home			a_parent_home
 input_boolean.ac_hi_lo_speed	input_boolean				AC Hi-Lo Speed			ac_hi_lo_speed
 input_boolean.ac_toggle	input_boolean				AC Toggle			ac_toggle
@@ -772,8 +657,6 @@ lock.nmukuru	mqtt	192.168.179.41	nMukuru					493e09d7_lock
 lock.nmukuru_2	mqtt	192.168.179.41	nMukuru					49e9ef2f_lock
 lock.nmukuru_3	mqtt	192.168.179.41	nMukuru					49E9EF2F_lock
 lock.nmukuru_4	mqtt	192.168.179.41	nMukuru					493E09D7_lock
-lock.volvo_eva_lock	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Central lock			volvo_yv1xzehr5t2686253_lock
-lock.volvo_eva_lock_reduced_guard	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Reduced guard lock			volvo_yv1xzehr5t2686253_lock_reduced_guard
 media_player.projector	webostv	Projector	Projector	Media area				9e4bcbc6-4c28-2bf9-cd95-44b703a95532
 media_player.shield	androidtv_remote	SHIELD	SHIELD	Media area				48:b0:2d:52:09:55
 number.esp_wroom_absorption_2	mqtt	192.168.179.41	ESPresense Garage		Absorption			espresense_14e237_absorption
@@ -817,7 +700,6 @@ number.pres_l_presence_detection_timeout	zha	Sonoff Zigbee 3.0 USB Dongle Plus	p
 number.sonoff_1000eced8f_pulsewidth	sonoff	tongaimaramba@gmail.com	Fan		Fan INCHING Duration	integration		1000eced8f_pulseWidth
 number.sonoff_100125dac5_pulsewidth	sonoff	tongaimaramba@gmail.com	patio lights		patio lights INCHING Duration	integration		100125dac5_pulseWidth
 number.sonoff_100140291c_pulsewidth	sonoff	tongaimaramba@gmail.com	Garage		Garage INCHING Duration	integration		100140291c_pulseWidth
-number.volvo_eva_data_update_interval	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Data update interval			volvo_yv1xzehr5t2686253_data_update_interval
 person.ellie_maramba	person				Ellie Maramba			ellie_maramba
 person.feasby	person				Feasby			feasby
 person.hannah	person				Hannah			hannah
@@ -1020,137 +902,6 @@ sensor.advanced_ssh_web_terminal_cpu_percent	hassio	Supervisor	Advanced SSH & We
 sensor.advanced_ssh_web_terminal_memory_percent	hassio	Supervisor	Advanced SSH & Web Terminal		Memory percent	integration		a0d7b954_ssh_memory_percent
 sensor.advanced_ssh_web_terminal_newest_version	hassio	Supervisor	Advanced SSH & Web Terminal		Newest version	integration		a0d7b954_ssh_version_latest
 sensor.advanced_ssh_web_terminal_version	hassio	Supervisor	Advanced SSH & Web Terminal		Version	integration		a0d7b954_ssh_version
-sensor.alexandra_drive_air_quality_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Air quality day 0			323328-airquality-0
-sensor.alexandra_drive_air_quality_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Air quality day 1			323328-airquality-1
-sensor.alexandra_drive_air_quality_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Air quality day 2			323328-airquality-2
-sensor.alexandra_drive_air_quality_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Air quality day 3			323328-airquality-3
-sensor.alexandra_drive_air_quality_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Air quality day 4			323328-airquality-4
-sensor.alexandra_drive_apparent_temperature	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Apparent temperature	integration		323328-apparenttemperature
-sensor.alexandra_drive_cloud_ceiling	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud ceiling			323328-ceiling
-sensor.alexandra_drive_cloud_cover	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover	integration		323328-cloudcover
-sensor.alexandra_drive_cloud_cover_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover day 0	integration		323328-cloudcoverday-0
-sensor.alexandra_drive_cloud_cover_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover day 1	integration		323328-cloudcoverday-1
-sensor.alexandra_drive_cloud_cover_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover day 2	integration		323328-cloudcoverday-2
-sensor.alexandra_drive_cloud_cover_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover day 3	integration		323328-cloudcoverday-3
-sensor.alexandra_drive_cloud_cover_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover day 4	integration		323328-cloudcoverday-4
-sensor.alexandra_drive_cloud_cover_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover night 0	integration		323328-cloudcovernight-0
-sensor.alexandra_drive_cloud_cover_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover night 1	integration		323328-cloudcovernight-1
-sensor.alexandra_drive_cloud_cover_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover night 2	integration		323328-cloudcovernight-2
-sensor.alexandra_drive_cloud_cover_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover night 3	integration		323328-cloudcovernight-3
-sensor.alexandra_drive_cloud_cover_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Cloud cover night 4	integration		323328-cloudcovernight-4
-sensor.alexandra_drive_condition_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition day 0			323328-longphraseday-0
-sensor.alexandra_drive_condition_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition day 1			323328-longphraseday-1
-sensor.alexandra_drive_condition_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition day 2			323328-longphraseday-2
-sensor.alexandra_drive_condition_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition day 3			323328-longphraseday-3
-sensor.alexandra_drive_condition_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition day 4			323328-longphraseday-4
-sensor.alexandra_drive_condition_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition night 0			323328-longphrasenight-0
-sensor.alexandra_drive_condition_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition night 1			323328-longphrasenight-1
-sensor.alexandra_drive_condition_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition night 2			323328-longphrasenight-2
-sensor.alexandra_drive_condition_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition night 3			323328-longphrasenight-3
-sensor.alexandra_drive_condition_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Condition night 4			323328-longphrasenight-4
-sensor.alexandra_drive_dew_point	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Dew point	integration		323328-dewpoint
-sensor.alexandra_drive_grass_pollen_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Grass pollen day 0	integration		323328-grass-0
-sensor.alexandra_drive_grass_pollen_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Grass pollen day 1	integration		323328-grass-1
-sensor.alexandra_drive_grass_pollen_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Grass pollen day 2	integration		323328-grass-2
-sensor.alexandra_drive_grass_pollen_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Grass pollen day 3	integration		323328-grass-3
-sensor.alexandra_drive_grass_pollen_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Grass pollen day 4	integration		323328-grass-4
-sensor.alexandra_drive_hours_of_sun_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Hours of sun day 0			323328-hoursofsun-0
-sensor.alexandra_drive_hours_of_sun_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Hours of sun day 1			323328-hoursofsun-1
-sensor.alexandra_drive_hours_of_sun_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Hours of sun day 2			323328-hoursofsun-2
-sensor.alexandra_drive_hours_of_sun_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Hours of sun day 3			323328-hoursofsun-3
-sensor.alexandra_drive_hours_of_sun_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Hours of sun day 4			323328-hoursofsun-4
-sensor.alexandra_drive_humidity	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Humidity	integration		323328-relativehumidity
-sensor.alexandra_drive_mold_pollen_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Mould pollen day 0	integration		323328-mold-0
-sensor.alexandra_drive_mold_pollen_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Mould pollen day 1	integration		323328-mold-1
-sensor.alexandra_drive_mold_pollen_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Mould pollen day 2	integration		323328-mold-2
-sensor.alexandra_drive_mold_pollen_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Mould pollen day 3	integration		323328-mold-3
-sensor.alexandra_drive_mold_pollen_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Mould pollen day 4	integration		323328-mold-4
-sensor.alexandra_drive_precipitation	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Precipitation			323328-precipitation
-sensor.alexandra_drive_pressure	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Pressure	integration		323328-pressure
-sensor.alexandra_drive_pressure_tendency	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Pressure tendency			323328-pressuretendency
-sensor.alexandra_drive_ragweed_pollen_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Ragweed pollen day 0	integration		323328-ragweed-0
-sensor.alexandra_drive_ragweed_pollen_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Ragweed pollen day 1	integration		323328-ragweed-1
-sensor.alexandra_drive_ragweed_pollen_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Ragweed pollen day 2	integration		323328-ragweed-2
-sensor.alexandra_drive_ragweed_pollen_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Ragweed pollen day 3	integration		323328-ragweed-3
-sensor.alexandra_drive_ragweed_pollen_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Ragweed pollen day 4	integration		323328-ragweed-4
-sensor.alexandra_drive_realfeel_temperature	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature			323328-realfeeltemperature
-sensor.alexandra_drive_realfeel_temperature_max_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature max day 0			323328-realfeeltemperaturemax-0
-sensor.alexandra_drive_realfeel_temperature_max_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature max day 1			323328-realfeeltemperaturemax-1
-sensor.alexandra_drive_realfeel_temperature_max_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature max day 2			323328-realfeeltemperaturemax-2
-sensor.alexandra_drive_realfeel_temperature_max_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature max day 3			323328-realfeeltemperaturemax-3
-sensor.alexandra_drive_realfeel_temperature_max_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature max day 4			323328-realfeeltemperaturemax-4
-sensor.alexandra_drive_realfeel_temperature_min_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature min day 0			323328-realfeeltemperaturemin-0
-sensor.alexandra_drive_realfeel_temperature_min_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature min day 1			323328-realfeeltemperaturemin-1
-sensor.alexandra_drive_realfeel_temperature_min_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature min day 2			323328-realfeeltemperaturemin-2
-sensor.alexandra_drive_realfeel_temperature_min_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature min day 3			323328-realfeeltemperaturemin-3
-sensor.alexandra_drive_realfeel_temperature_min_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature min day 4			323328-realfeeltemperaturemin-4
-sensor.alexandra_drive_realfeel_temperature_shade	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade	integration		323328-realfeeltemperatureshade
-sensor.alexandra_drive_realfeel_temperature_shade_max_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade max day 0	integration		323328-realfeeltemperatureshademax-0
-sensor.alexandra_drive_realfeel_temperature_shade_max_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade max day 1	integration		323328-realfeeltemperatureshademax-1
-sensor.alexandra_drive_realfeel_temperature_shade_max_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade max day 2	integration		323328-realfeeltemperatureshademax-2
-sensor.alexandra_drive_realfeel_temperature_shade_max_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade max day 3	integration		323328-realfeeltemperatureshademax-3
-sensor.alexandra_drive_realfeel_temperature_shade_max_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade max day 4	integration		323328-realfeeltemperatureshademax-4
-sensor.alexandra_drive_realfeel_temperature_shade_min_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade min day 0	integration		323328-realfeeltemperatureshademin-0
-sensor.alexandra_drive_realfeel_temperature_shade_min_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade min day 1	integration		323328-realfeeltemperatureshademin-1
-sensor.alexandra_drive_realfeel_temperature_shade_min_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade min day 2	integration		323328-realfeeltemperatureshademin-2
-sensor.alexandra_drive_realfeel_temperature_shade_min_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade min day 3	integration		323328-realfeeltemperatureshademin-3
-sensor.alexandra_drive_realfeel_temperature_shade_min_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	RealFeel temperature shade min day 4	integration		323328-realfeeltemperatureshademin-4
-sensor.alexandra_drive_solar_irradiance_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance day 0	integration		323328-solarirradianceday-0
-sensor.alexandra_drive_solar_irradiance_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance day 1	integration		323328-solarirradianceday-1
-sensor.alexandra_drive_solar_irradiance_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance day 2	integration		323328-solarirradianceday-2
-sensor.alexandra_drive_solar_irradiance_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance day 3	integration		323328-solarirradianceday-3
-sensor.alexandra_drive_solar_irradiance_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance day 4	integration		323328-solarirradianceday-4
-sensor.alexandra_drive_solar_irradiance_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance night 0	integration		323328-solarirradiancenight-0
-sensor.alexandra_drive_solar_irradiance_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance night 1	integration		323328-solarirradiancenight-1
-sensor.alexandra_drive_solar_irradiance_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance night 2	integration		323328-solarirradiancenight-2
-sensor.alexandra_drive_solar_irradiance_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance night 3	integration		323328-solarirradiancenight-3
-sensor.alexandra_drive_solar_irradiance_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Solar irradiance night 4	integration		323328-solarirradiancenight-4
-sensor.alexandra_drive_temperature	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Temperature	integration		323328-temperature
-sensor.alexandra_drive_thunderstorm_probability_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability day 0			323328-thunderstormprobabilityday-0
-sensor.alexandra_drive_thunderstorm_probability_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability day 1			323328-thunderstormprobabilityday-1
-sensor.alexandra_drive_thunderstorm_probability_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability day 2			323328-thunderstormprobabilityday-2
-sensor.alexandra_drive_thunderstorm_probability_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability day 3			323328-thunderstormprobabilityday-3
-sensor.alexandra_drive_thunderstorm_probability_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability day 4			323328-thunderstormprobabilityday-4
-sensor.alexandra_drive_thunderstorm_probability_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability night 0			323328-thunderstormprobabilitynight-0
-sensor.alexandra_drive_thunderstorm_probability_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability night 1			323328-thunderstormprobabilitynight-1
-sensor.alexandra_drive_thunderstorm_probability_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability night 2			323328-thunderstormprobabilitynight-2
-sensor.alexandra_drive_thunderstorm_probability_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability night 3			323328-thunderstormprobabilitynight-3
-sensor.alexandra_drive_thunderstorm_probability_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Thunderstorm probability night 4			323328-thunderstormprobabilitynight-4
-sensor.alexandra_drive_tree_pollen_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Tree pollen day 0	integration		323328-tree-0
-sensor.alexandra_drive_tree_pollen_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Tree pollen day 1	integration		323328-tree-1
-sensor.alexandra_drive_tree_pollen_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Tree pollen day 2	integration		323328-tree-2
-sensor.alexandra_drive_tree_pollen_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Tree pollen day 3	integration		323328-tree-3
-sensor.alexandra_drive_tree_pollen_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Tree pollen day 4	integration		323328-tree-4
-sensor.alexandra_drive_uv_index	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index			323328-uvindex
-sensor.alexandra_drive_uv_index_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index day 0			323328-uvindex-0
-sensor.alexandra_drive_uv_index_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index day 1			323328-uvindex-1
-sensor.alexandra_drive_uv_index_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index day 2			323328-uvindex-2
-sensor.alexandra_drive_uv_index_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index day 3			323328-uvindex-3
-sensor.alexandra_drive_uv_index_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	UV index day 4			323328-uvindex-4
-sensor.alexandra_drive_wet_bulb_temperature	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wet bulb temperature	integration		323328-wetbulbtemperature
-sensor.alexandra_drive_wind	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed			323328-wind
-sensor.alexandra_drive_wind_chill_temperature	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind chill temperature	integration		323328-windchilltemperature
-sensor.alexandra_drive_wind_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed day 0			323328-windday-0
-sensor.alexandra_drive_wind_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed day 1			323328-windday-1
-sensor.alexandra_drive_wind_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed day 2			323328-windday-2
-sensor.alexandra_drive_wind_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed day 3			323328-windday-3
-sensor.alexandra_drive_wind_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed day 4			323328-windday-4
-sensor.alexandra_drive_wind_gust	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed	integration		323328-windgust
-sensor.alexandra_drive_wind_gust_day_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed day 0	integration		323328-windgustday-0
-sensor.alexandra_drive_wind_gust_day_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed day 1	integration		323328-windgustday-1
-sensor.alexandra_drive_wind_gust_day_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed day 2	integration		323328-windgustday-2
-sensor.alexandra_drive_wind_gust_day_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed day 3	integration		323328-windgustday-3
-sensor.alexandra_drive_wind_gust_day_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed day 4	integration		323328-windgustday-4
-sensor.alexandra_drive_wind_gust_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed night 0	integration		323328-windgustnight-0
-sensor.alexandra_drive_wind_gust_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed night 1	integration		323328-windgustnight-1
-sensor.alexandra_drive_wind_gust_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed night 2	integration		323328-windgustnight-2
-sensor.alexandra_drive_wind_gust_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed night 3	integration		323328-windgustnight-3
-sensor.alexandra_drive_wind_gust_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind gust speed night 4	integration		323328-windgustnight-4
-sensor.alexandra_drive_wind_night_0d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed night 0			323328-windnight-0
-sensor.alexandra_drive_wind_night_1d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed night 1			323328-windnight-1
-sensor.alexandra_drive_wind_night_2d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed night 2			323328-windnight-2
-sensor.alexandra_drive_wind_night_3d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed night 3			323328-windnight-3
-sensor.alexandra_drive_wind_night_4d	accuweather	Alexandra_Drive	Alexandra_Drive	Home General	Wind speed night 4			323328-windnight-4
 sensor.appdaemon_4_cpu_percent	hassio	Supervisor	AppDaemon		CPU percent	integration		a0d7b954_appdaemon_cpu_percent
 sensor.appdaemon_4_memory_percent	hassio	Supervisor	AppDaemon		Memory percent	integration		a0d7b954_appdaemon_memory_percent
 sensor.appdaemon_4_newest_version	hassio	Supervisor	AppDaemon		Newest version	integration		a0d7b954_appdaemon_version_latest
@@ -1244,8 +995,6 @@ sensor.downstairs_temperature	nest	Pamba	Downstairs	Dining Area	Temperature			en
 sensor.driveway_detector_driveway_distance_detector	esphome	driveway detector	driveway detector	Garage	Driveway Distance Detector			FC:B4:67:93:64:5C-sensor-driveway_distance_detector
 sensor.ellie_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Indoor temperature			50BBB5FFAB85indoor-temp
 sensor.ellie_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Outdoor temperature			50BBB5FFAB85outdoor-temp
-sensor.ellie_heating	tado	Pamba	Ellie	Ellie	Heating			heating 3 526919
-sensor.ellie_humidity	tado	Pamba	Ellie	Ellie	Humidity			humidity 3 526919
 sensor.ellie_iphone_activity	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Activity			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_activity
 sensor.ellie_iphone_app_version	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone App Version			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_app-version
 sensor.ellie_iphone_audio_output	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Audio Output	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_iphone-audio-output
@@ -1271,8 +1020,6 @@ sensor.ellie_iphone_sim_2	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SIM
 sensor.ellie_iphone_ssid	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SSID	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_ssid
 sensor.ellie_iphone_steps	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Steps			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_steps
 sensor.ellie_iphone_storage	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Storage	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_storage
-sensor.ellie_tado_mode	tado	Pamba	Ellie	Ellie	Tado mode			tado mode 3 526919
-sensor.ellie_temperature	tado	Pamba	Ellie	Ellie	Temperature			temperature 3 526919
 sensor.ellie_today	template				Ellie Today			ellie_today
 sensor.ellie_window_battery	smartthings	My home	Ellie Window	Ellie	Battery			85663cb9-cccb-4637-8eac-6b0af998e502_main_battery_battery_battery
 sensor.ellie_window_party_battery	smartthings	My home	Ellie Window Party	Ellie	Battery			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main_battery_battery_battery
@@ -1386,8 +1133,6 @@ sensor.hallway_spotlights_current_consumption	lightwave_smart	RPI4	Hallway Spotl
 sensor.hallway_spotlights_total_consumption	lightwave_smart	RPI4	Hallway Spotlights	Hallway	Total Consumption			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_energy
 sensor.hannah_ac_indoor_temperature	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Indoor temperature			9CC7D3ADCA69indoor-temp
 sensor.hannah_ac_outdoor_temperature	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Outdoor temperature			9CC7D3ADCA69outdoor-temp
-sensor.hannah_heating	tado	Pamba	Hannah	Hannah	Heating			heating 4 526919
-sensor.hannah_humidity	tado	Pamba	Hannah	Hannah	Humidity			humidity 4 526919
 sensor.hannah_iphone_app_version	mobile_app	Hannah iPhone	Hannah iPhone		Hannah iPhone App Version			fcfd35077d91955d15427ae400391ca813f1fda7a6f58d58e2382bb3d943e0ef_app-version
 sensor.hannah_iphone_audio_output	mobile_app	Hannah iPhone	Hannah iPhone		Hannah iPhone Audio Output			fcfd35077d91955d15427ae400391ca813f1fda7a6f58d58e2382bb3d943e0ef_iphone-audio-output
 sensor.hannah_iphone_battery_level	mobile_app	Hannah iPhone	Hannah iPhone		Hannah iPhone Battery Level			fcfd35077d91955d15427ae400391ca813f1fda7a6f58d58e2382bb3d943e0ef_battery_level
@@ -1404,34 +1149,32 @@ sensor.hannah_iphone_storage	mobile_app	Hannah iPhone	Hannah iPhone		Hannah iPho
 sensor.hannah_locator	places	Hannah Locator			Hannah Locator			fe5fc48b3a5e2f34b1d96b582490f9fe
 sensor.hannah_spotlights_current_consumption	lightwave_smart	RPI4	Hannah Spotlights	Hannahs Bedroom	Current Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_power
 sensor.hannah_spotlights_total_consumption	lightwave_smart	RPI4	Hannah Spotlights	Hannahs Bedroom	Total Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_energy
-sensor.hannah_tado_mode	tado	Pamba	Hannah	Hannah	Tado mode			tado mode 4 526919
-sensor.hannah_temperature	tado	Pamba	Hannah	Hannah	Temperature			temperature 4 526919
 sensor.hannah_today	template				Hannah Today			hannah_today
 sensor.hannahs_iphone13_activity	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Activity			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_activity
 sensor.hannahs_iphone13_app_version	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 App Version			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_app-version
-sensor.hannahs_iphone13_audio_output	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Audio Output			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_iphone-audio-output
+sensor.hannahs_iphone13_audio_output	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Audio Output	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_iphone-audio-output
 sensor.hannahs_iphone13_average_active_pace	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Average Active Pace			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_avg_active_pace
 sensor.hannahs_iphone13_battery_level	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Battery Level			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_battery_level
 sensor.hannahs_iphone13_battery_state	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Battery State			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_battery_state
-sensor.hannahs_iphone13_bssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 BSSID			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_bssid
-sensor.hannahs_iphone13_camera_stream	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Stream			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_cameraStream
-sensor.hannahs_iphone13_connection_type	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Connection Type			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_connection_type
+sensor.hannahs_iphone13_bssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 BSSID	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_bssid
+sensor.hannahs_iphone13_camera_stream	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Stream	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_cameraStream
+sensor.hannahs_iphone13_connection_type	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Connection Type	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_connection_type
 sensor.hannahs_iphone13_current_cadence	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Current Cadence			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_current_cadence
 sensor.hannahs_iphone13_current_pace	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Current Pace			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_current_pace
 sensor.hannahs_iphone13_distance	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Distance			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_distance
 sensor.hannahs_iphone13_floors_ascended	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Floors Ascended			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_floors_ascended
 sensor.hannahs_iphone13_floors_descended	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Floors Descended			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_floors_descended
-sensor.hannahs_iphone13_geocoded_location	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Geocoded Location			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_geocoded_location
-sensor.hannahs_iphone13_kiosk_brightness	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Brightness			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskBrightness
-sensor.hannahs_iphone13_kiosk_volume	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Volume			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskVolume
-sensor.hannahs_iphone13_last_update_trigger	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Last Update Trigger			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_last_update_trigger
+sensor.hannahs_iphone13_geocoded_location	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Geocoded Location	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_geocoded_location
+sensor.hannahs_iphone13_kiosk_brightness	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Brightness	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskBrightness
+sensor.hannahs_iphone13_kiosk_volume	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Volume	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskVolume
+sensor.hannahs_iphone13_last_update_trigger	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Last Update Trigger	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_last_update_trigger
 sensor.hannahs_iphone13_location_permission	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Location permission			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_location-permission
 sensor.hannahs_iphone13_pressure	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Pressure			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pressure
-sensor.hannahs_iphone13_sim_1	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SIM 1			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_sim_1
-sensor.hannahs_iphone13_sim_2	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SIM 2			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_sim_2
-sensor.hannahs_iphone13_ssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SSID			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_ssid
+sensor.hannahs_iphone13_sim_1	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SIM 1	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_sim_1
+sensor.hannahs_iphone13_sim_2	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SIM 2	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_sim_2
+sensor.hannahs_iphone13_ssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SSID	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_ssid
 sensor.hannahs_iphone13_steps	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Steps			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_steps
-sensor.hannahs_iphone13_storage	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Storage			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_storage
+sensor.hannahs_iphone13_storage	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Storage	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_storage
 sensor.hannahs_iphone_activity	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone Activity			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_activity
 sensor.hannahs_iphone_app_version	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone App Version			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_app-version
 sensor.hannahs_iphone_audio_output	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone Audio Output			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_iphone-audio-output
@@ -1470,7 +1213,6 @@ sensor.home_assistant_operating_system_newest_version	hassio	Supervisor	Home Ass
 sensor.home_assistant_operating_system_version	hassio	Supervisor	Home Assistant Operating System		Version	integration		home_assistant_os_version
 sensor.home_assistant_supervisor_cpu_percent	hassio	Supervisor	Home Assistant Supervisor		CPU percent	integration		home_assistant_supervisor_cpu_percent
 sensor.home_assistant_supervisor_memory_percent	hassio	Supervisor	Home Assistant Supervisor		Memory percent	integration		home_assistant_supervisor_memory_percent
-sensor.hot_water_tado_mode	tado	Pamba	Hot Water	Hot Water	Tado mode			tado mode 0 526919
 sensor.hrv_status	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	HRV Status			tongaimaramba@gmail.com_hrvStatus
 sensor.hue_adore_wall_1_zigbee_connectivity	hue	tojgan bright	Loft Bathroom Sink	Loft Bathroom	Zigbee connectivity	integration		f13708b0-6df0-422c-8385-c57b69116024
 sensor.hue_dimmer_switch_1_battery	hue	tojgan bright	Loft Sink Switch	Loft Bathroom	Battery			52156c0a-0d51-4223-aed3-13baaca959ae
@@ -1547,10 +1289,6 @@ sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage
 sensor.isla_switch_battery_level	hue	tojgan bright	Study Switch	Isla Bedroom	Battery			476abea5-3c36-460c-a6e4-96fbdf49eaab
 sensor.isla_switch_zigbee_connectivity	hue	tojgan bright	Study Switch	Isla Bedroom	Zigbee connectivity	integration		b57a5118-a936-4f4d-b33c-f5f060b43fd1
 sensor.john_s_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	John's Bike			tongaimaramba@gmail.com_e5ab3b1e7fba4a878a2672364d43068b
-sensor.kids_bathroom_heating	tado	Pamba	Kids Bathroom	Kids Bathroom	Heating			heating 11 526919
-sensor.kids_bathroom_humidity	tado	Pamba	Kids Bathroom	Kids Bathroom	Humidity			humidity 11 526919
-sensor.kids_bathroom_tado_mode	tado	Pamba	Kids Bathroom	Kids Bathroom	Tado mode			tado mode 11 526919
-sensor.kids_bathroom_temperature	tado	Pamba	Kids Bathroom	Kids Bathroom	Temperature			temperature 11 526919
 sensor.kitchen_battery	smartthings	My home	Kitchen	Kitchen	Battery			e6821393-e06c-439c-baad-d48f38e8cd5b_main_battery_battery_battery
 sensor.kitchen_illuminance	hue	tojgan bright	Kitchen	Kitchen	Illuminance			c443c177-eb57-4725-b91b-dff49e49aba8
 sensor.kitchen_spotlights_current_consumption	lightwave_smart	RPI4	Kitchen Spotlights	Kitchen	Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_power
@@ -1564,10 +1302,6 @@ sensor.kitchen_x_coordinate	smartthings	My home	Kitchen	Kitchen	X-coordinate			e
 sensor.kitchen_y_coordinate	smartthings	My home	Kitchen	Kitchen	Y-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_y_coordinate
 sensor.kitchen_z_coordinate	smartthings	My home	Kitchen	Kitchen	Z-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_z_coordinate
 sensor.landing_blind_landing_blind_position	esphome	landing-blind	landing-blind	Loft	Landing Blind Position			34:85:18:03:D8:A8-sensor-landing_blind_position
-sensor.landing_heating	tado	Pamba	Landing	Landing	Heating			heating 9 526919
-sensor.landing_humidity	tado	Pamba	Landing	Landing	Humidity			humidity 9 526919
-sensor.landing_tado_mode	tado	Pamba	Landing	Landing	Tado mode			tado mode 9 526919
-sensor.landing_temperature	tado	Pamba	Landing	Landing	Temperature			temperature 9 526919
 sensor.landing_window_battery	smartthings	My home	Landing Window	Hallway	Battery			74325601-0eb6-48bf-a640-e09d74995351_main_battery_battery_battery
 sensor.landing_window_temperature	smartthings	My home	Landing Window	Hallway	Temperature			74325601-0eb6-48bf-a640-e09d74995351_main_temperatureMeasurement_temperature_temperature
 sensor.landing_window_x_coordinate	smartthings	My home	Landing Window	Hallway	X-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_x_coordinate
@@ -1588,12 +1322,8 @@ sensor.loft_bathroom_illuminance	hue	tojgan bright	Loft Bathroom	Loft Bathroom	I
 sensor.loft_blind_loft_suite_blind_position	esphome	loft-blind	loft-blind		Loft Suite Blind Position			AC:0B:FB:D7:F6:97-sensor-loft_suite_blind_position
 sensor.loft_suite_ac_indoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft	Indoor temperature			106838B4B505indoor-temp
 sensor.loft_suite_ac_outdoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft	Outdoor temperature			106838B4B505outdoor-temp
-sensor.loft_suite_heating	tado	Pamba	Loft Suite	Loft Suite	Heating			heating 12 526919
-sensor.loft_suite_humidity	tado	Pamba	Loft Suite	Loft Suite	Humidity			humidity 12 526919
 sensor.loft_suite_spotlights_current_consumption	lightwave_smart	RPI4	Loft Suite Spotlights	Loft Suite	Current Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_power
 sensor.loft_suite_spotlights_total_consumption	lightwave_smart	RPI4	Loft Suite Spotlights	Loft Suite	Total Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_energy
-sensor.loft_suite_tado_mode	tado	Pamba	Loft Suite	Loft Suite	Tado mode			tado mode 12 526919
-sensor.loft_suite_temperature	tado	Pamba	Loft Suite	Loft Suite	Temperature			temperature 12 526919
 sensor.lounge_lamp_dimmer	eventsensor	lounge_lamp_dimmer			lounge_lamp_dimmer			hue_event_id_hue_dimmer_switch_1_button_subtype_1_1_click_2_2_click_3_3_click_4_4_click
 sensor.lounge_lamp_printer_zigbee_connectivity	hue	tojgan bright	Ellie Standing Lamp	Living Room	Zigbee connectivity	integration		d2176fc3-4b2b-4a28-ba25-d43ea559fa4b
 sensor.lounge_lamp_sofa_zigbee_connectivity	hue	tojgan bright	Lounge Lamp - Poppy	Living Room	Zigbee connectivity	integration		5fcb2b54-7ae1-4eb1-acc8-6f58562b66d0
@@ -1622,30 +1352,6 @@ sensor.media_room_wall_lights_current_consumption	lightwave_smart	RPI4	Media Roo
 sensor.media_room_wall_lights_total_consumption	lightwave_smart	RPI4	Media Room Wall Lights	Media area	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_energy
 sensor.medium_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Medium Stress Duration			tongaimaramba@gmail.com_mediumStressDuration
 sensor.medium_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Medium Stress Percentage	integration		tongaimaramba@gmail.com_mediumStressPercentage
-sensor.met_office_kingston_upon_thames_feels_like_temperature_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Feels like temperature 3-hourly	integration		feels_like_temperature_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_feels_like_temperature_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Feels like temperature daily	integration		feels_like_temperature_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_humidity_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Humidity 3-hourly	integration		humidity_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_humidity_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Humidity daily	integration		humidity_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_probability_of_precipitation_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Probability of precipitation 3-hourly			precipitation_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_probability_of_precipitation_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Probability of precipitation daily	integration		precipitation_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_station_name_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Station name 3-hourly	integration		name_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_station_name_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Station name daily	integration		name_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_temperature_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Temperature 3-hourly			temperature_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_temperature_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Temperature daily	integration		temperature_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_uv_index_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		UV index 3-hourly			uv_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_uv_index_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		UV index daily	integration		uv_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_visibility_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Visibility 3-hourly	integration		visibility_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_visibility_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Visibility daily	integration		visibility_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_visibility_distance_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Visibility distance 3-hourly	integration		visibility_distance_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_visibility_distance_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Visibility distance daily	integration		visibility_distance_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_weather_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Weather 3-hourly			weather_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_weather_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Weather daily	integration		weather_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_wind_direction_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind direction 3-hourly	integration		wind_direction_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_wind_direction_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind direction daily	integration		wind_direction_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_wind_gust_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind gust 3-hourly	integration		wind_gust_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_wind_gust_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind gust daily	integration		wind_gust_51.38846682703228_-0.28486720905804624_daily
-sensor.met_office_kingston_upon_thames_wind_speed_3_hourly	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind speed 3-hourly			wind_speed_51.38846682703228_-0.28486720905804624
-sensor.met_office_kingston_upon_thames_wind_speed_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Wind speed daily	integration		wind_speed_51.38846682703228_-0.28486720905804624_daily
 sensor.metabolic_age	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Metabolic Age	integration		tongaimaramba@gmail.com_metabolicAge
 sensor.min_avg_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Min Avg Heart Rate	integration		tongaimaramba@gmail.com_minAvgHeartRate
 sensor.min_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Min Heart Rate			tongaimaramba@gmail.com_minHeartRate
@@ -1786,12 +1492,6 @@ sensor.oppy_state_code	navimow_pro	Oppy	Oppy	Garden	State code	integration		0EBD
 sensor.oppy_status	navimow_pro	Oppy	Oppy	Garden	Status			0EBDA2506K0129_state
 sensor.oppy_total_area	navimow_pro	Oppy	Oppy	Garden	Total area			0EBDA2506K0129_total_area
 sensor.oppy_wi_fi_signal	navimow_pro	Oppy	Oppy	Garden	Wi-Fi signal			0EBDA2506K0129_signal_wifi
-sensor.pamba_automatic_geofencing	tado	Pamba	Pamba	Home General	Automatic geofencing			automatic geofencing 526919
-sensor.pamba_geofencing_mode	tado	Pamba	Pamba	Home General	Geofencing mode			geofencing mode 526919
-sensor.pamba_outdoor_temperature	tado	Pamba	Pamba	Home General	Outdoor temperature			outdoor temperature 526919
-sensor.pamba_solar_percentage	tado	Pamba	Pamba	Home General	Solar percentage			solar percentage 526919
-sensor.pamba_tado_mode	tado	Pamba	Pamba	Home General	Tado mode			tado mode 526919
-sensor.pamba_weather_condition	tado	Pamba	Pamba	Home General	Weather condition			weather condition 526919
 sensor.patio_door_battery	smartthings	My home	Patio Door	Kitchen	Battery			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_battery_battery_battery
 sensor.patio_door_temperature	smartthings	My home	Patio Door	Kitchen	Temperature			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_temperatureMeasurement_temperature_temperature
 sensor.patio_door_x_coordinate	smartthings	My home	Patio Door	Kitchen	X-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_x_coordinate
@@ -1872,11 +1572,7 @@ sensor.stress_qualifier	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Ho
 sensor.study_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Indoor temperature			50BBB5FFC481indoor-temp
 sensor.study_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Outdoor temperature			50BBB5FFC481outdoor-temp
 sensor.study_desk_lamp_zigbee_connectivity	hue	tojgan bright	Side Board Lamp	Loft Suite	Zigbee connectivity	integration		03c3d08d-ef3d-4eb2-bedb-d2ee303de8bb
-sensor.study_heating	tado	Pamba	Study	Study	Heating			heating 1 526919
-sensor.study_humidity	tado	Pamba	Study	Study	Humidity			humidity 1 526919
 sensor.study_presence_desk_sensor	esphome	doorstep presence	study presence	Study	Desk Sensor			58:BF:25:D7:20:71-sensor-desk_sensor
-sensor.study_tado_mode	tado	Pamba	Study	Study	Tado mode			tado mode 1 526919
-sensor.study_temperature	tado	Pamba	Study	Study	Temperature			temperature 1 526919
 sensor.sun_next_dawn	sun	Sun	Sun		Next dawn			fb23c1fe8cd83a23977a89578999be3f-next_dawn
 sensor.sun_next_dusk	sun	Sun	Sun		Next dusk			fb23c1fe8cd83a23977a89578999be3f-next_dusk
 sensor.sun_next_midnight	sun	Sun	Sun		Next midnight			fb23c1fe8cd83a23977a89578999be3f-next_midnight
@@ -2358,6 +2054,7 @@ sensor.tongaism25_sleep_duration	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Sl
 sensor.tongaism25_sleep_segment	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Sleep segment	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_sleep_segment
 sensor.tongaism25_steps_sensor	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Steps sensor	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_steps_sensor
 sensor.tongaism25_systolic_blood_pressure	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Systolic blood pressure	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_health_connect_systolic_blood_pressure
+sensor.tongaism25_tonal_palette	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Tonal palette	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_tonal_palette
 sensor.tongaism25_total_calories_burned	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Total calories burned	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_health_connect_total_calories_burned
 sensor.tongaism25_total_rx_gb	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Total Rx GB	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_total_rx_gb
 sensor.tongaism25_total_tx_gb	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Total Tx GB	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_total_tx_gb
@@ -2408,24 +2105,6 @@ sensor.utility_motion_temperature	hue	tojgan bright	Utility Motion	Utility	Tempe
 sensor.utility_motion_zigbee_connectivity	hue	tojgan bright	Utility Motion	Utility	Zigbee connectivity	integration		a8815d78-dc30-4aff-b875-672c54224743
 sensor.vigorous_intensity	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Vigorous Intensity	integration		tongaimaramba@gmail.com_vigorousIntensityMinutes
 sensor.visceral_fat	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Visceral Fat	integration		tongaimaramba@gmail.com_visceralFat
-sensor.volvo_eva_api_request_count	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	API request count			volvo_yv1xzehr5t2686253_api_request_count
-sensor.volvo_eva_api_status	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	API status			volvo_yv1xzehr5t2686253_api_status
-sensor.volvo_eva_availability	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Car connection			volvo_yv1xzehr5t2686253_availability
-sensor.volvo_eva_average_energy_consumption	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	TM Avg. energy consumption			volvo_yv1xzehr5t2686253_average_energy_consumption
-sensor.volvo_eva_average_speed	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	TM Avg. speed			volvo_yv1xzehr5t2686253_average_speed
-sensor.volvo_eva_average_speed_automatic	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	TA Avg. speed			volvo_yv1xzehr5t2686253_average_speed_automatic
-sensor.volvo_eva_battery_capacity	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Battery capacity			volvo_yv1xzehr5t2686253_battery_capacity
-sensor.volvo_eva_battery_charge_level	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Battery charge level			volvo_yv1xzehr5t2686253_battery_charge_level
-sensor.volvo_eva_charging_connection_status	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Charging connection status			volvo_yv1xzehr5t2686253_charging_connection_status
-sensor.volvo_eva_charging_system_status	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Charging status			volvo_yv1xzehr5t2686253_charging_system_status
-sensor.volvo_eva_distance_to_empty_battery	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Distance to empty battery			volvo_yv1xzehr5t2686253_distance_to_empty_battery
-sensor.volvo_eva_distance_to_service	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Distance to service			volvo_yv1xzehr5t2686253_distance_to_service
-sensor.volvo_eva_engine_time_to_service	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Engine time to service			volvo_yv1xzehr5t2686253_engine_time_to_service
-sensor.volvo_eva_estimated_charging_time	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Est. charging time			volvo_yv1xzehr5t2686253_estimated_charging_time
-sensor.volvo_eva_odometer	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Odometer			volvo_yv1xzehr5t2686253_odometer
-sensor.volvo_eva_time_to_service	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	Time to service			volvo_yv1xzehr5t2686253_time_to_service
-sensor.volvo_eva_trip_meter_automatic	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	TA Distance			volvo_yv1xzehr5t2686253_trip_meter_automatic
-sensor.volvo_eva_trip_meter_manual	volvo_cars	Volvo EX40 (YV1XZEHR5T2686253)	Eva	Driveway	TM Distance			volvo_yv1xzehr5t2686253_trip_meter_manual
 sensor.weight	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Weight	integration		tongaimaramba@gmail.com_weight
 sensor.wellness_active_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Active KiloCalories	integration		tongaimaramba@gmail.com_wellnessActiveKilocalories
 sensor.wellness_description	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Description	integration		tongaimaramba@gmail.com_wellnessDescription
@@ -2518,11 +2197,9 @@ switch.hue_motion_sensor_1_motion	hue	tojgan bright	Loft Bathroom 	Loft Bathroom
 switch.hue_motion_sensor_2_light_sensor_enabled	hue	tojgan bright	Garage Laundry	Kitchen	Light sensor enabled			a7ac884d-0226-4959-8542-7b7e08227cf1
 switch.hue_motion_sensor_2_motion_sensor_enabled	hue	tojgan bright	Garage Laundry	Kitchen	Motion sensor enabled			f16b3ee0-4986-45d1-b8ca-ad76fb0053d6
 switch.keymaster_pre_release	hacs		keymaster		Pre-release	integration		318359434
-switch.kids_bathroom_child_lock	tado	Pamba	Kids Bathroom	Kids Bathroom	Child lock			11 526919 child-lock
 switch.landing_blind_close_landing_blind	esphome	landing-blind	landing-blind	Loft	Close - Landing Blind			34:85:18:03:D8:A8-switch-close_-_landing_blind
 switch.landing_blind_open_landing_blind	esphome	landing-blind	landing-blind	Loft	Open - Landing Blind			34:85:18:03:D8:A8-switch-open_-_landing_blind
 switch.landing_blind_stop_landing_blind	esphome	landing-blind	landing-blind	Loft	Stop - Landing Blind			34:85:18:03:D8:A8-switch-stop_-_landing_blind
-switch.landing_child_lock	tado	Pamba	Landing	Landing	Child lock			9 526919 child-lock
 switch.let_s_encrypt	hassio	Supervisor	Let's Encrypt			integration		core_letsencrypt_state
 switch.lg_webos_remote_control_pre_release	hacs		LG WebOS Remote Control		Pre-release	integration		257005990
 switch.lightwave_rf_pre_release	hacs		Lightwave RF		Pre-release	integration		162808336
@@ -2676,7 +2353,6 @@ switch.study_ac_outdoor_unit_low_noise	fujitsu_airstage	local - 50BBB5FFC481	Stu
 switch.study_ac_power	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Power			50BBB5FFC481-power
 switch.study_ac_powerful	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Powerful			50BBB5FFC481-powerful
 switch.study_ac_quiet_fan	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Quiet fan			50BBB5FFC481-quiet
-switch.study_child_lock	tado	Pamba	Study	Study	Child lock			1 526919 child-lock
 switch.tagreader_buzzer_enabled	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Buzzer Enabled			KITCHEN-NFC-switch-tagreader_buzzer_enabled
 switch.tagreader_buzzer_enabled_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Buzzer Enabled			40:91:51:4E:DB:EA-switch-tagreader_buzzer_enabled
 switch.tagreader_led_enabled	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader LED enabled			KITCHEN-NFC-switch-tagreader_led_enabled
@@ -2829,9 +2505,6 @@ update.utility_back_door_firmware	smartthings	My home	Utility Back Door	Utility	
 update.volvo_cars_update	hacs		Volvo Cars		Volvo Cars update			899977910
 update.whatspie_update	hacs		WhatsPie		WhatsPie update			556789449
 vacuum.robert	roomba	Robert	Robert					roomba_4320C0BC4988426D9ADA72F6C3CD8499
-water_heater.hot_water	tado	Pamba	Hot Water	Hot Water				0 526919
-weather.alexandra_drive	accuweather	Alexandra_Drive	Alexandra_Drive	Home General				323328
-weather.met_office_kingston_upon_thames_daily	metoffice	Kingston Upon Thames	Met Office Kingston Upon Thames		Daily			51.38846682703228_-0.28486720905804624_daily
 zone.m_work	zone				Maple Works			m_work
 zone.school	zone				School			school
 zone.t_work	zone				Meta Office Kings Cross			t_work
