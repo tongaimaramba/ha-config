@@ -3,9 +3,9 @@
 | file | bytes | top-level keys |
 |---|---|---|
 | aarlo.yaml | 21 | version, aarlo |
-| automations.yaml | 77609 | list[60] |
+| automations.yaml | 63176 | list[55] |
 | binary_sensors.yaml | 638 | list[4] |
-| configuration.yaml | 15660 | default_config, automation, group, script, notify, homeassistant, ble_monitor, alexa, http, binary_sensor, recorder, device_tracker, stream, tts, sonoff |
+| configuration.yaml | 15234 | default_config, automation, group, script, notify, homeassistant, lovelace, ble_monitor, alexa, http, binary_sensor, recorder, device_tracker, stream, tts |
 | customize.yaml | 71 | zone.home |
 | emulated_hue.yaml | 448 | switch.landing_blind_close_landing_blind, switch.landing_blind_stop_landing_blind, switch.landing_blind_open_landing_blind, switch.loft_blind_close_loft_suite_blind, switch.loft_blind_stop_loft_suite_ |
 | floorplan.yaml | 1885 | name, image, stylesheet, warnings, pan_zoom, hide_app_toolbar, date_format, last_motion_entity, last_motion_class, groups |
@@ -18,7 +18,7 @@
 | recorder_config.yaml | 21 | purge_keep_days |
 | scenes.yaml | 791 | list[2] |
 | scratch.yaml | 156 | _parse_error |
-| scripts.yaml | 18405 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
+| scripts.yaml | 17125 | manage_guest_access, bathtime_on, bathtime_off, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, grid, change_so |
 | secrets.yaml | 675 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password, oppy_client_id, oppy_client_secret |
 | espbck/doorstep-presence.yaml | 797 | esphome, esp8266, logger, api, ota, wifi, captive_portal, sensor |
 | espbck/driveway-detector.yaml | 1022 | esphome, esp32, logger, api, ota, wifi, captive_portal, sensor, light |
@@ -38,9 +38,17 @@
 | espbck/trash/on-air.yaml | 503 | esphome, esp32, logger, api, ota, wifi, captive_portal |
 | espbck/trash/rpi-rebooter.yaml | 513 | esphome, esp32, logger, api, ota, wifi, captive_portal |
 | espbck/trash/tagreader-4edbea.yaml | 234 | substitutions, packages, esphome, wifi |
+| packages/ac_shadow.yaml | 389 | input_boolean |
 | packages/auto_unlock_v2_sandbox.yaml | 919 | input_boolean, input_select, input_number, input_text |
-| packages/boiler_alert.yaml | 4282 | input_boolean, input_number, template, automation |
-| packages/climate_health.yaml | 11367 | input_boolean, template, automation |
+| packages/boiler_alert.yaml | 7692 | input_boolean, input_number, template, automation |
+| packages/climate_health.yaml | 17173 | input_boolean, template, automation |
+| packages/comfort.yaml | 514 | input_boolean |
+| packages/heating_boost.yaml | 11396 | input_boolean, input_select, input_text, timer, script, automation |
+| packages/quick_actions.yaml | 412 | group |
+| packages/smartthings_heal.yaml | 20748 | input_boolean, counter, input_datetime, input_text, template, automation |
+| packages/system_log.yaml | 351 | system_log |
+| packages/tado_cloud.yaml | 898 | input_boolean, input_button |
+| packages/tado_pamba_view.yaml | 6608 | template |
 | floorplan_repo/binary_sensors.yaml | 239 | list[2] |
 | floorplan_repo/configuration.yaml | 323 | homeassistant, frontend, panel_custom, binary_sensor |
 | floorplan_repo/customize.yaml | 116 | binary_sensor.floorplan |

@@ -348,20 +348,6 @@
         "issue_id": "removed_158654878"
       },
       {
-        "created": "2025-11-07T20:39:28.215842+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_volvo_cars_01K1GGAK9FV2R48N9W8977QRA2"
-      },
-      {
-        "created": "2025-11-12T11:52:35.593917+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_accuweather_a1167d55689b4ce48bc85b58149d034b"
-      },
-      {
         "created": "2025-11-12T14:39:49.941716+00:00",
         "dismissed_version": null,
         "domain": "hacs",
@@ -409,6 +395,105 @@
         "domain": "hacs",
         "is_persistent": false,
         "issue_id": "removed_164367214"
+      },
+      {
+        "created": "2026-10-09T12:22:02.744323+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_899977910_tags/v1.5.7"
+      },
+      {
+        "created": "2026-10-09T21:10:16.191897+00:00",
+        "dismissed_version": null,
+        "domain": "http",
+        "is_persistent": false,
+        "issue_id": "deprecated_yaml"
+      },
+      {
+        "created": "2026-10-09T21:10:58.109009+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_light_template"
+      },
+      {
+        "created": "2026-10-09T21:10:58.109259+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_sensor_template"
+      },
+      {
+        "created": "2026-10-09T21:10:59.496393+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_cover_template"
+      },
+      {
+        "created": "2026-10-09T21:11:08.107592+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "platform_integration_no_support_device_tracker_tile"
+      },
+      {
+        "created": "2026-10-09T21:11:12.832340+00:00",
+        "dismissed_version": null,
+        "domain": "esphome",
+        "is_persistent": false,
+        "issue_id": "ble_firmware_outdated-94:3C:C6:37:67:84"
+      },
+      {
+        "created": "2026-10-09T21:11:12.837026+00:00",
+        "dismissed_version": null,
+        "domain": "esphome",
+        "is_persistent": false,
+        "issue_id": "ble_firmware_outdated-F4:65:0B:08:8B:88"
+      },
+      {
+        "created": "2026-10-09T21:11:12.839732+00:00",
+        "dismissed_version": null,
+        "domain": "esphome",
+        "is_persistent": false,
+        "issue_id": "ble_firmware_outdated-F4:65:0B:07:70:84"
+      },
+      {
+        "created": "2026-10-09T21:47:06.156541+00:00",
+        "dismissed_version": null,
+        "domain": "http",
+        "is_persistent": false,
+        "issue_id": "yaml_still_present_after_migration"
+      },
+      {
+        "created": "2026-10-10T18:18:39.257175+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_webostv_a64420808c99104e10612453353d0b78"
+      },
+      {
+        "created": "2026-10-14T16:18:34.860450+00:00",
+        "dismissed_version": null,
+        "domain": "rpi_power",
+        "is_persistent": true,
+        "issue_id": "under_voltage_detected",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "critical",
+        "translation_key": "under_voltage_detected",
+        "translation_placeholders": null
+      },
+      {
+        "created": "2026-10-18T07:11:40.768896+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_191663150"
       }
     ]
   }

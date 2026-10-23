@@ -33,10 +33,14 @@ switch.loft_blind_open_loft_suite_blind:
   hidden: false
 ```
 
-## exposed to assistants (9)
+## exposed to assistants (39)
 
 | entity_id | assistants |
 |---|---|
+| binary_sensor.closed_e_pamba | conversation |
+| binary_sensor.closed_h_pamba | conversation |
+| binary_sensor.closed_l_pamba | conversation |
+| binary_sensor.closed_s_pamba | conversation |
 | binary_sensor.everyone_home | conversation |
 | binary_sensor.monitor_f965 | conversation |
 | binary_sensor.monitor_hannah_phone | conversation |
@@ -46,3 +50,29 @@ switch.loft_blind_open_loft_suite_blind:
 | binary_sensor.nobody_home | conversation |
 | binary_sensor.somebody_is_home | conversation |
 | light.litra_beam | conversation |
+| sensor.bathroom_window_temperature_pamba | conversation |
+| sensor.bay_window_temperature_pamba | conversation |
+| sensor.boiler_temp_temperature_pamba | conversation |
+| sensor.comfort_downstairs | conversation |
+| sensor.comfort_ellie | conversation |
+| sensor.comfort_hannah | conversation |
+| sensor.comfort_kids_bathroom | conversation |
+| sensor.comfort_landing | conversation |
+| sensor.comfort_loft_suite | conversation |
+| sensor.comfort_study | conversation |
+| sensor.downstairs_temperature_pamba | conversation |
+| sensor.ellie_ac_indoor_temperature_pamba | conversation |
+| sensor.ellie_ac_outdoor_temperature_pamba | conversation |
+| sensor.hannah_ac_indoor_temperature_pamba | conversation |
+| sensor.hannah_ac_outdoor_temperature_pamba | conversation |
+| sensor.landing_window_temperature_pamba | conversation |
+| sensor.loft_suite_ac_indoor_temperature_pamba | conversation |
+| sensor.loft_suite_ac_outdoor_temperature_pamba | conversation |
+| sensor.study_ac_indoor_temperature_pamba | conversation |
+| sensor.study_ac_outdoor_temperature_pamba | conversation |
+| sensor.tado_zone_ellie | conversation |
+| sensor.tado_zone_hannah | conversation |
+| sensor.tado_zone_kids_bathroom | conversation |
+| sensor.tado_zone_landing | conversation |
+| sensor.tado_zone_loft_suite | conversation |
+| sensor.tado_zone_study | conversation |

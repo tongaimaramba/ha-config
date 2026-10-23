@@ -1,0 +1,29 @@
+# Switches and buttons for the tado cloud client (AppDaemon apps/tado_cloud.yaml; M1e). The app does the work: these
+# only gate it and carry presses. Manual fallback: the tado app, and the boiler's own hot water control.
+input_boolean:
+  tado_cloud_enabled:          # hard rule 6: starts off
+    name: tado cloud
+    icon: mdi:cloud
+  tado_cloud_bedrooms:
+    name: tado zones – bedrooms
+    icon: mdi:bed
+  tado_cloud_study:
+    name: tado zones – study
+    icon: mdi:desk
+  tado_cloud_bath_landing:
+    name: tado zones – bathroom & landing
+    icon: mdi:shower
+
+input_button:
+  tado_hot_water_boost:
+    name: Hot water boost 30 min
+    icon: mdi:water-boiler
+  tado_hot_water_resume:
+    name: Hot water back to schedule
+    icon: mdi:calendar-clock
+  tado_cloud_refresh:
+    name: tado refresh now
+    icon: mdi:refresh
+  tado_cloud_sign_in:
+    name: tado sign in
+    icon: mdi:login

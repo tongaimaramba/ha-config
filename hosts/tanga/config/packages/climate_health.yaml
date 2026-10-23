@@ -2,7 +2,7 @@
 # Tells Tongai when a heating/AC device stops reporting, when an integration needs signing in again, which batteries
 # are getting low, and which SmartThings sensors (perimeter contacts, boiler pipe) have gone silent: on 2026-10-07
 # several had been dead since August, one at 46% battery, so battery % alone is not a warning. Alerts only: nothing
-# here controls a device.
+# here controls a device. Notifications: quiet "Home status" channel (no sound), short enough to read on a watch.
 # Gate: input_boolean.climate_health_enabled (starts off; hard rule 6). Manual fallback for everything here: the tado,
 # Nest and SmartThings apps show the same device status.
 
@@ -54,7 +54,8 @@ template:
             {% endfor %}
             {{ ns.out | join(', ') }}
 
-      # SmartThings devices that have gone silent: every entity unavailable, or nothing reported for 12 h (a starting
+      # SmartThings devices that have gone silent: every entity unavailable for 2 h+ (brief drop-outs, like the kitchen
+      # contact's, don't alert), or nothing reported for 12 h (a starting
       # guess; tune once their normal check-in interval is known). Excludes the deprecated SmartThings Mudiki lock.
       # Known limit: an HA restart resets last_reported, so a device that died while still showing its last values
       # looks fresh for up to 12 h after a restart; devices SmartThings marks unavailable are caught regardless.
@@ -69,7 +70,9 @@ template:
               {% if st and name is not search('mudiki', ignorecase=True) %}
                 {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
                 {% set last = st | map(attribute='last_reported') | max %}
-                {% if alive == 0 or (now() - last).total_seconds() > 12 * 3600 %}
+                {% set since = st | map(attribute='last_changed') | max %}
+                {% if (alive == 0 and (now() - since).total_seconds() > 2 * 3600)
+                      or (now() - last).total_seconds() > 12 * 3600 %}
                   {% set ns.out = ns.out + [name] %}
                 {% endif %}
               {% endif %}
@@ -84,12 +87,61 @@ template:
               {% if st and name is not search('mudiki', ignorecase=True) %}
                 {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
                 {% set last = st | map(attribute='last_reported') | max %}
-                {% if alive == 0 or (now() - last).total_seconds() > 12 * 3600 %}
+                {% set since = st | map(attribute='last_changed') | max %}
+                {% if (alive == 0 and (now() - since).total_seconds() > 2 * 3600)
+                      or (now() - last).total_seconds() > 12 * 3600 %}
                   {% set ns.out = ns.out + [name] %}
                 {% endif %}
               {% endif %}
             {% endfor %}
             {{ ns.out }}
+
+      # SmartThings sync watch (trial from 2026-10-09, decision M1b-I: both boxes signed in to the same SmartThings
+      # account). A frozen connection shows nothing wrong: entities keep their last values. Both boxes read the same
+      # four busy sensors, so their values should match; pamba's arrive through the bridge (*_pamba). Values, not
+      # update times, are compared, so a restart of either box can't fake or hide a freeze. States:
+      #   in_sync / diverged (a temperature differs by more than 0.3 °C, or is a number on one side only; 2026-10-11:
+      #   exact equality flagged a single missed 0.1–0.2 °C report though both boxes were live. The boiler pipe moves
+      #   well past 0.3 °C whenever the heating runs, so a frozen box still shows within hours) / bridge_down (pamba's bridge heartbeat,
+      #   rpi4 = pamba's bridge server_id, unchanged 15 min+ by tanga's clock, or pamba's sources gone) / no_data (no copies or no heartbeat yet:
+      #   pamba's bridge files not in place).
+      # stale_box: the side whose newest real report is older (best guess; a restart can mislead it).
+      - name: SmartThings sync
+        unique_id: climate_health_smartthings_sync
+        icon: mdi:sync-alert
+        state: >-
+          {% set local = ['sensor.bathroom_window_temperature', 'sensor.landing_window_temperature',
+                          'sensor.bay_window_temperature', 'sensor.boiler_temp_temperature'] %}
+          {% set remote = ['sensor.bathroom_window_temperature_pamba', 'sensor.landing_window_temperature_pamba',
+                           'sensor.bay_window_temperature_pamba', 'sensor.boiler_temp_temperature_pamba'] %}
+          {% set mirrors = expand(remote) %}
+          {% if mirrors | count == 0 %}no_data
+          {% elif states.sensor.ha_bridge_rpi4_heartbeat is none %}no_data
+          {% elif states.sensor.ha_bridge_rpi4_heartbeat.last_changed < now() - timedelta(minutes=15)
+                  or state_attr('sensor.ha_bridge_rpi4_heartbeat', 'mirrors_live') | int(0) == 0 %}
+            bridge_down
+          {% else %}
+            {% set ns = namespace(diverged=false) %}
+            {% for i in range(local | count) %}
+              {% set a, b = states(local[i]), states(remote[i]) %}
+              {% if (a | is_number) != (b | is_number) %}{% set ns.diverged = true %}
+              {% elif a | is_number and ((a | float - b | float) | abs | round(2)) > 0.3 %}{% set ns.diverged = true %}
+              {% endif %}
+            {% endfor %}
+            {{ 'diverged' if ns.diverged else 'in_sync' }}
+          {% endif %}
+        attributes:
+          stale_box: >-
+            {% set gone = ['unavailable', 'unknown'] %}
+            {% set t = expand('sensor.bathroom_window_temperature', 'sensor.landing_window_temperature',
+                              'sensor.bay_window_temperature', 'sensor.boiler_temp_temperature')
+                       | rejectattr('state', 'in', gone) | map(attribute='last_changed') | list %}
+            {% set p = expand('sensor.bathroom_window_temperature_pamba', 'sensor.landing_window_temperature_pamba',
+                              'sensor.bay_window_temperature_pamba', 'sensor.boiler_temp_temperature_pamba')
+                       | rejectattr('state', 'in', gone)
+                       | map(attribute='attributes.bridge_source_last_updated') | select('string')
+                       | map('as_datetime', none) | reject('none') | list %}
+            {{ 'tanga' if not t else 'pamba' if not p else ('pamba' if t | max > p | max else 'tanga') }}
 
 automation:
   # A climate device has been unavailable for 15 minutes (would have caught tado's 2026-10-06 outage within the hour).
@@ -113,13 +165,12 @@ automation:
     actions:
       - action: notify.mobile_app_tongaism25
         data:
-          title: Heating/AC device not responding
-          message: "Unavailable for 15+ min: {{ state_attr('sensor.climate_devices_unavailable', 'devices') }}"
+          title: Heating/AC offline
+          message: "{{ state_attr('sensor.climate_devices_unavailable', 'devices') }} · 15 min"
           data:
             tag: climate_health_unavailable
-            ttl: 0
-            priority: high
-            channel: alarm_stream
+            channel: Home status
+            importance: low
       - action: input_boolean.turn_on
         target:
           entity_id: input_boolean.climate_health_alert_active
@@ -146,10 +197,12 @@ automation:
           entity_id: input_boolean.climate_health_alert_active
       - action: notify.mobile_app_tongaism25
         data:
-          title: Heating/AC devices back
-          message: All climate devices are reporting again.
+          title: Heating/AC back
+          message: All devices reporting
           data:
             tag: climate_health_unavailable
+            channel: Home status
+            importance: low
 
   # An integration needs signing in again (tado, Volvo, ...). HA raises a repair issue `config_entry_reauth_*` when a
   # sign-in lapses; this alerts straight away instead of when a room goes cold. Unverified until the next lapse.
@@ -171,11 +224,12 @@ automation:
     actions:
       - action: notify.mobile_app_tongaism25
         data:
-          title: Integration needs signing in (tanga)
-          message: "{{ trigger.event.data.issue_id }}: open Settings → Repairs on tanga to sign in again."
+          title: Sign-in needed
+          message: "{{ trigger.event.data.issue_id | regex_replace('^config_entry_reauth_', '') | regex_replace('_[0-9A-Z]{20,}$', '') }} · tanga Repairs"
           data:
             tag: "reauth_{{ trigger.event.data.issue_id }}"
-            priority: high
+            channel: Home status
+            importance: low
 
   # Daily battery digest at 08:00 (M1-F). Manual fallback: the device's own app.
   - id: climate_health_battery_digest
@@ -193,15 +247,18 @@ automation:
     actions:
       - action: notify.mobile_app_tongaism25
         data:
-          title: "Batteries low ({{ states('sensor.batteries_low') }}), devices silent ({{ states('sensor.devices_silent') }})"
+          title: "Batt {{ states('sensor.batteries_low') }} low · {{ states('sensor.devices_silent') }} silent"
           message: >-
-            Low: {{ state_attr('sensor.batteries_low', 'devices') or 'none' }}.
-            Silent: {{ (state_attr('sensor.devices_silent', 'devices') or []) | join(', ') or 'none' }}.
+            {{ (state_attr('sensor.batteries_low', 'devices') or '') | replace(' Battery', '') | truncate(80) }}
+            {{- ' · Silent: ' ~ ((state_attr('sensor.devices_silent', 'devices') or []) | join(', ') | truncate(60))
+                if states('sensor.devices_silent') | int(0) > 0 else '' }}
           data:
             tag: climate_health_batteries
+            channel: Home status
+            importance: low
 
-  # A SmartThings device newly went silent (and stayed so 30 min): normal-priority alert, so a dead sensor is
-  # replaced before it matters. Manual fallback: SmartThings app → device status.
+  # A SmartThings device newly went silent (unavailable 2 h+, or no report for 12 h; held 30 min): quiet alert, so a
+  # dead sensor is replaced before it matters. Manual fallback: SmartThings app → device status.
   - id: climate_health_device_silent
     alias: Climate health - device went silent
     mode: single
@@ -225,10 +282,43 @@ automation:
     actions:
       - action: notify.mobile_app_tongaism25
         data:
-          title: Sensor gone silent
+          title: Sensor silent
           message: >-
-            Not reporting: {{ (trigger.to_state.attributes.devices or [])
-              | reject('in', trigger.from_state.attributes.devices or []) | join(', ') }}.
-            Check its battery (CR2450) or wake it by opening and closing it.
+            {{ (trigger.to_state.attributes.devices or [])
+              | reject('in', trigger.from_state.attributes.devices or []) | join(', ') }} · check battery
           data:
             tag: climate_health_silent
+            channel: Home status
+            importance: low
+
+  # The two boxes' SmartThings temperatures have differed (or the bridge copies stopped) for 2 h: quiet alert, once at the
+  # 2 h mark (checked every 15 min, so a restart can't lose it; after a restart it may repeat once).
+  # Manual fallback: open the SmartThings integration on the stale box; sign in again if it asks.
+  - id: climate_health_smartthings_sync
+    alias: Climate health - SmartThings temperatures differ between boxes
+    mode: single
+    triggers:
+      - trigger: time_pattern
+        minutes: "/15"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.climate_health_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set s = states.sensor.smartthings_sync %}
+          {{ s is not none and s.state in ['diverged', 'bridge_down']
+             and timedelta(hours=2) <= now() - s.last_changed < timedelta(hours=2, minutes=15) }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: >-
+            {{ 'Bridge to pamba silent' if is_state('sensor.smartthings_sync', 'bridge_down')
+               else 'SmartThings stuck on ' ~ state_attr('sensor.smartthings_sync', 'stale_box') }}
+          message: >-
+            {{ 'Bridge from pamba silent 2 h; SmartThings check paused' if is_state('sensor.smartthings_sync', 'bridge_down')
+               else 'SmartThings temperatures differ between boxes for 2 h; reload SmartThings there' }}
+          data:
+            tag: climate_health_smartthings_sync
+            channel: Home status
+            importance: low

@@ -1,16 +1,5 @@
 # tanga — Lovelace dashboards
 
-## lovelace  — url `lovelace`  title `Mojgan`  (11278 bytes)
-
-- view **Overview** — 7 cards (glance×3, entities×2, custom:auto-entities×2)
-  - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, event.loft_pir_bedroom_presence_events, group.downstairs_lights, group.eating_lights, group.lounge_lamps, input_boolean.pump_timer, input_number.timer_length, light.bookshelf_lamp, light.isla_wall, light.m_side, light.t_side, lock.mudiki, lock.unlock, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
-- view **Heating** — 4 cards (thermostat×4)
-  - entities: climate.downstairs, climate.friends, climate.main, climate.study
-- view **all of it** — 3 cards (custom:auto-entities×3)
-  - entities: sensor.batteries_battery_level
-- view **Alarm** — 3 cards (picture-entity×2, custom:aarlo-glance×1)
-  - entities: camera.aarlo_swings, camera.backyard, camera.camera, light.aarlo_front_light
-
 ## lovelace.dashboard_basics  — url `dashboard-basics`  title `Basics`  (21397 bytes)
 
 - view **Home** — 8 cards (glance×3, entities×2, thermostat×1, gauge×1, vertical-stack×1)
@@ -23,6 +12,17 @@
   - entities: media_player.projector
 - view **Solar System** — 2 cards (entities×1, vertical-stack×1)
   - entities: sensor.growatt_sph_battery_state_of_charge, sensor.growatt_sph_grid_energy_in, sensor.growatt_sph_grid_energy_out, sensor.growatt_sph_grid_power, sensor.growatt_sph_load_energy, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_energy, sensor.growatt_sph_pv_power
+
+## lovelace.lovelace  — url `lovelace`  title `Overview`  (11287 bytes)
+
+- view **Overview** — 7 cards (glance×3, entities×2, custom:auto-entities×2)
+  - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, event.loft_pir_bedroom_presence_events, group.downstairs_lights, group.eating_lights, group.lounge_lamps, input_boolean.pump_timer, input_number.timer_length, light.bookshelf_lamp, light.isla_wall, light.m_side, light.t_side, lock.mudiki, lock.unlock, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
+- view **Heating** — 4 cards (thermostat×4)
+  - entities: climate.downstairs, climate.friends, climate.main, climate.study
+- view **all of it** — 3 cards (custom:auto-entities×3)
+  - entities: sensor.batteries_battery_level
+- view **Alarm** — 3 cards (picture-entity×2, custom:aarlo-glance×1)
+  - entities: camera.aarlo_swings, camera.backyard, camera.camera, light.aarlo_front_light
 
 ## lovelace.lovelace_guest  — url `lovelace-guest`  title `Guest `  (1658 bytes)
 
@@ -69,7 +69,7 @@ _no views / strategy dashboard_
 _no views / strategy dashboard_
 
 
-## lovelace.tongai_test  — url `tongai-test`  title `Home`  (138970 bytes)
+## lovelace.tongai_test  — url `tongai-test`  title `Home`  (143045 bytes)
 
 - view **Overview** — 15 cards (entities×5, glance×4, custom:auto-entities×2, picture-entity×1, gauge×1, weather-forecast×1, button×1)
   - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, binary_sensor.skoda_enyaq_vehicle_locked, camera.camera, climate.bathroom_2, climate.downstairs, climate.friends, climate.main, group.downstairs_lights, input_boolean.away_on_holiday, input_boolean.force_home_mode, input_boolean.loft_blind_is_open, input_boolean.morning_heater, input_boolean.pump_timer, input_boolean.toggle, input_datetime.weekday_shower, input_number.timer_length, input_select.room_heater, light.bookshelf_lamp, light.downstairs_lights, light.linkplus_led, light.loft_suite_spotlights, light.lounge_lamp_2, light.toggle, lock.mudiki, lock.unlock, script.home_fires, script.study_boost, sensor.alarm_mode, sensor.evie_location, sensor.hannah_locator, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, sensor.mojgan_locator, sensor.skoda_enyaq_battery_percentage, sensor.tongai_locator, switch.loft_blind_close_loft_suite_blind, switch.loft_blind_open_loft_suite_blind, switch.loft_blind_stop_loft_suite_blind, switch.sonoff_1000eced8f, switch.sonoff_100125dac5, weather.alexandra_drive
@@ -91,8 +91,8 @@ _no views / strategy dashboard_
   - entities: binary_sensor.bathroom_window_acceleration, binary_sensor.bay_party_wall_acceleration, binary_sensor.bay_party_wall_contact, binary_sensor.bay_window_acceleration, binary_sensor.bay_window_contact, binary_sensor.front_acceleration, binary_sensor.front_contact, binary_sensor.garage_out_acceleration, binary_sensor.garage_out_contact, binary_sensor.guest_win_acceleration, binary_sensor.kitchen_acceleration, binary_sensor.landing_window_acceleration, binary_sensor.landing_window_contact, binary_sensor.main_window_acceleration, binary_sensor.main_window_party_acceleration, binary_sensor.patio_door_acceleration, binary_sensor.utility_back_door_acceleration, group.car_security, group.downstairs_lights, group.hall_lights, group.isla_lights, group.kitchen_lights, group.lounge_lamps, group.lounge_spots, group.main_lights, group.perimeter_contact, group.perimeter_movement, group.upstairs_lights, group.utility_laundry_lights, group.utility_lights, group.utility_pantry_lights, light.armchair_lamp, light.bathroom_sink, light.bookshelf_lamp, light.coats, light.dining_spotlights, light.hall_spotlights, light.isla_spotlights, light.isla_wall, light.kitchen_spotlights, light.kitchen_worktop, light.loft_main, light.lounge_lamp_1, light.lounge_lamp_2, light.lounge_pendant, light.lounge_spotlights, light.m_side, light.main_spotlights, light.movie_lamp, light.study_desk_lamp, light.t_side, switch.sonoff_100125dac5, switch.sonoff_100140291c
 - view **Door Auth** — 6 cards (vertical-stack×3, entities×2, history-graph×1)
   - entities: binary_sensor.fp_button_a, binary_sensor.fp_button_b, input_button.delete_all_fingerprints, input_button.delete_fingerprint, input_button.enroll_fingerprint, input_button.press, input_number.authentication_time_window, input_number.fp_delete_id, input_number.lockout_duration, input_number.max_lockout_attempts, input_select.fp_enroll_finger, input_text.fp_enroll_name, input_text.fp_metadata_store, input_text.valid_button_sequence, script.fp_reset, sensor.c3_stored_fingerprints, sensor.fp_authentication_status, sensor.fp_esp32_internal_temperature
-- view **Dev** — 19 cards (entities×11, custom:auto-entities×3, glance×2, sensor×1, markdown×1, vertical-stack×1)
-  - entities: binary_sensor.monitor, binary_sensor.monitor_tongai_phone, device_tracker.frontdoor_nmap, device_tracker.patio_nmap, device_tracker.swings_nmap, input_boolean.all_parents_home, input_boolean.boiler_anomaly_alert, input_boolean.motion_recording_active, input_boolean.test_bridge_from_rpi5, input_boolean.test_bridge_mirror, input_boolean.turn_off, input_boolean.turn_on, input_button.speedtest, input_select.guest_access, input_select.motion_travel_path, input_select.mqtt_messages, input_select.relationship, input_text.guest_name, input_text.mac_addr, input_text.mqtt_payload, input_text.n8n, script.ha_config_sync_tanga, script.manage_guest_access, script.turn_on, sensor.boiler_temp_temperature_measurement, sensor.domane_phone, sensor.ha_config_sync_tanga, sensor.monitor, sensor.monitor_tongai_phone_frontdoor_conf, sensor.myups_battery_charge, sensor.myups_load, sensor.myups_status, sensor.speedtest_download, sensor.speedtest_ping, sensor.speedtest_upload, switch.loft_blind_close_loft_suite_blind, switch.loft_blind_open_loft_suite_blind, switch.loft_blind_stop_loft_suite_blind, switch.rpi_rebooter_reboot_switch, switch.rpi_rebooter_wlan0_restart
+- view **Dev** — 23 cards (entities×12, markdown×3, custom:auto-entities×3, vertical-stack×2, glance×2, sensor×1)
+  - entities: binary_sensor.boiler_called_for_heat, binary_sensor.monitor, binary_sensor.monitor_tongai_phone, device_tracker.frontdoor_nmap, device_tracker.patio_nmap, device_tracker.swings_nmap, input_boolean.all_parents_home, input_boolean.boiler_alert_enabled, input_boolean.boiler_anomaly_alert, input_boolean.climate_health_enabled, input_boolean.heating_boost_enabled, input_boolean.motion_recording_active, input_boolean.test_bridge_from_rpi5, input_boolean.test_bridge_mirror, input_boolean.turn_off, input_boolean.turn_on, input_button.speedtest, input_select.guest_access, input_select.heating_boost_room, input_select.motion_travel_path, input_select.mqtt_messages, input_select.relationship, input_text.guest_name, input_text.mac_addr, input_text.mqtt_payload, input_text.n8n, script.ha_config_sync_tanga, script.heating_boost, script.manage_guest_access, script.turn_on, sensor.batteries_low, sensor.boiler_temp_temperature, sensor.boiler_temp_temperature_measurement, sensor.climate_devices_unavailable, sensor.devices_silent, sensor.domane_phone, sensor.ha_config_sync_tanga, sensor.monitor, sensor.monitor_tongai_phone_frontdoor_conf, sensor.myups_battery_charge, sensor.myups_load, sensor.myups_status, sensor.speedtest_download, sensor.speedtest_ping, sensor.speedtest_upload, switch.loft_blind_close_loft_suite_blind, switch.loft_blind_open_loft_suite_blind, switch.loft_blind_stop_loft_suite_blind, switch.rpi_rebooter_reboot_switch, switch.rpi_rebooter_wlan0_restart, timer.heating_boost_fall
 - view **Heating** — 12 cards (thermostat×7, entities×3, grid×2)
   - entities: climate.bathroom_2, climate.downstairs, climate.friends, climate.landing_2, climate.loft_suite_ac, climate.loft_suite_rad, climate.main, climate.pure_hot_cool, climate.study, fan.pure_cool, fan.pure_hot_cool, switch.loft_ac_power, switch.loft_ac_powerful, switch.loft_ac_quiet_fan, water_heater.hot_water
 - view **all of it** — 1 cards (custom:auto-entities×1)

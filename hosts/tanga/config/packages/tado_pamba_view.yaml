@@ -1,0 +1,107 @@
+# tado for pamba, read-only (M1e step 6, decisions M1e-H/M1e-M). pamba's tado cloud integration was deleted on
+# 2026-10-14 (quota: M1e-I), which also took pamba's room heating view. tanga sends pamba, over the bridge
+# (appdaemon/apps/ha_bridge.yaml mirrors, same entity ids on pamba):
+#   - hot water: sensor.tado_hot_water and sensor.tado_hot_water_mode (written by the tado_cloud app)
+#   - sensor.tado_status: the tado cloud client's state and plain summary only (never the sign-in link)
+#   - one sensor per room from tanga's local tado connection (HomeKit), live and outside tado's cloud quota:
+#     state = room temperature; attributes target, heating (yes/no), mode, room. Rooms with a thermostat and a
+#     radiator valve report the thermostat for the temperature, target and mode; heating is "yes" when either is heating.
+# Rooms and devices as in appdaemon/apps/comfort.yaml (docs/ROOMS.md). Plain sensors, no state_class (no statistics),
+# so nothing on pamba can mistake them for controllable devices. No automations; nothing here calls a service.
+# Manual fallback: the tado app (rooms and hot water), tanga's House ops dashboard.
+
+template:
+  - sensor:
+      - name: tado status
+        unique_id: tado_pamba_view_status
+        icon: mdi:cloud-check
+        state: "{{ states('sensor.tado_cloud_status') }}"
+        attributes:
+          summary: "{{ state_attr('sensor.tado_cloud_status', 'summary') or '' }}"
+
+      - name: tado Loft suite
+        unique_id: tado_pamba_view_loft_suite
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_thermostat_su2586204416', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_thermostat_su2586204416', 'current_temperature') }}"
+        attributes:
+          room: Loft suite
+          target: "{{ state_attr('climate.tado_smart_thermostat_su2586204416', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_thermostat_su2586204416',
+                        'climate.tado_smart_radiator_thermostat_va0748706304'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_thermostat_su2586204416') }}"
+
+      - name: tado Ellie
+        unique_id: tado_pamba_view_ellie
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_thermostat_su3124240128', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_thermostat_su3124240128', 'current_temperature') }}"
+        attributes:
+          room: Ellie
+          target: "{{ state_attr('climate.tado_smart_thermostat_su3124240128', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_thermostat_su3124240128',
+                        'climate.tado_smart_radiator_thermostat_va0572855296'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_thermostat_su3124240128') }}"
+
+      - name: tado Hannah
+        unique_id: tado_pamba_view_hannah
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_thermostat_su3283363072', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_thermostat_su3283363072', 'current_temperature') }}"
+        attributes:
+          room: Hannah
+          target: "{{ state_attr('climate.tado_smart_thermostat_su3283363072', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_thermostat_su3283363072',
+                        'climate.tado_smart_radiator_thermostat_va1226511360'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_thermostat_su3283363072') }}"
+
+      - name: tado Study
+        unique_id: tado_pamba_view_study
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0611323648', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0611323648', 'current_temperature') }}"
+        attributes:
+          room: Study
+          target: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0611323648', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_radiator_thermostat_va0611323648'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_radiator_thermostat_va0611323648') }}"
+
+      - name: tado Kids bathroom
+        unique_id: tado_pamba_view_kids_bathroom
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0796464128', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0796464128', 'current_temperature') }}"
+        attributes:
+          room: Kids bathroom
+          target: "{{ state_attr('climate.tado_smart_radiator_thermostat_va0796464128', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_radiator_thermostat_va0796464128'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_radiator_thermostat_va0796464128') }}"
+
+      - name: tado Landing
+        unique_id: tado_pamba_view_landing
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: "{{ state_attr('climate.tado_smart_radiator_thermostat_va2390168576', 'current_temperature') is number }}"
+        state: "{{ state_attr('climate.tado_smart_radiator_thermostat_va2390168576', 'current_temperature') }}"
+        attributes:
+          room: Landing
+          target: "{{ state_attr('climate.tado_smart_radiator_thermostat_va2390168576', 'temperature') }}"
+          heating: >-
+            {% set devices = ['climate.tado_smart_radiator_thermostat_va2390168576'] %}
+            {{ 'yes' if expand(devices) | selectattr('attributes.hvac_action', 'eq', 'heating') | list else 'no' }}
+          mode: "{{ states('climate.tado_smart_radiator_thermostat_va2390168576') }}"

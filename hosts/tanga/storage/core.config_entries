@@ -232,35 +232,6 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "api_key",
-            "latitude",
-            "longitude",
-            "name"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "accuweather",
-        "entry_id": "a1167d55689b4ce48bc85b58149d034b",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "forecast"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Alexandra_Drive",
-        "unique_id": "323328",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
             "event",
             "event_data",
             "name",
@@ -310,7 +281,7 @@
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-07-15T17:17:42.543330+00:00",
+        "modified_at": "2026-10-23T02:20:32.235617+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -367,7 +338,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-10-07T20:53:02.944547+00:00",
+        "modified_at": "2026-10-23T09:32:43.613135+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -445,14 +416,16 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": []
+          "_redacted_keys": [
+            "user"
+          ]
         },
         "disabled_by": null,
         "discovery_keys": {},
         "domain": "hassio",
         "entry_id": "e170bc42d8b368aa1271b400fde50598",
         "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2026-10-09T21:10:17.272411+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -886,43 +859,6 @@
         "subentries": [],
         "title": "Canon TS6300 series",
         "unique_id": "00000000-0000-1000-8000-00188d23ada1",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
-            "AccessoryIP",
-            "AccessoryIPs",
-            "AccessoryPort"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {
-          "zeroconf": [
-            {
-              "domain": "zeroconf",
-              "key": [
-                "_hap._tcp.local.",
-                "tado Internet Bridge IB0210636544._hap._tcp.local."
-              ],
-              "version": 1
-            }
-          ]
-        },
-        "domain": "homekit_controller",
-        "entry_id": "a2d9cc23459a1c24cd1f785553005238",
-        "minor_version": 1,
-        "modified_at": "2025-02-22T15:58:59.622216+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "ignore",
-        "subentries": [],
-        "title": "tado Internet Bridge IB0210636544",
-        "unique_id": "4b:0a:8f:e8:dd:ab",
         "version": 1
       },
       {
@@ -1628,10 +1564,11 @@
         "domain": "esphome",
         "entry_id": "5f3decfc9356c5b361239eabda83a811",
         "minor_version": 1,
-        "modified_at": "2025-11-14T13:22:13.728327+00:00",
+        "modified_at": "2026-10-09T21:11:12.843099+00:00",
         "options": {
           "_redacted_keys": [
-            "allow_service_calls"
+            "allow_service_calls",
+            "bluetooth_scanning_mode"
           ]
         },
         "pref_disable_new_entities": false,
@@ -2927,7 +2864,7 @@
         "domain": "template",
         "entry_id": "beb242e4857e47fcd043cbcadff46069",
         "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2026-10-09T21:10:58.103079+00:00",
         "options": {
           "_redacted_keys": [
             "device_class",
@@ -2944,7 +2881,7 @@
         "subentries": [],
         "title": "domane-phone",
         "unique_id": null,
-        "version": 1
+        "version": 2
       },
       {
         "created_at": "2024-09-13T07:16:28.619665+00:00",
@@ -3421,36 +3358,6 @@
         "version": 1
       },
       {
-        "created_at": "2025-07-31T15:06:34.159299+00:00",
-        "data": {
-          "_redacted_keys": [
-            "friendly_name",
-            "username",
-            "vcc_api_key",
-            "vin"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "volvo_cars",
-        "entry_id": "01K1GGAK9FV2R48N9W8977QRA2",
-        "minor_version": 3,
-        "modified_at": "2025-09-04T05:54:50.575492+00:00",
-        "options": {
-          "_redacted_keys": [
-            "energy_consumption_unit",
-            "vcc_api_key"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Volvo EX40 (YV1XZEHR5T2686253)",
-        "unique_id": "YV1XZEHR5T2686253",
-        "version": 1
-      },
-      {
         "created_at": "2025-08-05T19:29:48.837098+00:00",
         "data": {
           "_redacted_keys": [
@@ -3532,7 +3439,7 @@
         "domain": "mobile_app",
         "entry_id": "01K2PQEAENWBCVTRY36CDNNDGE",
         "minor_version": 1,
-        "modified_at": "2026-09-17T06:50:34.115361+00:00",
+        "modified_at": "2026-10-22T09:06:35.614855+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3551,6 +3458,7 @@
             "broker",
             "password",
             "port",
+            "protocol",
             "username"
           ]
         },
@@ -3566,8 +3474,8 @@
         },
         "domain": "mqtt",
         "entry_id": "01K3HKSE86BER5369STS5MFTDH",
-        "minor_version": 2,
-        "modified_at": "2025-08-28T09:21:48.397227+00:00",
+        "minor_version": 1,
+        "modified_at": "2026-10-09T21:10:58.957024+00:00",
         "options": {
           "_redacted_keys": [
             "birth_message",
@@ -3582,7 +3490,7 @@
         "subentries": [],
         "title": "Mosquitto broker",
         "unique_id": null,
-        "version": 1
+        "version": 2
       },
       {
         "created_at": "2025-09-17T13:16:57.514113+00:00",
@@ -3608,8 +3516,8 @@
         },
         "domain": "hue",
         "entry_id": "01K5BX4CSA7VRHH4QA38N0K1ZW",
-        "minor_version": 1,
-        "modified_at": "2025-09-17T13:16:57.514116+00:00",
+        "minor_version": 2,
+        "modified_at": "2026-10-09T21:11:02.789445+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3960,10 +3868,11 @@
         "domain": "esphome",
         "entry_id": "01K9ZCAWGKG7HZTP4QA157BYAK",
         "minor_version": 1,
-        "modified_at": "2025-11-13T20:47:15.520469+00:00",
+        "modified_at": "2026-10-09T21:11:12.850794+00:00",
         "options": {
           "_redacted_keys": [
-            "allow_service_calls"
+            "allow_service_calls",
+            "bluetooth_scanning_mode"
           ]
         },
         "pref_disable_new_entities": false,
@@ -4153,10 +4062,11 @@
         "domain": "esphome",
         "entry_id": "01KAQ1SN0PBA2SKVC9C5E079N4",
         "minor_version": 1,
-        "modified_at": "2025-11-25T15:48:51.843335+00:00",
+        "modified_at": "2026-10-09T21:11:12.847430+00:00",
         "options": {
           "_redacted_keys": [
-            "allow_service_calls"
+            "allow_service_calls",
+            "bluetooth_scanning_mode"
           ]
         },
         "pref_disable_new_entities": false,
@@ -4194,48 +4104,6 @@
         "title": "nya-proxy (F4:65:0B:07:70:86)",
         "unique_id": "F4:65:0B:07:70:86",
         "version": 1
-      },
-      {
-        "created_at": "2025-11-23T00:56:59.214736+00:00",
-        "data": {
-          "_redacted_keys": [
-            "url"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "ollama",
-        "entry_id": "01KAQ3DM2EZ4P71R3VPQ0SHV2P",
-        "minor_version": 3,
-        "modified_at": "2025-11-23T11:31:13.458515+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [
-          {
-            "data": {
-              "_redacted_keys": [
-                "keep_alive",
-                "llm_hass_api",
-                "max_history",
-                "model",
-                "num_ctx",
-                "prompt",
-                "think"
-              ]
-            },
-            "subentry_id": "01KAQ3Q0SAK1J7FEJHP88BE901",
-            "subentry_type": "conversation",
-            "title": "mhuka",
-            "unique_id": null
-          }
-        ],
-        "title": "http://192.168.179.137:11434",
-        "unique_id": null,
-        "version": 3
       },
       {
         "created_at": "2025-12-03T12:31:23.942006+00:00",
@@ -4364,7 +4232,7 @@
         "domain": "mobile_app",
         "entry_id": "01KWSDY1ZK9AHSVSK293XTD854",
         "minor_version": 1,
-        "modified_at": "2026-09-15T06:35:37.742901+00:00",
+        "modified_at": "2026-10-19T14:59:40.030809+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4398,8 +4266,8 @@
         },
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
-        "minor_version": 2,
-        "modified_at": "2026-10-07T20:57:08.788794+00:00",
+        "minor_version": 3,
+        "modified_at": "2026-10-22T22:00:09.799477+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4410,6 +4278,157 @@
         "title": "My home",
         "unique_id": "f41c2e37-7496-4f6c-8c03-04e81d2ebbbb",
         "version": 3
+      },
+      {
+        "created_at": "2026-10-08T13:42:43.540835+00:00",
+        "data": {
+          "_redacted_keys": [
+            "AccessoryIP",
+            "AccessoryIPs",
+            "AccessoryLTPK",
+            "AccessoryPairingID",
+            "AccessoryPort",
+            "Connection",
+            "iOSDeviceLTPK",
+            "iOSDeviceLTSK",
+            "iOSPairingId"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544._hap._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "homekit_controller",
+        "entry_id": "01M4DW10JM9HSXF6DJDHK04HE0",
+        "minor_version": 1,
+        "modified_at": "2026-10-08T13:42:43.540840+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "tado Internet Bridge IB0210636544",
+        "unique_id": "4b:0a:8f:e8:dd:ab",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-09T20:47:36.039122+00:00",
+        "data": {
+          "_redacted_keys": [
+            "login_data",
+            "password",
+            "username"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "alexa_devices",
+        "entry_id": "01M4H6QPK75G80ECCD7VCP4SEH",
+        "minor_version": 3,
+        "modified_at": "2026-10-09T20:54:42.661017+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "tongaimaramba@gmail.com",
+        "unique_id": "amzn1.account.AFH2EZIIF3U7FWAFPJODJMJG4LEA",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-09T21:12:00.676939+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "analytics",
+        "entry_id": "01M4H84CX4PJJ8YQNS9NMMC56Y",
+        "minor_version": 1,
+        "modified_at": "2026-10-09T21:12:00.676942+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "system",
+        "subentries": [],
+        "title": "Analytics",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-14T06:12:41.185090+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544._hap._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "tado",
+        "entry_id": "01M4WGN931KVP32WAWPP6GJ1YS",
+        "minor_version": 1,
+        "modified_at": "2026-10-14T06:12:41.185095+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "tado",
+        "unique_id": null,
+        "version": 2
+      },
+      {
+        "created_at": "2026-10-22T22:49:14.702130+00:00",
+        "data": {
+          "_redacted_keys": [
+            "api_key",
+            "auth_implementation",
+            "token",
+            "vin"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "volvo",
+        "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
+        "minor_version": 1,
+        "modified_at": "2026-10-23T10:23:12.621210+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Volvo YV1XZEHR5T2686253",
+        "unique_id": "YV1XZEHR5T2686253",
+        "version": 1
       }
     ]
   }

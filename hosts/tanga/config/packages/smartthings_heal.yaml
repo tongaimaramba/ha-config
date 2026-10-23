@@ -1,0 +1,382 @@
+# SmartThings self-heal on tanga (decisions ST-A to ST-E, PLAN decision log).
+# tanga's SmartThings connection sometimes stops delivering updates while staying "loaded": its entities keep their
+# last values and nothing logs an error (2026-10-12 21:20 → 10-14 07:12, again 10-14 09:11). A reload fixes it.
+# This reloads it when tanga's four compared sensors (as in climate_health's SmartThings sync) have reported nothing
+# for 30 min while pamba's copies (via the bridge) changed within 15 min. At most one reload per 30 min and 3 a day,
+# then it stops and tells Tongai. Sign-in needed, a failed start or retrying for over an hour: a quiet notification,
+# no reload. pamba stuck: a notification only (tanga never acts on pamba). Every reload is in the logbook and on
+# House ops → Health. The reload also reloads the deprecated, disabled Mudiki lock entity of the same SmartThings
+# connection (nothing uses it; Tongai's yes 2026-10-14, ST-E).
+# Gate: input_boolean.smartthings_heal_enabled (starts off; hard rule 6).
+# Manual fallback for everything here: Settings → Devices & services → SmartThings → ⋮ → Reload (sign in if asked).
+
+input_boolean:
+  smartthings_heal_enabled:
+    name: SmartThings self-heal
+    icon: mdi:auto-fix
+  # Internal: on while HA has an open "sign in again" repair for SmartThings (set/cleared by the repair events, set even
+  # with the self-heal off). While on, no reload is tried; it shows as sign_in only when the connection is down or
+  # tanga silent 30 min+, so a connection that reports is never held by it. Cleared at every HA start (reauth repairs
+  # don't survive a restart; if a sign-in is still needed, setup fails and HA raises a new repair, which sets it again).
+  smartthings_sign_in_needed:
+    name: SmartThings sign-in needed
+    icon: mdi:account-key
+
+counter:
+  # Reloads on the day of the last reload (the reload automation resets it on a new day).
+  smartthings_heal_reloads_today:
+    name: SmartThings reloads today
+    icon: mdi:restart
+    minimum: 0
+
+input_datetime:
+  smartthings_heal_last_reload:
+    name: SmartThings last reload
+    has_date: true
+    has_time: true
+
+input_text:
+  # The last error or warning SmartThings logged on tanga ("dd/mm HH:MM message"), from system_log events
+  # (system_log.yaml turns those on). Shown on Health and in notifications only on the day it was logged, and cleared
+  # at each reload, so an old error never sends Tongai after a stale cause.
+  smartthings_last_error:
+    name: SmartThings last error
+    max: 255
+
+template:
+  # sensor.smartthings_heal: what the self-heal sees, recomputed every minute.
+  #   ok / stale (tanga silent 30 min+, pamba's copies changed within 15 min: reload) / gave_up (3 reloads today and
+  #   tanga still silent 30 min+; held until tanga reports, so it is told once) / sign_in (HA asks to sign in again
+  #   and the connection is down or silent 30 min+: never reloaded, since a reload then fails to unload and only a
+  #   restart recovers, as on 2026-10-15 and 10-17; a loaded connection that still reports is never held by the
+  #   flag) / failed (setup, migration or unload error, or not loaded: HA won't retry) / retrying (HA retries
+  #   by itself) / pamba_stale (pamba's copies unchanged 60 min+ while tanga's changed within 15 min) / no_compare
+  #   (bridge down or no readings: can't judge) / missing (the sensor is no longer tied to SmartThings).
+  # tanga side: last_reported (any report counts, even an unchanged value). pamba side: the source's last_updated
+  # that the bridge copies along (a real change on pamba). The connection state comes from config_entry_attr, whose
+  # text may be "loaded" or "ConfigEntryState.LOADED": the prefix is dropped.
+  - triggers:
+      - trigger: time_pattern
+        minutes: "/1"
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+      - trigger: state
+        entity_id:
+          - input_boolean.smartthings_sign_in_needed
+          - counter.smartthings_heal_reloads_today
+          - input_text.smartthings_last_error
+    actions:
+      - variables:
+          # The four sensors climate_health's SmartThings sync compares; pamba's arrive as *_pamba bridge copies
+          tanga_ids: [sensor.bathroom_window_temperature, sensor.landing_window_temperature,
+                      sensor.bay_window_temperature, sensor.boiler_temp_temperature]
+          pamba_ids: "{{ tanga_ids | map('regex_replace', '$', '_pamba') | list }}"
+          entry_state: >-
+            {% set e = config_entry_id('sensor.bay_window_temperature') %}
+            {{ (config_entry_attr(e, 'state') | string | lower | regex_replace('^.*\\.', '')) if e else 'missing' }}
+          tanga_minutes: >-
+            {% set t = expand(tanga_ids) | map(attribute='last_reported') | list %}
+            {{ ((now() - t | max).total_seconds() / 60) | int if t else none }}
+          tanga_change_minutes: >-
+            {% set t = expand(tanga_ids) | rejectattr('state', 'in', ['unavailable', 'unknown'])
+                       | map(attribute='last_updated') | list %}
+            {{ ((now() - t | max).total_seconds() / 60) | int if t else none }}
+          pamba_minutes: >-
+            {% set p = expand(pamba_ids) | rejectattr('state', 'in', ['unavailable', 'unknown'])
+                       | map(attribute='attributes.bridge_source_last_updated') | select('string')
+                       | map('as_datetime', none) | reject('none') | list %}
+            {{ ((now() - p | max).total_seconds() / 60) | int if p else none }}
+          bridge_live: >-
+            {% set hb = states.sensor.ha_bridge_rpi4_heartbeat %}
+            {{ hb is not none and hb.last_changed > now() - timedelta(minutes=15)
+               and state_attr('sensor.ha_bridge_rpi4_heartbeat', 'mirrors_live') | int(0) > 0 }}
+          last_reload_ts: "{{ state_attr('input_datetime.smartthings_heal_last_reload', 'timestamp') | float(0) }}"
+          reloads_today: >-
+            {{ states('counter.smartthings_heal_reloads_today') | int(0)
+               if last_reload_ts | timestamp_custom('%Y-%m-%d') == now().strftime('%Y-%m-%d') else 0 }}
+          last_error: >-
+            {% set e = states('input_text.smartthings_last_error') %}
+            {{ e if has_value('input_text.smartthings_last_error') and e[:5] == now().strftime('%d/%m') else '' }}
+          verdict: >-
+            {% if entry_state == 'missing' %}missing
+            {% elif is_state('input_boolean.smartthings_sign_in_needed', 'on')
+                    and (entry_state != 'loaded' or tanga_minutes is none or tanga_minutes >= 30) %}sign_in
+            {% elif entry_state in ['setup_error', 'migration_error', 'failed_unload', 'not_loaded'] %}failed
+            {% elif entry_state != 'loaded' %}retrying
+            {% elif reloads_today >= 3 and tanga_minutes is not none and tanga_minutes >= 30 %}gave_up
+            {% elif not bridge_live or tanga_minutes is none or pamba_minutes is none %}no_compare
+            {% elif tanga_minutes >= 30 and pamba_minutes < 15 %}stale
+            {% elif pamba_minutes >= 60 and tanga_change_minutes is not none and tanga_change_minutes < 15 %}pamba_stale
+            {% else %}ok{% endif %}
+    sensor:
+      - name: SmartThings heal
+        unique_id: smartthings_heal
+        icon: mdi:auto-fix
+        state: "{{ verdict }}"
+        attributes:
+          entry_state: "{{ entry_state }}"
+          tanga_minutes: "{{ tanga_minutes }}"
+          pamba_minutes: "{{ pamba_minutes }}"
+          reloads_today: "{{ reloads_today }}"
+          last_error: "{{ last_error }}"
+          # One plain sentence for Health (what it is doing, then reloads and today's last error)
+          summary: >-
+            {% set heal = 'on' if is_state('input_boolean.smartthings_heal_enabled', 'on') else 'off' %}
+            {% set ago = (tanga_minutes ~ ' min ago') if tanga_minutes is not none else 'never' %}
+            {% if verdict == 'ok' %}Working: tanga's SmartThings last reported {{ ago }}.
+            {% elif verdict == 'stale' %}Stuck: nothing from tanga's SmartThings for {{ tanga_minutes }} min while pamba's updates.
+            {{- ' Reloading.' if heal == 'on' else ' Self-heal is off: reload it by hand.' }}
+            {% elif verdict == 'gave_up' %}Stuck after 3 reloads today: reload or restart by hand.
+            {% elif verdict == 'sign_in' %}SmartThings on tanga needs signing in again (Settings → Repairs); if it isn't back 5 min after, restart tanga.
+            {% elif verdict == 'failed' %}SmartThings on tanga isn't running ({{ entry_state | replace('_', ' ') }}): open it in Settings → Devices & services, or restart tanga.
+            {% elif verdict == 'retrying' %}SmartThings on tanga is not connected ({{ entry_state | replace('_', ' ') }}); HA retries by itself.
+            {% elif verdict == 'pamba_stale' %}pamba's SmartThings looks stuck: no change for {{ pamba_minutes }} min. Reload it on pamba.
+            {% elif verdict == 'no_compare' %}Can't compare with pamba (bridge down or no readings); tanga last reported {{ ago }}.
+            {% else %}The SmartThings sensor this checks (bay window) isn't tied to SmartThings any more: the self-heal can't work.{% endif %}
+            {%- if reloads_today > 0 %} Reloads today: {{ reloads_today }} (last {{ last_reload_ts | timestamp_custom('%H:%M') }}).{% endif %}
+            {%- if last_error %} Last error {{ last_error }}{% endif %}
+            {{- '' if heal == 'on' else ' Self-heal off.' }}
+
+automation:
+  # ST-A/B: reload tanga's SmartThings when it is stuck (sensor.smartthings_heal = stale), at most once per 30 min and
+  # 3 times a day. After the reload it waits (up to 5 min) for the connection and its sensors to be back, notes their
+  # newest report, then waits up to 10 min for a new one; if none came while pamba's copies changed, the reload didn't
+  # help: quiet notification. Every reload goes in the logbook. Manual fallback: Settings → Devices & services →
+  # SmartThings → ⋮ → Reload.
+  - id: smartthings_heal_reload
+    alias: SmartThings self-heal - reload when stuck
+    mode: single
+    max_exceeded: silent
+    variables:
+      tanga_ids: [sensor.bathroom_window_temperature, sensor.landing_window_temperature,
+                  sensor.bay_window_temperature, sensor.boiler_temp_temperature]
+      pamba_ids: "{{ tanga_ids | map('regex_replace', '$', '_pamba') | list }}"
+    triggers:
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: stale
+      - trigger: state
+        entity_id: input_boolean.smartthings_heal_enabled
+        to: "on"
+      - trigger: time_pattern  # catches a stale state that outlasted the 30 min spacing
+        minutes: "/10"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.smartthings_heal_enabled
+        state: "on"
+      - condition: state
+        entity_id: sensor.smartthings_heal
+        state: stale
+      - condition: state  # a sign-in request means the reload can't help (and leaves it needing a restart)
+        entity_id: input_boolean.smartthings_sign_in_needed
+        state: "off"
+      - condition: template
+        value_template: >-
+          {{ as_timestamp(now()) - state_attr('input_datetime.smartthings_heal_last_reload', 'timestamp') | float(0)
+             >= 1800 }}
+    actions:
+      - variables:
+          stuck_minutes: "{{ state_attr('sensor.smartthings_heal', 'tanga_minutes') }}"
+          new_day: >-
+            {{ state_attr('input_datetime.smartthings_heal_last_reload', 'timestamp') | float(0)
+               | timestamp_custom('%Y-%m-%d') != now().strftime('%Y-%m-%d') }}
+      - if:
+          - condition: template
+            value_template: "{{ new_day }}"
+        then:
+          - action: counter.reset
+            target:
+              entity_id: counter.smartthings_heal_reloads_today
+      - action: counter.increment
+        target:
+          entity_id: counter.smartthings_heal_reloads_today
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.smartthings_heal_last_reload
+        data:
+          timestamp: "{{ as_timestamp(now()) }}"
+      - action: input_text.set_value  # a new episode: only errors from here on are about it
+        target:
+          entity_id: input_text.smartthings_last_error
+        data:
+          value: ""
+      - action: logbook.log
+        data:
+          name: SmartThings self-heal
+          entity_id: sensor.smartthings_heal
+          message: >-
+            reloaded SmartThings on tanga: nothing reported for {{ stuck_minutes }} min while pamba's kept updating
+            ({{ states('counter.smartthings_heal_reloads_today') }} of 3 today)
+      - action: homeassistant.reload_config_entry
+        target:
+          entity_id: sensor.bay_window_temperature
+      # The reload re-creates the entities, which counts as a report: wait until the connection and all four are
+      # back (a slow start must not pass for a real report), then for a report newer than that.
+      - wait_template: >-
+          {% set e = config_entry_id('sensor.bay_window_temperature') %}
+          {{ e is not none
+             and (config_entry_attr(e, 'state') | string | lower | regex_replace('^.*\\.', '')) == 'loaded'
+             and expand(tanga_ids) | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count == 4 }}
+        timeout: {minutes: 5}
+        continue_on_timeout: false  # not back: sensor.smartthings_heal shows failed/retrying, told by _tell
+      - delay: {seconds: 30}
+      - variables:
+          baseline: "{{ expand(tanga_ids) | map(attribute='last_reported') | map('as_timestamp') | max }}"
+      - wait_template: >-
+          {{ expand(tanga_ids) | map(attribute='last_reported') | map('as_timestamp') | max > baseline }}
+        timeout: {minutes: 10}
+        continue_on_timeout: true
+      - if:
+          - condition: template
+            value_template: >-
+              {% set p = expand(pamba_ids) | rejectattr('state', 'in', ['unavailable', 'unknown'])
+                         | map(attribute='attributes.bridge_source_last_updated') | select('string')
+                         | map('as_timestamp', none) | reject('none') | list %}
+              {{ not wait.completed and p | count > 0 and p | max > baseline }}
+        then:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: SmartThings on tanga still stuck
+              message: >-
+                Reloaded but no update since (pamba has). Reload or restart tanga.
+                {{- (' Last error ' ~ state_attr('sensor.smartthings_heal', 'last_error'))
+                    if state_attr('sensor.smartthings_heal', 'last_error') else '' }}
+              data:
+                tag: smartthings_heal
+                channel: Home status
+                importance: low
+
+  # ST-A/C: what needs a person, one quiet notification each: stuck after 3 reloads today, not running (5 min), not
+  # connected for an hour, the checked sensor gone (5 min), or pamba's SmartThings stuck (tanga never acts on pamba).
+  # Sign-in has its own below. Manual fallback: Settings → Devices & services → SmartThings on the box named.
+  - id: smartthings_heal_tell
+    alias: SmartThings self-heal - tell Tongai when it needs a person
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: gave_up
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: failed
+        for: {minutes: 5}
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: retrying
+        for: {hours: 1}
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: missing
+        for: {minutes: 5}
+      - trigger: state
+        entity_id: sensor.smartthings_heal
+        to: pamba_stale
+    conditions:
+      - condition: state
+        entity_id: input_boolean.smartthings_heal_enabled
+        state: "on"
+    actions:
+      - variables:
+          what: "{{ trigger.to_state.state }}"
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: >-
+            {{ {'gave_up': 'SmartThings on tanga still stuck', 'failed': 'SmartThings on tanga not running',
+                'retrying': 'SmartThings on tanga offline 1 h', 'missing': 'SmartThings self-heal blind',
+                'pamba_stale': 'SmartThings on pamba stuck'}[what] }}
+          message: >-
+            {{ {'gave_up': '3 reloads today; reload or restart it by hand.',
+                'failed': 'Open it in Settings → Devices & services, or restart tanga.',
+                'retrying': 'HA keeps retrying; check internet/DNS.',
+                'missing': 'Bay window sensor no longer tied to SmartThings; ask Claude to update the check.',
+                'pamba_stale': 'No change on pamba for 1 h; reload SmartThings there.'}[what] }}
+            {{- (' Last error ' ~ state_attr('sensor.smartthings_heal', 'last_error'))
+                if what != 'pamba_stale' and state_attr('sensor.smartthings_heal', 'last_error') else '' }}
+          data:
+            tag: smartthings_heal
+            channel: Home status
+            importance: low
+
+  # ST-A: SmartThings needs signing in again (HA creates a `config_entry_reauth_smartthings_*` repair): flag it so no
+  # reload is tried, and say so once (same tag as climate_health's sign-in alert, so the phone shows one
+  # notification). The flag is set and cleared even with the gate off (it is this package's own bookkeeping; only the
+  # notification needs the gate), and cleared at HA start (the repair doesn't survive a restart and no "remove" event
+  # comes). Manual fallback: Settings → Repairs on tanga.
+  - id: smartthings_heal_sign_in
+    alias: SmartThings self-heal - sign-in needed
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: repairs_issue_registry_updated
+        event_data:
+          action: create
+        id: create
+      - trigger: event
+        event_type: repairs_issue_registry_updated
+        event_data:
+          action: remove
+        id: remove
+      - trigger: homeassistant
+        event: start
+        id: start
+    conditions:
+      - condition: template
+        value_template: "{{ trigger.id == 'start' or trigger.event.data.issue_id is search('reauth_smartthings') }}"
+    actions:
+      - if:
+          - condition: trigger
+            id: [remove, start]
+        then:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.smartthings_sign_in_needed
+        else:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.smartthings_sign_in_needed
+          - condition: state
+            entity_id: input_boolean.smartthings_heal_enabled
+            state: "on"
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: SmartThings on tanga needs signing in again
+              message: >-
+                Settings → Repairs on tanga; if it isn't back 5 min after, restart tanga.
+                {{- (' Last error ' ~ state_attr('sensor.smartthings_heal', 'last_error'))
+                    if state_attr('sensor.smartthings_heal', 'last_error') else '' }}
+              data:
+                tag: "reauth_{{ trigger.event.data.issue_id }}"
+                channel: Home status
+                importance: low
+
+  # Keeps SmartThings' last logged error or warning (logger name contains "smartthings", incl. pysmartthings) for
+  # the notifications and Health. Needs system_log's fire_event (system_log.yaml); the logger name can't be matched
+  # in the trigger itself, so this checks each logged warning/error (a cheap template, a few a minute at worst).
+  # Manual fallback: Settings → System → Logs.
+  - id: smartthings_heal_last_error
+    alias: SmartThings self-heal - keep the last error
+    mode: queued
+    max: 5
+    max_exceeded: silent
+    triggers:
+      - trigger: event
+        event_type: system_log_event
+    conditions:
+      - condition: state
+        entity_id: input_boolean.smartthings_heal_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {{ trigger.event.data.name is search('smartthings', ignorecase=True)
+             and trigger.event.data.level in ['WARNING', 'ERROR', 'CRITICAL'] }}
+    actions:
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.smartthings_last_error
+        data:
+          value: >-
+            {% set m = trigger.event.data.message %}
+            {% set m = m if m is string else ((m | first) if m else '') %}
+            {{ (now().strftime('%d/%m %H:%M') ~ ' ' ~ (m | string | replace('\n', ' '))) | truncate(250, true, '…') }}
