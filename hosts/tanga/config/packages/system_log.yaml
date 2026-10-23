@@ -1,0 +1,5 @@
+# System log events (SmartThings self-heal, ST-A): every logged warning or error also fires a `system_log_event`, so
+# an automation can keep SmartThings' last error for Health and notifications (smartthings_heal.yaml). Not
+# reloadable: a change here needs an HA restart. Manual fallback: Settings → System → Logs.
+system_log:
+  fire_event: true

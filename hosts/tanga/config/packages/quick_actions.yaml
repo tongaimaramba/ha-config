@@ -1,0 +1,9 @@
+# Groups for the House ops quick actions (M1c-H, Tongai 2026-10-11). Manual fallback: the lamps' own switches and the
+# Hue app. A classic YAML group reloads without a restart (group/reload); toggling it toggles every member.
+group:
+  bedside_lamps:
+    name: Bedside lamps
+    icon: mdi:lamps
+    entities:
+      - light.bookshelf_lamp   # "Loft Bedside Lamp"
+      - light.study_desk_lamp  # "Side Board Lamp"

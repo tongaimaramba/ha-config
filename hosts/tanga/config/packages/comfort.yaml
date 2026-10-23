@@ -1,0 +1,8 @@
+# Room comfort model (M1b step 3; decisions M1b-A, M1b-K). The model itself is the AppDaemon app
+# appdaemon/apps/comfort.yaml; this package holds only its on/off switch (hard rule 6: starts off).
+# Off: the app writes sensor.comfort_model = off and every room (and its _verdict sensor) unknown / off, so no stale
+# numbers show. It measures only, so there is no manual fallback to keep; only dashboards read it (M1c).
+input_boolean:
+  comfort_model_enabled:
+    name: Comfort model
+    icon: mdi:home-thermometer

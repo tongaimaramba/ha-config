@@ -32,5 +32,5 @@ redaction report (replacements per file):
       4  config/navimow_secrets.yaml
       2  config/pir_code.txt
      34  config/secrets.yaml
-    281  storage/core.config_entries
-  total: 482
+    282  storage/core.config_entries
+  total: 483

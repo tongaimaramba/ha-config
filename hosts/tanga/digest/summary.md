@@ -2,57 +2,58 @@
 
 ```
 host: tanga
-exported_at: 2026-10-07T22:25:06+01:00
+exported_at: 2026-10-23T11:25:19+01:00
 config_dir: /homeassistant
-ha_version: 2025.11.1
+ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
-- config entries: 140  (custom components on disk: 29)
-- devices: 454
-- entities: 3165 across 57 platforms
+- config entries: 141  (custom components on disk: 29)
+- devices: 474
+- entities: 3260 across 58 platforms
 - areas: 36
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| ibeacon | 950 |
-| mobile_app | 337 |
-| hue | 313 |
-| hassio | 137 |
+| ibeacon | 960 |
+| mobile_app | 349 |
+| hue | 317 |
+| hassio | 144 |
 | hacs | 134 |
-| accuweather | 132 |
 | smartthings | 130 |
 | bermuda | 124 |
+| alexa_devices | 111 |
 | esphome | 103 |
 | garmin_connect | 87 |
-| volvo_cars | 70 |
-| automation | 67 |
+| volvo | 75 |
+| automation | 73 |
 | mqtt | 65 |
 | lightwave2 | 61 |
-| input_boolean | 39 |
+| input_boolean | 48 |
+| homekit_controller | 46 |
 | growatt_server_api | 37 |
+| script | 31 |
 | aarlo | 31 |
-| script | 30 |
 | nut | 27 |
 | ble_monitor | 27 |
 | group | 24 |
 | dyson_local | 23 |
 | tile | 22 |
-| input_text | 19 |
+| input_text | 21 |
+| template | 17 |
 | input_number | 16 |
 | sonoff | 15 |
 | roomba | 15 |
-| input_select | 12 |
-| nest | 11 |
+| input_select | 13 |
 | tag | 11 |
-| sun | 10 |
+| input_button | 10 |
 | private_ble_device | 10 |
-| template | 7 |
+| sun | 9 |
+| nest | 8 |
+| input_datetime | 7 |
 | nmap_tracker | 7 |
-| input_datetime | 6 |
-| input_button | 6 |
 | person | 5 |
 | eventsensor | 5 |
 | rpi_gpio | 5 |
@@ -62,6 +63,8 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 | speedtestdotnet | 3 |
 | dyson | 2 |
 | androidtv_remote | 2 |
+| webostv | 2 |
+| counter | 2 |
 | energy | 2 |
 | tod | 2 |
 | tuya | 2 |
@@ -69,11 +72,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 | attributes | 1 |
 | rpi_power | 1 |
 | momentary | 1 |
-| webostv | 1 |
 | cert_expiry | 1 |
-| counter | 1 |
 | file | 1 |
-| ollama | 1 |
+| timer | 1 |
 
 ## files deliberately not exported
 
@@ -81,9 +82,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
-home-assistant_v2.db (17703129088 bytes) — db/log/binary
+home-assistant_v2.db (18448322560 bytes) — db/log/binary
 home-assistant_v2.db-shm (65536 bytes) — db/log/binary
-home-assistant_v2.db-wal (5446672 bytes) — db/log/binary
+home-assistant_v2.db-wal (5891632 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -97,6 +98,7 @@ home-assistant_v2.db-wal (5446672 bytes) — db/log/binary
 .storage/backup — not in allow-list
 .storage/bluetooth.passive_update_processor — not in allow-list
 .storage/bluetooth.remote_scanners — not in allow-list
+.storage/core.device_registry.20261009_211015.migration_backup — not in allow-list
 .storage/core.restore_state — not in allow-list
 .storage/esphome.01JN651AFQ9YV7DYKM67HTC3EQ — not in allow-list
 .storage/esphome.01JWP5KZY9YY4KJ5EPJG875S89 — not in allow-list
@@ -112,7 +114,9 @@ home-assistant_v2.db-wal (5446672 bytes) — db/log/binary
 .storage/esphome.e1e592d082198849a059824bcde4b588 — not in allow-list
 .storage/esphome.e295d2aea7b3dc61103352d812f7808d — not in allow-list
 .storage/esphome.f75455c1399f06b3538717e1df7b35b9 — not in allow-list
+.storage/frontend.system_data — not in allow-list
 .storage/hacs.data — not in allow-list
+.storage/homekit_controller-entity-map — not in allow-list
 .storage/http — not in allow-list
 .storage/http.auth — not in allow-list
 .storage/mobile_app — not in allow-list
@@ -120,8 +124,6 @@ home-assistant_v2.db-wal (5446672 bytes) — db/log/binary
 .storage/smartthings — not in allow-list
 .storage/sonoff — not in allow-list
 .storage/trace.saved_traces — not in allow-list
-.storage/volvo_cars.YV1XZEHR5T2686253 — not in allow-list
-.storage/volvo_cars.data — not in allow-list
 .storage/zz.tongai_test_old — not in allow-list
 .storage/zzz_old - dash list — not in allow-list
 .storage/.edgeos — not in allow-list

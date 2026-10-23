@@ -1,28 +1,20 @@
 {
   "version": 1,
-  "minor_version": 1,
+  "minor_version": 3,
   "key": "energy",
   "data": {
     "energy_sources": [
       {
         "type": "grid",
-        "flow_from": [
-          {
-            "stat_energy_from": "sensor.growatt_sph_grid_energy_in",
-            "stat_cost": null,
-            "entity_energy_price": null,
-            "number_energy_price": null
-          }
-        ],
-        "flow_to": [
-          {
-            "stat_energy_to": "sensor.growatt_sph_grid_energy_out",
-            "stat_compensation": null,
-            "entity_energy_price": null,
-            "number_energy_price": 0.15
-          }
-        ],
-        "cost_adjustment_day": 0.0
+        "cost_adjustment_day": 0.0,
+        "stat_energy_from": "sensor.growatt_sph_grid_energy_in",
+        "stat_cost": null,
+        "entity_energy_price": null,
+        "number_energy_price": null,
+        "stat_energy_to": "sensor.growatt_sph_grid_energy_out",
+        "stat_compensation": null,
+        "entity_energy_price_export": null,
+        "number_energy_price_export": 0.15
       },
       {
         "type": "solar",
@@ -35,6 +27,7 @@
         "stat_energy_to": "sensor.growatt_sph_battery_energy_in"
       }
     ],
-    "device_consumption": []
+    "device_consumption": [],
+    "device_consumption_water": []
   }
 }

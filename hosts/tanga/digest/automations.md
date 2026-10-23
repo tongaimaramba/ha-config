@@ -1,4 +1,4 @@
-# tanga — automations.yaml (60 automations)
+# tanga — automations.yaml (55 automations)
 
 | id | alias | mode | triggers | entities referenced |
 |---|---|---|---|---|
@@ -53,11 +53,6 @@
 | 1747764905471 | FP Access | single | event:esphome.access_granted, event:esphome.access_denied, event:esphome.fingerprint_matched, event:esphome.access_denie | light.kitchen_worktop, light.turn_on, lock.mudiki, lock.unlock, notify.mobile_app_tongai_s22, sensor.fp_auth_fp_status |
 | 1749894430384 | Fingerprint Enrollment Management | restart | state:['input_button.enroll_fingerprint'], state:['input_button.delete_fingerprint'], state:['input_button.delete_all_fi | input_button.delete_all_fingerprints, input_button.delete_fingerprint, input_button.enroll_fingerprint, input_number.fp_delete_id, input_number.fp_enroll_id, input_number.fp_enroll_scans, input_select.fp_enroll_finger, input_select.select_option, input_text.fp_enroll_name, input_text.fp_metadata_sto |
 | 1750269427938 | Sync FP Metadata to ESPHome on Boot | single | state:binary_sensor.fp_device_status | binary_sensor.fp_device_status, input_text.fp_metadata_store |
-| 1752418503015 | AC Energy Saver Ignore Handler | queued | event:mobile_app_notification_action, time_pattern | input_boolean.ignore_ac_automation, input_boolean.turn_off, input_boolean.turn_on, input_datetime.ignore_until, input_datetime.set_datetime, notify.all_phones, notify.mobile_app_tongaism25 |
-| 1752418581260 | AC Energy Saver Automation | queued | state:['binary_sensor.loft_pir_person_present'], time_pattern, state:['binary_sensor.loft_pir_bedroom_door'], state:['cl | binary_sensor.loft_pir_bedroom_door, binary_sensor.loft_pir_person_present, climate.loft_suite_ac, climate.turn_off, input_boolean.ignore_ac_automation, input_datetime.ignore_until, light.scenario_1_light, light.scenario_2_light, light.scenario_3_light, light.turn_off, light.turn_on, notify.all_phon |
-| 1752418625672 | AC Reset Scenario Flags When AC Turns Off | single | state:climate.loft_suite_ac, event:RESET_AC_FLAGS | climate.loft_suite_ac, input_boolean.ignore_ac_automation, input_boolean.turn_off, input_datetime.ignore_until, input_datetime.set_datetime, light.alexa_started_ac, light.scenario_1_light, light.scenario_2_light, light.scenario_3_light, light.turn_off |
-| 1752418667570 | AC Alexa Helper - Fan Speed | single | state:['input_boolean.ac_hi_lo_speed'] | climate.loft_suite_ac, climate.set_fan_mode, input_boolean.ac_hi_lo_speed |
-| 1752418702841 | AC Alexa Helper - Snooze | single | state:['light.alexa_started_ac'] | light.alexa_started_ac, light.turn_off |
 | 1752418954085 | bedside controller | single | event:hue_event, event:hue_event, event:hue_event, event:hue_event | climate.loft_suite_ac, climate.set_hvac_mode, climate.set_temperature, climate.turn_off, climate.turn_on, fan.pure_cool, fan.turn_off, fan.turn_on, input_boolean.ac_toggle, input_boolean.blinds_toggle, input_boolean.dyson_toggle, input_boolean.turn_off, input_boolean.turn_on, input_number.ac_temp_co |
 | 1752419002586 | solar mode force | single | state:['select.growatt_sph_work_mode_priority'], state:['select.growatt_sph_work_mode_priority'], state:['select.growatt | notify.mobile_app_tongaism25, select.growatt_sph_work_mode_priority, select.select_option, sensor.growatt_sph_device_mode |
 | 1753979825308 | Eva Lock Backup | single | state:['binary_sensor.volvo_eva_engine_status'], time:22:00:00 | binary_sensor.volvo_eva_engine_status, lock.lock, lock.volvo_eva_lock, sensor.eva_locator |

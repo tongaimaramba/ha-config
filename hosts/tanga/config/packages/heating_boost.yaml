@@ -1,0 +1,249 @@
+# Heating boost (M1a step 4; decisions M1-C, M1-D). Replaces the study_boost script + input_select.room_heater on
+# pamba (whose room list had gone stale: only climate.study still existed).
+# Boost the chosen room to 25 °C for 30 min, then hand it back to tado's schedule.
+#   Cloud route (dormant): tado cloud `tado.set_climate_timer`. Not set up on tanga: tado's per-account API quota
+#   (100/day without Auto-Assist since 2026) is shared with pamba (decision M1-C revised). Re-enable by filling `cloud`.
+#   Local route (used now): set 25 °C locally over HomeKit. Every room's tado "Manual control on
+#   tado device" is set to Timer 0:30 (Tongai, 2026-10-08), so tado should itself end the change after 30 min and
+#   return to the schedule. Unverified whether that timer applies to HomeKit changes, so a restorable 35-min check
+#   timer then looks: if tado reverted, nothing to do; if the room is still at the boost target, restore the previous
+#   target (HomeKit has no "follow schedule" mode) and tell Tongai the timer didn't apply.
+# Gate: input_boolean.heating_boost_enabled (starts off; hard rule 6) stops NEW boosts only. The fallback-end automation
+# is deliberately ungated: a boost already running must always be ended, or a room could stay at 25 °C.
+# Manual fallback: the tado app (boost/override per room) or the thermostat dial.
+
+input_boolean:
+  heating_boost_enabled:
+    name: Heating boost
+    icon: mdi:rocket
+
+input_select:
+  heating_boost_room:
+    name: Boost room
+    icon: mdi:home-thermometer
+    options:
+      - Study
+      - Loft suite
+      - Ellie
+      - Hannah
+      - Kids' bathroom
+      - Landing
+
+input_text:
+  # Fallback bookkeeping: the HomeKit entity being boosted and its previous target ("entity|temp"); empty when idle.
+  heating_boost_fallback:
+    name: Heating boost fallback state
+    max: 120
+
+timer:
+  heating_boost_fallback:
+    name: Heating boost fallback
+    duration: "00:35:00"
+    restore: true
+
+script:
+  # Boost a room: the one a caller names (`room`, e.g. the House ops "Study boost" tile), else the one selected in
+  # input_select.heating_boost_room. Says so when it can't (gate off, unknown room). Manual fallback: tado app.
+  heating_boost:
+    alias: Heating boost
+    icon: mdi:rocket
+    mode: single  # a second tap while one runs is ignored, so it can't overwrite "boost on" with "failed"
+    max_exceeded: silent
+    fields:
+      room:
+        description: Room to boost (one of input_select.heating_boost_room's options); omit to use the selector
+        example: Study
+    variables:
+      boost_temp: 25
+      boost_minutes: 30
+      rooms:
+        Study: {cloud: null, local: climate.tado_smart_radiator_thermostat_va0611323648}
+        Loft suite: {cloud: null, local: climate.tado_smart_thermostat_su2586204416}
+        Ellie: {cloud: null, local: climate.tado_smart_thermostat_su3124240128}
+        Hannah: {cloud: null, local: climate.tado_smart_thermostat_su3283363072}
+        "Kids' bathroom": {cloud: null, local: climate.tado_smart_radiator_thermostat_va0796464128}
+        Landing: {cloud: null, local: climate.tado_smart_radiator_thermostat_va2390168576}
+      # A caller may name the room (the House ops quick action "Study boost" passes room: Study); else the selector.
+      room: "{{ room if room is defined and room else states('input_select.heating_boost_room') }}"
+      target: "{{ rooms.get(room) }}"
+      # The room's tado cloud entity exists and is reporting (so the tado integration, and its timer service, is up).
+      cloud_ok: >-
+        {{ target is not none and target.cloud is not none
+           and states(target.cloud) not in ['unavailable', 'unknown'] }}
+    sequence:
+      # One-tap callers get no other feedback, so a boost that can't start says why (review 2026-10-11).
+      - if:
+          - condition: not
+            conditions:
+              - condition: state
+                entity_id: input_boolean.heating_boost_enabled
+                state: "on"
+        then:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: Heating boost is switched off
+              message: Turn on "Heating boost" to use it · or use the tado app
+              data:
+                tag: heating_boost
+                channel: Home status
+                importance: low
+          - stop: Heating boost is switched off
+      - if:
+          - condition: template
+            value_template: "{{ target is none }}"
+        then:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: Boost failed
+              message: "No room called '{{ room }}' · use tado app"
+              data:
+                tag: heating_boost
+                channel: Home status
+                importance: low
+          - stop: Unknown room
+      - choose:
+          # Main route: tado's own timer; tado returns the room to its schedule afterwards.
+          - conditions:
+              - condition: template
+                value_template: "{{ cloud_ok }}"
+            sequence:
+              - action: tado.set_climate_timer
+                target:
+                  entity_id: "{{ target.cloud }}"
+                data:
+                  temperature: "{{ boost_temp }}"
+                  time_period: "{{ '00:%02d:00' % boost_minutes }}"
+              - action: notify.mobile_app_tongaism25
+                data:
+                  title: "{{ room }} boost on"
+                  message: "{{ boost_temp }}°C · ends {{ (now() + timedelta(minutes=boost_minutes)).strftime('%H:%M') }}"
+                  data:
+                    tag: heating_boost
+                    channel: Home status
+                    importance: low
+          # Fallback: local HomeKit set-point; one fallback boost at a time.
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ states('input_text.heating_boost_fallback') in ['', 'unknown']
+                     and states(target.local) not in ['unavailable', 'unknown', 'off'] }}
+            sequence:
+              - action: input_text.set_value
+                target:
+                  entity_id: input_text.heating_boost_fallback
+                data:
+                  # Previous target only if it's a number; empty means "unknown, don't guess".
+                  value: >-
+                    {{ target.local }}|{{ state_attr(target.local, 'temperature')
+                       if state_attr(target.local, 'temperature') | is_number else '' }}
+              - action: climate.set_temperature
+                target:
+                  entity_id: "{{ target.local }}"
+                data:
+                  temperature: "{{ boost_temp }}"
+              - action: timer.start
+                target:
+                  entity_id: timer.heating_boost_fallback
+                data:
+                  duration: "{{ '00:%02d:00' % (boost_minutes + 5) }}"
+              - action: notify.mobile_app_tongaism25
+                data:
+                  title: "{{ room }} boost on"
+                  message: "{{ boost_temp }}°C · ends {{ (now() + timedelta(minutes=boost_minutes)).strftime('%H:%M') }}"
+                  data:
+                    tag: heating_boost
+                    channel: Home status
+                    importance: low
+        default:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: "{{ room }} boost failed"
+              message: >-
+                {{ 'Another boost running' if states('input_text.heating_boost_fallback') not in ['', 'unknown']
+                   else 'Thermostat offline' }} · use tado app
+              data:
+                tag: heating_boost
+                channel: Home status
+                importance: low
+
+automation:
+  # Check a fallback boost 35 min on. Can't read the room → keep the record, retry every 5 min. tado ended it → say so.
+  # Still at 25 °C → tado's timer didn't apply to HomeKit: restore the previous target only if it's known (never
+  # guess), and tell Tongai plainly that the room is on a manual override until the schedule is resumed in the tado
+  # app. Deliberately ungated (see top). Also runs at start-up. Manual fallback: tado app → room → resume schedule.
+  - id: heating_boost_fallback_end
+    alias: Heating boost - end fallback boost
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.heating_boost_fallback
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: template
+        value_template: >-
+          {{ '|' in states('input_text.heating_boost_fallback')
+             and (trigger.platform == 'event' or is_state('timer.heating_boost_fallback', 'idle')) }}
+    actions:
+      - variables:
+          entity: "{{ states('input_text.heating_boost_fallback').split('|')[0] }}"
+          previous_raw: "{{ states('input_text.heating_boost_fallback').split('|')[1] }}"
+          readable: "{{ states(entity) not in ['unavailable', 'unknown'] and state_attr(entity, 'temperature') | is_number }}"
+          still_boosted: "{{ readable and state_attr(entity, 'temperature') | float(0) >= 25 }}"
+      - choose:
+          # Can't read the room yet (e.g. HomeKit still reconnecting after a restart): keep the record, retry in 5 min.
+          - conditions:
+              - condition: template
+                value_template: "{{ not readable }}"
+            sequence:
+              - action: timer.start
+                target:
+                  entity_id: timer.heating_boost_fallback
+                data:
+                  duration: "00:05:00"
+          # Still at the boost target: tado's timer didn't apply to the HomeKit change.
+          - conditions:
+              - condition: template
+                value_template: "{{ still_boosted }}"
+            sequence:
+              - if:
+                  - condition: template
+                    value_template: "{{ previous_raw | is_number }}"
+                then:
+                  - action: climate.set_temperature
+                    target:
+                      entity_id: "{{ entity }}"
+                    data:
+                      temperature: "{{ previous_raw | float }}"
+              - action: input_text.set_value
+                target:
+                  entity_id: input_text.heating_boost_fallback
+                data:
+                  value: ""
+              - action: notify.mobile_app_tongaism25
+                data:
+                  title: Boost not ended by tado
+                  message: >-
+                    {% if previous_raw | is_number %}Set {{ previous_raw }}°C · resume schedule in tado app
+                    {%- else %}Still 25°C · resume schedule in tado app{% endif %}
+                  data:
+                    tag: heating_boost
+                    channel: Home status
+                    importance: low
+        # tado ended it: back on schedule.
+        default:
+          - action: input_text.set_value
+            target:
+              entity_id: input_text.heating_boost_fallback
+            data:
+              value: ""
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: Boost ended
+              message: Back on schedule
+              data:
+                tag: heating_boost
+                channel: Home status
+                importance: low

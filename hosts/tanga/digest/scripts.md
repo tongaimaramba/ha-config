@@ -1,11 +1,10 @@
-# tanga — scripts.yaml (30 scripts)
+# tanga — scripts.yaml (27 scripts)
 
 | entity_id | alias | mode | actions | entities referenced |
 |---|---|---|---|---|
 | script.manage_guest_access | manage_guests | single | input_number.set_value, notify.all_android | input_number.monitor_action, input_number.set_value, input_select.guest_access, input_select.relationship, input_text.guest_name, input_text.mac_addr, notify.all_android |
 | script.bathtime_on | Bathtime On | single | climate.set_temperature, climate.turn_on | climate.set_temperature, climate.turn_on, climate.upstairs, light.bathroom_heater, light.bathroom_sink, light.isla_wall, light.m_side |
 | script.bathtime_off | Bathtime Off | single | climate.turn_off | climate.turn_off, climate.upstairs, light.bathroom_heater, light.bathroom_sink, light.isla_wall, light.m_side |
-| script.study_boost | Study Boost | single | tado.set_climate_timer | input_select.room_heater |
 | script.relaunch_apps | Relaunch Apps | single | input_boolean.toggle | input_boolean.relaunch, input_boolean.toggle |
 | script.lock_nuki_momentary | Lock Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.lock_nuki, switch.turn_off, switch.turn_on |
 | script.unlock_nuki_momentary | Unlock Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.turn_off, switch.turn_on, switch.unlock_nuki |
@@ -24,8 +23,6 @@
 | script.auto_allocate_fingerprint_id | Auto-select Next Fingerprint ID | single | input_number.set_value, notify.mobile_app_tongai_s22 | input_number.fp_enroll_id, input_number.set_value, input_text.fp_metadata_store, notify.mobile_app_tongai_s22 |
 | script.debug_fingerprint_id_parser | Enhanced Debug Fingerprint ID Parser | single | notify.mobile_app_tongai_s22 | notify.mobile_app_tongai_s22, sensor.fp_auth_fingerprint_metadata_part_1, sensor.fp_auth_fingerprint_metadata_part_2, sensor.fp_auth_fingerprint_metadata_part_3 |
 | script.manage_fp_metadata | Manage FP Metadata | single | input_text.set_value | input_text.fp_metadata_store, input_text.set_value, script.manage_fp_metadata |
-| script.ignore_ac_automation_for_1_hour | Ignore AC Automation for 1 Hour | single | input_boolean.turn_on, input_datetime.set_datetime, persistent_notification.create | input_boolean.ignore_ac_automation, input_boolean.turn_on, input_datetime.ignore_until, input_datetime.set_datetime |
-| script.reset_all_ac_flags | Reset All AC Flags | single | input_boolean.turn_off, input_datetime.set_datetime, light.turn_off | input_boolean.ignore_ac_automation, input_boolean.turn_off, input_datetime.ignore_until, input_datetime.set_datetime, light.scenario_1_light, light.scenario_2_light, light.scenario_3_light, light.turn_off |
 | script.set_growatt_sph_mode_with_retry | Set Growatt SPH Mode with Retry | single | mqtt.publish | sensor.growatt_sph_device_mode |
 | script.set_growatt_mode_from_dropdown | Set Growatt Mode From Dropdown | single | script.set_growatt_sph_mode_with_retry | input_select.inverter_mode, script.set_growatt_sph_mode_with_retry |
 | script.take_calibration_snapshot | Take Calibration Snapshot | single | notify.send_message | device_tracker.bermuda_tongai_phone_bermuda_tracker, input_select.calibration_location, notify.file, notify.send_message, sensor.bermuda_tongai_phone_area, sensor.bermuda_tongai_phone_distance, sensor.tongaism25_wi_fi_bssid, sensor.tongaism25_wi_fi_signal_strength |

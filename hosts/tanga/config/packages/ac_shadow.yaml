@@ -1,0 +1,7 @@
+# Shadow AC alerts on tanga (M1d step 4; decisions M1d-A/C/D). The gate for the ac_shadow AppDaemon app
+# (appdaemon/apps/ac_shadow.yaml), which only decides and logs: it never notifies or changes an AC.
+# Starts off (hard rule 6). Manual fallback: none needed; pamba's own AC alerts keep running.
+input_boolean:
+  ac_shadow_enabled:
+    name: AC alerts shadow
+    icon: mdi:ghost-outline

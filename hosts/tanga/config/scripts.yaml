@@ -102,16 +102,6 @@ bathtime_off:
     domain: light
   mode: single
   icon: mdi:shower
-study_boost:
-  alias: Study Boost
-  sequence:
-  - service: tado.set_climate_timer
-    data:
-      time_period: 00:30:00
-      temperature: 25
-    target:
-      entity_id: '{{states(''input_select.room_heater'')}}'
-  mode: single
 relaunch_apps:
   alias: Relaunch Apps
   sequence:
@@ -455,43 +445,6 @@ manage_fp_metadata:
         data:
           value: '{{ filtered | join('';'') }}'
         action: input_text.set_value
-ignore_ac_automation_for_1_hour:
-  alias: Ignore AC Automation for 1 Hour
-  sequence:
-  - target:
-      entity_id: input_datetime.ignore_until
-    data:
-      datetime: '{{ (now() + timedelta(hours=1)).strftime(''%Y-%m-%d %H:%M:%S'') }}'
-    action: input_datetime.set_datetime
-  - target:
-      entity_id: input_boolean.ignore_ac_automation
-    action: input_boolean.turn_on
-    data: {}
-  - data:
-      title: AC Automation Ignored
-      message: Energy-saving scenarios disabled for 1 hour
-    action: persistent_notification.create
-  description: ''
-reset_all_ac_flags:
-  alias: Reset All AC Flags
-  sequence:
-  - target:
-      entity_id:
-      - light.scenario_1_light
-      - light.scenario_2_light
-      - light.scenario_3_light
-    action: light.turn_off
-    data: {}
-  - target:
-      entity_id: input_boolean.ignore_ac_automation
-    action: input_boolean.turn_off
-    data: {}
-  - target:
-      entity_id: input_datetime.ignore_until
-    data:
-      datetime: '1970-01-01 00:00:00'
-    action: input_datetime.set_datetime
-  description: ''
 set_growatt_sph_mode_with_retry:
   alias: Set Growatt SPH Mode with Retry
   mode: single
