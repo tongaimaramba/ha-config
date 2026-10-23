@@ -66,7 +66,7 @@ script.oppy_mow_all:
   name: "Oppy"
   hidden: false```
 
-## exposed to assistants (16)
+## exposed to assistants (22)
 
 | entity_id | assistants |
 |---|---|
@@ -86,3 +86,9 @@ script.oppy_mow_all:
 | light.scenario_1_light | conversation |
 | light.scenario_2_light | conversation |
 | light.scenario_3_light | conversation |
+| sensor.tado_ellie | conversation |
+| sensor.tado_hannah | conversation |
+| sensor.tado_kids_bathroom | conversation |
+| sensor.tado_landing | conversation |
+| sensor.tado_loft_suite | conversation |
+| sensor.tado_study | conversation |

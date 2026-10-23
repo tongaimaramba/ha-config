@@ -31,5 +31,5 @@ redaction report (replacements per file):
       3  config/esphome/trash/on-air.yaml
       3  config/esphome/trash/rpi-rebooter.yaml
      28  config/secrets.yaml
-    290  storage/core.config_entries
-  total: 394
+    284  storage/core.config_entries
+  total: 388

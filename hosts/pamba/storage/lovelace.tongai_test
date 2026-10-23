@@ -3043,39 +3043,13 @@
           "badges": [],
           "cards": [
             {
-              "type": "thermostat",
-              "entity": "climate.loft_suite"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.study"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.hannah"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.ellie"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.kids_bathroom"
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.landing"
+              "type": "markdown",
+              "title": "Heating & hot water",
+              "content": "{% set hw = states.sensor.tado_hot_water -%}\n**Hot water:** {{ hw.attributes.get('summary', hw.state) if hw else 'no data from tanga yet' }}\n\n{% set rooms = ['loft_suite', 'ellie', 'hannah', 'study', 'kids_bathroom', 'landing'] -%}\n| Room | Now | Set to | |\n|:--|--:|--:|:--|\n{% for r in rooms -%}\n{% set s = states['sensor.tado_' ~ r] -%}\n{% if s -%}\n{% set t = s.attributes.get('target') -%}\n| {{ s.attributes.get('room', r) }} | {{ s.state ~ ' °C' if s.state | is_number else 'no reading' }} | {{ t ~ ' °C' if t is number else '–' }} | {{ '🔥 heating' if s.attributes.get('heating') == 'yes' else '' }} |\n{% endif -%}\n{% endfor %}\n\n{% set st = states.sensor.tado_status -%}\n{% if st and st.state != 'ok' -%}\n⚠️ tado cloud: {{ st.attributes.get('summary', st.state) }}\n{% endif -%}\n{% set beat = states.sensor.ha_bridge_rpi5_heartbeat -%}\n{% if not beat or (now() - beat.last_changed).total_seconds() > 900 -%}\n⚠️ No news from tanga for over 15 min: these may be out of date.\n{% endif %}\n"
             },
             {
               "type": "thermostat",
               "entity": "climate.downstairs"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                "water_heater.hot_water"
-              ],
-              "title": "Hot Water"
             },
             {
               "type": "thermostat",
@@ -3180,26 +3154,6 @@
                   }
                 }
               ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "number.loft_pir_bedroom_presence_timeout",
-                  "name": "Presence Timeout",
-                  "icon": "mdi:timer-sand-complete"
-                },
-                {
-                  "entity": "number.loft_pir_bedroom_presence_delay_on",
-                  "name": "Delay On (sensor)"
-                },
-                {
-                  "entity": "number.loft_pir_bedroom_presence_delay_off",
-                  "name": "Delay Off (sensor)"
-                }
-              ],
-              "show_header_toggle": true,
-              "state_color": false
             },
             {
               "type": "entities",

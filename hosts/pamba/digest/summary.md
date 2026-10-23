@@ -2,32 +2,29 @@
 
 ```
 host: pamba
-exported_at: 2026-10-07T22:25:02+01:00
+exported_at: 2026-10-23T11:25:38+01:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
 ```
 
-- config entries: 145  (custom components on disk: 25)
-- devices: 288
-- entities: 2836 across 57 platforms
+- config entries: 142  (custom components on disk: 25)
+- devices: 266
+- entities: 2509 across 53 platforms
 - areas: 39
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| mobile_app | 769 |
+| mobile_app | 770 |
 | hue | 313 |
 | mqtt | 235 |
 | hassio | 137 |
-| accuweather | 132 |
 | smartthings | 130 |
 | hacs | 118 |
-| tado | 101 |
 | garmin_connect | 93 |
 | lightwave_smart | 80 |
-| volvo_cars | 70 |
 | esphome | 57 |
 | zha | 52 |
 | navimow_pro | 51 |
@@ -38,7 +35,6 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:1
 | input_boolean | 31 |
 | nut | 28 |
 | dyson_local | 27 |
-| metoffice | 25 |
 | group | 24 |
 | script | 23 |
 | tile | 22 |
@@ -83,12 +79,12 @@ home-assistant-rollback.log (40628 bytes) — db/log/binary
 home-assistant.log.1 (3388422 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
-home-assistant_v2.db (3109715968 bytes) — db/log/binary
-home-assistant_v2.db-shm (131072 bytes) — db/log/binary
-home-assistant_v2.db-wal (5496112 bytes) — db/log/binary
+home-assistant_v2.db (2875580416 bytes) — db/log/binary
+home-assistant_v2.db-shm (163840 bytes) — db/log/binary
+home-assistant_v2.db-wal (4853392 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
-zigbee.db-wal (4120032 bytes) — db/log/binary
+zigbee.db-wal (4124152 bytes) — db/log/binary
 .storage/androidtv_adbkey — not in allow-list
 .storage/androidtv_adbkey.pub — not in allow-list
 .storage/androidtv_remote_cert.pem — not in allow-list
@@ -118,8 +114,6 @@ zigbee.db-wal (4120032 bytes) — db/log/binary
 .storage/smartthings — not in allow-list
 .storage/sonoff — not in allow-list
 .storage/trace.saved_traces — not in allow-list
-.storage/volvo_cars.YV1XZEHR5T2686253 — not in allow-list
-.storage/volvo_cars.data — not in allow-list
 .storage/zz.tongai_test_old — not in allow-list
 .storage/zzz_old - dash list — not in allow-list
 .storage/.edgeos — not in allow-list
