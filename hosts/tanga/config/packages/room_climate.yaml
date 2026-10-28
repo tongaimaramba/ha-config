@@ -1,0 +1,7 @@
+# Room climate shadow on tanga (M1g step 3; decisions M1g-A to F; design docs/ROOM_CLIMATE.md). The gate for the
+# room_climate AppDaemon app (appdaemon/apps/room_climate.yaml), which only decides and logs: it never changes tado or
+# an AC. Starts off (hard rule 6). Manual fallback: none needed; tado's schedule and the AC remotes carry on as today.
+input_boolean:
+  room_climate_enabled:
+    name: Room climate shadow
+    icon: mdi:home-thermometer-outline

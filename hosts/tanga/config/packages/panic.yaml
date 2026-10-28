@@ -1,0 +1,282 @@
+# Panic buttons (M2 step 1; decisions M2-H, M2-I). Each bedroom's button (ESPHome, esphome/<x>-panic.yaml) turns on
+# its "Panic" sensor when held 2 s. tanga then:
+#   - sends a critical alert to both parents, naming the room, with a "Received" action
+#     (Tongai's Android: the alarm stream, through Do Not Disturb; Mojgan's iPhone: an iOS critical alert);
+#   - turns the downstairs lamps on (Hue);
+#   - calls the button's `panic_ack` (its LED goes green) right after Tongai's alert is handed to the push service:
+#     green means "handed over", not "heard" (a relay failure or quota is only logged), so the monthly test is the
+#     real check. "Received" calls `panic_seen` (blue, 10 min).
+#   Phones: Tongai's Samsung: Sleep mode → Do not disturb → Allowed → Alarms ticked, HA not an allowed app (only the
+#   alarm stream and the spoken alert get through); iOS needs Critical Alerts allowed for the HA app.
+# Loud on purpose: the quiet "Home status" channel is for watch alerts, not this. Also: a quiet alert if a button is
+# offline 10 min, and a monthly test reminder.
+# Gate: input_boolean.panic_enabled (starts off, hard rule 6). Manual fallback: call or shout; the button only adds
+# a phone alert. Owner: tanga (security, M2).
+
+input_boolean:
+  panic_enabled:
+    name: Panic buttons
+    icon: mdi:alarm-light-outline
+  panic_active_hannah:  # set by a press, cleared only by Clear (Tongai 2026-10-27): the button reads on only while held
+    name: Hannah panic active
+    icon: mdi:alarm-light
+  notify_mojgan:  # Tongai 2026-10-27: no pushes to Mojgan's phone until he says (starts off)
+    name: Mojgan alerts
+    icon: mdi:cellphone-message
+
+# Family → Security (Tongai 2026-10-27): Received for when the push was dismissed; Clear turns the button's LED off
+# and removes the alert from both phones.
+input_button:
+  panic_received_hannah:
+    name: "Hannah: received"
+    icon: mdi:hand-wave
+  panic_clear_hannah:
+    name: "Hannah: clear"
+    icon: mdi:check-circle-outline
+
+# What the Security tab shows: Unsafe from a press until Clear, whatever the button is doing.
+template:
+  - binary_sensor:
+      - name: Hannah panic
+        unique_id: panic_hannah_latched
+        device_class: safety
+        state: "{{ is_state('input_boolean.panic_active_hannah', 'on') }}"
+
+automation:
+  # A button held 2 s: alert both parents, light the way, confirm on the button. Fallback: call or shout.
+  - id: panic_pressed
+    alias: Panic - button pressed
+    mode: parallel
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.h_panic
+        to: "on"
+        id: hannah
+        variables:
+          room: Hannah
+    conditions:
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+    actions:
+      - choose:  # remember it until Clear (the button itself reads on only while held)
+          - conditions:
+              - condition: trigger
+                id: hannah
+            sequence:
+              - action: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.panic_active_hannah
+      # Tongai first: the call fails only if his app isn't registered (then no green on the button)
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "PANIC: {{ room }}"
+          message: "{{ room }} pressed the panic button at {{ now().strftime('%H:%M') }}."
+          data:
+            channel: alarm_stream  # the alarm stream (alarm_stream_max is TTS-only; the spoken alert was too much: Tongai)
+            vibrationPattern: "0, 800, 300, 800, 300, 800, 300, 800"  # long and strong, for the watch and the phone
+            priority: high
+            ttl: 0
+            tag: "panic_{{ trigger.id }}"
+            clickAction: /family-home/security  # Android: a tap opens Family → Security
+            url: /family-home/security  # iPhone: the same
+            actions:
+              - action: "PANIC_SEEN_{{ trigger.id }}"
+                title: Received
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: hannah
+            sequence:
+              - action: esphome.h_panic_panic_ack
+      # then Mojgan and the lamps, side by side: a slow lamp or a missing iPhone can't hold up the green
+      - parallel:
+          - if:  # Mojgan alerts switch (off until Tongai says)
+              - condition: state
+                entity_id: input_boolean.notify_mojgan
+                state: "on"
+            then:
+              - action: notify.mobile_app_mojgan_iphone  # Mojgan's iPhone (re-registered 2026-10-27; was mobile_app_iphone_32)
+                continue_on_error: true
+                data:
+                  title: "PANIC: {{ room }}"
+                  message: "{{ room }} pressed the panic button at {{ now().strftime('%H:%M') }}."
+                  data:
+                    tag: "panic_{{ trigger.id }}"
+                    clickAction: /family-home/security  # Android: a tap opens Family → Security
+                    url: /family-home/security  # iPhone: the same
+                    push:
+                      sound:
+                        name: default
+                        critical: 1
+                        volume: 1.0
+                    actions:
+                      - action: "PANIC_SEEN_{{ trigger.id }}"
+                        title: Received
+          - action: light.turn_on
+            continue_on_error: true
+            target:
+              entity_id: light.lamps_downstairs
+
+  # A parent tapped "Received": the button turns blue, and the other parent is told who has it. Fallback: tell them.
+  - id: panic_received
+    alias: Panic - received
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: PANIC_SEEN_hannah
+        id: hannah
+      - trigger: state
+        entity_id: input_button.panic_received_hannah
+        not_from: [unavailable]  # a press, not a reload or restart
+        not_to: [unavailable]
+        id: hannah
+    conditions:
+      - condition: template  # a dashboard press: a button created or reloaded has no previous state
+        value_template: >-
+          {{ trigger.platform != 'state' or (trigger.from_state is not none
+             and trigger.from_state.state not in ['unavailable']) }}
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+    actions:
+      - variables:
+          who: >-
+            {%- set ctx = trigger.event.context if trigger.platform == 'event' else trigger.to_state.context -%}
+            {{ states.person | selectattr('attributes.user_id', 'eq', ctx.user_id)
+               | map(attribute='name') | first | default('A parent') }}
+      - action: notify.mobile_app_tongaism25
+        continue_on_error: true
+        data:
+          title: "Panic: {{ who }} has it"
+          message: "{{ who }} tapped Received."
+          data:
+            tag: "panic_{{ trigger.id }}"
+            clickAction: /family-home/security  # Android: a tap opens Family → Security
+            url: /family-home/security  # iPhone: the same
+      - if:  # Mojgan alerts switch (off until Tongai says)
+          - condition: state
+            entity_id: input_boolean.notify_mojgan
+            state: "on"
+        then:
+          - action: notify.mobile_app_mojgan_iphone
+            continue_on_error: true
+            data:
+              title: "Panic: {{ who }} has it"
+              message: "{{ who }} tapped Received."
+              data:
+                tag: "panic_{{ trigger.id }}"
+                clickAction: /family-home/security  # Android: a tap opens Family → Security
+                url: /family-home/security  # iPhone: the same
+      - choose:  # the button last: an offline button mustn't stop the other parent hearing
+          - conditions:
+              - condition: trigger
+                id: hannah
+            sequence:
+              - action: esphome.h_panic_panic_seen
+                continue_on_error: true
+
+  # Clear (Family → Security): the button's LED off, the alert off both phones. Fallback: it goes off by itself
+  # (green 30 s, blue 10 min).
+  - id: panic_clear
+    alias: Panic - clear
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: input_button.panic_clear_hannah
+        not_from: [unavailable]  # a press, not a reload or restart
+        not_to: [unavailable]
+        id: hannah
+    conditions:
+      - condition: template  # a dashboard press: a button created or reloaded has no previous state
+        value_template: >-
+          {{ trigger.platform != 'state' or (trigger.from_state is not none
+             and trigger.from_state.state not in ['unavailable']) }}
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+    actions:
+      - choose:  # the panic is over
+          - conditions:
+              - condition: trigger
+                id: hannah
+            sequence:
+              - action: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.panic_active_hannah
+      - action: notify.mobile_app_tongaism25
+        continue_on_error: true
+        data:
+          message: clear_notification
+          data:
+            tag: "panic_{{ trigger.id }}"
+      - if:  # Mojgan alerts switch (off until Tongai says)
+          - condition: state
+            entity_id: input_boolean.notify_mojgan
+            state: "on"
+        then:
+          - action: notify.mobile_app_mojgan_iphone
+            continue_on_error: true
+            data:
+              message: clear_notification
+              data:
+                tag: "panic_{{ trigger.id }}"
+      - choose:  # the button last: the phones clear whatever the button's state
+          - conditions:
+              - condition: trigger
+                id: hannah
+            sequence:
+              - action: esphome.h_panic_panic_clear
+                continue_on_error: true
+
+  # A button that has dropped off Wi-Fi can't call for help: tell Tongai (quiet). Fallback: the monthly test.
+  - id: panic_button_offline
+    alias: Panic - button offline
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.h_panic
+        to: unavailable
+        for: {minutes: 10}
+      - trigger: homeassistant  # already offline when HA starts: the 10-min timer would never fire
+        event: start
+    conditions:
+      - condition: template
+        value_template: "{{ states('binary_sensor.h_panic') == 'unavailable' }}"
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Panic button offline
+          message: "Hannah's panic button is offline: check its power and Wi-Fi."
+          data:
+            tag: panic_offline
+            channel: Home status
+            importance: low
+
+  # First of the month: test each button (hold 2 s; green, then tap Received for blue). Fallback: a calendar note.
+  - id: panic_monthly_test
+    alias: Panic - monthly test reminder
+    mode: single
+    triggers:
+      - trigger: time
+        at: "18:00:00"
+    conditions:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Test the panic buttons
+          message: "Hold each 2 s: it goes green, your phone alerts; tap Received and it goes blue."
+          data:
+            tag: panic_test
+            channel: Home status
+            importance: low

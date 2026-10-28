@@ -338,7 +338,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-10-23T09:32:43.613135+00:00",
+        "modified_at": "2026-10-28T16:49:18.564769+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -1731,44 +1731,6 @@
         "subentries": [],
         "title": "tojgan-solar",
         "unique_id": "2462223",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
-            "app_data",
-            "app_id",
-            "app_name",
-            "app_version",
-            "device_id",
-            "device_name",
-            "manufacturer",
-            "model",
-            "no_legacy_encryption",
-            "os_name",
-            "os_version",
-            "secret",
-            "supports_encryption",
-            "user_id",
-            "webhook_id"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "mobile_app",
-        "entry_id": "604667666d3a2806a29b73771110d870",
-        "minor_version": 1,
-        "modified_at": "2025-03-15T23:12:01.855934+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "registration",
-        "subentries": [],
-        "title": "iPhone (32)",
-        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
         "version": 1
       },
       {
@@ -3358,31 +3320,6 @@
         "version": 1
       },
       {
-        "created_at": "2025-08-05T19:29:48.837098+00:00",
-        "data": {
-          "_redacted_keys": [
-            "device_id",
-            "ip_address"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "fujitsu_airstage",
-        "entry_id": "01K1XVC6S5TJV19EDDZ7SNP3S8",
-        "minor_version": 1,
-        "modified_at": "2025-08-05T19:29:48.837104+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "local - 106838B4B505",
-        "unique_id": null,
-        "version": 1
-      },
-      {
         "created_at": "2025-08-06T16:47:19.627153+00:00",
         "data": {
           "_redacted_keys": []
@@ -3439,7 +3376,7 @@
         "domain": "mobile_app",
         "entry_id": "01K2PQEAENWBCVTRY36CDNNDGE",
         "minor_version": 1,
-        "modified_at": "2026-10-22T09:06:35.614855+00:00",
+        "modified_at": "2026-10-25T22:06:14.690761+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4134,16 +4071,33 @@
                 "loft-controller._esphomelib._tcp.local."
               ],
               "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "hannah-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "h-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
             }
           ]
         },
         "domain": "esphome",
         "entry_id": "01KBJ34A95VAG6DK4BT5538TWT",
         "minor_version": 1,
-        "modified_at": "2025-12-05T14:13:28.514562+00:00",
+        "modified_at": "2026-10-27T19:44:40.880728+00:00",
         "options": {
           "_redacted_keys": [
-            "allow_service_calls"
+            "allow_service_calls",
+            "bluetooth_scanning_mode"
           ]
         },
         "pref_disable_new_entities": false,
@@ -4232,7 +4186,7 @@
         "domain": "mobile_app",
         "entry_id": "01KWSDY1ZK9AHSVSK293XTD854",
         "minor_version": 1,
-        "modified_at": "2026-10-19T14:59:40.030809+00:00",
+        "modified_at": "2026-10-28T12:30:59.970269+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4267,7 +4221,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-10-22T22:00:09.799477+00:00",
+        "modified_at": "2026-10-28T17:37:09.369384+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4418,7 +4372,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-10-23T10:23:12.621210+00:00",
+        "modified_at": "2026-10-28T17:43:11.523793+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4428,6 +4382,183 @@
         "subentries": [],
         "title": "Volvo YV1XZEHR5T2686253",
         "unique_id": "YV1XZEHR5T2686253",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-26T18:06:36.621027+00:00",
+        "data": {
+          "_redacted_keys": [
+            "conf_use_https",
+            "device_id",
+            "ip_address"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "fujitsu_airstage",
+        "entry_id": "01M5WP94JC64S95AVKT54YT8SJ",
+        "minor_version": 1,
+        "modified_at": "2026-10-26T18:06:36.621033+00:00",
+        "options": {
+          "_redacted_keys": [
+            "conf_turn_on_before_set_temp"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "local - 9CC7D3ADCA69",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-26T18:12:47.255483+00:00",
+        "data": {
+          "_redacted_keys": [
+            "conf_use_https",
+            "device_id",
+            "ip_address"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "fujitsu_airstage",
+        "entry_id": "01M5WPMEGQK198WV9PDT6NJ300",
+        "minor_version": 1,
+        "modified_at": "2026-10-26T18:12:47.255488+00:00",
+        "options": {
+          "_redacted_keys": [
+            "conf_turn_on_before_set_temp"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "local - 50BBB5FFAB85",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-26T18:13:34.774509+00:00",
+        "data": {
+          "_redacted_keys": [
+            "conf_use_https",
+            "device_id",
+            "ip_address"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "fujitsu_airstage",
+        "entry_id": "01M5WPNWXP2JDBAGKEHVZKA2PB",
+        "minor_version": 1,
+        "modified_at": "2026-10-26T18:13:34.774514+00:00",
+        "options": {
+          "_redacted_keys": [
+            "conf_turn_on_before_set_temp"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "local - 50BBB5FFC481",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-26T18:14:17.605315+00:00",
+        "data": {
+          "_redacted_keys": [
+            "conf_use_https",
+            "device_id",
+            "ip_address"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "fujitsu_airstage",
+        "entry_id": "01M5WPQ6R5JZ4WS497Y65CGEFF",
+        "minor_version": 1,
+        "modified_at": "2026-10-26T18:14:17.605321+00:00",
+        "options": {
+          "_redacted_keys": [
+            "conf_turn_on_before_set_temp"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "local - 106838B4B505",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-26T20:26:16.073488+00:00",
+        "data": {
+          "_redacted_keys": [
+            "elevation",
+            "latitude",
+            "longitude",
+            "name"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "met",
+        "entry_id": "01M5WY8VM9XDZG6KWAYRRSC4B9",
+        "minor_version": 1,
+        "modified_at": "2026-10-26T20:26:16.073490+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Home",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-27T20:20:11.201419+00:00",
+        "data": {
+          "_redacted_keys": [
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "mobile_app",
+        "entry_id": "01M5ZGAEA19YH1SB8NVQEATDC2",
+        "minor_version": 1,
+        "modified_at": "2026-10-27T20:20:13.823556+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "registration",
+        "subentries": [],
+        "title": "Mojgan-iPhone",
+        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
         "version": 1
       }
     ]

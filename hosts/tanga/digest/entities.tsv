@@ -49,6 +49,11 @@ automation.morning	automation				Morning 			1642112099034
 automation.on_air	automation				On air - Meta laptop			1703931685757
 automation.on_air_desk_button	automation				[out of date] On air desk button			1703971587073
 automation.on_air_light_family_mbp	automation				On-air - Family laptop			1708505312139
+automation.panic_button_offline	automation				Panic - button offline			panic_button_offline
+automation.panic_button_pressed	automation				Panic - button pressed			panic_pressed
+automation.panic_clear	automation				Panic - clear			panic_clear
+automation.panic_monthly_test_reminder	automation				Panic - monthly test reminder			panic_monthly_test
+automation.panic_received	automation				Panic - received			panic_received
 automation.parents_presence	automation				Parents Presence 			1690232792612
 automation.patio_and_lamps_on	automation				patio and lamps			1641497968693
 automation.patio_and_worktop	automation				patio and worktop			1642517830283
@@ -58,6 +63,12 @@ automation.perimeter_alarm_at_home	automation				perimeter alarm (at home)			161
 automation.proxy_to_mock_tap_combined_debounce	automation				Proxy to mock tap (combined, debounce, and reset)			1764098343827
 automation.reset_alarm_mute_3	automation				Reset Alarm Mute			1689623801210
 automation.run_speedtest	automation				Run speedtest			1742664762678
+automation.security_arlo_garden_c_health	automation				Security - Arlo Garden C health			security_arlo_garden_c_health
+automation.security_bedtime_doors_and_windows	automation				Security - bedtime doors and windows			security_bedtime_open
+automation.security_lock_battery_low	automation				Security - lock battery low			security_lock_battery_low
+automation.security_nuki_hub_crashed	automation				Security - Nuki hub crashed			security_nuki_hub_crashed
+automation.security_nuki_hub_firmware_behind	automation				Security - Nuki hub firmware behind			security_nuki_hub_firmware_behind
+automation.security_nuki_hub_offline	automation				Security - Nuki hub offline			security_nuki_hub_offline
 automation.smartthings_self_heal_keep_the_last_error	automation				SmartThings self-heal - keep the last error			smartthings_heal_last_error
 automation.smartthings_self_heal_reload_when_stuck	automation				SmartThings self-heal - reload when stuck			smartthings_heal_reload
 automation.smartthings_self_heal_sign_in_needed	automation				SmartThings self-heal - sign-in needed			smartthings_heal_sign_in
@@ -96,6 +107,7 @@ binary_sensor.bay_window_door	smartthings	My home	Bay Window	Living Room	Door			
 binary_sensor.boiler_called_for_heat	template				Boiler called for heat			boiler_alert_called_for_heat
 binary_sensor.boiler_temp_acceleration	smartthings	My home	Boiler Temp	Garage	Acceleration			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_accelerationSensor_acceleration_acceleration
 binary_sensor.boiler_temp_door	smartthings	My home	Boiler Temp	Garage	Door			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_contactSensor_contact_contact
+binary_sensor.car_climate	template				Car climate			car_climate_from_presses
 binary_sensor.car_security	group	Car Security			Car Security			32512a8a1e1341f8ca6d8d8f791537e9
 binary_sensor.cloudflared_running	hassio	Supervisor	Cloudflared		Running	integration		9074a9fa_cloudflared_state
 binary_sensor.coats_motion	hue	Hue Bridge 0017882791a0	Coats	Hallway	Motion			265cef33-851c-4bc0-98b9-5d436059dd82
@@ -193,8 +205,10 @@ binary_sensor.garmin_device_battery_is_charging	mobile_app	Garmin Device	Garmin 
 binary_sensor.get_hacs_running	hassio	Supervisor	Get HACS		Running	integration		cb646a50_get_state
 binary_sensor.guest_win_acceleration	smartthings	My home	Guest Win	Study	Acceleration			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_accelerationSensor_acceleration_acceleration
 binary_sensor.guest_win_door	smartthings	My home	Guest Win	Study	Door			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_contactSensor_contact_contact
+binary_sensor.h_panic	esphome	Loft Controller	Hannah panic button	Hannahs Bedroom	Panic			F4:65:0B:07:AB:34/0/binary_sensor/Panic
 binary_sensor.hannah_hockey_bag_lost	tile	tongaimaramba@gmail.com	Hannah Hockey Bag		Lost			tongaimaramba@gmail.com_4bead49220aebc67_lost
 binary_sensor.hannah_keys_lost	tile	tongaimaramba@gmail.com	Hannah Keys	Coats	Lost			tongaimaramba@gmail.com_3f1f04667e938b3e_lost
+binary_sensor.hannah_panic	template				Hannah panic			panic_hannah_latched
 binary_sensor.hannah_s_room_connectivity	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Connectivity			G8M2HQ04405203XR-online
 binary_sensor.hannahs_iphone13_camera_motion	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Motion	integration		5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_cameraMotion
 binary_sensor.hannahs_iphone13_focus	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Focus			5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_focus
@@ -207,7 +221,6 @@ binary_sensor.home_assistant_operating_system_running	hassio	Supervisor	Home Ass
 binary_sensor.home_assistant_operating_system_update_available	hassio	Supervisor	Home Assistant Operating System		Update available	integration		home_assistant_os_update_available
 binary_sensor.hue_motion_sensor_1_motion	hue	Hue Bridge 0017882791a0	Loft Bathroom 	Loft Bathroom	Motion			2b9c5f43-f5a8-49b6-af8f-a7a0eda29240
 binary_sensor.hue_motion_sensor_2_motion	hue	Hue Bridge 0017882791a0	Garage Laundry	Kitchen	Motion			f16b3ee0-4986-45d1-b8ca-ad76fb0053d6
-binary_sensor.iphone_32_focus	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Focus			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_focus
 binary_sensor.kitchen_acceleration	smartthings	My home	Kitchen	Kitchen	Acceleration			e6821393-e06c-439c-baad-d48f38e8cd5b_main_accelerationSensor_acceleration_acceleration
 binary_sensor.kitchen_connectivity	alexa_devices	tongaimaramba@gmail.com	Kitchen		Connectivity			G0922K07415409E6-online
 binary_sensor.kitchen_door	smartthings	My home	Kitchen	Kitchen	Door			e6821393-e06c-439c-baad-d48f38e8cd5b_main_contactSensor_contact_contact
@@ -217,17 +230,13 @@ binary_sensor.landing_window_acceleration	smartthings	My home	Landing Window	Hal
 binary_sensor.landing_window_door	smartthings	My home	Landing Window	Hallway	Door			74325601-0eb6-48bf-a640-e09d74995351_main_contactSensor_contact_contact
 binary_sensor.loft32_desk_switch	esphome	study work status	work status	Study	Desk Switch			94:3C:C6:37:67:84/0/binary_sensor/Desk Switch
 binary_sensor.loft_bathroom_motion	hue	Hue Bridge 0017882791a0	Loft Bathroom	Loft Bathroom	Motion			fdb0eabd-9031-4adb-90d4-0b1fb2ce11f0
-binary_sensor.loft_controller_atom_button	esphome	Loft Controller	Loft Controller	Loft	Atom Button			F4:65:0B:07:AB:34/0/binary_sensor/Atom Button
-binary_sensor.loft_controller_bed_area	esphome	Loft Controller	Loft Controller	Loft	Bed Area			F4:65:0B:07:AB:34/0/binary_sensor/Bed Area
-binary_sensor.loft_controller_bedroom_door	esphome	Loft Controller	Loft Controller	Loft	Bedroom Door			F4:65:0B:07:AB:34/0/binary_sensor/Bedroom Door
-binary_sensor.loft_controller_person_present	esphome	Loft Controller	Loft Controller	Loft	Person Present			F4:65:0B:07:AB:34/0/binary_sensor/Person Present
-binary_sensor.loft_controller_window_area	esphome	Loft Controller	Loft Controller	Loft	Window Area			F4:65:0B:07:AB:34/0/binary_sensor/Window Area
 binary_sensor.loft_pir_bed_area	esphome	Bedroom Presence	Bedroom Presence	Loft	Bed Area			D8:3B:DA:75:E6:90/0/binary_sensor/Bed Area
 binary_sensor.loft_pir_bedroom_door	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Door			D8:3B:DA:75:E6:90/0/binary_sensor/Bedroom Door
 binary_sensor.loft_pir_person_present	esphome	Bedroom Presence	Bedroom Presence	Loft	Person Present			D8:3B:DA:75:E6:90/0/binary_sensor/Person Present
 binary_sensor.loft_pir_window_area	esphome	Bedroom Presence	Bedroom Presence	Loft	Window Area			D8:3B:DA:75:E6:90/0/binary_sensor/Window Area
 binary_sensor.matter_server_running	hassio	Supervisor	Matter Server		Running	integration		core_matter_server_state
 binary_sensor.mm_iphone_focus	mobile_app	iPhone (3)	mm iphone		mm iphone Focus			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_focus
+binary_sensor.mojgan_iphone_focus	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Focus			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_focus
 binary_sensor.mosquitto_broker_running	hassio	Supervisor	Mosquitto broker		Running			core_mosquitto_state
 binary_sensor.mosquitto_broker_update_available	hassio	Supervisor	Mosquitto broker		Update available	integration		core_mosquitto_update_available
 binary_sensor.mummy_s_keys_lost	tile	tongaimaramba@gmail.com	Mummy's Keys		Lost			tongaimaramba@gmail.com_e331cdcbc83d600e_lost
@@ -364,7 +373,11 @@ camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings			sw
 camera.backyard	nest	Configuration.yaml	Garden A	Garden				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera
 camera.camera	nest	Configuration.yaml	Front Door	Hallway				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-camera
 climate.downstairs_2	nest	Configuration.yaml	Downstairs	Downstairs				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA
+climate.ellies_bedroom_ellie_ac	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom				50BBB5FFAB85
+climate.hannahs_bedroom_hannah_ac	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom				9CC7D3ADCA69
+climate.loft_suite_loft_suite_ac	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite				106838B4B505
 climate.pure_hot_cool	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool			ZZ9-UK-NEA5537A
+climate.study_study_ac	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study				50BBB5FFC481
 climate.tado_smart_radiator_thermostat_va0572855296	homekit_controller	tado Internet Bridge IB0210636544	tado Smart Radiator Thermostat VA0572855296		tado Smart Radiator Thermostat VA0572855296			4b:0a:8f:e8:dd:ab_7_10
 climate.tado_smart_radiator_thermostat_va0611323648	homekit_controller	tado Internet Bridge IB0210636544	tado Smart Radiator Thermostat VA0611323648		tado Smart Radiator Thermostat VA0611323648			4b:0a:8f:e8:dd:ab_3_10
 climate.tado_smart_radiator_thermostat_va0748706304	homekit_controller	tado Internet Bridge IB0210636544	tado Smart Radiator Thermostat VA0748706304		tado Smart Radiator Thermostat VA0748706304			4b:0a:8f:e8:dd:ab_11_10
@@ -379,7 +392,6 @@ counter.smartthings_heal_reloads_today	counter				SmartThings reloads today			sm
 cover.blind_left	template				Loft Blind			loft_blind
 cover.landing_blind_landing_blind	esphome	landing-blind	landing-blind	Loft	Landing Blind			34:85:18:03:D8:A8/0/cover/Landing Blind
 cover.loft_blind_loft_suite_blind	esphome	loft-blind	loft-blind		Loft Suite Blind			AC:0B:FB:D7:F6:97/0/cover/Loft Suite Blind
-cover.loft_controller_loft_suite_blind	esphome	Loft Controller	Loft Controller	Loft	Loft Suite Blind			F4:65:0B:07:AB:34/0/cover/Loft Suite Blind
 device_tracker.976_2e61	ibeacon	iBeacon Tracker	976 2E61					fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DC:0D:30:79:2E:61
 device_tracker.accm92523e1d3eccde5e_106b	ibeacon	iBeacon Tracker	ACCM92523e1d3eccde5e 106B					4340640c-cc56-5c2c-bace-d13a2b2a1ffe_0_56926_CC:CC:CC:34:10:6B
 device_tracker.asustek_computer_33_91_68	nmap_tracker	patio_nmap			ASUSTek Computer 33:91:68	integration		04:42:1a:33:91:68
@@ -417,7 +429,7 @@ device_tracker.care_163c	ibeacon	iBeacon Tracker	CARe 163C					8063ae90-d8b7-11e
 device_tracker.care_1ae1	ibeacon	iBeacon Tracker	CARe 1AE1					8063ae90-d8b7-11e6-9598-0800200c9a66_6881_22788_B4:B8:59:04:1A:E1
 device_tracker.care_1c59	ibeacon	iBeacon Tracker	CARe 1C59					8063ae90-d8b7-11e6-9598-0800200c9a66_7257_22796_B4:B8:59:0C:1C:59
 device_tracker.care_1f40	ibeacon	iBeacon Tracker	CARe 1F40					8063ae90-d8b7-11e6-9598-0800200c9a66_8000_22808_B4:B8:59:18:1F:40
-device_tracker.care_2289	ibeacon	iBeacon Tracker	DP_2_0_TOVHT160756  2289					8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89
+device_tracker.care_2289	ibeacon	iBeacon Tracker	CARe 2289					8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89
 device_tracker.care_364f	ibeacon	iBeacon Tracker	CARe 364F					8063ae90-d8b7-11e6-9598-0800200c9a66_13903_22854_B4:B8:59:46:36:4F
 device_tracker.care_375c	ibeacon	iBeacon Tracker	CARe 375C					8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C
 device_tracker.care_3ea5	ibeacon	iBeacon Tracker	CARe 3EA5					8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5
@@ -530,7 +542,7 @@ device_tracker.ims_7046_0aa3	ibeacon	iBeacon Tracker	IMS-7046 0AA3					e08d4118-
 device_tracker.ims_7658_ae46	ibeacon	iBeacon Tracker	IMS-7658 AE46					e08d4118-15d6-11e6-a148-3e1d05defe78_28717_24010_E5:02:F3:D4:AE:46
 device_tracker.ims_9911_1114	ibeacon	iBeacon Tracker	IMS-9911 1114					e08d4118-15d6-11e6-a148-3e1d05defe78_16577_37911_C8:6A:59:17:11:14
 device_tracker.ipad	mobile_app	iPad	Hanpad		Hanpad			0AB541E1-497F-4057-A2E6-8E3649F446B3
-device_tracker.iphone_32	mobile_app	iPhone (32)	iPhone (32)		iPhone (32)			D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
+device_tracker.iphone_32	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone			D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
 device_tracker.leapmotor_digitalkey_6b0c	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 6B0C					feff0000-0000-0000-0000-000000000000_0_0_44:3E:8A:9D:6B:0C
 device_tracker.leapmotor_digitalkey_8e54	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 8E54					feff0000-0000-0000-0000-000000000000_0_0_34:C4:59:C3:8E:54
 device_tracker.litra_beam_463b	ibeacon	iBeacon Tracker	Litra Beam 463B					a92ee200-5501-11e4-916c-0800200c9a66_12278_16893_E2:0F:08:22:46:3B
@@ -611,6 +623,7 @@ device_tracker.wsbc025073760v_36c0	ibeacon	iBeacon Tracker	WSBC025073760V 36C0		
 device_tracker.wsbc025088514v_0bbd	ibeacon	iBeacon Tracker	WSBC025088514V 0BBD					54555242-4f48-4d49-3230-313701000000_16929_13062_D9:0A:33:2E:0B:BD
 device_tracker.wsbc025100240t_b362	ibeacon	iBeacon Tracker	WSBC025100240T B362					54555242-4f48-4d49-3230-313701000000_61440_13062_CB:A1:E8:B9:B3:62
 device_tracker.wsbc025124757s_6d50	ibeacon	iBeacon Tracker	WSBC025124757S 6D50					54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50
+device_tracker.xped_006037662138	ibeacon	iBeacon Tracker	XPED-006037662138					58c1f550-bbaa-45ec-f504-006037662138_1_2_00:60:37:66:21:38
 event.audio_button_1	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Button 1			2b3a26ba-ae72-4d6c-b3b0-466698b9181f
 event.backup_automatic_backup	backup	Backup	Backup		Automatic backup			automatic_backup_event
 event.bathroom_dimmer_button_1	hue	Hue Bridge 0017882791a0	Bathroom Dimmer	Bathroom	Button 1			d98c86ba-2ca3-4bea-af01-c2dd38247cab
@@ -649,7 +662,6 @@ event.kitchen_switch_button_2	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen
 event.kitchen_switch_button_3	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Button 3			b1b0e613-c0bb-4f37-ab9b-ad13ebd0b5bc
 event.kitchen_switch_button_4	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Button 4			93b90fe0-9836-4e1a-b329-517657d3f6ef
 event.kitchen_voice_event	alexa_devices	tongaimaramba@gmail.com	Kitchen		Voice event			G0922K07415409E6-voice_event
-event.loft_controller_loft_controller_events	esphome	Loft Controller	Loft Controller	Loft	Loft Controller Events			F4:65:0B:07:AB:34/0/event/Loft Controller Events
 event.loft_pir_bedroom_presence_events	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Presence Events			D8:3B:DA:75:E6:90/0/event/Bedroom Presence Events
 event.loft_sink_switch_button_1	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Loft Bathroom	Button 1			2701cfb2-9b85-4654-adf9-73de57da71e3
 event.loft_sink_switch_button_2	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Loft Bathroom	Button 2			1664d95e-e846-4694-b8d7-e3e74a3ecd85
@@ -702,8 +714,13 @@ input_boolean.motion_logger_stop	input_boolean				Stop Recording			stop_recordin
 input_boolean.motion_recording_active	input_boolean				Motion Recording Active			motion_recording_active
 input_boolean.mute_alarm	input_boolean				Mute Alarm			m
 input_boolean.nearly_home	input_boolean				Nearly Home			nearly_home
+input_boolean.notify_mojgan	input_boolean				Mojgan alerts			notify_mojgan
+input_boolean.panic_active_hannah	input_boolean				Hannah panic active			panic_active_hannah
+input_boolean.panic_enabled	input_boolean				Panic buttons			panic_enabled
 input_boolean.pump_timer	input_boolean				pump_timer			pump_timer
 input_boolean.relaunch	input_boolean				relaunch			relaunch
+input_boolean.room_climate_enabled	input_boolean				Room climate shadow			room_climate_enabled
+input_boolean.security_health_enabled	input_boolean				Security health alerts			security_health_enabled
 input_boolean.smartthings_heal_enabled	input_boolean				SmartThings self-heal			smartthings_heal_enabled
 input_boolean.smartthings_sign_in_needed	input_boolean				SmartThings sign-in needed			smartthings_sign_in_needed
 input_boolean.tado_cloud_bath_landing	input_boolean				tado zones – bathroom & landing			tado_cloud_bath_landing
@@ -714,10 +731,13 @@ input_boolean.test_bridge_from_rpi5	input_boolean				test bridge rpi5			test_bri
 input_boolean.test_bridge_mirror	input_boolean				bridge sync			bridge_sync
 input_boolean.we_took_the_car	input_boolean				We Took the Car			we_took_the_car
 input_button.alx	input_button				alx			alx
+input_button.car_climate_stopped	input_button				Car climate stopped			car_climate_stopped
 input_button.delete_all_fingerprints	input_button				Delete All Fingerprints			delete_all_fingerprints
 input_button.delete_fingerprint	input_button				Delete Fingerprint			delete_fingerprint
 input_button.enroll_fingerprint	input_button				Enroll Fingerprint			enroll_fingerprint
 input_button.fp_lockout_reset	input_button				Reset FP Lockout			fp_lockout_reset
+input_button.panic_clear_hannah	input_button				Hannah: clear			panic_clear_hannah
+input_button.panic_received_hannah	input_button				Hannah: received			panic_received_hannah
 input_button.speedtest	input_button				Speedtest			speedtest
 input_button.tado_cloud_refresh	input_button				tado refresh now			tado_cloud_refresh
 input_button.tado_cloud_sign_in	input_button				tado sign in			tado_cloud_sign_in
@@ -829,7 +849,6 @@ light.litra_beam	template				Litra Beam			litra_beam_light
 light.loft32_desk_light	esphome	study work status	work status	Study	Desk Light			94:3C:C6:37:67:84/0/light/Desk Light
 light.loft32_neopixel_light	esphome	study work status	work status	Study	NeoPixel Light			94:3C:C6:37:67:84-light-neopixel_light
 light.loft_bathroom	hue	Hue Bridge 0017882791a0	Loft Bathroom	Loft Bathroom				bdaea831-995b-4d81-ae64-67787b96efc3
-light.loft_controller_loft_controller_status_led	esphome	Loft Controller	Loft Controller	Loft	Loft Controller Status LED			F4:65:0B:07:AB:34/0/light/Loft Controller Status LED
 light.loft_suite	hue	Hue Bridge 0017882791a0	Loft Suite	Loft Suite				5b90cf8c-875a-4c6d-80fd-ebfdb62b63c7
 light.loft_suite_spotlights	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19
 light.loft_suite_spotlights_led	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights LED			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_LED
@@ -906,7 +925,7 @@ notify.hannahs_iphone	mobile_app	Hannah’s iPhone	Hannah’s iPhone					A859110
 notify.hannahs_iphone13	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13					4B5C009B-C745-420C-8318-3C681F53E330
 notify.hannahs_iphone_2	mobile_app	Hannah’s iPhone	Hannah’s iPhone					7330C4C8-571F-4470-A1B1-F98EA4D4FCED
 notify.hanpad	mobile_app	iPad	Hanpad					0AB541E1-497F-4057-A2E6-8E3649F446B3
-notify.iphone_32	mobile_app	iPhone (32)	iPhone (32)					D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
+notify.iphone_32	mobile_app	Mojgan-iPhone	Mojgan-iPhone					D3A0E2E2-EF12-4169-A8EC-83FC0B887C04
 notify.kitchen_announce	alexa_devices	tongaimaramba@gmail.com	Kitchen		Announce			G0922K07415409E6-announce
 notify.kitchen_speak	alexa_devices	tongaimaramba@gmail.com	Kitchen		Speak			G0922K07415409E6-speak
 notify.mm_iphone	mobile_app	iPhone (3)	mm iphone					8B5159F5-CCA4-4CDA-BD26-786BC595FCAC
@@ -939,9 +958,6 @@ number.growatt_sph_load_first_stop_charge	mqtt	Mosquitto broker	Growatt SPH		Loa
 number.growatt_sph_load_first_stop_discharge	mqtt	Mosquitto broker	Growatt SPH		Load first stop discharge			inverter_1_load_first_stop_discharge
 number.hannah_iphone13_calibration_ref_power_at_1m_0_for_default	bermuda	Bermuda BLE Trilateration	Hannah iPhone13	Home General	Calibration Ref Power at 1m. 0 for default.			3e965b2a301d81c5895fa7957e771120_ref_power
 number.hannah_keys_calibration_ref_power_at_1m_0_for_default	bermuda	Bermuda BLE Trilateration	Hannah Keys		Calibration Ref Power at 1m. 0 for default.			ff:1f:04:66:7e:93_ref_power
-number.loft_controller_loft_controller_delay_off	esphome	Loft Controller	Loft Controller	Loft	Loft Controller Delay-Off			F4:65:0B:07:AB:34/0/number/Loft Controller Delay-Off
-number.loft_controller_loft_controller_delay_on	esphome	Loft Controller	Loft Controller	Loft	Loft Controller Delay-On			F4:65:0B:07:AB:34/0/number/Loft Controller Delay-On
-number.loft_controller_loft_controller_timeout	esphome	Loft Controller	Loft Controller	Loft	Loft Controller Timeout			F4:65:0B:07:AB:34/0/number/Loft Controller Timeout
 number.loft_pir_bedroom_presence_delay_off	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Presence Delay-Off			D8:3B:DA:75:E6:90/0/number/Bedroom Presence Delay-Off
 number.loft_pir_bedroom_presence_delay_on	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Presence Delay-On			D8:3B:DA:75:E6:90/0/number/Bedroom Presence Delay-On
 number.loft_pir_bedroom_presence_timeout	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Presence Timeout			D8:3B:DA:75:E6:90/0/number/Bedroom Presence Timeout
@@ -1457,10 +1473,10 @@ sensor.care_1f40_estimated_distance	ibeacon	iBeacon Tracker	CARe 1F40		Estimated
 sensor.care_1f40_power	ibeacon	iBeacon Tracker	CARe 1F40		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8000_22808_B4:B8:59:18:1F:40_power
 sensor.care_1f40_signal_strength	ibeacon	iBeacon Tracker	CARe 1F40		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8000_22808_B4:B8:59:18:1F:40_rssi
 sensor.care_1f40_vendor	ibeacon	iBeacon Tracker	CARe 1F40		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8000_22808_B4:B8:59:18:1F:40_vendor
-sensor.care_2289_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHT160756  2289		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_estimated_distance
-sensor.care_2289_power	ibeacon	iBeacon Tracker	DP_2_0_TOVHT160756  2289		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_power
-sensor.care_2289_signal_strength	ibeacon	iBeacon Tracker	DP_2_0_TOVHT160756  2289		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_rssi
-sensor.care_2289_vendor	ibeacon	iBeacon Tracker	DP_2_0_TOVHT160756  2289		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_vendor
+sensor.care_2289_estimated_distance	ibeacon	iBeacon Tracker	CARe 2289		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_estimated_distance
+sensor.care_2289_power	ibeacon	iBeacon Tracker	CARe 2289		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_power
+sensor.care_2289_signal_strength	ibeacon	iBeacon Tracker	CARe 2289		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_rssi
+sensor.care_2289_vendor	ibeacon	iBeacon Tracker	CARe 2289		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89_vendor
 sensor.care_364f_estimated_distance	ibeacon	iBeacon Tracker	CARe 364F		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_13903_22854_B4:B8:59:46:36:4F_estimated_distance
 sensor.care_364f_power	ibeacon	iBeacon Tracker	CARe 364F		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_13903_22854_B4:B8:59:46:36:4F_power
 sensor.care_364f_signal_strength	ibeacon	iBeacon Tracker	CARe 364F		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_13903_22854_B4:B8:59:46:36:4F_rssi
@@ -1804,6 +1820,8 @@ sensor.ellie_window_temperature	smartthings	My home	Ellie Window	Ellie	Temperatu
 sensor.ellie_window_x_coordinate	smartthings	My home	Ellie Window	Ellie	X-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_x_coordinate
 sensor.ellie_window_y_coordinate	smartthings	My home	Ellie Window	Ellie	Y-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_y_coordinate
 sensor.ellie_window_z_coordinate	smartthings	My home	Ellie Window	Ellie	Z-coordinate			85663cb9-cccb-4637-8eac-6b0af998e502_main_threeAxis_threeAxis_z_coordinate
+sensor.ellies_bedroom_ellie_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Indoor temperature			50BBB5FFAB85indoor-temp
+sensor.ellies_bedroom_ellie_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Outdoor temperature			50BBB5FFAB85outdoor-temp
 sensor.esphome_device_builder_cpu_percent	hassio	Supervisor	ESPHome Device Builder		CPU percent	integration		5c53de3b_esphome_cpu_percent
 sensor.esphome_device_builder_memory_percent	hassio	Supervisor	ESPHome Device Builder		Memory percent	integration		5c53de3b_esphome_memory_percent
 sensor.esphome_device_builder_newest_version	hassio	Supervisor	ESPHome Device Builder		Newest version	integration		5c53de3b_esphome_version_latest
@@ -1991,6 +2009,8 @@ sensor.hannah_locator	places	Hannah Locator			Hannah Locator			fe5fc48b3a5e2f34b
 sensor.hannah_s_room_next_alarm	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next alarm			G8M2HQ04405203XR-Alarm
 sensor.hannah_s_room_next_reminder	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next reminder			G8M2HQ04405203XR-Reminder
 sensor.hannah_s_room_next_timer	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next timer			G8M2HQ04405203XR-Timer
+sensor.hannahs_bedroom_hannah_ac_indoor_temperature	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Indoor temperature			9CC7D3ADCA69indoor-temp
+sensor.hannahs_bedroom_hannah_ac_outdoor_temperature	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Outdoor temperature			9CC7D3ADCA69outdoor-temp
 sensor.hannahs_iphone13_activity	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Activity			5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_activity
 sensor.hannahs_iphone13_app_version	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 App Version			5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_app-version
 sensor.hannahs_iphone13_audio_output	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Audio Output	integration		5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_iphone-audio-output
@@ -2195,16 +2215,6 @@ sensor.ipad_geocoded_location	mobile_app	iPad	Hanpad		iPad Geocoded Location			5
 sensor.ipad_last_update_trigger	mobile_app	iPad	Hanpad		iPad Last Update Trigger			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_last_update_trigger
 sensor.ipad_ssid	mobile_app	iPad	Hanpad		iPad SSID			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_connectivity_ssid
 sensor.ipad_storage	mobile_app	iPad	Hanpad		iPad Storage			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_storage
-sensor.iphone_32_battery_level	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery Level			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_battery_level
-sensor.iphone_32_battery_state	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery State			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_battery_state
-sensor.iphone_32_bssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) BSSID			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_bssid
-sensor.iphone_32_connection_type	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Connection Type			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_connection_type
-sensor.iphone_32_geocoded_location	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Geocoded Location			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_geocoded_location
-sensor.iphone_32_last_update_trigger	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Last Update Trigger			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_last_update_trigger
-sensor.iphone_32_sim_1	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 1			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_sim_1
-sensor.iphone_32_sim_2	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 2			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_sim_2
-sensor.iphone_32_ssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SSID			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_ssid
-sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_storage
 sensor.isla_switch_battery_level	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Battery			476abea5-3c36-460c-a6e4-96fbdf49eaab
 sensor.isla_switch_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Zigbee connectivity	integration		b57a5118-a936-4f4d-b33c-f5f060b43fd1
 sensor.john_s_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	John's Bike			tongaimaramba@gmail.com_e5ab3b1e7fba4a878a2672364d43068b
@@ -2256,7 +2266,8 @@ sensor.litra_beam_463b_signal_strength	ibeacon	iBeacon Tracker	Litra Beam 463B		
 sensor.litra_beam_463b_vendor	ibeacon	iBeacon Tracker	Litra Beam 463B		Vendor	integration		a92ee200-5501-11e4-916c-0800200c9a66_12278_16893_E2:0F:08:22:46:3B_vendor
 sensor.loft_bathroom_illuminance	hue	Hue Bridge 0017882791a0	Loft Bathroom	Loft Bathroom	Illuminance			4ea1a656-e058-4468-b566-e927b0249c12
 sensor.loft_blind_loft_suite_blind_position	esphome	loft-blind	loft-blind		Loft Suite Blind Position			AC:0B:FB:D7:F6:97/0/sensor/Loft Suite Blind Position
-sensor.loft_controller_loft_suite_blind_position	esphome	Loft Controller	Loft Controller	Loft	Loft Suite Blind Position			F4:65:0B:07:AB:34/0/sensor/Loft Suite Blind Position
+sensor.loft_suite_loft_suite_ac_indoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Indoor temperature			106838B4B505indoor-temp
+sensor.loft_suite_loft_suite_ac_outdoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Outdoor temperature			106838B4B505outdoor-temp
 sensor.loft_suite_spotlights_current_consumption	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights Current Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_power
 sensor.loft_suite_spotlights_total_consumption	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights Total Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_energy
 sensor.lounge_dim_current_consumption	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_power
@@ -2328,6 +2339,15 @@ sensor.mojgan_iphone11_unfiltered_distance_to_loft_controller	bermuda	Bermuda BL
 sensor.mojgan_iphone11_unfiltered_distance_to_nya_proxy	bermuda	Bermuda BLE Trilateration	Mojgan iPhone11	Home General	Unfiltered Distance to nya-proxy	integration		81f0112b21aab4c0981fb4ba75aa239a_f4:65:0b:07:70:84_range_raw
 sensor.mojgan_iphone11_unfiltered_distance_to_work_status	bermuda	Bermuda BLE Trilateration	Mojgan iPhone11	Home General	Unfiltered Distance to work status	integration		81f0112b21aab4c0981fb4ba75aa239a_94:3c:c6:37:67:84_range_raw
 sensor.mojgan_iphone11_unfiltered_distance_to_zane_proxy	bermuda	Bermuda BLE Trilateration	Mojgan iPhone11	Home General	Unfiltered Distance to zane-proxy	integration		81f0112b21aab4c0981fb4ba75aa239a_d8:3b:da:73:d6:bc_range_raw
+sensor.mojgan_iphone_battery_level	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Battery Level			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_battery_level
+sensor.mojgan_iphone_battery_state	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Battery State			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_battery_state
+sensor.mojgan_iphone_bssid	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone BSSID			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_bssid
+sensor.mojgan_iphone_connection_type	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Connection Type			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_connection_type
+sensor.mojgan_iphone_last_update_trigger	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Last Update Trigger			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_last_update_trigger
+sensor.mojgan_iphone_sim_1	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone SIM 1			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_sim_1
+sensor.mojgan_iphone_sim_2	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone SIM 2			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_sim_2
+sensor.mojgan_iphone_ssid	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone SSID			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_ssid
+sensor.mojgan_iphone_storage	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Storage			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_storage
 sensor.mojgan_locator	places	Mojgan Locator			Mojgan Locator			b3950f3e7ac357580dca8bd6cd76f552
 sensor.mosquitto_broker_cpu_percent	hassio	Supervisor	Mosquitto broker		CPU percent	integration		core_mosquitto_cpu_percent
 sensor.mosquitto_broker_memory_percent	hassio	Supervisor	Mosquitto broker		Memory percent	integration		core_mosquitto_memory_percent
@@ -2668,6 +2688,8 @@ sensor.stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	H
 sensor.stress_qualifier	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Stress Qualifier	integration		tongaimaramba@gmail.com_stressQualifier
 sensor.study_desk_lamp_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Side Board Lamp	Study	Zigbee connectivity	integration		03c3d08d-ef3d-4eb2-bedb-d2ee303de8bb
 sensor.study_presence_desk_sensor	esphome	doorstep presence	study presence	Study	Desk Sensor			58:BF:25:D7:20:71/0/sensor/Desk Sensor
+sensor.study_study_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Indoor temperature			50BBB5FFC481indoor-temp
+sensor.study_study_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Outdoor temperature			50BBB5FFC481outdoor-temp
 sensor.sun_next_dawn	sun	Sun	Sun		Next dawn			fb23c1fe8cd83a23977a89578999be3f-next_dawn
 sensor.sun_next_dusk	sun	Sun	Sun		Next dusk			fb23c1fe8cd83a23977a89578999be3f-next_dusk
 sensor.sun_next_midnight	sun	Sun	Sun		Next midnight			fb23c1fe8cd83a23977a89578999be3f-next_midnight
@@ -2871,6 +2893,7 @@ sensor.tongaism25_total_tx_gb	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Total
 sensor.tongaism25_vo2_max	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 VO2 max	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_health_connect_vo2_max
 sensor.tongaism25_volume_level_accessibility	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level accessibility	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_accessibility
 sensor.tongaism25_volume_level_alarm	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level alarm	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_alarm
+sensor.tongaism25_volume_level_assistant	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level assistant	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_assistant
 sensor.tongaism25_volume_level_call	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level call	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_call
 sensor.tongaism25_volume_level_dtmf	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level DTMF	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_dtmf
 sensor.tongaism25_volume_level_music	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level music	integration		5b07d3912c117b9060449adc8188884fc897deacdf80162f660eed3dd07f8b74_volume_music
@@ -2955,6 +2978,10 @@ sensor.wsbc025124757s_6d50_estimated_distance	ibeacon	iBeacon Tracker	WSBC025124
 sensor.wsbc025124757s_6d50_power	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Power	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_power
 sensor.wsbc025124757s_6d50_signal_strength	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Signal strength	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_rssi
 sensor.wsbc025124757s_6d50_vendor	ibeacon	iBeacon Tracker	WSBC025124757S 6D50		Vendor	integration		54555242-4f48-4d49-3230-313701000000_46432_13060_CB:82:7B:56:6D:50_vendor
+sensor.xped_006037662138_estimated_distance	ibeacon	iBeacon Tracker	XPED-006037662138		Estimated distance			58c1f550-bbaa-45ec-f504-006037662138_1_2_00:60:37:66:21:38_estimated_distance
+sensor.xped_006037662138_power	ibeacon	iBeacon Tracker	XPED-006037662138		Power	integration		58c1f550-bbaa-45ec-f504-006037662138_1_2_00:60:37:66:21:38_power
+sensor.xped_006037662138_signal_strength	ibeacon	iBeacon Tracker	XPED-006037662138		Signal strength	integration		58c1f550-bbaa-45ec-f504-006037662138_1_2_00:60:37:66:21:38_rssi
+sensor.xped_006037662138_vendor	ibeacon	iBeacon Tracker	XPED-006037662138		Vendor	integration		58c1f550-bbaa-45ec-f504-006037662138_1_2_00:60:37:66:21:38_vendor
 sensor.z_wave_js_cpu_percent	hassio	Supervisor	Z-Wave JS		CPU percent	integration		core_zwave_js_cpu_percent
 sensor.z_wave_js_memory_percent	hassio	Supervisor	Z-Wave JS		Memory percent	integration		core_zwave_js_memory_percent
 sensor.z_wave_js_newest_version	hassio	Supervisor	Z-Wave JS		Newest version	integration		core_zwave_js_version_latest
@@ -2983,6 +3010,7 @@ switch.bathroom_sink_motion	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom	M
 switch.battery_entity_row_pre_release	hacs		Battery Entity Row		Pre-release	integration		303857065
 switch.bermuda_ble_trilateration_pre_release	hacs		Bermuda BLE Trilateration		Pre-release	integration		676091897
 switch.bha_icon_pack_pre_release	hacs		BHA Icon Pack		Pre-release	integration		179808576
+switch.button_card_pre_release	hacs		button-card		Pre-release	integration		146194325
 switch.card_mod_pre_release	hacs		card-mod		Pre-release	integration		190927524
 switch.charger_card_pre_release	hacs		Charger Card		Pre-release	integration		308752409
 switch.cloudflared	hassio	Supervisor	Cloudflared			integration		9074a9fa_cloudflared_state
@@ -2995,6 +3023,13 @@ switch.edgeos_ubiquiti_pre_release	hacs		EdgeOS (Ubiquiti)		Pre-release	integrat
 switch.ellie_s_room_announcements	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Announcements			G8M2HP06432400NL-announcements
 switch.ellie_s_room_communications	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Communications			G8M2HP06432400NL-communications
 switch.ellie_s_room_do_not_disturb	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Do not disturb			G8M2HP06432400NL-dnd
+switch.ellies_bedroom_ellie_ac_economy_mode	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Economy mode			50BBB5FFAB85-eco
+switch.ellies_bedroom_ellie_ac_energy_saving_fan	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Energy saving fan			50BBB5FFAB85-energy-save
+switch.ellies_bedroom_ellie_ac_indoor_led	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Indoor LED			50BBB5FFAB85-indoor-led
+switch.ellies_bedroom_ellie_ac_outdoor_unit_low_noise	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Outdoor unit low noise			50BBB5FFAB85-low-noise
+switch.ellies_bedroom_ellie_ac_power	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Power			50BBB5FFAB85-power
+switch.ellies_bedroom_ellie_ac_powerful	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Powerful			50BBB5FFAB85-powerful
+switch.ellies_bedroom_ellie_ac_quiet_fan	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom	Quiet fan			50BBB5FFAB85-quiet
 switch.entities_button_group_pre_release	hacs		Entities Button Group		Pre-release	integration		373857882
 switch.entity_attributes_card_pre_release	hacs		Entity Attributes Card		Pre-release	integration		187245461
 switch.esphome_device_builder	hassio	Supervisor	ESPHome Device Builder			integration		5c53de3b_esphome_state
@@ -3022,6 +3057,13 @@ switch.hacs_pre_release	hacs		HACS		Pre-release	integration		172733314
 switch.hannah_s_room_announcements	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Announcements			G8M2HQ04405203XR-announcements
 switch.hannah_s_room_communications	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Communications			G8M2HQ04405203XR-communications
 switch.hannah_s_room_do_not_disturb	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Do not disturb			G8M2HQ04405203XR-dnd
+switch.hannahs_bedroom_hannah_ac_economy_mode	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Economy mode			9CC7D3ADCA69-eco
+switch.hannahs_bedroom_hannah_ac_energy_saving_fan	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Energy saving fan			9CC7D3ADCA69-energy-save
+switch.hannahs_bedroom_hannah_ac_indoor_led	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Indoor LED			9CC7D3ADCA69-indoor-led
+switch.hannahs_bedroom_hannah_ac_outdoor_unit_low_noise	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Outdoor unit low noise			9CC7D3ADCA69-low-noise
+switch.hannahs_bedroom_hannah_ac_power	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Power			9CC7D3ADCA69-power
+switch.hannahs_bedroom_hannah_ac_powerful	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Powerful			9CC7D3ADCA69-powerful
+switch.hannahs_bedroom_hannah_ac_quiet_fan	fujitsu_airstage	local - 9CC7D3ADCA69	Hannah AC	Hannahs Bedroom	Quiet fan			9CC7D3ADCA69-quiet
 switch.home_assistant_google_drive_backup	hassio	Supervisor	Home Assistant Google Drive Backup			integration		cebe7a76_hassio_google_drive_backup_state
 switch.hue_motion_sensor_1_illuminance	hue	Hue Bridge 0017882791a0	Loft Bathroom 	Loft Bathroom	Light sensor enabled			df9dca41-453d-4a8a-9a20-807ac9f91f59
 switch.hue_motion_sensor_1_motion	hue	Hue Bridge 0017882791a0	Loft Bathroom 	Loft Bathroom	Motion sensor enabled			2b9c5f43-f5a8-49b6-af8f-a7a0eda29240
@@ -3041,9 +3083,13 @@ switch.lock_nuki	rpi_gpio				Lock Nuki			nuki_lock_switch_port_17
 switch.loft_blind_close_loft_suite_blind	esphome	loft-blind	loft-blind		Close - Loft Suite Blind			AC:0B:FB:D7:F6:97/0/switch/Close - Loft Suite Blind
 switch.loft_blind_open_loft_suite_blind	esphome	loft-blind	loft-blind		Open - Loft Suite Blind			AC:0B:FB:D7:F6:97/0/switch/Open - Loft Suite Blind
 switch.loft_blind_stop_loft_suite_blind	esphome	loft-blind	loft-blind		Stop - Loft Suite Blind			AC:0B:FB:D7:F6:97/0/switch/Stop - Loft Suite Blind
-switch.loft_controller_close_loft_suite_blind	esphome	Loft Controller	Loft Controller	Loft	Close - Loft Suite Blind			F4:65:0B:07:AB:34/0/switch/Close - Loft Suite Blind
-switch.loft_controller_open_loft_suite_blind	esphome	Loft Controller	Loft Controller	Loft	Open - Loft Suite Blind			F4:65:0B:07:AB:34/0/switch/Open - Loft Suite Blind
-switch.loft_controller_stop_loft_suite_blind	esphome	Loft Controller	Loft Controller	Loft	Stop - Loft Suite Blind			F4:65:0B:07:AB:34/0/switch/Stop - Loft Suite Blind
+switch.loft_suite_loft_suite_ac_economy_mode	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Economy mode			106838B4B505-eco
+switch.loft_suite_loft_suite_ac_energy_saving_fan	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Energy saving fan			106838B4B505-energy-save
+switch.loft_suite_loft_suite_ac_indoor_led	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Indoor LED			106838B4B505-indoor-led
+switch.loft_suite_loft_suite_ac_outdoor_unit_low_noise	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Outdoor unit low noise			106838B4B505-low-noise
+switch.loft_suite_loft_suite_ac_power	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Power			106838B4B505-power
+switch.loft_suite_loft_suite_ac_powerful	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Powerful			106838B4B505-powerful
+switch.loft_suite_loft_suite_ac_quiet_fan	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Quiet fan			106838B4B505-quiet
 switch.lovelace_card_templater_pre_release	hacs		Lovelace Card Templater		Pre-release	integration		184333163
 switch.lovelace_hass_aarlo_pre_release	hacs		Lovelace Hass Aarlo		Pre-release	integration		197245179
 switch.lovelace_text_input_row_pre_release	hacs		Lovelace Text Input Row		Pre-release	integration		182113743
@@ -3100,6 +3146,13 @@ switch.sonoff_lan_pre_release	hacs		Sonoff LAN		Pre-release	integration		2221187
 switch.sonoff_lights	group	Sonoff Lights			Sonoff Lights			a532b39561cfbbf37cdb7ddd6cb8b0f6
 switch.speedtest	hassio	Supervisor	Speedtest			integration		6b87c29e_speedtest_addon_state
 switch.sqlite_web	hassio	Supervisor	SQLite Web			integration		a0d7b954_sqlite-web_state
+switch.study_study_ac_economy_mode	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Economy mode			50BBB5FFC481-eco
+switch.study_study_ac_energy_saving_fan	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Energy saving fan			50BBB5FFC481-energy-save
+switch.study_study_ac_indoor_led	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Indoor LED			50BBB5FFC481-indoor-led
+switch.study_study_ac_outdoor_unit_low_noise	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Outdoor unit low noise			50BBB5FFC481-low-noise
+switch.study_study_ac_power	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Power			50BBB5FFC481-power
+switch.study_study_ac_powerful	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Powerful			50BBB5FFC481-powerful
+switch.study_study_ac_quiet_fan	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Quiet fan			50BBB5FFC481-quiet
 switch.t_s_jabra_elite_7_pro_do_not_disturb	alexa_devices	tongaimaramba@gmail.com	T's Jabra Elite 7 Pro		Do not disturb	device		d18fb9bf3790489aa2caf85a56cea9db-dnd
 switch.tagreader_buzzer_enabled	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Buzzer Enabled			KITCHEN-NFC-switch-tagreader_buzzer_enabled
 switch.tagreader_buzzer_enabled_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Buzzer Enabled			40:91:51:4E:DB:EA/0/switch/TagReader Buzzer Enabled
@@ -3117,7 +3170,6 @@ switch.tv_remote_card_with_touchpad_and_haptic_feedback_pre_release	hacs		TV Rem
 switch.unlock_nuki	rpi_gpio				Unlock Nuki			nuki_unlock_switch_port_22
 switch.utility_motion_illuminance	hue	Hue Bridge 0017882791a0	Utility Motion	Utility	Light sensor enabled			b2dffe1b-e1e8-470c-ac5f-5b6d588c92f1
 switch.utility_motion_motion	hue	Hue Bridge 0017882791a0	Utility Motion	Utility	Motion sensor enabled			fe4b2176-fd5d-4c3c-a0c2-5a3e302ab64c
-switch.volvo_cars_pre_release	hacs		Volvo Cars		Pre-release	integration		899977910
 switch.whatspie_pre_release	hacs		WhatsPie		Pre-release	integration		556789449
 switch.worktop_sensor_illuminance	hue	Hue Bridge 0017882791a0	Worktop Sensor	Kitchen	Light sensor enabled			1b2f8d80-ed29-40c1-9b7b-e5b9b9ab9cad
 switch.worktop_sensor_motion	hue	Hue Bridge 0017882791a0	Worktop Sensor	Kitchen	Motion sensor enabled			e069b5fc-2ed4-477d-93f3-9a0beeb0806f
@@ -3153,6 +3205,7 @@ update.bedroom_presence_firmware	esphome	Bedroom Presence	Bedroom Presence	Loft	
 update.bermuda_ble_trilateration_update	hacs		Bermuda BLE Trilateration		Bermuda BLE Trilateration update			676091897
 update.bha_icon_pack_update	hacs		BHA Icon Pack		BHA Icon Pack update			179808576
 update.boiler_temp_firmware	smartthings	My home	Boiler Temp	Garage	Firmware			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main
+update.button_card_update	hacs		button-card		button-card update			146194325
 update.card_mod_update	hacs		card-mod		card-mod update			190927524
 update.charger_card_update	hacs		Charger Card		Charger Card update			308752409
 update.cloudflared_update	hassio	Supervisor	Cloudflared		Update			9074a9fa_cloudflared_version_latest
@@ -3206,7 +3259,7 @@ update.light_entity_card_update	hacs		Light Entity Card		Light Entity Card updat
 update.lightwave_rf_update	hacs		Lightwave RF		Lightwave RF update			162808336
 update.loft32_firmware	esphome	study work status	work status	Study	Firmware			94:3C:C6:37:67:84
 update.loft_blind_firmware	esphome	loft-blind	loft-blind		Firmware			AC:0B:FB:D7:F6:97
-update.loft_controller_firmware	esphome	Loft Controller	Loft Controller	Loft	Firmware	integration		F4:65:0B:07:AB:34
+update.loft_controller_firmware	esphome	Loft Controller	Hannah panic button	Hannahs Bedroom	Firmware	integration		F4:65:0B:07:AB:34
 update.lovelace_card_templater_update	hacs		Lovelace Card Templater		Lovelace Card Templater update			184333163
 update.lovelace_hass_aarlo_update	hacs		Lovelace Hass Aarlo		Lovelace Hass Aarlo update			197245179
 update.lovelace_text_input_row_update	hacs		Lovelace Text Input Row		Lovelace Text Input Row update			182113743
@@ -3252,10 +3305,10 @@ update.timer_bar_card_update	hacs		Timer Bar Card		Timer Bar Card update			37690
 update.toggle_control_button_row_update	hacs		Toggle Control Button Row		Toggle Control Button Row update			326033921
 update.tv_remote_card_with_touchpad_and_haptic_feedback_update	hacs		TV Remote Card (with touchpad and haptic feedback)		TV Remote Card (with touchpad and haptic feedback) update			505459170
 update.utility_back_door_firmware	smartthings	My home	Utility Back Door	Utility	Firmware			d37e06db-a7e8-474f-802e-cad844952232_main
-update.volvo_cars_update	hacs		Volvo Cars		Volvo Cars update			899977910
 update.whatspie_update	hacs		WhatsPie		WhatsPie update			556789449
 update.z_wave_js_update	hassio	Supervisor	Z-Wave JS		Update			core_zwave_js_version_latest
 vacuum.robert	roomba	Robert	Robert					roomba_4320C0BC4988426D9ADA72F6C3CD8499
+weather.garden_outside_weather_home	met	Home	Outside Weather	Garden	Home			51.38846682703228--0.28486720905804624
 zone.m_work	zone				Maple Works			m_work
 zone.school	zone				School			school
 zone.t_work	zone				Meta Office Kings Cross			t_work

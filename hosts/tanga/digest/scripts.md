@@ -1,4 +1,4 @@
-# tanga — scripts.yaml (27 scripts)
+# tanga — scripts.yaml (26 scripts)
 
 | entity_id | alias | mode | actions | entities referenced |
 |---|---|---|---|---|
@@ -12,7 +12,6 @@
 | script.movie_lights | Movie Lights | single | light.turn_off | light.dining_spotlights_3, light.lounge_lamp_1, light.movie_lamp, light.turn_off |
 | script.home_fires | Home Fires | single | light.turn_off, light.turn_on | group.downstairs_lights, light.lounge_lamp_2, light.movie_lamp, light.turn_off, light.turn_on |
 | script.nearly_home | Nearly Home | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.away_on_holiday, input_boolean.nearly_home, input_boolean.turn_off, input_boolean.turn_on |
-| script.boost_downstairs | Boost Downstairs | single | climate.set_temperature | climate.downstairs, climate.set_temperature |
 | script.grid | Grid | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.importing, input_boolean.turn_off, input_boolean.turn_on, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_power |
 | script.change_sound_output | change sound output | single | webostv.select_sound_output | input_boolean.audio_switch, media_player.projector |
 | script.downstairs_lights_off | Downstairs Lights Off | single | light.turn_off, switch.turn_off | light.downstairs_lights, light.movie_lamp, light.study_desk_lamp, light.turn_off, switch.sonoff_lights, switch.turn_off |

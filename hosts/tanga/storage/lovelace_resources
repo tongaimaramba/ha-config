@@ -213,6 +213,11 @@
         "id": "284c82839e9a4497ac5cdbccd9f62d00",
         "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524344",
         "type": "module"
+      },
+      {
+        "id": "b41a07e432e043c48a3c29937c6a9e5b",
+        "url": "/hacsfiles/button-card/button-card.js?hacstag=146194325701",
+        "type": "module"
       }
     ]
   }

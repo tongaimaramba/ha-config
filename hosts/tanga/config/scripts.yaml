@@ -205,20 +205,6 @@ nearly_home:
       entity_id: input_boolean.away_on_holiday
   mode: single
   icon: mdi:road
-boost_downstairs:
-  alias: Boost Downstairs
-  sequence:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 20
-      milliseconds: 0
-  - service: climate.set_temperature
-    data:
-      temperature: 20
-    target:
-      entity_id: climate.downstairs
-  mode: single
 grid:
   alias: Grid
   sequence:
