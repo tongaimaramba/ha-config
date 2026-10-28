@@ -1859,7 +1859,7 @@
         "domain": "mobile_app",
         "entry_id": "604667666d3a2806a29b73771110d870",
         "minor_version": 1,
-        "modified_at": "2026-09-11T21:01:17.683733+00:00",
+        "modified_at": "2026-10-24T22:41:52.801558+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2654,7 +2654,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-10-23T09:08:51.016089+00:00",
+        "modified_at": "2026-10-28T16:05:11.399131+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3604,7 +3604,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-10-23T09:44:22.379274+00:00",
+        "modified_at": "2026-10-28T17:01:34.569151+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3803,7 +3803,7 @@
         "domain": "mobile_app",
         "entry_id": "01K2PQCB1ZFTPF9PG3JJCHCFPZ",
         "minor_version": 1,
-        "modified_at": "2026-10-22T09:06:35.619881+00:00",
+        "modified_at": "2026-10-25T22:06:14.692756+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4110,7 +4110,7 @@
         "domain": "mobile_app",
         "entry_id": "01KCW0QXSZ4M4H0HVWT1THFYX3",
         "minor_version": 1,
-        "modified_at": "2026-10-19T14:59:40.038489+00:00",
+        "modified_at": "2026-10-28T12:30:59.975175+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4137,7 +4137,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-10-23T09:08:03.792549+00:00",
+        "modified_at": "2026-10-28T16:49:41.547715+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4275,7 +4275,7 @@
         "domain": "mobile_app",
         "entry_id": "01KXXQJDAKHYW963D1AF4RABRC",
         "minor_version": 1,
-        "modified_at": "2026-10-18T22:35:53.912082+00:00",
+        "modified_at": "2026-10-25T09:51:20.318623+00:00",
         "options": {
           "_redacted_keys": []
         },

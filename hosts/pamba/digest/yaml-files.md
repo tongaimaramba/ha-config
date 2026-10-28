@@ -3,7 +3,7 @@
 | file | bytes | top-level keys |
 |---|---|---|
 | aarlo.yaml | 21 | version, aarlo |
-| automations.yaml | 65237 | list[50] |
+| automations.yaml | 34858 | list[35] |
 | binary_sensors.yaml | 396 | list[3] |
 | configuration.yaml | 10691 | default_config, automation, group, script, notify, homeassistant, http, binary_sensor, recorder, device_tracker, stream, tts, sonoff, rest, rest_command |
 | customize.yaml | 71 | zone.home |
@@ -17,7 +17,7 @@
 | recorder_config.yaml | 21 | purge_keep_days |
 | scenes.yaml | 791 | list[2] |
 | scratch.yaml | 156 | _parse_error |
-| scripts.yaml | 10733 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
+| scripts.yaml | 9543 | manage_guest_access, bathtime_on, bathtime_off, study_boost, relaunch_apps, lock_nuki_momentary, unlock_nuki_momentary, open_nuki_momentary, movie_lights, home_fires, nearly_home, boost_downstairs, gr |
 | secrets.yaml | 565 | some_password, arlo_password, gen_un, dyson_pw, miele_id, miele_secret, owm_key, sdm_secret, sonoff_pw, wifi_ssid, wifi_password, tilepw, ota_password, appdaemon_mqtt_password, appdaemon_interha_4_bri |
 | blueprints/automation/homeassistant/motion_light.yaml | 1219 | blueprint, mode, max_exceeded, trigger, action |
 | blueprints/automation/homeassistant/notify_leaving_zone.yaml | 1260 | blueprint, trigger, variables, condition, action |

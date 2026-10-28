@@ -1,4 +1,4 @@
-# pamba — scripts.yaml (23 scripts)
+# pamba — scripts.yaml (21 scripts)
 
 | entity_id | alias | mode | actions | entities referenced |
 |---|---|---|---|---|
@@ -17,8 +17,6 @@
 | script.grid | Grid | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.importing, input_boolean.turn_off, input_boolean.turn_on, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_power |
 | script.change_sound_output | change sound output | single | webostv.select_sound_output | input_boolean.audio_switch, media_player.projector |
 | script.downstairs_lights_off | Downstairs Lights Off | single | light.turn_off, switch.turn_off | light.downstairs_lights, light.hue_lightstrip_plus_1, light.loft32_desk_light, light.movie_lamp, light.turn_off, light.work_status_on_air_light, switch.sonoff_lights, switch.turn_off |
-| script.ignore_ac_automation_for_1_hour | Ignore AC Automation for 1 Hour | single | input_boolean.turn_on, input_datetime.set_datetime, persistent_notification.create | input_boolean.ignore_ac_automation, input_boolean.turn_on, input_datetime.ignore_until, input_datetime.set_datetime |
-| script.reset_all_ac_flags | Reset All AC Flags | single | input_boolean.turn_off, input_datetime.set_datetime, light.turn_off | input_boolean.ignore_ac_automation, input_boolean.turn_off, input_datetime.ignore_until, input_datetime.set_datetime, light.scenario_1_light, light.scenario_2_light, light.scenario_3_light, light.turn_off |
 | script.set_growatt_sph_mode_with_retry | Set Growatt SPH Mode with Retry | single | mqtt.publish | sensor.growatt_sph_device_mode |
 | script.set_growatt_mode_from_dropdown | Set Growatt Mode From Dropdown | single | script.set_growatt_sph_mode_with_retry | input_select.inverter_mode, script.set_growatt_sph_mode_with_retry |
 | script.print_entities_to_file | Print Entities To File | single | notify.entity_log | notify.entity_log |

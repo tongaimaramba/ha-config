@@ -5,7 +5,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (2875580416 bytes) — db/log/binary
 home-assistant_v2.db-shm (163840 bytes) — db/log/binary
-home-assistant_v2.db-wal (4853392 bytes) — db/log/binary
+home-assistant_v2.db-wal (5562032 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
 zigbee.db-wal (4124152 bytes) — db/log/binary
