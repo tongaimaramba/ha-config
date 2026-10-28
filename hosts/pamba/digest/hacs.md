@@ -48,11 +48,11 @@
 | ExperienceLovelace/ha-floorplan | plugin | 1.0.44 | v1.1.5 | 188323494 |
 | FutureTense/keymaster | integration | v0.0.87 | v0.6.2 | 318359434 |
 | LightwaveSmartHome/homeassistant-lightwave-smart | integration | v5.0.1 | v5.0.1 | 719179733 |
-| alandtse/alexa_media_player | integration | v5.15.0 | v5.17.1 | 139664351 |
+| alandtse/alexa_media_player | integration | v5.15.0 | v5.18.0 | 139664351 |
 | arifwn/homeassistant-whatspie-integration | integration |  |  | 556789449 |
 | azogue/eventsensor | integration | v3.4.0 | v3.4.0 | 250866164 |
 | benct/lovelace-battery-entity-row | plugin | v1.3.1 | v1.3.1 | 303857065 |
-| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.13.0 | 178921037 |
+| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.13.1 | 178921037 |
 | bernikr/lovelace-notify-card | plugin |  | v0.4.0 | 358962656 |
 | custom-cards/entity-attributes-card | plugin | 0.1.2 | 0.1.2 | 187245461 |
 | custom-cards/flex-table-card | plugin | v0.7.5 | v1.5 | 156292058 |

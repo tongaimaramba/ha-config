@@ -202,7 +202,7 @@ Tongai's S22	Tile Inc.			tile		1.0	567170d9b6e8bd1950cf51832f530080
 Tongai's S25	Tile Inc.			tile		1.0	ff3b7d30ca87ac7b8feeeffde6d7d22c
 TongaiPix	Google	Pixel 9 Pro XL		mobile_app		36	a1ab28d5d2c8db1aa36466b78004a809
 TongaiPix9	Google	Pixel 9 Pro XL		mobile_app		36	d3ed339c3bb90f706bcfb20e1453204c
-TongaiSM25	samsung	SM-S931B		mobile_app		36	b45654adb0791dcfea4e10c385bbbad1
+TongaiSM25	samsung	SM-S931B		mobile_app		37	b45654adb0791dcfea4e10c385bbbad1
 Utility - Laundry	Signify Netherlands B.V.	Room	Utility - Laundry	hue			3e41333898eb7d54d3a7432fb2a27d6f
 Utility - Pantry	Signify Netherlands B.V.	Room	Utility - Pantry	hue			052763e5bc3f0adc299ae9646d98b296
 Utility 1	innr	Color temperature light	Utility - Laundry	hue		2.3	68a8963f4875e0df0cf2ab24390b8a59
@@ -232,7 +232,7 @@ family-mbp	Apple	MacBookPro16,3		mobile_app		13.1.0	a8563eb471b7919878885cec5b10
 family_mac	Apple	MacBookPro16,3		mobile_app		13.1.0	8917cfda623a6b05da7a7e221f4a1802
 group-card	custom-cards	plugin		hacs			5b36dc149eb0cf91c6ed89727ef31315
 ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits	ExperienceLovelace	plugin		hacs			b8a5b3a91710770b830c523333751bcd
-iPhone (32)	Apple	iPhone12,1		mobile_app		26.6.2	529526ab24ff4b30e8738a51a84e11a2
+iPhone (32)	Apple	iPhone12,1		mobile_app		27.0.1	529526ab24ff4b30e8738a51a84e11a2
 keymaster	FutureTense, firstof9, raman325	integration		hacs			81719265e14586dbbb045c4ccbecc23a
 landing-blind	Espressif	esp32-c3-devkitm-1	Loft	esphome		2025.2.0 (Feb 23 2025, 18:58:16)	853378c3f641920b9579bd503c173f7e
 loft-blind	Espressif	esp01_1m		esphome		2025.3.2 (Mar 28 2025, 15:53:16)	3173bb56b76d7f4671c1dd8378a72ac7
@@ -256,7 +256,7 @@ rpi_rebooter	Espressif	wemos_d1_mini32	Hallway	esphome		2025.10.5 (Nov 13 2025, 
 study presence	Espressif	esp01_1m	Study	esphome		2023.12.5 (Jan  9 2024, 11:24:20)	8fb5730a6cb28802e8fd8bc19c141a75
 swings	Arlo	VMC5040	Garden	aarlo		0.8.1.18	8baa26fd8027a532cbb4b9962b0f73cb
 template-entity-row	thomasloven	plugin		hacs			196fa713e3a3c74199b0b62f5be4fd91
-tojgan bright	Signify Netherlands B.V.	Hue Bridge	Garage	hue		6.1.1978418030	19a03db71128268736291848e5bbfacd
+tojgan bright	Signify Netherlands B.V.	Hue Bridge	Garage	hue		6.3.1978545030	19a03db71128268736291848e5bbfacd
 tojgan-solar Total	Growatt		Garage	growatt_server_api			b5995b297cca9a8f9b25cf403be78294
 tojgarln	Arlo	VMB5000	Garden	aarlo		0.8.1.18	d5dbb590a0155a4114b8985bb3d6c388
 tongai-mbp	Apple	MacBookPro18,3		mobile_app		14.5.0	ffc13ce7af916b22042a700bbc998b60

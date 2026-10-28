@@ -1,7 +1,7 @@
 9	./config/.HA_VERSION
 3079	./config/Study switch events
 21	./config/aarlo.yaml
-65237	./config/automations.yaml
+34858	./config/automations.yaml
 396	./config/binary_sensors.yaml
 1219	./config/blueprints/automation/homeassistant/motion_light.yaml
 1260	./config/blueprints/automation/homeassistant/notify_leaving_zone.yaml
@@ -75,7 +75,7 @@
 791	./config/scenes.yaml
 156	./config/scratch.yaml
 3688	./config/scratchpad
-10733	./config/scripts.yaml
+9543	./config/scripts.yaml
 565	./config/secrets.yaml
 749	./config/tongai.txt
 1221	./integrations/_sizes.txt
@@ -129,7 +129,7 @@
 431	./storage/core.config
 124445	./storage/core.config_entries
 211573	./storage/core.device_registry
-2495368	./storage/core.entity_registry
+2493051	./storage/core.entity_registry
 648	./storage/core.label_registry
 96	./storage/core.logger
 126	./storage/core.uuid
@@ -144,7 +144,7 @@
 335	./storage/frontend.user_data_f23d493823c54dfea81dad50a9091d37
 295	./storage/hacs.critical
 10481	./storage/hacs.hacs
-3476333	./storage/hacs.repositories
+3715543	./storage/hacs.repositories
 1912	./storage/hacs/148520838.hacs
 1871	./storage/hacs/151280062.hacs
 1831	./storage/hacs/158654878.hacs
@@ -190,16 +190,17 @@
 1003	./storage/input_text
 10970	./storage/lovelace
 25657	./storage/lovelace.dashboard_basics
+148771	./storage/lovelace.family_test
 1711	./storage/lovelace.lovelace_guest
 16902	./storage/lovelace.lovelace_new
 75477	./storage/lovelace.lovelace_tab
 154	./storage/lovelace.map
 265	./storage/lovelace.mdiindex
 153394	./storage/lovelace.tongai_test
-1726	./storage/lovelace_dashboards
+1931	./storage/lovelace_dashboards
 7085	./storage/lovelace_resources
 94	./storage/map
-18354	./storage/navimow_pro_trail_01M2J126F0N1RASMM1ZJ1CYZKP
+101927	./storage/navimow_pro_trail_01M2J126F0N1RASMM1ZJ1CYZKP
 174	./storage/onboarding
 103	./storage/panel_iframe
 1486	./storage/person

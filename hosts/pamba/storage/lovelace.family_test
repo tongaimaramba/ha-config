@@ -1,0 +1,4386 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.family_test",
+  "data": {
+    "config": {
+      "title": "Family (test)",
+      "views": [
+        {
+          "title": "Home",
+          "path": "home",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Doors"
+                },
+                {
+                  "type": "tile",
+                  "entity": "binary_sensor.front_door",
+                  "name": "Front door",
+                  "vertical": true,
+                  "icon": "mdi:door",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "mqtt.publish",
+                    "data": {
+                      "topic": "nuki/lock/action",
+                      "qos": "1",
+                      "payload": "unlatch"
+                    },
+                    "confirmation": {
+                      "text": "Open the front door?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "mqtt.publish",
+                    "data": {
+                      "topic": "nuki/lock/action",
+                      "qos": "1",
+                      "payload": "unlatch"
+                    },
+                    "confirmation": {
+                      "text": "Open the front door?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "binary_sensor.garage_out_door",
+                  "name": "Garage door",
+                  "vertical": true,
+                  "icon": "mdi:garage-variant",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "mqtt.publish",
+                    "data": {
+                      "topic": "nuki_mudiki/lock/action",
+                      "payload": "unlatch"
+                    },
+                    "confirmation": {
+                      "text": "Open the garage door?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "mqtt.publish",
+                    "data": {
+                      "topic": "nuki_mudiki/lock/action",
+                      "payload": "unlatch"
+                    },
+                    "confirmation": {
+                      "text": "Open the garage door?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Lights"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.downstairs_lights",
+                  "name": "Downstairs",
+                  "vertical": true,
+                  "icon": "mdi:lightbulb",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_wall_lights",
+                  "name": "Wall lamps",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:wall-sconce-round",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_wall_lights",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_wall_lights_switch",
+                  "name": "Wall lamps",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:wall-sconce-round",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_wall_lights",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lounge_wall_lights_switch",
+                  "name": "Wall lamps",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:wall-sconce-round",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_wall_lights",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.lounge_wall_lights_switch",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_wall_lights",
+                  "name": "Wall lamps",
+                  "vertical": true,
+                  "color": "disabled",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_on",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_on",
+                    "target": {
+                      "entity_id": [
+                        "light.dining_wall_lights",
+                        "light.media_room_wall_lights_switch",
+                        "light.lounge_wall_lights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:wall-sconce-round",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_wall_lights",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.lounge_wall_lights_switch",
+                      "state_not": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.loft_suite",
+                  "name": "Loft lamps",
+                  "vertical": true,
+                  "icon": "mdi:lamps",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_spotlights_switch",
+                  "name": "Media lighting",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:television-ambient-light",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_spotlights_switch",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_wall_lights_switch",
+                  "name": "Media lighting",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:television-ambient-light",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_spotlights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_spotlights_switch",
+                  "name": "Media lighting",
+                  "vertical": true,
+                  "color": "orange",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_off",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_spotlights_switch",
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:television-ambient-light",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_spotlights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_spotlights_switch",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_wall_lights_switch",
+                  "name": "Media lighting",
+                  "vertical": true,
+                  "color": "disabled",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_on",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "light.turn_on",
+                    "target": {
+                      "entity_id": [
+                        "light.media_room_wall_lights_switch",
+                        "light.dining_spotlights_switch"
+                      ]
+                    }
+                  },
+                  "icon": "mdi:television-ambient-light",
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_spotlights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.media_room_wall_lights_switch",
+                      "state_not": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "light.dining_spotlights_switch",
+                      "state_not": "on"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Hot water (tanga's; boost it on tanga)"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_hot_water",
+                  "name": "Hot water"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Climate",
+          "path": "climate",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Rooms"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_loft_suite",
+                  "name": "Loft suite",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-loft-suite"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-loft-suite"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_ellie",
+                  "name": "Ellie",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-ellie"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-ellie"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_hannah",
+                  "name": "Hannah",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-hannah"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-hannah"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_study",
+                  "name": "Study",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-study"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-study"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_kids_bathroom",
+                  "name": "Kids' bathroom",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-kids-bathroom"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-kids-bathroom"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_landing",
+                  "name": "Landing",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-landing"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-landing"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.downstairs_temperature",
+                  "name": "Downstairs",
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-downstairs"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-downstairs"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Loft suite",
+          "path": "room-loft-suite",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_loft_suite",
+                  "name": "Loft suite",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "text_only": true,
+                  "content": "AC {{ {'heat': 'heating', 'cool': 'cooling', 'dry': 'drying', 'fan_only': 'fan only', 'auto': 'auto', 'off': 'off', 'unavailable': 'not reachable', 'unknown': 'not reachable'} .get(states('climate.loft_suite_ac'), states('climate.loft_suite_ac')) }}"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Air conditioning"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "AC set to",
+                  "icon": "mdi:air-conditioner",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "target-temperature"
+                    }
+                  ],
+                  "features_position": "bottom",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Heat",
+                  "icon": "mdi:fire",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "heat"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "heat",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to heat?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to heat?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Cool",
+                  "icon": "mdi:snowflake",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "cool"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "cool",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to cool?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to cool?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Off",
+                  "icon": "mdi:power",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "off"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "off",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to off?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to off?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "AC only here: these set the AC directly. One room target, with the house choosing heat or cool, comes with the new room controls."
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_loft_suite",
+                  "name": "More: fan and other modes",
+                  "icon": "mdi:tune-variant",
+                  "hide_state": true,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-loft-suite-more"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-loft-suite-more"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Ellie",
+          "path": "room-ellie",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_ellie",
+                  "name": "Ellie",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "text_only": true,
+                  "content": "AC {{ {'heat': 'heating', 'cool': 'cooling', 'dry': 'drying', 'fan_only': 'fan only', 'auto': 'auto', 'off': 'off', 'unavailable': 'not reachable', 'unknown': 'not reachable'} .get(states('climate.ellie_ac'), states('climate.ellie_ac')) }}"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Air conditioning"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "AC set to",
+                  "icon": "mdi:air-conditioner",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "target-temperature"
+                    }
+                  ],
+                  "features_position": "bottom",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Heat",
+                  "icon": "mdi:fire",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "heat"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "heat",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to heat?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to heat?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Cool",
+                  "icon": "mdi:snowflake",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "cool"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "cool",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to cool?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to cool?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Off",
+                  "icon": "mdi:power",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "off"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "off",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to off?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to off?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "AC only here: these set the AC directly. One room target, with the house choosing heat or cool, comes with the new room controls."
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_ellie",
+                  "name": "More: fan and other modes",
+                  "icon": "mdi:tune-variant",
+                  "hide_state": true,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-ellie-more"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-ellie-more"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Hannah",
+          "path": "room-hannah",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_hannah",
+                  "name": "Hannah",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "text_only": true,
+                  "content": "AC {{ {'heat': 'heating', 'cool': 'cooling', 'dry': 'drying', 'fan_only': 'fan only', 'auto': 'auto', 'off': 'off', 'unavailable': 'not reachable', 'unknown': 'not reachable'} .get(states('climate.hannah_ac'), states('climate.hannah_ac')) }}"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Air conditioning"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "AC set to",
+                  "icon": "mdi:air-conditioner",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "target-temperature"
+                    }
+                  ],
+                  "features_position": "bottom",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Heat",
+                  "icon": "mdi:fire",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "heat"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "heat",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to heat?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to heat?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Cool",
+                  "icon": "mdi:snowflake",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "cool"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "cool",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to cool?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to cool?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Off",
+                  "icon": "mdi:power",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "off"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "off",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to off?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to off?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "AC only here: these set the AC directly. One room target, with the house choosing heat or cool, comes with the new room controls."
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_hannah",
+                  "name": "More: fan and other modes",
+                  "icon": "mdi:tune-variant",
+                  "hide_state": true,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-hannah-more"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-hannah-more"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Study",
+          "path": "room-study",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_study",
+                  "name": "Study",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "text_only": true,
+                  "content": "AC {{ {'heat': 'heating', 'cool': 'cooling', 'dry': 'drying', 'fan_only': 'fan only', 'auto': 'auto', 'off': 'off', 'unavailable': 'not reachable', 'unknown': 'not reachable'} .get(states('climate.study_ac'), states('climate.study_ac')) }}"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Air conditioning"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "AC set to",
+                  "icon": "mdi:air-conditioner",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "target-temperature"
+                    }
+                  ],
+                  "features_position": "bottom",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Heat",
+                  "icon": "mdi:fire",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "heat"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Heat",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "heat",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to heat?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "heat"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to heat?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Cool",
+                  "icon": "mdi:snowflake",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "cool"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Cool",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "cool",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to cool?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "cool"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to cool?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Off",
+                  "icon": "mdi:power",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "off"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Off",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "off",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to off?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "off"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to off?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "AC only here: these set the AC directly. One room target, with the house choosing heat or cool, comes with the new room controls."
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_study",
+                  "name": "More: fan and other modes",
+                  "icon": "mdi:tune-variant",
+                  "hide_state": true,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-study-more"
+                  },
+                  "icon_tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/family-test/room-study-more"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Kids' bathroom",
+          "path": "room-kids-bathroom",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_kids_bathroom",
+                  "name": "Kids' bathroom",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Landing",
+          "path": "room-landing",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.tado_landing",
+                  "name": "Landing",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Downstairs",
+          "path": "room-downstairs",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "sensor.downstairs_temperature",
+                  "name": "Downstairs",
+                  "icon": "mdi:home-thermometer",
+                  "state_content": [
+                    "state"
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "heading": "Room target",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "climate.downstairs",
+                      "state_content": [
+                        "hvac_action"
+                      ],
+                      "show_icon": false,
+                      "tap_action": {
+                        "action": "none"
+                      },
+                      "hold_action": {
+                        "action": "none"
+                      },
+                      "double_tap_action": {
+                        "action": "none"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.downstairs",
+                  "name": "Set to",
+                  "icon": "mdi:thermometer",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "target-temperature"
+                    }
+                  ],
+                  "features_position": "bottom",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/climate"
+        },
+        {
+          "title": "Loft suite: more",
+          "path": "room-loft-suite-more",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Other AC modes"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Auto",
+                  "icon": "mdi:autorenew",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "auto"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "auto",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to auto?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to auto?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Dry",
+                  "icon": "mdi:water-percent",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "dry"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "dry",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to dry?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to dry?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:fan",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": "fan_only"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.loft_suite_ac",
+                      "state_not": [
+                        "fan_only",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to fan only?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.loft_suite_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Loft suite AC to fan only?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.loft_suite_ac",
+                  "name": "Fan",
+                  "icon": "mdi:fan",
+                  "state_content": [
+                    "fan_mode"
+                  ],
+                  "features": [
+                    {
+                      "type": "climate-fan-modes",
+                      "style": "dropdown",
+                      "fan_modes": [
+                        "Quiet",
+                        "low",
+                        "medium",
+                        "high",
+                        "auto"
+                      ]
+                    }
+                  ],
+                  "features_position": "inline",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/room-loft-suite"
+        },
+        {
+          "title": "Ellie: more",
+          "path": "room-ellie-more",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Other AC modes"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Auto",
+                  "icon": "mdi:autorenew",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "auto"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "auto",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to auto?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to auto?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Dry",
+                  "icon": "mdi:water-percent",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "dry"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "dry",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to dry?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to dry?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:fan",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": "fan_only"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.ellie_ac",
+                      "state_not": [
+                        "fan_only",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to fan only?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.ellie_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Ellie AC to fan only?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.ellie_ac",
+                  "name": "Fan",
+                  "icon": "mdi:fan",
+                  "state_content": [
+                    "fan_mode"
+                  ],
+                  "features": [
+                    {
+                      "type": "climate-fan-modes",
+                      "style": "dropdown",
+                      "fan_modes": [
+                        "Quiet",
+                        "low",
+                        "medium",
+                        "high",
+                        "auto"
+                      ]
+                    }
+                  ],
+                  "features_position": "inline",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/room-ellie"
+        },
+        {
+          "title": "Hannah: more",
+          "path": "room-hannah-more",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Other AC modes"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Auto",
+                  "icon": "mdi:autorenew",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "auto"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "auto",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to auto?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to auto?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Dry",
+                  "icon": "mdi:water-percent",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "dry"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "dry",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to dry?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to dry?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:fan",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": "fan_only"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.hannah_ac",
+                      "state_not": [
+                        "fan_only",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to fan only?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.hannah_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Hannah AC to fan only?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.hannah_ac",
+                  "name": "Fan",
+                  "icon": "mdi:fan",
+                  "state_content": [
+                    "fan_mode"
+                  ],
+                  "features": [
+                    {
+                      "type": "climate-fan-modes",
+                      "style": "dropdown",
+                      "fan_modes": [
+                        "Quiet",
+                        "low",
+                        "medium",
+                        "high",
+                        "auto"
+                      ]
+                    }
+                  ],
+                  "features_position": "inline",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/room-hannah"
+        },
+        {
+          "title": "Study: more",
+          "path": "room-study-more",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Other AC modes"
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Auto",
+                  "icon": "mdi:autorenew",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "auto"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Auto",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "auto",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to auto?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "auto"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to auto?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Dry",
+                  "icon": "mdi:water-percent",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "dry"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Dry",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "dry",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to dry?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "dry"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to dry?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:fan",
+                  "hide_state": true,
+                  "color": "blue",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": "fan_only"
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Fan only",
+                  "icon": "mdi:circle-outline",
+                  "hide_state": true,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.study_ac",
+                      "state_not": [
+                        "fan_only",
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 2
+                  },
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to fan only?"
+                    }
+                  },
+                  "icon_tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "climate.set_hvac_mode",
+                    "target": {
+                      "entity_id": "climate.study_ac"
+                    },
+                    "data": {
+                      "hvac_mode": "fan_only"
+                    },
+                    "confirmation": {
+                      "text": "Turn the Study AC to fan only?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.study_ac",
+                  "name": "Fan",
+                  "icon": "mdi:fan",
+                  "state_content": [
+                    "fan_mode"
+                  ],
+                  "features": [
+                    {
+                      "type": "climate-fan-modes",
+                      "style": "dropdown",
+                      "fan_modes": [
+                        "Quiet",
+                        "low",
+                        "medium",
+                        "high",
+                        "auto"
+                      ]
+                    }
+                  ],
+                  "features_position": "inline",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "tap_action": {
+                    "action": "none"
+                  },
+                  "icon_tap_action": {
+                    "action": "none"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            }
+          ],
+          "subview": true,
+          "back_path": "/family-test/room-study"
+        }
+      ]
+    }
+  }
+}

@@ -28,6 +28,35 @@
 - view **Solar System** — 2 cards (entities×1, vertical-stack×1)
   - entities: sensor.growatt_sph_battery_state_of_charge, sensor.growatt_sph_grid_energy_in, sensor.growatt_sph_grid_energy_out, sensor.growatt_sph_grid_power, sensor.growatt_sph_load_energy, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_energy, sensor.growatt_sph_pv_power
 
+## lovelace.family_test  — url `family-test`  title `Family (test)`  (148771 bytes)
+
+- view **Home** — 16 cards (tile×13, heading×3)
+  - entities: binary_sensor.front_door, binary_sensor.garage_out_door, light.dining_spotlights_switch, light.dining_wall_lights, light.downstairs_lights, light.loft_suite, light.lounge_wall_lights_switch, light.media_room_spotlights_switch, light.media_room_wall_lights_switch, light.turn_off, light.turn_on, sensor.tado_hot_water
+- view **Climate** — 8 cards (tile×7, heading×1)
+  - entities: sensor.downstairs_temperature, sensor.tado_ellie, sensor.tado_hannah, sensor.tado_kids_bathroom, sensor.tado_landing, sensor.tado_loft_suite, sensor.tado_study
+- view **Loft suite** — 15 cards (tile×12, markdown×2, heading×1)
+  - entities: climate.loft_suite_ac, climate.set_hvac_mode, sensor.tado_loft_suite
+- view **Ellie** — 15 cards (tile×12, markdown×2, heading×1)
+  - entities: climate.ellie_ac, climate.set_hvac_mode, sensor.tado_ellie
+- view **Hannah** — 15 cards (tile×12, markdown×2, heading×1)
+  - entities: climate.hannah_ac, climate.set_hvac_mode, sensor.tado_hannah
+- view **Study** — 15 cards (tile×12, markdown×2, heading×1)
+  - entities: climate.set_hvac_mode, climate.study_ac, sensor.tado_study
+- view **Kids' bathroom** — 1 cards (tile×1)
+  - entities: sensor.tado_kids_bathroom
+- view **Landing** — 1 cards (tile×1)
+  - entities: sensor.tado_landing
+- view **Downstairs** — 3 cards (tile×2, heading×1)
+  - entities: climate.downstairs, sensor.downstairs_temperature
+- view **Loft suite: more** — 11 cards (tile×10, heading×1)
+  - entities: climate.loft_suite_ac, climate.set_hvac_mode
+- view **Ellie: more** — 11 cards (tile×10, heading×1)
+  - entities: climate.ellie_ac, climate.set_hvac_mode
+- view **Hannah: more** — 11 cards (tile×10, heading×1)
+  - entities: climate.hannah_ac, climate.set_hvac_mode
+- view **Study: more** — 11 cards (tile×10, heading×1)
+  - entities: climate.set_hvac_mode, climate.study_ac
+
 ## lovelace.lovelace_guest  — url `lovelace-guest`  title `Pamba`  (1711 bytes)
 
 - view **Home** — 1 cards (glance×1)

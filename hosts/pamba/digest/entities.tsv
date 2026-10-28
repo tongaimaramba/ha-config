@@ -4,19 +4,11 @@ air_quality.upstairs	dyson				Upstairs	user		ZZ9-UK-NEA5537A
 alarm_control_panel.aarlo_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		location_Home			location_home
 alarm_control_panel.aarlo_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	tojgarln			tojgarln
 alarm_control_panel.aarlo_user_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		user_location_Home			user_location_home
-automation.ac_alexa_helper_fan_speed	automation				AC Alexa Helper - Fan Speed			1751632923022
-automation.ac_alexa_helper_snooze	automation				AC Alexa Helper - Snooze			1751455045926
-automation.ac_energy_saver_automation	automation				AC Energy Saver Automation			1751377622102
-automation.ac_energy_saver_ignore_handler	automation				AC Energy Saver Ignore Handler			1751380142049
-automation.ac_off	automation				AC Off			1719292161417
 automation.ac_on_room_empty_door_also_open_loft	automation				AC on, room empty, door ALSO open (all rooms)			1779737140407
 automation.audio	automation				Audio			1656705377102
 automation.audio_change	automation				audio change			1712681075907
-automation.away_door_alarm	automation				away door alarm			1671457535844
 automation.battery_first_scheduler	automation				Battery First Scheduler			1710089973439
-automation.bedside_controller	automation				bedside controller			1746198771329
 automation.boost_main_tag_scan	automation				Study lamp			1669496534955
-automation.car_perimeter_alarm_mode	automation				Car Perimeter Alarm Mode			1691440278084
 automation.dawn_lamp	automation				Dawn lamp			1739571868760
 automation.domane_alarm	automation				Domane alarm			1722015002107
 automation.domane_alert	automation				Domane alert			1722017723783
@@ -25,7 +17,6 @@ automation.garden_christmas_lights	automation				Garden Christmas Lights			17656
 automation.garden_d_cleared_auto_expire_after_30_min	automation				Garden D cleared - auto expire after 30 min			1789556105052
 automation.hannah_moving	automation				Hannah moving 			1684702121322
 automation.hannah_phone_charging	automation				Hannah Phone Charging			1696798002604
-automation.home_alarm	automation				home alarm			1686684796572
 automation.kitchen_auto_light	automation				Kitchen auto light			1760820131800
 automation.loft_suite_ac_on_with_door_open	automation				AC on with door open (all rooms)			1779736395156
 automation.loft_suite_ac_on_with_room_empty	automation				AC on with room empty (all rooms)			1779736476465
@@ -35,14 +26,9 @@ automation.on_air	automation				On air - Meta laptop			1703931685757
 automation.on_air_desk_button	automation				On air desk button			1703971587073
 automation.on_air_light_family_mbp	automation				On-air - Family laptop			1708505312139
 automation.oppy_daily_mow	automation				Oppy - Daily mow			1789553957447
-automation.perimeter	automation				Perimeter 			1688715055838
-automation.perimeter_alarm	automation				perimeter alarm (away)			1595834576124
-automation.perimeter_alarm_at_home	automation				perimeter alarm (at home)			1618488926197
 automation.pump_timer	automation				Pump timer			1763912142229
 automation.pump_timer_2	automation				Pump timer			pump_timer
 automation.pumps_timer	automation				Pumps timer			pumps_timer
-automation.reset_ac_scenario_flags_when_ac_turns_off	automation				AC Reset Scenario Flags When AC Turns Off			1751393765237
-automation.reset_alarm_mute_3	automation				Reset Alarm Mute			1689623801210
 automation.run_speedtest	automation				Run speedtest			1742664762678
 automation.tap	automation				Tap 3 - dining			1683826970594
 automation.tap_1_lounge_lamps	automation				Tap 1 - lounge lamps			1683972591632
@@ -50,7 +36,6 @@ automation.tap_2	automation				Tap 2 - music room			1683911066946
 automation.tap_4	automation				Tap 4 - dining wall lights			1683972433242
 automation.test_temp	automation				Test temp			1709496362515
 automation.test_temp_wait	automation				test temp wait			1709909184554
-automation.window_alarm	automation				Window alarm			1751144711281
 automation.work_status	automation				Work Status 			1703934406917
 automation.work_status_bookends	automation				Work Status Bookends			1704793770116
 binary_sensor.aarlo_connected_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Connected Garden C			connected_garden_c
@@ -834,7 +819,6 @@ script.downstairs_lights_off	script				Downstairs Lights Off			downstairs_lights
 script.grid	script				Grid			grid
 script.ha_config_sync_pamba	script				Sync pamba config snapshot			ha_config_sync_pamba
 script.home_fires	script				Home Fires			home_fires
-script.ignore_ac_automation_for_1_hour	script				Ignore AC Automation for 1 Hour			ignore_ac_automation_for_1_hour
 script.lock_nuki_momentary	script				Lock Nuki - momentary			lock_nuki_momentary
 script.manage_guest_access	script				manage_guests			manage_guest_access
 script.movie_lights	script				Movie Lights			movie_lights
@@ -844,7 +828,6 @@ script.oppy_mow_all	script				Oppy - Mow all zones (ad hoc)			oppy_mow_all
 script.oppy_mow_daily	script				Oppy - Daily mow (D-flag aware)			oppy_mow_daily
 script.print_entities_to_file	script				Print Entities To File			print_entities_to_file
 script.relaunch_apps	script				Relaunch Apps			relaunch_apps
-script.reset_all_ac_flags	script				Reset All AC Flags			reset_all_ac_flags
 script.set_growatt_mode_from_dropdown	script				Set Growatt Mode From Dropdown			set_growatt_mode_from_dropdown
 script.set_growatt_sph_mode_with_retry	script				Set Growatt SPH Mode with Retry			set_growatt_sph_mode_with_retry
 script.study_boost	script				Study Boost			study_boost
@@ -2061,6 +2044,7 @@ sensor.tongaism25_total_tx_gb	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Total
 sensor.tongaism25_vo2_max	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 VO2 max	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_health_connect_vo2_max
 sensor.tongaism25_volume_level_accessibility	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level accessibility	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_accessibility
 sensor.tongaism25_volume_level_alarm	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level alarm	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_alarm
+sensor.tongaism25_volume_level_assistant	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level assistant	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_assistant
 sensor.tongaism25_volume_level_call	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level call	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_call
 sensor.tongaism25_volume_level_dtmf	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level DTMF	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_dtmf
 sensor.tongaism25_volume_level_music	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Volume level music	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_volume_music
