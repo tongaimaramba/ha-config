@@ -376,13 +376,6 @@
         "issue_id": "2c7786beadf34733a2d1724717134941"
       },
       {
-        "created": "2025-12-09T22:22:32.273625+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_899977910"
-      },
-      {
         "created": "2026-03-04T13:31:54.970294+00:00",
         "dismissed_version": null,
         "domain": "hacs",
@@ -494,6 +487,67 @@
         "domain": "hacs",
         "is_persistent": false,
         "issue_id": "removed_191663150"
+      },
+      {
+        "created": "2026-10-23T11:41:05.474748+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_341931266"
+      },
+      {
+        "created": "2026-10-23T11:41:05.475734+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_439944813"
+      },
+      {
+        "created": "2026-10-26T17:59:05.967522+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_665025312_tags/v1.9.0"
+      },
+      {
+        "created": "2026-10-27T21:29:29.499716+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.panic_received_service_not_found_notify.mobile_app_iphone_32",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_iphone_32",
+          "entity_id": "automation.panic_received",
+          "name": "Panic - received",
+          "edit": "/config/automation/edit/panic_received"
+        }
+      },
+      {
+        "created": "2026-10-27T21:29:29.516094+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.panic_clear_service_not_found_notify.mobile_app_iphone_32",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_iphone_32",
+          "entity_id": "automation.panic_clear",
+          "name": "Panic - clear",
+          "edit": "/config/automation/edit/panic_clear"
+        }
       }
     ]
   }

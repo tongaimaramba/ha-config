@@ -53,22 +53,23 @@
 | HomeAssistant-Mods/home-assistant-miele | integration | v.0.9.8 | v.0.9.10 | 316807165 |
 | Odianosen25/Monitor-App | appdaemon |  |  | 188970295 |
 | agittins/bermuda | integration | v0.8.5 | v0.8.7 | 676091897 |
-| alandtse/alexa_media_player | integration | v5.15.0 | v5.17.1 | 139664351 |
+| alandtse/alexa_media_player | integration | v5.15.0 | v5.18.0 | 139664351 |
 | arifwn/homeassistant-whatspie-integration | integration |  |  | 556789449 |
 | astrandb/miele | integration | v2024.3.0 | v2026.2.0 | 439944813 |
 | azogue/eventsensor | integration | v3.3.1 | v3.4.0 | 250866164 |
 | benct/lovelace-battery-entity-row | plugin | v1.3.1 | v1.3.1 | 303857065 |
-| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.13.0 | 178921037 |
+| benct/lovelace-multiple-entity-row | plugin | v4.5.1 | v4.13.1 | 178921037 |
 | bernikr/lovelace-notify-card | plugin |  | v0.4.0 | 358962656 |
 | cgarwood/homeassistant-fullykiosk | integration | 1.1.0 | 1.1.0 | 257988102 |
+| custom-cards/button-card | plugin | v7.0.1 | v7.0.1 | 146194325 |
 | custom-cards/entity-attributes-card | plugin | 0.1.2 | 0.1.2 | 187245461 |
 | custom-cards/flex-table-card | plugin | v0.7.5 | v1.5 | 156292058 |
 | custom-cards/group-card | plugin | 0.0.6 | 0.0.6 | 187245511 |
 | custom-cards/group-element | plugin | 0.9.2 | 0.9.2 | 179491130 |
-| custom-components/ble_monitor | integration | 13.10.1 | 14.3.0 | 223993584 |
+| custom-components/ble_monitor | integration | 13.10.1 | 14.4.0 | 223993584 |
 | custom-components/places | integration | v2.9.0 | v3.0.2 | 131915802 |
 | cyberjunky/home-assistant-garmin_connect | integration | 0.2.19 | 3.0.20 | 383732864 |
-| danielkaldheim/ha_airstage | integration | v1.1.8 | v1.9.0 | 665025312 |
+| danielkaldheim/ha_airstage | integration | v1.9.0 | v1.9.0 | 665025312 |
 | elad-bar/ha-edgeos | integration | v2.0.31 | v2.1.9 | 169467285 |
 | finity69x2/fan-control-entity-row | plugin | 2.2 | 2.3 | 191663150 |
 | finity69x2/fan-percent-button-row | plugin | 1.8 | 4.0 | 345753205 |
@@ -100,7 +101,6 @@
 | skodaconnect/homeassistant-myskoda | integration | v1.22.0 | v1.36.2 | 856542767 |
 | skodaconnect/homeassistant-skodaconnect | integration | 1.2.13 | 1.2.13 | 312896602 |
 | thecode/ha-rpi_gpio | integration | 2022.7.0 | 2026.4.0 | 454951296 |
-| thomasddn/ha-volvo-cars | integration | v1.5.7 | v1.5.7 | 899977910 |
 | thomasloven/lovelace-auto-entities | plugin | v1.13.0 | v1.16.1 | 167744584 |
 | thomasloven/lovelace-badge-card | plugin |  |  | 281453608 |
 | thomasloven/lovelace-card-mod | plugin | v3.4.4 | v4.2.1 | 190927524 |

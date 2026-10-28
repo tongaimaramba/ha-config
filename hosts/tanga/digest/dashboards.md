@@ -148,3 +148,4 @@ _no views / strategy dashboard_
 - `/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375440` (None)
 - `/hacsfiles/light-entity-card/light-entity-card.js?hacstag=168744428613` (None)
 - `/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524344` (None)
+- `/hacsfiles/button-card/button-card.js?hacstag=146194325701` (None)

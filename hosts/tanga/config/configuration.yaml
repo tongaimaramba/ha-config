@@ -32,6 +32,21 @@ lovelace:
       icon: mdi:clipboard-pulse
       show_in_sidebar: true
       require_admin: true
+    # Household dashboards (M1f): Family (parents) and Kids. Door and light buttons are stubs until wired (M1f-I).
+    family-home:
+      mode: yaml
+      filename: dashboards/family-home.yaml
+      title: Family
+      icon: mdi:home-heart
+      show_in_sidebar: true
+      require_admin: false
+    kids-home:
+      mode: yaml
+      filename: dashboards/kids-home.yaml
+      title: Kids
+      icon: mdi:home-account
+      show_in_sidebar: true
+      require_admin: false
 ble_monitor:
   discovery: false  # Manual device addition
   devices:
@@ -51,12 +66,12 @@ alexa:
       include_entities:
   #      - sensor.volvo_viv_battery_charge_level
         - light.coats
-        - button.volvo_eva_climatization_start
+        - button.garage_vivo_start_climatisation
         - cover.landing_blind_landing_blind
         - cover.loft_blind_loft_suite_blind
         - light.downstairs_lights
         - event.front_door_chime
-        - lock.volvo_eva_lock
+        - lock.garage_vivo_lock
       include_entity_globs:
         - binary_sensor.*_contact
     #    - sensor.*_locator
@@ -65,8 +80,8 @@ alexa:
       #exclude_entities:
       #  - switch.outside
     entity_config:
-      button.volvo_eva_climatization_start:
-        name: "Warm Up Eva"
+      button.garage_vivo_start_climatisation:
+        name: "Warm Up Vivo"
         display_categories: FAN
       cover.loft_blind_loft_suite_blind:
         name: "Bedroom Blind"

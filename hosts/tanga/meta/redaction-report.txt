@@ -22,7 +22,6 @@ redaction report (replacements per file):
       3  config/esphome/kai-proxy.yaml
       3  config/esphome/landing-blind.yaml
       3  config/esphome/loft-blind.yaml
-      3  config/esphome/loft-controller.yaml
       3  config/esphome/loft-pir.yaml
       3  config/esphome/loft32.yaml
       3  config/esphome/nya-proxy.yaml
@@ -32,5 +31,5 @@ redaction report (replacements per file):
       4  config/navimow_secrets.yaml
       2  config/pir_code.txt
      34  config/secrets.yaml
-    282  storage/core.config_entries
-  total: 483
+    290  storage/core.config_entries
+  total: 488

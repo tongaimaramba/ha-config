@@ -17,19 +17,19 @@ input_boolean:
 
 template:
   - sensor:
-      # Climate devices that are unavailable. Ignored: climate.downstairs (stale Nest duplicate of
-      # climate.downstairs_2) and climate.pure_hot_cool (Dyson, owned by pamba per OWNERSHIP.md).
+      # Climate devices that are unavailable. Ignored: climate.pure_hot_cool (Dyson, owned by pamba per OWNERSHIP.md).
+      # (climate.downstairs, a stale Nest duplicate of climate.downstairs_2, left the registry 2026-10-23.)
       - name: Climate devices unavailable
         unique_id: climate_health_devices_unavailable
         icon: mdi:thermometer-off
         state: >-
           {{ (states.climate | list + states.water_heater | list)
-             | rejectattr('entity_id', 'in', ['climate.downstairs', 'climate.pure_hot_cool'])
+             | rejectattr('entity_id', 'in', ['climate.pure_hot_cool'])
              | selectattr('state', 'in', ['unavailable', 'unknown']) | list | count }}
         attributes:
           devices: >-
             {{ (states.climate | list + states.water_heater | list)
-               | rejectattr('entity_id', 'in', ['climate.downstairs', 'climate.pure_hot_cool'])
+               | rejectattr('entity_id', 'in', ['climate.pure_hot_cool'])
                | selectattr('state', 'in', ['unavailable', 'unknown'])
                | map(attribute='name') | list | join(', ') }}
       # Battery-powered house devices under 25%. Left out, by exact device-name fragments (not loose substrings, so

@@ -33,10 +33,12 @@ switch.loft_blind_open_loft_suite_blind:
   hidden: false
 ```
 
-## exposed to assistants (39)
+## exposed to assistants (41)
 
 | entity_id | assistants |
 |---|---|
+| binary_sensor.arlo_garden_c_motion_pamba | conversation |
+| binary_sensor.arlo_swings_motion_pamba | conversation |
 | binary_sensor.closed_e_pamba | conversation |
 | binary_sensor.closed_h_pamba | conversation |
 | binary_sensor.closed_l_pamba | conversation |

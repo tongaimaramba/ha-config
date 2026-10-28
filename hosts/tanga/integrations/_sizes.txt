@@ -7,7 +7,7 @@
 244	/homeassistant/custom_components/dyson_local/
 420	/homeassistant/custom_components/edgeos/
 124	/homeassistant/custom_components/eventsensor/
-216	/homeassistant/custom_components/fujitsu_airstage/
+208	/homeassistant/custom_components/fujitsu_airstage/
 96	/homeassistant/custom_components/fullykiosk/
 280	/homeassistant/custom_components/garmin_connect/
 380	/homeassistant/custom_components/growatt_server_api/
@@ -25,5 +25,4 @@
 156	/homeassistant/custom_components/skodaconnect/
 1020	/homeassistant/custom_components/sonoff/
 20	/homeassistant/custom_components/velux/
-952	/homeassistant/custom_components/volvo_cars/
 16	/homeassistant/custom_components/whatspie/

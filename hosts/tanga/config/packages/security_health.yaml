@@ -1,0 +1,243 @@
+# Security health (M2 step 6; decisions M2-D, M2-E). Quiet alerts to Tongai ("Home status" channel) about the locks'
+# and cameras' health, read from pamba's mirrors (read-only; M2 step 4), and a bedtime check of doors and windows left
+# open. No lock-state alerts: the doors are never locked, only unlatched (Tongai). Arlo Swings is retired: not watched.
+# Gate: input_boolean.security_health_enabled (starts off, hard rule 6). Manual fallback: the Nuki and Arlo apps; a
+# walk round at bedtime. Owner: tanga (security, M2). The bedtime list is dashboards/data/tanga.yaml `openings`.
+
+input_boolean:
+  security_health_enabled:
+    name: Security health alerts
+    icon: mdi:shield-alert-outline
+
+automation:
+  # A lock's battery is low: change it before the lock stops (the front one read 33 % on 2026-10-28).
+  # Fallback: the Nuki app's own low-battery warning.
+  - id: security_lock_battery_low
+    alias: Security - lock battery low
+    mode: single
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.front_lock_battery_pamba
+        below: 30
+        for: {minutes: 10}
+        variables:
+          lock: Front door
+      - trigger: numeric_state
+        entity_id: sensor.garage_lock_battery_pamba
+        below: 30
+        for: {minutes: 10}
+        variables:
+          lock: Garage door
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "{{ lock }} lock battery low"
+          message: "{{ lock }} Nuki at {{ trigger.to_state.state }} %: change the batteries."
+          data:
+            tag: "security_lock_battery_{{ trigger.entity_id }}"
+            channel: Home status
+            importance: low
+
+  # A Nuki hub has lost pamba's MQTT broker for 15 min: the door buttons can't unlatch through it.
+  # Fallback: the Nuki app (Bluetooth), the keypad, keys.
+  - id: security_nuki_hub_offline
+    alias: Security - Nuki hub offline
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.front_nuki_hub_connected_pamba
+        to: "off"
+        for: {minutes: 15}
+        variables:
+          hub: Front door
+      - trigger: state
+        entity_id: binary_sensor.garage_nuki_hub_connected_pamba
+        to: "off"
+        for: {minutes: 15}
+        variables:
+          hub: Garage door
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "{{ hub }} Nuki hub offline"
+          message: "The {{ hub | lower }} hub hasn't reached pamba's MQTT for 15 min: the door buttons won't unlatch through it."
+          data:
+            tag: "security_hub_offline_{{ trigger.entity_id }}"
+            channel: Home status
+            importance: low
+
+  # A Nuki hub restarted after a crash (its uptime went back to a few minutes with a panic reason): it did this on
+  # 20 and 27 Oct. Fallback: the hub's own web page.
+  - id: security_nuki_hub_crashed
+    alias: Security - Nuki hub crashed
+    mode: single
+    trace:
+      stored_traces: 3  # the uptime ticks every minute: keep the traces short
+    triggers:
+      - trigger: state
+        entity_id: sensor.front_nuki_hub_uptime_pamba
+        to: ~  # state changes only
+        variables:
+          hub: Front door
+          reason: sensor.front_nuki_hub_restart_reason_pamba
+      - trigger: state
+        entity_id: sensor.garage_nuki_hub_uptime_pamba
+        to: ~
+        variables:
+          hub: Garage door
+          reason: sensor.garage_nuki_hub_restart_reason_pamba
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+      - condition: template  # uptime went down (a restart) and the reason is a crash
+        value_template: >-
+          {{ trigger.from_state is not none and trigger.from_state.state | is_number
+             and trigger.to_state.state | is_number
+             and trigger.to_state.state | float < trigger.from_state.state | float
+             and trigger.to_state.state | float < 10
+             and 'PANIC' in states(reason) | upper }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "{{ hub }} Nuki hub crashed and restarted"
+          message: "{{ states(reason) }}. A firmware update may help (installed and latest on House ops → Security)."
+          data:
+            tag: "security_hub_crash_{{ trigger.entity_id }}"
+            channel: Home status
+            importance: low
+
+  # A Nuki hub's firmware is behind the latest: once, when either side changes (so today's 9.14 vs 9.18 gap shows on
+  # House ops → Security, not as an alert). Fallback: the hub's web page.
+  - id: security_nuki_hub_firmware_behind
+    alias: Security - Nuki hub firmware behind
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: [sensor.front_nuki_hub_latest_pamba, sensor.front_nuki_hub_version_pamba]
+        to: ~  # state changes only: a pamba restart re-stamps the copies without a change
+        variables:
+          hub: Front door
+          have: sensor.front_nuki_hub_version_pamba
+          latest: sensor.front_nuki_hub_latest_pamba
+      - trigger: state
+        entity_id: [sensor.garage_nuki_hub_latest_pamba, sensor.garage_nuki_hub_version_pamba]
+        to: ~
+        variables:
+          hub: Garage door
+          have: sensor.garage_nuki_hub_version_pamba
+          latest: sensor.garage_nuki_hub_latest_pamba
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {{ trigger.from_state is not none and trigger.from_state.state not in ['unavailable', 'unknown']
+             and states(have) not in ['unavailable', 'unknown'] and states(latest) not in ['unavailable', 'unknown']
+             and states(have) != states(latest) }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "{{ hub }} Nuki hub firmware {{ states(have) }}, latest {{ states(latest) }}"
+          message: "Update from the hub's web page when convenient (your call: it's the lock's hub)."
+          data:
+            tag: "security_hub_firmware_{{ hub }}"
+            channel: Home status
+            importance: low
+
+  # Arlo Garden C (the back fence) offline 30 min, or its battery low. Fallback: the Arlo app.
+  - id: security_arlo_garden_c_health
+    alias: Security - Arlo Garden C health
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.arlo_garden_c_connected_pamba
+        to: "off"
+        for: {minutes: 30}
+        id: offline
+      - trigger: numeric_state
+        entity_id: sensor.arlo_garden_c_battery_pamba
+        below: 20
+        for: {minutes: 30}
+        id: battery
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: >-
+            {{ 'Arlo Garden C offline' if trigger.id == 'offline' else 'Arlo Garden C battery low' }}
+          message: >-
+            {{ 'Offline for 30 min: check it in the Arlo app.' if trigger.id == 'offline'
+               else 'Battery at ' ~ states('sensor.arlo_garden_c_battery_pamba') ~ ' %: charge it.' }}
+          data:
+            tag: "security_arlo_garden_c_{{ trigger.id }}"
+            channel: Home status
+            importance: low
+
+  # Bedtime: doors and windows still open (M2-E). Fallback: a walk round.
+  - id: security_bedtime_open
+    alias: Security - bedtime doors and windows
+    mode: single
+    triggers:
+      - trigger: time
+        at: "22:30:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.security_health_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {{ expand([
+                  'binary_sensor.front_door',
+                  'binary_sensor.patio_door_door',
+                  'binary_sensor.kitchen_door',
+                  'binary_sensor.utility_back_door',
+                  'binary_sensor.garage_utility_door_door',
+                  'binary_sensor.garage_out_door',
+                  'binary_sensor.bay_window_door',
+                  'binary_sensor.bay_party_wall_door',
+                  'binary_sensor.landing_window_door',
+                  'binary_sensor.bathroom_window_door',
+                  'binary_sensor.ellie_window_door',
+                  'binary_sensor.ellie_window_party_door',
+                  'binary_sensor.guest_win_door'
+              ]) | selectattr('state', 'eq', 'on') | list | count > 0 }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Open at bedtime
+          message: >-
+            {%- set names = {
+              'binary_sensor.front_door': "Front door",
+              'binary_sensor.patio_door_door': "Patio door",
+              'binary_sensor.kitchen_door': "Kitchen door",
+              'binary_sensor.utility_back_door': "Utility back door",
+              'binary_sensor.garage_utility_door_door': "Garage–utility door",
+              'binary_sensor.garage_out_door': "Garage side door",
+              'binary_sensor.bay_window_door': "Bay window",
+              'binary_sensor.bay_party_wall_door': "Bay window (party wall)",
+              'binary_sensor.landing_window_door': "Landing window",
+              'binary_sensor.bathroom_window_door': "Kids' bathroom window",
+              'binary_sensor.ellie_window_door': "Ellie's window",
+              'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
+              'binary_sensor.guest_win_door': "Study window",
+            } -%}
+            {% for s in expand(names.keys() | list) | selectattr('state', 'eq', 'on') -%}
+              {{ names[s.entity_id] }}{{ ', ' if not loop.last }}
+            {%- endfor %}
+          data:
+            tag: security_bedtime_open
+            channel: Home status
+            importance: low

@@ -1,0 +1,30 @@
+# Car climate as one toggle on Family → Car (Tongai 2026-10-24: one button with its state, not Start and Stop).
+# Volvo reports no climatisation state, so this is read from the two buttons' last presses (a button's state is the
+# time it was last pressed): on from a Start press until a Stop press or 30 minutes, Volvo's usual run. It can be
+# wrong: a start or stop made only in the Volvo app or the car isn't seen. The dashboard's stop presses
+# input_button.car_climate_stopped, then opens the Volvo app (Android) or runs the "Stop car climate" Shortcut (iPhone):
+# Volvo's API acknowledges climatization-stop but the car ignores it. So "off" means "someone pressed stop here",
+# not that the car confirmed it (Tongai, 2026-10-27).
+# Manual fallback: the Volvo Cars app, the car's own controls.
+input_button:
+  car_climate_stopped:
+    name: Car climate stopped
+    icon: mdi:fan-off
+
+template:
+  - binary_sensor:
+      - name: Car climate
+        unique_id: car_climate_from_presses
+        icon: mdi:car-defrost-front
+        state: >-
+          {% set s = states('button.garage_vivo_start_climatisation') | as_datetime(none) %}
+          {% set stops = [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
+             | map('as_datetime', none) | reject('none') | list %}
+          {% set t = stops | max if stops else none %}
+          {{ s is not none and (t is none or s > t) and now() - s < timedelta(minutes=30) }}
+        attributes:
+          started: "{{ states('button.garage_vivo_start_climatisation') }}"
+          stopped: >-
+            {{ [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
+               | map('as_datetime', none) | reject('none') | max | default('', true) }}
+          read_from: "button presses (Volvo gives no climate state)"

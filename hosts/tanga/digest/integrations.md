@@ -31,7 +31,7 @@
 | dyson_local | Pure Hot+Cool | user | custom | 0 | 12 |  | 850be85211eb1e13161327a2c5cb052c |
 | esphome | Bedroom Presence | zeroconf | core | 0 | 9 |  | 01JYTZKYH4DB11ZFDBC0MMGP3T |
 | esphome | Fingerprint Authoriser | zeroconf | core | 0 | 10 |  | 01JWP5KZY9YY4KJ5EPJG875S89 |
-| esphome | Loft Controller | zeroconf | core | 0 | 16 |  | 01KBJ34A95VAG6DK4BT5538TWT |
+| esphome | Loft Controller | zeroconf | core | 0 | 2 |  | 01KBJ34A95VAG6DK4BT5538TWT |
 | esphome | c3 | zeroconf | core | 0 | 14 |  | 01JYGCJEAPF1CNTJKS33MV7W2C |
 | esphome | doorstep presence | zeroconf | core | 0 | 4 |  | e1e592d082198849a059824bcde4b588 |
 | esphome | driveway detector | zeroconf | core | 0 | 3 |  | f75455c1399f06b3538717e1df7b35b9 |
@@ -52,7 +52,10 @@
 | file | Notify [/config/calibration_snapshots.csv] | user | core | 0 | 1 |  | 01K9YE9R5FQJQPAFSR0HPVTMY9 |
 | fritz | FRITZ!Box Tools: fritzbox | ignore | core | 0 | 0 |  | 82a0ffe2968f8b01f8f92e7de3237df0 |
 | fritzbox | Ignored | ignore | core | 0 | 0 |  | ffcf0bceb3dd43e48c30e91b1c23aa52 |
-| fujitsu_airstage | local - 106838B4B505 | user | custom | 0 | 0 |  | 01K1XVC6S5TJV19EDDZ7SNP3S8 |
+| fujitsu_airstage | local - 106838B4B505 | user | custom | 0 | 10 |  | 01M5WPQ6R5JZ4WS497Y65CGEFF |
+| fujitsu_airstage | local - 50BBB5FFAB85 | user | custom | 0 | 10 |  | 01M5WPMEGQK198WV9PDT6NJ300 |
+| fujitsu_airstage | local - 50BBB5FFC481 | user | custom | 0 | 10 |  | 01M5WPNWXP2JDBAGKEHVZKA2PB |
+| fujitsu_airstage | local - 9CC7D3ADCA69 | user | custom | 0 | 10 |  | 01M5WP94JC64S95AVKT54YT8SJ |
 | garmin_connect | tongaimaramba@gmail.com | user | custom | 0 | 87 |  | 01J7N3V3TBG0CBA4QWCRB8ZP6H |
 | go2rtc | go2rtc | system | core | 0 | 0 |  | 01JMQ640YFB3KK9DSJ1ZCAN92X |
 | group | Car Security | user | core | 0 | 1 |  | 32512a8a1e1341f8ca6d8d8f791537e9 |
@@ -89,24 +92,25 @@
 | homekit_controller | tado Internet Bridge IB0210636544 | zeroconf | core | 0 | 46 |  | 01M4DW10JM9HSXF6DJDHK04HE0 |
 | hue | Hue Bridge 0017882791a0 | zeroconf | core | 0 | 317 |  | 01K5BX4CSA7VRHH4QA38N0K1ZW |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 960 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
+| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 965 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
 | lightwave2 | tongaimaramba@gmail.com | user | custom | 0 | 61 |  | 25ac2933732f83c622dfc3e758f3ba30 |
 | matter | Matter | user | core | 0 | 0 |  | 01KA3PMH3S3S2NKH8YHC1QXEWZ |
 | matter | matter | ignore | core | 0 | 0 |  | 01K204FD2BSD6NR0GKTCCXKJBJ |
+| met | Home | user | core | 0 | 1 |  | 01M5WY8VM9XDZG6KWAYRRSC4B9 |
 | miele | Miele | ignore | custom | 0 | 0 |  | 01JMJZQZFNPBMM5KERGXS4NXQA |
 | mobile_app | Garmin Device | registration | core | 0 | 10 |  | 01J8JG772M17AHN6YNAEYX3722 |
 | mobile_app | Hannah’s iPhone | registration | core | 0 | 20 |  | 0339cf5d47f896d8e8af5fc425b8ad60 |
 | mobile_app | Hannah’s iPhone | registration | core | 0 | 15 |  | 01KA3NG0GJD8CX0MDJDQQJFESA |
 | mobile_app | Hannah’s iPhone13 | registration | core | 0 | 31 |  | 01KWSDY1ZK9AHSVSK293XTD854 |
 | mobile_app | MacBook Pro | registration | core | 0 | 22 |  | c1e2f77695764f64b7d4b620ac9c7781 |
-| mobile_app | TongaiSM25 | registration | core | 0 | 135 |  | 01K2PQEAENWBCVTRY36CDNNDGE |
+| mobile_app | Mojgan-iPhone | registration | core | 0 | 12 |  | 01M5ZGAEA19YH1SB8NVQEATDC2 |
+| mobile_app | TongaiSM25 | registration | core | 0 | 136 |  | 01K2PQEAENWBCVTRY36CDNNDGE |
 | mobile_app | family_mac | registration | core | 0 | 24 |  | dd4b052e1d5475ec87e7c2ac905c4aa7 |
 | mobile_app | iPad | registration | core | 0 | 10 |  | d9e1afc9673d0cdc068f01f0111d380f |
 | mobile_app | iPhone (3) | registration | core | 0 | 19 |  | 9c660d7fffd4deaddb4635e9f7fc99e9 |
-| mobile_app | iPhone (32) | registration | core | 0 | 13 |  | 604667666d3a2806a29b73771110d870 |
 | mobile_app | tongai-mbp (2) | registration | core | 0 | 25 |  | 2e4455d642f14e852e5d58ee9f60971b |
 | mobile_app | tongai-mbp_wk | registration | core | 0 | 25 |  | 01JT6NCM80RMH66K4Q76N1HB56 |
 | mqtt | Mosquitto broker | hassio | core | 0 | 65 |  | 01K3HKSE86BER5369STS5MFTDH |
@@ -157,7 +161,7 @@
 | dyson_local | 0.16.4-4 | Dyson Local | yes | https://github.com/shenxn/ha-dyson |
 | edgeos | 2.0.31 | Ubiquiti EdgeOS Routers | NO — installed but not configured | https://github.com/elad-bar/ha-edgeos |
 | eventsensor | 3.3.1 | Event sensor | yes | https://github.com/azogue/eventsensor |
-| fujitsu_airstage | 1.1.7 | Fujitsu Airstage | yes | https://www.home-assistant.io/integrations/fujitsu_airstage |
+| fujitsu_airstage | 1.9.0 | Fujitsu Airstage | yes | https://github.com/danielkaldheim/ha_airstage |
 | fullykiosk | 1.1.0 | Fully Kiosk Browser | NO — installed but not configured | https://github.com/cgarwood/homeassistant-fullykiosk |
 | garmin_connect | 0.2.19 | Garmin Connect | yes | https://github.com/cyberjunky/home-assistant-garmin_connect |
 | growatt_server_api | 1.0.4 | Growatt Server API | yes | https://github.com/muppet3000/homeassistant-growatt_server_api |
@@ -175,7 +179,6 @@
 | skodaconnect | v1.2.13 | Skoda Connect | NO — installed but not configured | https://github.com/skodaconnect/homeassistant-skodaconnect/blob/main/README.md |
 | sonoff | 3.8.2 | Sonoff | yes | https://github.com/AlexxIT/SonoffLAN |
 | velux |  | Velux | NO — installed but not configured | https://www.home-assistant.io/integrations/velux |
-| volvo_cars | 1.5.7 | Volvo Cars | NO — installed but not configured | https://github.com/thomasddn/ha-volvo-cars |
 | whatspie | 1.0.0 | Send WhatsApp Messages via WhatsPie | NO — installed but not configured | https://github.com/arifwn/homeassistant-whatspie-integration |
 
 ## configuration.yaml top-level keys
