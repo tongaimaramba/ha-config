@@ -472,49 +472,6 @@ set_growatt_mode_from_dropdown:
       expected_mode: '{{ states(''input_select.inverter_mode'') }}'
     action: script.set_growatt_sph_mode_with_retry
   description: ''
-take_calibration_snapshot:
-  alias: Take Calibration Snapshot
-  sequence:
-  - target:
-      entity_id: notify.file
-    data:
-      message: "{% set entities = [\n  'sensor.tongaism25_wi_fi_bssid', \n  'sensor.tongaism25_wi_fi_signal_strength',\n
-        \ 'sensor.bermuda_tongai_phone_area',\n  'sensor.bermuda_tongai_phone_distance',\n
-        \ 'device_tracker.bermuda_tongai_phone_bermuda_tracker'\n] %} {{ now().isoformat()
-        }},\"{{ states('input_select.calibration_location') }}\" {%- for entity in
-        entities %},\"{{ states(entity) }}\",\"{{ states[entity].attributes | tojson
-        | replace('\"', '\"\"') }}\"{% endfor %}"
-    action: notify.send_message
-arrive_at_front_door:
-  alias: Arrive at Front Door
-  sequence:
-  - data:
-      entity_id: input_text.mock_user
-      value: Tongai
-    action: input_text.set_value
-  - data:
-      entity_id: input_select.mock_location_area
-      option: front_door
-    action: input_select.select_option
-  - data:
-      entity_id: input_number.mock_ble_distance
-      value: 1.2
-    action: input_number.set_value
-  - data:
-      entity_id: input_boolean.mock_tap_front_door
-    action: input_boolean.turn_on
-  description: ''
-leave_to_away:
-  alias: Leave to Away
-  sequence:
-  - data:
-      entity_id: input_select.mock_location_area
-      option: away
-    action: input_select.select_option
-  - data:
-      entity_id: input_boolean.mock_tap_front_door
-    action: input_boolean.turn_off
-  description: ''
 ha_config_sync_tanga:
   alias: "Sync tanga config snapshot"
   icon: mdi:cloud-sync

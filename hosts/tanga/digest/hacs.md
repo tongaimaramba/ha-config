@@ -40,7 +40,6 @@
 | bernikr/lovelace-notify-card | plugin |  |  | yes |
 | wassy92x/lovelace-entities-btn-group | plugin | v1.0.2 | v1.0.2 | yes |
 | rianadon/timer-bar-card | plugin | v1.10 | v1.18 | yes |
-| iMicknl/ha-nest-protect | integration | v0.3.8 | v0.3.8 | yes |
 | thecode/ha-rpi_gpio | integration | 2022.2.3 | 2022.6.0 | yes |
 
 ## installed repositories (from hacs.repositories)
@@ -79,7 +78,6 @@
 | gadgetchnnel/lovelace-text-input-row | plugin | V0.0.10 | v0.0.11 | 182113743 |
 | hacs/integration | integration | 2.0.5 | 2.0.5 | 172733314 |
 | hulkhaugen/hass-bha-icons | plugin |  |  | 179808576 |
-| iMicknl/ha-nest-protect | integration | v0.4.0b5 | v0.4.3 | 448323715 |
 | iantrich/config-template-card | plugin | 1.3.6 | 1.3.6 | 172177543 |
 | iantrich/roku-card | plugin | 1.2.4 | 1.2.4 | 164367214 |
 | ikb42/homeassistant-lightwave2 | integration | v3.5.20 | v3.5.20 | 162808336 |
@@ -88,7 +86,7 @@
 | kalkih/mini-media-player | plugin | v1.16.5 | v1.16.12 | 148520838 |
 | ljmerza/light-entity-card | plugin | 6.1.3 | v6.4.1 | 168744428 |
 | lozzd/octopus-energy-rates-card | plugin | v0.1.2 | v0.9.0 | 596085141 |
-| madmicio/LG-WebOS-Remote-Control | plugin | 2.0.2 | 2.0.4 | 257005990 |
+| madmicio/LG-WebOS-Remote-Control | plugin | 2.0.2 | 2.1.0 | 257005990 |
 | marcokreeft87/room-card | plugin | 1.08.04 | 1.08.04 | 454440949 |
 | markgdev/home-assistant_OctopusAgile | integration | v0.1.1 | v0.1.1 | 259739166 |
 | muppet3000/homeassistant-growatt_server_api | integration | v1.0.4 | v1.0.4 | 585307805 |
@@ -108,7 +106,7 @@
 | thomasloven/lovelace-template-entity-row | plugin | 1.3.2 | v1.4.1 | 231674882 |
 | tmjo/charger-card | plugin | v0.0.14 | v0.2.7 | 308752409 |
 | tomaae/homeassistant-portainer | integration | v1.0.2 | v1.0.2 | 636943975 |
-| twrecked/hass-aarlo | integration | v0.8.1.4 | v0.8.1.27 | 167885769 |
+| twrecked/hass-aarlo | integration | v0.8.1.27 | v0.8.1.27 | 167885769 |
 | twrecked/lovelace-hass-aarlo | plugin | v0.2.6.1 | v0.2.6.1 | 197245179 |
 | ualex73/monitor_docker | integration | 1.14 | 1.20 | 272140589 |
 | usernein/tv-card | plugin | v0.5.2 | v0.5.2 | 505459170 |

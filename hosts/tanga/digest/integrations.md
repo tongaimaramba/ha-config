@@ -2,7 +2,7 @@
 
 | domain | title | source | kind | devices | entities | disabled | entry_id |
 |---|---|---|---|---|---|---|---|
-| aarlo | Aarlo for tongai.maramba@gmail.com | user | custom | 0 | 31 |  | 3be47728f13b63680bcb3f0330c94661 |
+| aarlo | Aarlo for tongai.maramba@gmail.com | user | custom | 0 | 33 |  | 01M63PF6C46TFNFT51F1K4MRAY |
 | alexa_devices | tongaimaramba@gmail.com | user | core | 0 | 111 |  | 01M4H6QPK75G80ECCD7VCP4SEH |
 | analytics | Analytics | system | core | 0 | 0 |  | 01M4H84CX4PJJ8YQNS9NMMC56Y |
 | androidtv_remote | SHIELD | zeroconf | core | 0 | 2 |  | 5b8948e607aa97eaeead31a660937afa |
@@ -30,6 +30,7 @@
 | dyson_local | Pure Cool | user | custom | 0 | 11 |  | b116df659125b9c1445fe805bc940f82 |
 | dyson_local | Pure Hot+Cool | user | custom | 0 | 12 |  | 850be85211eb1e13161327a2c5cb052c |
 | esphome | Bedroom Presence | zeroconf | core | 0 | 9 |  | 01JYTZKYH4DB11ZFDBC0MMGP3T |
+| esphome | Ellie's call button | zeroconf | core | 0 | 2 |  | 01M6444G8WGGPX24F3B2M38D1N |
 | esphome | Fingerprint Authoriser | zeroconf | core | 0 | 10 |  | 01JWP5KZY9YY4KJ5EPJG875S89 |
 | esphome | Loft Controller | zeroconf | core | 0 | 2 |  | 01KBJ34A95VAG6DK4BT5538TWT |
 | esphome | c3 | zeroconf | core | 0 | 14 |  | 01JYGCJEAPF1CNTJKS33MV7W2C |
@@ -49,7 +50,6 @@
 | eventsensor | kitchen_worktop | user | custom | 0 | 1 |  | e670e4b47f0cfd36514feb89ae0dce90 |
 | eventsensor | lounge_lamp_dimmer | user | custom | 0 | 1 |  | 8f0ea1f5d7231cc69dfce2f4fc83949b |
 | eventsensor | m-side | user | custom | 0 | 1 |  | e5afd12390c7b2040a5c1a79c530c226 |
-| file | Notify [/config/calibration_snapshots.csv] | user | core | 0 | 1 |  | 01K9YE9R5FQJQPAFSR0HPVTMY9 |
 | fritz | FRITZ!Box Tools: fritzbox | ignore | core | 0 | 0 |  | 82a0ffe2968f8b01f8f92e7de3237df0 |
 | fritzbox | Ignored | ignore | core | 0 | 0 |  | ffcf0bceb3dd43e48c30e91b1c23aa52 |
 | fujitsu_airstage | local - 106838B4B505 | user | custom | 0 | 10 |  | 01M5WPQ6R5JZ4WS497Y65CGEFF |
@@ -83,7 +83,7 @@
 | group | pantry | user | core | 0 | 1 |  | 790ad5d30ef222d99be7536aa683156f |
 | group | utility | user | core | 0 | 1 |  | 18f440464495c1d0895424e4bab0cc15 |
 | growatt_server_api | tojgan-solar | user | custom | 0 | 37 |  | 26ed0faa71ef6b3aef24274377700cef |
-| hacs |  | user | custom | 0 | 134 |  | dc93992ca134461aa614600f58f0b57c |
+| hacs |  | user | custom | 0 | 132 |  | dc93992ca134461aa614600f58f0b57c |
 | hassio | Supervisor | system | core | 0 | 144 |  | e170bc42d8b368aa1271b400fde50598 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | c9bd9681950342d7a035531eed7d30f5 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | 3409676f1de7289f30d22cc3daad2dc7 |
@@ -92,11 +92,14 @@
 | homekit_controller | tado Internet Bridge IB0210636544 | zeroconf | core | 0 | 46 |  | 01M4DW10JM9HSXF6DJDHK04HE0 |
 | hue | Hue Bridge 0017882791a0 | zeroconf | core | 0 | 317 |  | 01K5BX4CSA7VRHH4QA38N0K1ZW |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 965 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
+| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 970 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
 | lightwave2 | tongaimaramba@gmail.com | user | custom | 0 | 61 |  | 25ac2933732f83c622dfc3e758f3ba30 |
+| local_file | Call still back fence | user | core | 0 | 1 |  | 01M68PGRS2NVXVK1XRCDZPPE1S |
+| local_file | Call still front door | user | core | 0 | 1 |  | 01M68WYH4W3H9VRJEKS14Z771T |
+| local_file | Call still garden | user | core | 0 | 1 |  | 01M68WZM25HC95YYVV9535EZVF |
 | matter | Matter | user | core | 0 | 0 |  | 01KA3PMH3S3S2NKH8YHC1QXEWZ |
 | matter | matter | ignore | core | 0 | 0 |  | 01K204FD2BSD6NR0GKTCCXKJBJ |
 | met | Home | user | core | 0 | 1 |  | 01M5WY8VM9XDZG6KWAYRRSC4B9 |
@@ -106,7 +109,7 @@
 | mobile_app | Hannah’s iPhone | registration | core | 0 | 15 |  | 01KA3NG0GJD8CX0MDJDQQJFESA |
 | mobile_app | Hannah’s iPhone13 | registration | core | 0 | 31 |  | 01KWSDY1ZK9AHSVSK293XTD854 |
 | mobile_app | MacBook Pro | registration | core | 0 | 22 |  | c1e2f77695764f64b7d4b620ac9c7781 |
-| mobile_app | Mojgan-iPhone | registration | core | 0 | 12 |  | 01M5ZGAEA19YH1SB8NVQEATDC2 |
+| mobile_app | Mojgan-iPhone | registration | core | 0 | 13 |  | 01M5ZGAEA19YH1SB8NVQEATDC2 |
 | mobile_app | TongaiSM25 | registration | core | 0 | 136 |  | 01K2PQEAENWBCVTRY36CDNNDGE |
 | mobile_app | family_mac | registration | core | 0 | 24 |  | dd4b052e1d5475ec87e7c2ac905c4aa7 |
 | mobile_app | iPad | registration | core | 0 | 10 |  | d9e1afc9673d0cdc068f01f0111d380f |
@@ -152,7 +155,7 @@
 
 | component | version | name | has config entry | docs |
 |---|---|---|---|---|
-| aarlo | 0.8.1.4 | Arlo Camera Support | yes | https://github.com/twrecked/hass-aarlo/blob/master/README.md |
+| aarlo | 0.8.1.27 | Arlo Camera Support | yes | https://github.com/twrecked/hass-aarlo/blob/master/README.md |
 | alexa_media | 5.15.0 | Alexa Media Player | NO — installed but not configured | https://github.com/alandtse/alexa_media_player/wiki |
 | attributes | 1.2.1 | Attributes | NO — installed but not configured | https://github.com/pilotak/homeassistant-attributes |
 | bermuda | 0.8.5 | Bermuda BLE Trilateration | yes | https://github.com/agittins/bermuda |
@@ -171,7 +174,6 @@
 | miele | 2024.3.0 | Miele | yes | https://github.com/astrandb/miele |
 | monitor_docker | 1.10 | Monitor Docker | NO — installed but not configured | https://github.com/ualex73/monitor_docker |
 | myskoda | 1.22.0 | MySkoda | NO — installed but not configured | https://github.com/skodaconnect/homeassistant-myskoda/blob/main/README.md |
-| nest_protect | 0.4.0b5 | Nest Protect | NO — installed but not configured | https://github.com/imicknl/ha-nest-protect |
 | octopusagile | 2021.3.0b0 | octopusagile | NO — installed but not configured | https://github.com/markgdev/home-assistant_OctopusAgile |
 | places | v2.9.0 | Places | yes | https://github.com/custom-components/places |
 | portainer | 0.0.0 | Portainer | NO — installed but not configured | https://github.com/tomaae/homeassistant-portainer |

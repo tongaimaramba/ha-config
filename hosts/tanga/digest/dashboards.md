@@ -13,32 +13,10 @@
 - view **Solar System** — 2 cards (entities×1, vertical-stack×1)
   - entities: sensor.growatt_sph_battery_state_of_charge, sensor.growatt_sph_grid_energy_in, sensor.growatt_sph_grid_energy_out, sensor.growatt_sph_grid_power, sensor.growatt_sph_load_energy, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_energy, sensor.growatt_sph_pv_power
 
-## lovelace.lovelace  — url `lovelace`  title `Overview`  (11287 bytes)
-
-- view **Overview** — 7 cards (glance×3, entities×2, custom:auto-entities×2)
-  - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, event.loft_pir_bedroom_presence_events, group.downstairs_lights, group.eating_lights, group.lounge_lamps, input_boolean.pump_timer, input_number.timer_length, light.bookshelf_lamp, light.isla_wall, light.m_side, light.t_side, lock.mudiki, lock.unlock, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
-- view **Heating** — 4 cards (thermostat×4)
-  - entities: climate.downstairs, climate.friends, climate.main, climate.study
-- view **all of it** — 3 cards (custom:auto-entities×3)
-  - entities: sensor.batteries_battery_level
-- view **Alarm** — 3 cards (picture-entity×2, custom:aarlo-glance×1)
-  - entities: camera.aarlo_swings, camera.backyard, camera.camera, light.aarlo_front_light
-
 ## lovelace.lovelace_guest  — url `lovelace-guest`  title `Guest `  (1658 bytes)
 
 - view **Home** — 1 cards (glance×1)
   - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, lock.mudiki, lock.unlock
-
-## lovelace.lovelace_new  — url `lovelace-new`  title `Smarthome`  (16849 bytes)
-
-- view **Overview** — 5 cards (glance×3, custom:auto-entities×2)
-  - entities: binary_sensor.front_contact, binary_sensor.garage_out_contact, group.downstairs_lights, group.eating_lights, group.lounge_lamps, group.upstairs_lights, input_boolean.pump_timer, input_number.timer_length, light.bookshelf_lamp, light.isla_wall, light.m_side, light.t_side, lock.mudiki, lock.unlock, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
-- view **Heating** — 4 cards (thermostat×4)
-  - entities: climate.downstairs, climate.friends, climate.main, climate.study
-- view **House Lights** — 11 cards (entities×11)
-  - entities: binary_sensor.loft_hatch_contact, group.downstairs_lights, group.hall_lights, group.isla_lights, group.kitchen_lights, group.lounge_lamps, group.lounge_spots, group.main_lights, group.upstairs_lights, group.utility_laundry_lights, group.utility_lights, group.utility_pantry_lights, light.armchair_lamp, light.bathroom_sink, light.bookshelf_lamp, light.coats, light.dining_spotlights, light.hall_spotlights, light.isla_spotlights, light.isla_wall, light.kitchen_spotlights, light.kitchen_worktop, light.loft_main, light.lounge_lamp_1, light.lounge_lamp_2, light.lounge_pendant, light.lounge_spotlights, light.m_side, light.main_spotlights, light.movie_lamp, light.study_desk_lamp, light.t_side, switch.sonoff_100125dac5
-- view **Alarm** — 7 cards (entities×2, custom:auto-entities×2, picture-entity×2, custom:aarlo-glance×1)
-  - entities: binary_sensor.bathroom_window_acceleration, binary_sensor.bay_party_wall_acceleration, binary_sensor.bay_window_acceleration, binary_sensor.front_acceleration, binary_sensor.garage_out_acceleration, binary_sensor.guest_win_acceleration, binary_sensor.kitchen_acceleration, binary_sensor.landing_window_acceleration, binary_sensor.main_window_acceleration, binary_sensor.main_window_party_acceleration, binary_sensor.patio_door_acceleration, binary_sensor.utility_back_door_acceleration, camera.aarlo_swings, camera.backyard, camera.camera, group.perimeter_contact, group.perimeter_movement, light.aarlo_front_light
 
 ## lovelace.lovelace_tab  — url `lovelace-tab`  title `tab`  (75477 bytes)
 

@@ -1,0 +1,6 @@
+# Call check (M2-O): the gate of the call_context AppDaemon app's one action, a still from each camera when a child's
+# call starts (Arlo's battery camera wakes once per call). The page works without it. Manual fallback: the camera apps.
+input_boolean:
+  call_check_enabled:
+    name: Call check stills
+    icon: mdi:camera-burst

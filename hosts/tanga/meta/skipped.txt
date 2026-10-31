@@ -3,7 +3,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
 home-assistant_v2.db (18479435776 bytes) — db/log/binary
 home-assistant_v2.db-shm (65536 bytes) — db/log/binary
-home-assistant_v2.db-wal (6225352 bytes) — db/log/binary
+home-assistant_v2.db-wal (5471392 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -27,6 +27,7 @@ home-assistant_v2.db-wal (6225352 bytes) — db/log/binary
 .storage/esphome.01K9ZCAWGKG7HZTP4QA157BYAK — not in allow-list
 .storage/esphome.01KAQ1SN0PBA2SKVC9C5E079N4 — not in allow-list
 .storage/esphome.01KBJ34A95VAG6DK4BT5538TWT — not in allow-list
+.storage/esphome.01M6444G8WGGPX24F3B2M38D1N — not in allow-list
 .storage/esphome.39a67c9db005c4430e20ccafb0012f4c — not in allow-list
 .storage/esphome.5f3decfc9356c5b361239eabda83a811 — not in allow-list
 .storage/esphome.9986fbb44afda2ba99006372152f47da — not in allow-list

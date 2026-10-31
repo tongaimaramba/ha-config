@@ -1,0 +1,120 @@
+# Connections health (Tongai 2026-10-29). House ops → Health watched the climate devices, batteries, SmartThings and
+# the bridge, but not the other integrations: on 2026-10-28 21:48 tanga's MQTT login started failing ("Not
+# authorized") and all 65 solar sensors and the solar automations went dark unnoticed for ~15 h. One key entity per
+# integration stands in for it (Tuya left out: its only devices are wall lights, often switched off at the wall;
+# Nest Protect dropped 2026-10-29, too fragile): unavailable or unknown for 30 min+ = that connection is down (a lapsed sign-in, a
+# broker refusing HA, a device off the network). The climate devices have their own check (climate_health.yaml), and
+# sign-ins that HA raises as a repair alert straight away (climate_health_reauth_needed).
+# Gate: input_boolean.connections_health_enabled (starts off, hard rule 6). Manual fallback: Settings → Devices &
+# services on tanga (a red integration). Owner: tanga (platform health).
+
+input_boolean:
+  connections_health_enabled:
+    name: Connection alerts
+    icon: mdi:lan-disconnect
+
+template:
+  - sensor:
+      # Edit the dict to add a connection: what it is → its key entity. Down = unavailable/unknown for 30 min+
+      # (an HA restart resets last_changed, so a dead one shows 30 min after a restart).
+      - name: Connections down
+        unique_id: connections_health_down
+        icon: mdi:lan-disconnect
+        state: >-
+          {% set watch = {
+               'Solar inverter (MQTT)': 'sensor.growatt_sph_pv_power',
+               'Solar cloud (Growatt)': 'sensor.tojgan_solar_total_output_power',
+               'Hue': 'binary_sensor.coats_motion',
+               'Nest cameras': 'camera.camera',
+               'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
+               'Volvo': 'sensor.garage_vivo_battery',
+               'Alexa': 'binary_sensor.the_loft_connectivity',
+               'Met.no weather': 'weather.garden_outside_weather_home' } %}
+          {% set ns = namespace(n=0) %}
+          {% for name, e in watch.items() %}
+            {% set s = expand(e) | first | default(none) %}
+            {% if s is none or (s.state in ['unavailable', 'unknown']
+                                and (now() - s.last_changed).total_seconds() > 1800) %}
+              {% set ns.n = ns.n + 1 %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.n }}
+        attributes:
+          devices: >-
+            {% set watch = {
+                 'Solar inverter (MQTT)': 'sensor.growatt_sph_pv_power',
+                 'Solar cloud (Growatt)': 'sensor.tojgan_solar_total_output_power',
+                 'Hue': 'binary_sensor.coats_motion',
+                 'Nest cameras': 'camera.camera',
+                 'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
+                 'Volvo': 'sensor.garage_vivo_battery',
+                 'Alexa': 'binary_sensor.the_loft_connectivity',
+                 'Met.no weather': 'weather.garden_outside_weather_home' } %}
+            {% set ns = namespace(out=[]) %}
+            {% for name, e in watch.items() %}
+              {% set s = expand(e) | first | default(none) %}
+              {% if s is none or (s.state in ['unavailable', 'unknown']
+                                  and (now() - s.last_changed).total_seconds() > 1800) %}
+                {% set ns.out = ns.out + [name] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.out }}
+
+automation:
+  # A connection newly down (30 min, in the sensor): quiet alert naming it. Fallback: Settings → Devices & services.
+  - id: connections_health_down
+    alias: Connections - down
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.connections_down
+        attribute: devices
+        for: {minutes: 5}  # an integration reload or retry removes its entities briefly: no push for that (review)
+    conditions:
+      - condition: state
+        entity_id: input_boolean.connections_health_enabled
+        state: "on"
+      # only names that weren't down before (a restart or reload starts from no list: ignored)
+      - condition: template
+        value_template: >-
+          {{ trigger.from_state is not none
+             and trigger.from_state.state not in ['unavailable', 'unknown']
+             and trigger.from_state.attributes.devices is defined
+             and (trigger.to_state.attributes.devices or []) | reject('in', trigger.from_state.attributes.devices)
+                 | list | count > 0 }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Connection down
+          message: >-
+            {{ (trigger.to_state.attributes.devices or [])
+               | reject('in', trigger.from_state.attributes.devices or []) | join(', ') }} · 30 min · tanga
+          data:
+            tag: connections_health_down
+            channel: Home status
+            importance: low
+
+  # Every 3 hours from 08:00 to 20:00 while something is still down: a reminder, since the
+  # "newly down" alert can't see what was already down. Fallback: House ops → Health.
+  - id: connections_health_still_down
+    alias: Connections - still down
+    mode: single
+    triggers:
+      - trigger: time
+        at: ["08:00:00", "11:00:00", "14:00:00", "17:00:00", "20:00:00"]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.connections_health_enabled
+        state: "on"
+      - condition: numeric_state
+        entity_id: sensor.connections_down
+        above: 0
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "Still down: {{ states('sensor.connections_down') }}"
+          message: "{{ state_attr('sensor.connections_down', 'devices') | join(', ') }} · tanga"
+          data:
+            tag: connections_health_down
+            channel: Home status
+            importance: low

@@ -1,7 +1,9 @@
 entity_id	platform	config_entry	device	area	name	disabled_by	hidden_by	unique_id
 air_quality.bedroom	dyson				Bedroom	user		VS7-UK-MFA2757A
 air_quality.upstairs	dyson				Upstairs	user		ZZ9-UK-NEA5537A
-alarm_control_panel.aarlo_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln		tojgarln			tojgarln
+alarm_control_panel.aarlo_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com	Garden	location_Home			location_home
+alarm_control_panel.aarlo_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	tojgarln			tojgarln
+alarm_control_panel.aarlo_user_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com	Garden	user_location_Home			user_location_home
 automation.ac_alexa_helper_fan_speed	automation				AC Alexa Helper - Fan Speed			1752418667570
 automation.ac_alexa_helper_snooze	automation				AC Alexa Helper - Snooze			1752418702841
 automation.ac_energy_saver_automation	automation				AC Energy Saver Automation			1752418581260
@@ -22,6 +24,8 @@ automation.climate_health_device_went_silent	automation				Climate health - devi
 automation.climate_health_devices_recovered	automation				Climate health - devices recovered			climate_health_devices_recovered
 automation.climate_health_integration_needs_signing_in	automation				Climate health - integration needs signing in			climate_health_reauth_needed
 automation.climate_health_smartthings_out_of_sync	automation				Climate health - SmartThings temperatures differ between boxes			climate_health_smartthings_sync
+automation.connections_down	automation				Connections - down			connections_health_down
+automation.connections_still_down	automation				Connections - still down			connections_health_still_down
 automation.dawn_lamp	automation				Dawn lamp			1739571868760
 automation.domane_alarm	automation				Domane alarm			1722015002107
 automation.domane_alert	automation				Domane alert			1722017723783
@@ -46,14 +50,16 @@ automation.manage_loft_blind	automation				Manage Loft Blind			1704312712410
 automation.manager_car_perimeter_alarm	automation				Manager Car Perimeter Alarm			1691440079846
 automation.mojgan_iphone_wifi	automation				Mojgan Iphone WiFi			1606917291219
 automation.morning	automation				Morning 			1642112099034
+automation.nfc_normalise_scans	automation				NFC - normalise scans			nfc_normalise
+automation.nfc_test_alert	automation				NFC - test alert			nfc_test_alert
 automation.on_air	automation				On air - Meta laptop			1703931685757
 automation.on_air_desk_button	automation				[out of date] On air desk button			1703971587073
 automation.on_air_light_family_mbp	automation				On-air - Family laptop			1708505312139
-automation.panic_button_offline	automation				Panic - button offline			panic_button_offline
-automation.panic_button_pressed	automation				Panic - button pressed			panic_pressed
-automation.panic_clear	automation				Panic - clear			panic_clear
-automation.panic_monthly_test_reminder	automation				Panic - monthly test reminder			panic_monthly_test
-automation.panic_received	automation				Panic - received			panic_received
+automation.panic_button_offline	automation				Call button - offline			panic_button_offline
+automation.panic_button_pressed	automation				Call button - pressed			panic_pressed
+automation.panic_clear	automation				Call button - all sorted			panic_clear
+automation.panic_monthly_test_reminder	automation				Call buttons - monthly check			panic_monthly_test
+automation.panic_received	automation				Call button - I'm coming			panic_received
 automation.parents_presence	automation				Parents Presence 			1690232792612
 automation.patio_and_lamps_on	automation				patio and lamps			1641497968693
 automation.patio_and_worktop	automation				patio and worktop			1642517830283
@@ -86,13 +92,13 @@ automation.test_temp_wait	automation				test temp wait			1709909184554
 automation.timed_pump	automation				timed pump			1668696568745
 automation.work_status	automation				Work Status 			1703934406917
 automation.work_status_bookends	automation				Work Status Bookends			1704793770116
-binary_sensor.aarlo_connected_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Connected Garden C			connected_garden_c
-binary_sensor.aarlo_connected_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Connected swings			connected_swings
-binary_sensor.aarlo_connected_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln		Connected tojgarln			connected_tojgarln
-binary_sensor.aarlo_motion_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Motion Garden C			motion_garden_c
-binary_sensor.aarlo_motion_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Motion swings			motion_swings
-binary_sensor.aarlo_sound_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Sound Garden C			sound_garden_c
-binary_sensor.aarlo_sound_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Sound swings			sound_swings
+binary_sensor.aarlo_connected_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Connected Garden C			connected_garden_c
+binary_sensor.aarlo_connected_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Connected swings	device		connected_swings
+binary_sensor.aarlo_connected_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	Connected tojgarln			connected_tojgarln
+binary_sensor.aarlo_motion_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Motion Garden C			motion_garden_c
+binary_sensor.aarlo_motion_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Motion swings	device		motion_swings
+binary_sensor.aarlo_sound_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Sound Garden C			sound_garden_c
+binary_sensor.aarlo_sound_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Sound swings	device		sound_swings
 binary_sensor.advanced_ssh_web_terminal_running	hassio	Supervisor	Advanced SSH & Web Terminal		Running	integration		ccf28a08_ssh_state
 binary_sensor.appdaemon_4_running	hassio	Supervisor	AppDaemon		Running			a0d7b954_appdaemon_state
 binary_sensor.appdaemon_4_update_available	hassio	Supervisor	AppDaemon		Update available	integration		a0d7b954_appdaemon_update_available
@@ -114,6 +120,7 @@ binary_sensor.coats_motion	hue	Hue Bridge 0017882791a0	Coats	Hallway	Motion			26
 binary_sensor.coats_motion_2	hue	Hue Bridge 0017882791a0	Coats	Coats	Motion			9fffb4ac-6b8b-43e9-83e9-ac66fff9499d
 binary_sensor.domane_lost	tile	tongaimaramba@gmail.com	Domane	Garage	Lost			tongaimaramba@gmail.com_93a9f62adee24a79_lost
 binary_sensor.downstairs_indoor_movement	group	Downstairs Indoor Movement			Downstairs Indoor Movement			60bed65316a7857969c58ad2fcbf18f9
+binary_sensor.ellie_s_call_button_panic	esphome	Ellie's call button	Ellie's call button	Ellies Bedroom	Panic			50:78:7D:CD:2E:F8/0/binary_sensor/Panic
 binary_sensor.ellie_s_gym_bag_lost	tile	tongaimaramba@gmail.com	Ellie's Gym Bag		Lost			tongaimaramba@gmail.com_e4bba3984d007315_lost
 binary_sensor.ellie_s_hockey_bag_lost	tile	tongaimaramba@gmail.com	Ellie's Hockey Bag		Lost			tongaimaramba@gmail.com_3c22b05cbd0f0356_lost
 binary_sensor.ellie_s_phone_lost	tile	tongaimaramba@gmail.com	Ellie's Phone		Lost			tongaimaramba@gmail.com_3c9084d6616575bd_lost
@@ -205,10 +212,9 @@ binary_sensor.garmin_device_battery_is_charging	mobile_app	Garmin Device	Garmin 
 binary_sensor.get_hacs_running	hassio	Supervisor	Get HACS		Running	integration		cb646a50_get_state
 binary_sensor.guest_win_acceleration	smartthings	My home	Guest Win	Study	Acceleration			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_accelerationSensor_acceleration_acceleration
 binary_sensor.guest_win_door	smartthings	My home	Guest Win	Study	Door			90c6a3f6-77e5-4205-8782-c6828e52bf60_main_contactSensor_contact_contact
-binary_sensor.h_panic	esphome	Loft Controller	Hannah panic button	Hannahs Bedroom	Panic			F4:65:0B:07:AB:34/0/binary_sensor/Panic
+binary_sensor.h_panic	esphome	Loft Controller	Hannah's call button	Hannahs Bedroom	Button held			F4:65:0B:07:AB:34/0/binary_sensor/Panic
 binary_sensor.hannah_hockey_bag_lost	tile	tongaimaramba@gmail.com	Hannah Hockey Bag		Lost			tongaimaramba@gmail.com_4bead49220aebc67_lost
 binary_sensor.hannah_keys_lost	tile	tongaimaramba@gmail.com	Hannah Keys	Coats	Lost			tongaimaramba@gmail.com_3f1f04667e938b3e_lost
-binary_sensor.hannah_panic	template				Hannah panic			panic_hannah_latched
 binary_sensor.hannah_s_room_connectivity	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Connectivity			G8M2HQ04405203XR-online
 binary_sensor.hannahs_iphone13_camera_motion	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Motion	integration		5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_cameraMotion
 binary_sensor.hannahs_iphone13_focus	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Focus			5a0399337c77622c5b3b0e5e6968e03df905618dd2d1720561ce04d0e5086078_focus
@@ -368,9 +374,12 @@ button.tongaimaramba_gmail_com_warm_up_eva	alexa_devices	tongaimaramba@gmail.com
 button.tongaimaramba_gmail_com_warm_up_the_loft	alexa_devices	tongaimaramba@gmail.com	tongaimaramba@gmail.com		warm up the loft			amzn1_account_afh2eziif3u7fwafpjodjmjg4lea-warm_up_the_loft
 button.write_tag_random	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			KITCHEN-NFC-button-write_tag_random
 button.write_tag_random_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			40:91:51:4E:DB:EA/0/button/Write Tag Random
-camera.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C			garden_c
-camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings			swings
+camera.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Garden C			garden_c
+camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings	device		swings
 camera.backyard	nest	Configuration.yaml	Garden A	Garden				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera
+camera.call_still_back_fence	local_file	Call still back fence			Call still back fence			01M68PGRS2NVXVK1XRCDZPPE1S
+camera.call_still_front_door	local_file	Call still front door			Call still front door			01M68WYH4W3H9VRJEKS14Z771T
+camera.call_still_garden	local_file	Call still garden			Call still garden			01M68WZM25HC95YYVV9535EZVF
 camera.camera	nest	Configuration.yaml	Front Door	Hallway				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-camera
 climate.downstairs_2	nest	Configuration.yaml	Downstairs	Downstairs				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA
 climate.ellies_bedroom_ellie_ac	fujitsu_airstage	local - 50BBB5FFAB85	Ellie AC	Ellies Bedroom				50BBB5FFAB85
@@ -432,6 +441,7 @@ device_tracker.care_1f40	ibeacon	iBeacon Tracker	CARe 1F40					8063ae90-d8b7-11e
 device_tracker.care_2289	ibeacon	iBeacon Tracker	CARe 2289					8063ae90-d8b7-11e6-9598-0800200c9a66_8841_22791_B4:B8:59:07:22:89
 device_tracker.care_364f	ibeacon	iBeacon Tracker	CARe 364F					8063ae90-d8b7-11e6-9598-0800200c9a66_13903_22854_B4:B8:59:46:36:4F
 device_tracker.care_375c	ibeacon	iBeacon Tracker	CARe 375C					8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C
+device_tracker.care_387b	ibeacon	iBeacon Tracker	CARe 387B					8063ae90-d8b7-11e6-9598-0800200c9a66_14459_22841_B4:B8:59:39:38:7B
 device_tracker.care_3ea5	ibeacon	iBeacon Tracker	CARe 3EA5					8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5
 device_tracker.care_4d06	ibeacon	iBeacon Tracker	CARe 4D06					8063ae90-d8b7-11e6-9598-0800200c9a66_19718_22798_B4:B8:59:0E:4D:06
 device_tracker.care_50ac	ibeacon	iBeacon Tracker	CARe 50AC					8063ae90-d8b7-11e6-9598-0800200c9a66_20652_22791_B4:B8:59:07:50:AC
@@ -679,16 +689,20 @@ fan.pure_cool	dyson_local	Pure Cool	Pure Cool	Main Bedroom	Pure Cool			VS7-UK-MF
 fan.pure_hot_cool	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool			ZZ9-UK-NEA5537A
 input_boolean.a_parent_home	input_boolean				A Parent Home			a_parent_home
 input_boolean.ac_shadow_enabled	input_boolean				AC alerts shadow			ac_shadow_enabled
+input_boolean.alarm_shadow_enabled	input_boolean				Alarm shadow			alarm_shadow_enabled
 input_boolean.all_parents_home	input_boolean				All Parents Home			parents_home
 input_boolean.audio_switch	input_boolean				audio-switch			audio_switch
+input_boolean.auto_unlock_shadow_enabled	input_boolean				Auto-unlock shadow			auto_unlock_shadow_enabled
 input_boolean.away_on_holiday	input_boolean				away on holiday			just_got_home
 input_boolean.battery_charging_window	input_boolean				Battery Charging Window			battery_charging_window
 input_boolean.bedroom_presence_debug	input_boolean				Bedroom Presence Debug			bedroom_presence_debug
 input_boolean.boiler_alert_enabled	input_boolean				Boiler failure alerts			boiler_alert_enabled
 input_boolean.boiler_anomaly_alert	input_boolean				boiler_anomaly_alert			boiler_anomaly_alert
+input_boolean.call_check_enabled	input_boolean				Call check stills			call_check_enabled
 input_boolean.climate_health_alert_active	input_boolean				Climate health alert active			climate_health_alert_active
 input_boolean.climate_health_enabled	input_boolean				Climate health alerts			climate_health_enabled
 input_boolean.comfort_model_enabled	input_boolean				Comfort model			comfort_model_enabled
+input_boolean.connections_health_enabled	input_boolean				Connection alerts			connections_health_enabled
 input_boolean.dawn_lamp	input_boolean				Dawn lamp			dawn_lamp
 input_boolean.device_presence	input_boolean				device_presence			device_presence
 input_boolean.disable_auto_modes	input_boolean				Disable Alarm Auto Modes			just_knocked
@@ -706,6 +720,7 @@ input_boolean.mock_tap_front_door	input_boolean				Mock Tap Front Door			mock_ta
 input_boolean.mock_tap_front_door_cooldown	input_boolean				mock_tap_front_door_cooldown			mock_tap_front_door_cooldown
 input_boolean.mock_tap_garage	input_boolean				Mock Tap Garage			mock_tap_garage
 input_boolean.mock_tap_garage_cooldown	input_boolean				mock_tap_garage_cooldown			mock_tap_garage_cooldown
+input_boolean.mode_detector_enabled	input_boolean				Mode detector			mode_detector_enabled
 input_boolean.morning_heater	input_boolean				morning heater			morning_heater
 input_boolean.motion_logger_start_hannah	input_boolean				Hannah			hannah
 input_boolean.motion_logger_start_mojgan	input_boolean				Mojgan			mojgan
@@ -714,9 +729,12 @@ input_boolean.motion_logger_stop	input_boolean				Stop Recording			stop_recordin
 input_boolean.motion_recording_active	input_boolean				Motion Recording Active			motion_recording_active
 input_boolean.mute_alarm	input_boolean				Mute Alarm			m
 input_boolean.nearly_home	input_boolean				Nearly Home			nearly_home
+input_boolean.nfc_enabled	input_boolean				NFC scans			nfc_enabled
+input_boolean.nfc_test_alerts_enabled	input_boolean				NFC test alerts			nfc_test_alerts_enabled
 input_boolean.notify_mojgan	input_boolean				Mojgan alerts			notify_mojgan
-input_boolean.panic_active_hannah	input_boolean				Hannah panic active			panic_active_hannah
-input_boolean.panic_enabled	input_boolean				Panic buttons			panic_enabled
+input_boolean.panic_active_ellie	input_boolean				Ellie's call active			panic_active_ellie
+input_boolean.panic_active_hannah	input_boolean				Hannah's call active			panic_active_hannah
+input_boolean.panic_enabled	input_boolean				Call buttons			panic_enabled
 input_boolean.pump_timer	input_boolean				pump_timer			pump_timer
 input_boolean.relaunch	input_boolean				relaunch			relaunch
 input_boolean.room_climate_enabled	input_boolean				Room climate shadow			room_climate_enabled
@@ -736,8 +754,10 @@ input_button.delete_all_fingerprints	input_button				Delete All Fingerprints			d
 input_button.delete_fingerprint	input_button				Delete Fingerprint			delete_fingerprint
 input_button.enroll_fingerprint	input_button				Enroll Fingerprint			enroll_fingerprint
 input_button.fp_lockout_reset	input_button				Reset FP Lockout			fp_lockout_reset
-input_button.panic_clear_hannah	input_button				Hannah: clear			panic_clear_hannah
-input_button.panic_received_hannah	input_button				Hannah: received			panic_received_hannah
+input_button.panic_clear_ellie	input_button				All sorted			panic_clear_ellie
+input_button.panic_clear_hannah	input_button				All sorted			panic_clear_hannah
+input_button.panic_received_ellie	input_button				I'm coming			panic_received_ellie
+input_button.panic_received_hannah	input_button				I'm coming			panic_received_hannah
 input_button.speedtest	input_button				Speedtest			speedtest
 input_button.tado_cloud_refresh	input_button				tado refresh now			tado_cloud_refresh
 input_button.tado_cloud_sign_in	input_button				tado sign in			tado_cloud_sign_in
@@ -766,6 +786,7 @@ input_number.monitor_action	input_number				Monitor Action			monitor_action
 input_number.off_peak_electric	input_number				Peak Grid Consumption Today			off_peak_electric
 input_number.peak_electric_price	input_number				Peak Electric Price			peak_electric_price
 input_number.timer_length	input_number				timer length			timer_length
+input_select.alarm_mode	input_select				Alarm mode			alarm_mode
 input_select.calibration_location	input_select				Calibration Location			calibration_location
 input_select.fp_enroll_finger	input_select				Finger Name			fp_enroll_finger
 input_select.guest_access	input_select				Manage Guest Access			guest_access
@@ -800,8 +821,8 @@ input_text.runtime	input_text				runtime			runtime
 input_text.smartthings_last_error	input_text				SmartThings last error			smartthings_last_error
 input_text.valid_button_sequence	input_text				fp_valid_button_sequence			valid_button_sequence
 input_text.web	input_text				Web			web
-light.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C			garden_c
-light.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings			swings
+light.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Garden C			garden_c
+light.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings	device		swings
 light.bathroom	hue	Hue Bridge 0017882791a0	Bathroom	Bathroom		integration		a05e5b21-c560-4e2a-bb22-aaf51584e558
 light.bathroom_heating	hue	Hue Bridge 0017882791a0	Christmas!	Bathroom heating		integration		ecd59202-39f2-47d2-8e8b-0e01985b1c16
 light.bathroom_sink	hue	Hue Bridge 0017882791a0	Bathroom Sink	Bathroom				e1f392fd-0175-4169-93a4-764ab59a0060
@@ -918,7 +939,6 @@ notify.ellie_s_room_speak	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Sp
 notify.everywhere_announce	alexa_devices	tongaimaramba@gmail.com	Everywhere		Announce			0b54411565704c5582f7af413d4c86b1-announce
 notify.family_mac	mobile_app	family_mac	family_mac					459BAD8B-5140-5A8F-A332-79EBDE949618
 notify.family_mbp	mobile_app	MacBook Pro	family-mbp					1AF77685-A533-55FA-A755-BD3B1768556E
-notify.file	file	Notify [/config/calibration_snapshots.csv]			File			01K9YE9R5FQJQPAFSR0HPVTMY9
 notify.hannah_s_room_announce	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Announce			G8M2HQ04405203XR-announce
 notify.hannah_s_room_speak	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Speak			G8M2HQ04405203XR-speak
 notify.hannahs_iphone	mobile_app	Hannah’s iPhone	Hannah’s iPhone					A8591101-F5CB-443D-A0B8-FD57A937E457
@@ -1114,6 +1134,7 @@ script.manage_fp_metadata	script				Manage FP Metadata			manage_fp_metadata
 script.manage_guest_access	script				manage_guests			manage_guest_access
 script.movie_lights	script				Movie Lights			movie_lights
 script.nearly_home	script				Nearly Home			nearly_home
+script.nfc_scan	script				NFC scan (iPhone Shortcuts)			nfc_scan
 script.open_nuki_momentary	script				Open Nuki - momentary			open_nuki_momentary
 script.relaunch_apps	script				Relaunch Apps			relaunch_apps
 script.reset_all_ac_flags	script				Reset All AC Flags			reset_all_ac_flags
@@ -1175,17 +1196,17 @@ sensor.976_2e61_estimated_distance	ibeacon	iBeacon Tracker	976 2E61		Estimated d
 sensor.976_2e61_power	ibeacon	iBeacon Tracker	976 2E61		Power	integration		fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DC:0D:30:79:2E:61_power
 sensor.976_2e61_signal_strength	ibeacon	iBeacon Tracker	976 2E61		Signal strength	integration		fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DC:0D:30:79:2E:61_rssi
 sensor.976_2e61_vendor	ibeacon	iBeacon Tracker	976 2E61		Vendor	integration		fda50693-a4e2-4fb1-afcf-c6eb07647825_10065_26049_DC:0D:30:79:2E:61_vendor
-sensor.aarlo_battery_level_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Battery Level Garden C			battery_level_garden_c
-sensor.aarlo_battery_level_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Battery Level swings			battery_level_swings
-sensor.aarlo_captured_today_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Captured Today Garden C			captured_today_garden_c
-sensor.aarlo_captured_today_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Captured Today swings			captured_today_swings
-sensor.aarlo_last_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Last Garden C			last_garden_c
-sensor.aarlo_last_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Last swings			last_swings
-sensor.aarlo_recent_activity_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Recent Activity Garden C			recent_activity_garden_c
-sensor.aarlo_recent_activity_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Recent Activity swings			recent_activity_swings
-sensor.aarlo_signal_strength_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Signal Strength Garden C			signal_strength_garden_c
-sensor.aarlo_signal_strength_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		Signal Strength swings			signal_strength_swings
-sensor.aarlo_total_cameras	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER		Arlo Cameras			total_cameras
+sensor.aarlo_battery_level_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Battery Level Garden C			battery_level_garden_c
+sensor.aarlo_battery_level_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Battery Level swings	device		battery_level_swings
+sensor.aarlo_captured_today_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Captured Today Garden C			captured_today_garden_c
+sensor.aarlo_captured_today_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Captured Today swings	device		captured_today_swings
+sensor.aarlo_last_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Last Garden C			last_garden_c
+sensor.aarlo_last_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Last swings	device		last_swings
+sensor.aarlo_recent_activity_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Recent Activity Garden C			recent_activity_garden_c
+sensor.aarlo_recent_activity_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Recent Activity swings	device		recent_activity_swings
+sensor.aarlo_signal_strength_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Signal Strength Garden C			signal_strength_garden_c
+sensor.aarlo_signal_strength_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Signal Strength swings	device		signal_strength_swings
+sensor.aarlo_total_cameras	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	Arlo Cameras			total_cameras
 sensor.abnormal_hr_counts	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Abnormal HR Counts	integration		tongaimaramba@gmail.com_abnormalHeartRateAlertsCount
 sensor.accm92523e1d3eccde5e_106b_estimated_distance	ibeacon	iBeacon Tracker	ACCM92523e1d3eccde5e 106B		Estimated distance			4340640c-cc56-5c2c-bace-d13a2b2a1ffe_0_56926_CC:CC:CC:34:10:6B_estimated_distance
 sensor.accm92523e1d3eccde5e_106b_power	ibeacon	iBeacon Tracker	ACCM92523e1d3eccde5e 106B		Power	integration		4340640c-cc56-5c2c-bace-d13a2b2a1ffe_0_56926_CC:CC:CC:34:10:6B_power
@@ -1485,6 +1506,10 @@ sensor.care_375c_estimated_distance	ibeacon	iBeacon Tracker	CARe 375C		Estimated
 sensor.care_375c_power	ibeacon	iBeacon Tracker	CARe 375C		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C_power
 sensor.care_375c_signal_strength	ibeacon	iBeacon Tracker	CARe 375C		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C_rssi
 sensor.care_375c_vendor	ibeacon	iBeacon Tracker	CARe 375C		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14172_22841_B4:B8:59:39:37:5C_vendor
+sensor.care_387b_estimated_distance	ibeacon	iBeacon Tracker	CARe 387B		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_14459_22841_B4:B8:59:39:38:7B_estimated_distance
+sensor.care_387b_power	ibeacon	iBeacon Tracker	CARe 387B		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14459_22841_B4:B8:59:39:38:7B_power
+sensor.care_387b_signal_strength	ibeacon	iBeacon Tracker	CARe 387B		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14459_22841_B4:B8:59:39:38:7B_rssi
+sensor.care_387b_vendor	ibeacon	iBeacon Tracker	CARe 387B		Vendor	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_14459_22841_B4:B8:59:39:38:7B_vendor
 sensor.care_3ea5_estimated_distance	ibeacon	iBeacon Tracker	CARe 3EA5		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5_estimated_distance
 sensor.care_3ea5_power	ibeacon	iBeacon Tracker	CARe 3EA5		Power	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5_power
 sensor.care_3ea5_signal_strength	ibeacon	iBeacon Tracker	CARe 3EA5		Signal strength	integration		8063ae90-d8b7-11e6-9598-0800200c9a66_16037_22850_B4:B8:59:42:3E:A5_rssi
@@ -1633,6 +1658,7 @@ sensor.coats_light_level	hue	Hue Bridge 0017882791a0	Coats	Hallway	Illuminance		
 sensor.coats_temperature	hue	Hue Bridge 0017882791a0	Coats	Hallway	Temperature			72079f56-5469-4973-85f6-812e27e501f7
 sensor.coats_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Coats	Hallway	Zigbee connectivity	integration		d8de33e9-b138-437d-9a08-e94ad16a1fa6
 sensor.coats_zigbee_connectivity_2	hue	Hue Bridge 0017882791a0	Coats	Hallway	Zigbee connectivity	integration		6e69e53c-94ac-45a1-bfe2-677c61edca53
+sensor.connections_down	template				Connections down			connections_health_down
 sensor.consumed_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Consumed KiloCalories	integration		tongaimaramba@gmail.com_consumedKilocalories
 sensor.daily_step_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Daily Step Goal			tongaimaramba@gmail.com_dailyStepGoal
 sensor.devices_silent	template				Devices silent			climate_health_devices_silent
@@ -1796,6 +1822,7 @@ sensor.ellie_nokia_phone_distance_to_bedroom_presence	bermuda	Bermuda BLE Trilat
 sensor.ellie_nokia_phone_distance_to_loft_controller	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Distance to Loft Controller	integration		64:16:66:71:9f:74_f4:65:0b:07:ab:34_range
 sensor.ellie_nokia_phone_unfiltered_distance_to_bedroom_presence	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Unfiltered Distance to Bedroom Presence	integration		64:16:66:71:9f:74_d8:3b:da:75:e6:90_range_raw
 sensor.ellie_nokia_phone_unfiltered_distance_to_loft_controller	bermuda	Bermuda BLE Trilateration	Ellie Nokia Phone	Home General	Unfiltered Distance to Loft Controller	integration		64:16:66:71:9f:74_f4:65:0b:07:ab:34_range_raw
+sensor.ellie_s_call	template				Ellie's call			call_ellie_state
 sensor.ellie_s_room_next_alarm	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Next alarm			G8M2HP06432400NL-Alarm
 sensor.ellie_s_room_next_reminder	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Next reminder			G8M2HP06432400NL-Reminder
 sensor.ellie_s_room_next_timer	alexa_devices	tongaimaramba@gmail.com	Ellie's Room		Next timer			G8M2HP06432400NL-Timer
@@ -2006,6 +2033,7 @@ sensor.hannah_keys_distance_to_loft_controller	bermuda	Bermuda BLE Trilateration
 sensor.hannah_keys_unfiltered_distance_to_bedroom_presence	bermuda	Bermuda BLE Trilateration	Hannah Keys		Unfiltered Distance to Bedroom Presence	integration		ff:1f:04:66:7e:93_d8:3b:da:75:e6:90_range_raw
 sensor.hannah_keys_unfiltered_distance_to_loft_controller	bermuda	Bermuda BLE Trilateration	Hannah Keys		Unfiltered Distance to Loft Controller	integration		ff:1f:04:66:7e:93_f4:65:0b:07:ab:34_range_raw
 sensor.hannah_locator	places	Hannah Locator			Hannah Locator			fe5fc48b3a5e2f34b1d96b582490f9fe
+sensor.hannah_s_call	template				Hannah's call			call_hannah_state
 sensor.hannah_s_room_next_alarm	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next alarm			G8M2HQ04405203XR-Alarm
 sensor.hannah_s_room_next_reminder	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next reminder			G8M2HQ04405203XR-Reminder
 sensor.hannah_s_room_next_timer	alexa_devices	tongaimaramba@gmail.com	Hannah's Room		Next timer			G8M2HQ04405203XR-Timer
@@ -2343,6 +2371,7 @@ sensor.mojgan_iphone_battery_level	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojga
 sensor.mojgan_iphone_battery_state	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Battery State			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_battery_state
 sensor.mojgan_iphone_bssid	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone BSSID			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_bssid
 sensor.mojgan_iphone_connection_type	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Connection Type			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_connection_type
+sensor.mojgan_iphone_geocoded_location	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Geocoded Location			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_geocoded_location
 sensor.mojgan_iphone_last_update_trigger	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone Last Update Trigger			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_last_update_trigger
 sensor.mojgan_iphone_sim_1	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone SIM 1			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_sim_1
 sensor.mojgan_iphone_sim_2	mobile_app	Mojgan-iPhone	Mojgan-iPhone		Mojgan-iPhone SIM 2			a92852ede7e5f8255c54ab37b7aa40f8d1509df433d14885498e3fa98dfb5db1_connectivity_sim_2
@@ -2986,14 +3015,14 @@ sensor.z_wave_js_cpu_percent	hassio	Supervisor	Z-Wave JS		CPU percent	integratio
 sensor.z_wave_js_memory_percent	hassio	Supervisor	Z-Wave JS		Memory percent	integration		core_zwave_js_memory_percent
 sensor.z_wave_js_newest_version	hassio	Supervisor	Z-Wave JS		Newest version	integration		core_zwave_js_version_latest
 sensor.z_wave_js_version	hassio	Supervisor	Z-Wave JS		Version	integration		core_zwave_js_version
-siren.aarlo_all_arlo_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER		All Arlo Sirens			aarlo_all_sirens
-siren.aarlo_garden_c_siren	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren			aarlo_siren_A433197NA3BFB
-siren.aarlo_swings_siren	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings Siren			aarlo_siren_5GG39B73A4B6E
-switch.aarlo_all_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER		All Sirens			all_sirens
-switch.aarlo_siren_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren			siren_garden_c
-switch.aarlo_siren_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings Siren			siren_swings
-switch.aarlo_snapshot_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Snapshot			snapshot_garden_c
-switch.aarlo_snapshot_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings		swings Snapshot			snapshot_swings
+siren.aarlo_all_arlo_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Arlo Sirens			aarlo_all_sirens
+siren.aarlo_garden_c_siren	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Garden C Siren			aarlo_siren_A433197NA3BFB
+siren.aarlo_swings_siren	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren	device		aarlo_siren_5GG39B73A4B6E
+switch.aarlo_all_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Sirens			all_sirens
+switch.aarlo_siren_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Garden C Siren			siren_garden_c
+switch.aarlo_siren_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren	device		siren_swings
+switch.aarlo_snapshot_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C	Garden	Garden C Snapshot			snapshot_garden_c
+switch.aarlo_snapshot_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Snapshot	device		snapshot_swings
 switch.advanced_ssh_web_terminal	hassio	Supervisor	Advanced SSH & Web Terminal			integration		ccf28a08_ssh_state
 switch.alexa_media_player_pre_release	hacs		Alexa Media Player		Pre-release	integration		139664351
 switch.appdaemon	hassio	Supervisor	AppDaemon			integration		a0d7b954_appdaemon_state
@@ -3108,7 +3137,6 @@ switch.multiline_entity_card_pre_release	hacs		Multiline Entity Card		Pre-releas
 switch.multiple_entity_row_pre_release	hacs		Multiple Entity Row		Pre-release	integration		178921037
 switch.mushroom_pre_release	hacs		Mushroom		Pre-release	integration		444350375
 switch.myskoda_pre_release	hacs		MySkoda		Pre-release	integration		856542767
-switch.nest_protect_pre_release	hacs		Nest Protect		Pre-release			448323715
 switch.network_ups_tools	hassio	Supervisor	Network UPS Tools			integration		ccf28a08_nut_state
 switch.nginx_home_assistant_ssl_proxy	hassio	Supervisor	NGINX Home Assistant SSL proxy			integration		core_nginx_proxy_state
 switch.noisy_bottle_do_not_disturb	alexa_devices	tongaimaramba@gmail.com	Noisy Bottle		Do not disturb	device		0176863b6c5f48c4bf8be3863a0621bf-dnd
@@ -3183,6 +3211,7 @@ tag.downstairs_lights_off	tag				Downstairs Lights Off			80a36f97-2779-4e1b-adc9
 tag.dsl	tag				Dsl			b2165dbb-5b8d-496d-bdbc-519da9bf0cbb
 tag.fave_playlist	tag				Fave Playlist			59f194cc-4db6-4d5d-b2e4-a8c02fc33e31
 tag.front	tag				Front			5f18e4cc-d48f-4a65-ab45-02658781dac9
+tag.front_door_tap	tag				Front Door Tap			c9e068e8-208a-46f2-8a7a-cae2109983f8
 tag.t_light	tag				T-light			54805471-50ef-43f7-8c19-452ec2e5d80e
 tag.testand	tag				Testand			f81e769d-b89c-4940-9a3d-46bb9bdbeb82
 timer.heating_boost_fallback	timer				Heating boost fallback			heating_boost_fallback
@@ -3215,6 +3244,7 @@ update.driveway_detector_firmware	esphome	driveway detector	driveway detector	Ga
 update.dyson_cloud_update	hacs		Dyson Cloud		Dyson Cloud update			338244244
 update.dyson_local_update	hacs		Dyson Local		Dyson Local update			334928907
 update.edgeos_ubiquiti_update	hacs		EdgeOS (Ubiquiti)		EdgeOS (Ubiquiti) update			169467285
+update.ellie_s_call_button_firmware	esphome	Ellie's call button	Ellie's call button	Ellies Bedroom	Firmware	integration		50:78:7D:CD:2E:F8
 update.ellie_window_firmware	smartthings	My home	Ellie Window	Ellie	Firmware			85663cb9-cccb-4637-8eac-6b0af998e502_main
 update.ellie_window_party_firmware	smartthings	My home	Ellie Window Party	Ellie	Firmware			fc4e53ba-dbbf-4af8-a5b9-dece99a5f34c_main
 update.entities_button_group_update	hacs		Entities Button Group		Entities Button Group update			373857882
@@ -3259,7 +3289,7 @@ update.light_entity_card_update	hacs		Light Entity Card		Light Entity Card updat
 update.lightwave_rf_update	hacs		Lightwave RF		Lightwave RF update			162808336
 update.loft32_firmware	esphome	study work status	work status	Study	Firmware			94:3C:C6:37:67:84
 update.loft_blind_firmware	esphome	loft-blind	loft-blind		Firmware			AC:0B:FB:D7:F6:97
-update.loft_controller_firmware	esphome	Loft Controller	Hannah panic button	Hannahs Bedroom	Firmware	integration		F4:65:0B:07:AB:34
+update.loft_controller_firmware	esphome	Loft Controller	Hannah's call button	Hannahs Bedroom	Firmware	integration		F4:65:0B:07:AB:34
 update.lovelace_card_templater_update	hacs		Lovelace Card Templater		Lovelace Card Templater update			184333163
 update.lovelace_hass_aarlo_update	hacs		Lovelace Hass Aarlo		Lovelace Hass Aarlo update			197245179
 update.lovelace_text_input_row_update	hacs		Lovelace Text Input Row		Lovelace Text Input Row update			182113743
@@ -3276,7 +3306,6 @@ update.multiline_entity_card_update	hacs		Multiline Entity Card		Multiline Entit
 update.multiple_entity_row_update	hacs		Multiple Entity Row		Multiple Entity Row update			178921037
 update.mushroom_update	hacs		Mushroom		Mushroom update			444350375
 update.myskoda_update	hacs		MySkoda		MySkoda update			856542767
-update.nest_protect_update	hacs		Nest Protect		Nest Protect update			448323715
 update.network_ups_tools_update	hassio	Supervisor	Network UPS Tools		Update			ccf28a08_nut_version_latest
 update.nginx_home_assistant_ssl_proxy_update	hassio	Supervisor	NGINX Home Assistant SSL proxy		Update			core_nginx_proxy_version_latest
 update.notify_card_update	hacs		Notify Card		Notify Card update			358962656

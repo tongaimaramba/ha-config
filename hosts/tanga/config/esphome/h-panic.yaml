@@ -1,17 +1,18 @@
 # One self-contained file (2026-10-27): tanga's esphome/ folder isn't deployed (the ESPHome dashboard owns it), so
 # Tongai pastes it there. Ellie's (AtomS3 Lite: button GPIO41, WS2812 LED GPIO35) will be a copy with its pins.
-# Behaviour: hold 2 s → "Panic" on; tanga (packages/panic.yaml) alerts both parents and calls `panic_ack` (green);
-# a parent's "Received" calls `panic_seen` (blue, 10 min); Clear calls `panic_clear` (off).
+# Hannah's call button (renamed 2026-10-28 from "panic button"; ids keep "panic" so nothing else changes).
+# Behaviour: hold 2 s → its sensor on; tanga (packages/panic.yaml) alerts both parents and calls `panic_ack` (green);
+# a parent's "I'm coming" calls `panic_seen` (blue, 10 min); All sorted calls `panic_clear` (off).
 # Amber while held/sending; red flashing if not confirmed in 15 s or tanga isn't connected. No Bluetooth proxy: the button must stay reliable on Wi-Fi.
 # Manual fallback: call or shout; the button only adds a phone alert.
-# Hannah's panic button (M2-H): the former Loft Controller (M5Stack Atom Lite, original ESP32: button GPIO39, SK6812
+# Hardware (M2-H): the former Loft Controller (M5Stack Atom Lite, original ESP32: button GPIO39, SK6812
 # LED GPIO27), repurposed 2026-10-27 (Tongai); it keeps that device's keys. The Loft blind control and Loft motion
 # sensors it used to run are retired with it (loft-controller.yaml is in git history).
 # First install: by USB (the dashboard's "Plug into this computer", or ESPHome Web): the framework changes from Arduino
 # to esp-idf, which OTA doesn't do reliably (no new bootloader or partition table).
 substitutions:
   device_name: h-panic
-  friendly_name: Hannah panic button
+  friendly_name: Hannah's call button
 
 esphome:
   name: ${device_name}
@@ -36,11 +37,11 @@ api:
             then:
               - globals.set: {id: led_state, value: "3"}
               - script.execute: show
-    - action: panic_seen  # a parent tapped "Received" on the alert
+    - action: panic_seen  # a parent tapped "I'm coming" on the alert
       then:
         - globals.set: {id: led_state, value: "5"}
         - script.execute: show
-    - action: panic_clear  # a parent pressed Clear (Family → Security): LED off now (Tongai 2026-10-27)
+    - action: panic_clear  # a parent pressed All sorted (Family → Security): LED off now (Tongai 2026-10-27)
       then:
         - globals.set: {id: led_state, value: "0"}
         - script.execute: show
@@ -54,13 +55,13 @@ wifi:
   password: !secret wifi_password
   power_save_mode: none  # mains-powered: answer fast
   ap:
-    ssid: "H-Panic Fallback Hotspot"
+    ssid: "H-Call Fallback Hotspot"
     password: !secret loft_controller_ap_password
 
 captive_portal:
 
 globals:
-  - id: fired  # a panic went out (or failed) since the last press: a release mustn't clear its feedback
+  - id: fired  # a call went out (or failed) since the last press: a release mustn't clear its feedback
     type: bool
     initial_value: "false"
   - id: led_state  # 0 off, 1 holding, 2 waiting, 3 confirmed, 4 failed, 5 a parent has seen it
@@ -158,7 +159,7 @@ binary_sensor:
             - script.execute: show
   - platform: gpio
     id: panic
-    name: "Panic"
+    name: "Panic"  # kept: renaming changes the entity id (binary_sensor.h_panic); its display name is set in HA
     device_class: safety
     pin:
       number: GPIO39

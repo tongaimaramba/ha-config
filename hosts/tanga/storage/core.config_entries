@@ -338,7 +338,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-10-28T16:49:18.564769+00:00",
+        "modified_at": "2026-10-31T11:26:40.678696+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2734,34 +2734,6 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "add_aarlo_prefix",
-            "password",
-            "tfa_source",
-            "tfa_type",
-            "username"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "aarlo",
-        "entry_id": "3be47728f13b63680bcb3f0330c94661",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Aarlo for tongai.maramba@gmail.com",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
             "password",
             "username"
           ]
@@ -3412,7 +3384,7 @@
         "domain": "mqtt",
         "entry_id": "01K3HKSE86BER5369STS5MFTDH",
         "minor_version": 1,
-        "modified_at": "2026-10-09T21:10:58.957024+00:00",
+        "modified_at": "2026-10-29T13:22:29.539996+00:00",
         "options": {
           "_redacted_keys": [
             "birth_message",
@@ -3672,33 +3644,6 @@
         "title": "Bluetooth Low Energy Monitor",
         "unique_id": "01K9W86FXR2H8N298C50N40E9Y",
         "version": 5
-      },
-      {
-        "created_at": "2025-11-13T11:06:05.872039+00:00",
-        "data": {
-          "_redacted_keys": [
-            "file_path",
-            "platform"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "file",
-        "entry_id": "01K9YE9R5FQJQPAFSR0HPVTMY9",
-        "minor_version": 1,
-        "modified_at": "2025-11-13T11:06:05.872044+00:00",
-        "options": {
-          "_redacted_keys": [
-            "timestamp"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Notify [/config/calibration_snapshots.csv]",
-        "unique_id": null,
-        "version": 2
       },
       {
         "created_at": "2025-11-13T12:29:24.786286+00:00",
@@ -4221,7 +4166,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-10-28T17:37:09.369384+00:00",
+        "modified_at": "2026-10-31T08:15:47.468498+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4372,7 +4317,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-10-28T17:43:11.523793+00:00",
+        "modified_at": "2026-10-31T12:09:53.407277+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4559,6 +4504,160 @@
         "subentries": [],
         "title": "Mojgan-iPhone",
         "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T11:24:36.100424+00:00",
+        "data": {
+          "_redacted_keys": [
+            "add_aarlo_prefix",
+            "password",
+            "tfa_host",
+            "tfa_password",
+            "tfa_source",
+            "tfa_type",
+            "tfa_username",
+            "username"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "aarlo",
+        "entry_id": "01M63PF6C46TFNFT51F1K4MRAY",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T11:24:36.100427+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Aarlo for tongai.maramba@gmail.com",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T15:23:25.852625+00:00",
+        "data": {
+          "_redacted_keys": [
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "dhcp": [
+            {
+              "domain": "dhcp",
+              "key": "50787dcd2ef8",
+              "version": 1
+            }
+          ],
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "e-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M6444G8WGGPX24F3B2M38D1N",
+        "minor_version": 1,
+        "modified_at": "2026-10-30T09:34:34.930595+00:00",
+        "options": {
+          "_redacted_keys": [
+            "allow_service_calls"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "Ellie's call button",
+        "unique_id": "50:78:7d:cd:2e:f8",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-31T10:01:39.875014+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_file",
+        "entry_id": "01M68PGRS2NVXVK1XRCDZPPE1S",
+        "minor_version": 1,
+        "modified_at": "2026-10-31T10:01:39.875018+00:00",
+        "options": {
+          "_redacted_keys": [
+            "file_path",
+            "name"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Call still back fence",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-31T11:54:02.268275+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_file",
+        "entry_id": "01M68WYH4W3H9VRJEKS14Z771T",
+        "minor_version": 1,
+        "modified_at": "2026-10-31T11:54:02.268279+00:00",
+        "options": {
+          "_redacted_keys": [
+            "file_path",
+            "name"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Call still front door",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-31T11:54:38.021257+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_file",
+        "entry_id": "01M68WZM25HC95YYVV9535EZVF",
+        "minor_version": 1,
+        "modified_at": "2026-10-31T11:54:38.021260+00:00",
+        "options": {
+          "_redacted_keys": [
+            "file_path",
+            "name"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Call still garden",
+        "unique_id": null,
         "version": 1
       }
     ]

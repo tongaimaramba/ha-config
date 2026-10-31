@@ -1,0 +1,120 @@
+# NFC input layer for auto-unlock (Tongai's spec 2026-10-30, decision M2-P). Each door has ONE HA-written tag that
+# every phone can use: Android fires HA's own tag trigger with no tap; an iPhone runs a Shortcuts NFC automation ("Run
+# Immediately") that calls script.nfc_scan on tanga. Both become one event, `nfc_identified` {tag, phone, person, path,
+# reason}, which the auto_unlock_shadow app consumes (only as fired by this automation: origin LOCAL, no user).
+# `person` comes from the signed-in HA user: it proves who, not where (a Shortcut runs anywhere), so the shadow also
+# needs that person's phone home or arriving;
+# `phone` must be on the allowlist and belong to that person, else person is `unknown` (fail closed). Tanga only until the Cut-over (an iPhone adds tanga as a second server to
+# test). Gated input_boolean.nfc_enabled (starts off). Manual fallback: a key, the Nuki app.
+input_boolean:
+  nfc_enabled:
+    name: NFC scans
+    icon: mdi:nfc-variant
+  nfc_test_alerts_enabled:  # one quiet push per scan, for the test matrix (who, phone, path); starts off
+    name: NFC test alerts
+    icon: mdi:nfc-search-variant
+
+script:
+  # Called by an iPhone's Shortcuts NFC automation: Perform action → script.nfc_scan with {"tag": "front_door",
+  # "phone": "<Name> iPhone"}. The event inherits the caller's context, so the normaliser knows the signed-in user.
+  # Manual fallback: none needed (scanning again, a key).
+  nfc_scan:
+    alias: NFC scan (iPhone Shortcuts)
+    icon: mdi:nfc-tap
+    mode: queued
+    fields:
+      tag:
+        description: The door's tag name, e.g. front_door
+        example: front_door
+      phone:
+        description: This phone's name, as in the allowlist, e.g. Mojgan iPhone
+        example: Mojgan iPhone
+    sequence:
+      - event: nfc_scanned
+        event_data:
+          tag: "{{ tag | default('unknown') }}"
+          phone: "{{ phone | default('unknown') }}"
+
+automation:
+  # Either path → one nfc_identified event; who scanned is decided here and only here. Not debounced here: an iPhone's
+  # banner tap (unknown: its HA device name isn't the Shortcut's) mustn't swallow its Shortcut's identified scan; the
+  # auto-unlock shadow debounces identified scans. Fallback: a key, the Nuki app.
+  - id: nfc_normalise
+    alias: NFC - normalise scans
+    mode: queued
+    triggers:
+      - trigger: tag
+        tag_id:
+          - c9e068e8-208a-46f2-8a7a-cae2109983f8  # Front Door Tap (2026-10-29; to be replaced by an on-metal tag)
+        id: ha_tag
+      - trigger: event
+        event_type: nfc_scanned
+        id: shortcut
+    variables:
+      tag_map:  # tag id → door
+        c9e068e8-208a-46f2-8a7a-cae2109983f8: front_door
+      phone_owners:  # allowlist: phone name → person (Android: the device's name in HA)
+        TongaiSM25: person.tongai
+        Tongai iPhone: person.tongai
+        Mojgan iPhone: person.mojgan
+        Hannah iPhone: person.hannah
+        Ellie iPhone: person.ellie
+      device_owners:  # fallback only when a tag scan carries no user at all (a phone's scan carries its user; a
+                      # user who isn't a person, e.g. a service token, must not borrow a device's owner)
+        921a844606756b2654d139d54f7ce4b9: person.tongai  # TongaiSM25
+      tag: >-
+        {{ tag_map.get(trigger.event.data.tag_id, 'unknown') if trigger.id == 'ha_tag'
+           else trigger.event.data.tag | default('unknown') }}
+      device: "{{ (trigger.event.data.device_id or '') if trigger.id == 'ha_tag' else '' }}"
+      phone: >-
+        {{ (device_attr(device, 'name_by_user') or device_attr(device, 'name') or 'unknown') if trigger.id == 'ha_tag'
+           else trigger.event.data.phone | default('unknown') }}
+      user_id: "{{ trigger.event.context.user_id or '' }}"
+      by_user: >-
+        {{ states.person | selectattr('attributes.user_id', 'eq', user_id) | map(attribute='entity_id')
+           | first | default('') if user_id else '' }}
+      claimed: "{{ phone_owners.get(phone, '') }}"
+      person: >-
+        {% set who = by_user or (device_owners.get(device, '') if trigger.id == 'ha_tag' and not user_id else '') %}
+        {{ who if who and claimed == who else 'unknown' }}
+      reason: >-
+        {% set who = by_user or (device_owners.get(device, '') if trigger.id == 'ha_tag' and not user_id else '') %}
+        {% if not who %}no signed-in user or known device
+        {% elif claimed and claimed != who %}phone {{ phone }} belongs to {{ claimed }}, signed in as {{ who }}
+        {% elif not claimed %}phone {{ phone }} isn't on the allowlist
+        {% else %}ok{% endif %}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.nfc_enabled
+        state: "on"
+    actions:
+      - event: nfc_identified
+        event_data:
+          tag: "{{ tag }}"
+          phone: "{{ phone }}"
+          person: "{{ person }}"
+          path: "{{ trigger.id }}"
+          reason: "{{ reason | trim }}"
+
+  # The test matrix (spec: one notification per scan with the right person). Quiet channel. Fallback: none needed.
+  - id: nfc_test_alert
+    alias: NFC - test alert
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: nfc_identified
+    conditions:
+      - condition: state
+        entity_id: input_boolean.nfc_test_alerts_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: "NFC: {{ trigger.event.data.tag }}"
+          message: >-
+            {{ trigger.event.data.person | replace('person.', '') | title }} · {{ trigger.event.data.phone }} ·
+            {{ trigger.event.data.path }}{% if trigger.event.data.reason != 'ok' %} · {{ trigger.event.data.reason }}{% endif %}
+          data:
+            tag: nfc_test
+            channel: Home status
+            importance: low

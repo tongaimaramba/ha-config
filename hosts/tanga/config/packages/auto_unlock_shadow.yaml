@@ -1,0 +1,7 @@
+# Auto-unlock in shadow (M2 step 8c; design M2-N). The gate of the auto_unlock_shadow AppDaemon app, which only decides
+# and logs "would unlatch" for the front door: nothing is unlatched, sent or lit. Manual fallback: none needed (the
+# key, the Nuki app, the doorbell).
+input_boolean:
+  auto_unlock_shadow_enabled:
+    name: Auto-unlock shadow
+    icon: mdi:door-closed-lock

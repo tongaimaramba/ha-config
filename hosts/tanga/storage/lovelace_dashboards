@@ -23,15 +23,6 @@
         "icon": "mdi:tablet"
       },
       {
-        "require_admin": true,
-        "show_in_sidebar": true,
-        "title": "Smarthome",
-        "url_path": "lovelace-new",
-        "mode": "storage",
-        "id": "lovelace_new",
-        "icon": "mdi:home"
-      },
-      {
         "show_in_sidebar": true,
         "icon": "mdi:account",
         "title": "Guest ",
@@ -66,15 +57,6 @@
         "show_in_sidebar": true,
         "mode": "storage",
         "require_admin": false
-      },
-      {
-        "id": "lovelace",
-        "icon": "mdi:view-dashboard",
-        "title": "Overview",
-        "url_path": "lovelace",
-        "require_admin": false,
-        "show_in_sidebar": true,
-        "mode": "storage"
       }
     ]
   }

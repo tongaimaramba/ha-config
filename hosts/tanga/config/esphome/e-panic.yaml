@@ -1,0 +1,178 @@
+# Ellie's call button (M2 step 1b, 2026-10-29): h-panic.yaml with the AtomS3 Lite's pins and its own keys. One
+# self-contained file: tanga's esphome/ folder isn't deployed (the ESPHome dashboard owns it), so Tongai pastes it.
+# Behaviour: hold 2 s → its sensor on; tanga (packages/panic.yaml) alerts and calls `panic_ack` (green); "I'm coming"
+# calls `panic_seen` (blue, 10 min); All sorted calls `panic_clear` (off). Amber while held/sending; red flashing if
+# not confirmed in 15 s or tanga isn't connected. No Bluetooth proxy: the button must stay reliable on Wi-Fi.
+# Manual fallback: call or shout; the button only adds a phone alert.
+# Hardware: M5Stack AtomS3 Lite (ESP32-S3: button GPIO41, WS2812 LED GPIO35). New device: first install by USB
+# (dashboard "Plug into this computer" or ESPHome Web), then OTA. Secrets (ESPHome dashboard → Secrets, Tongai):
+# e_panic_api_key (32 random bytes, base64: the dashboard's new-device key, or `openssl rand -base64 32`),
+# e_panic_ota_password, e_panic_ap_password.
+substitutions:
+  device_name: e-panic
+  friendly_name: Ellie's call button
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+  encryption:
+    key: !secret e_panic_api_key
+  actions:
+    - action: panic_ack  # tanga calls this once the alert has gone out
+      then:
+        - if:  # a parent may already have answered
+            condition:
+              lambda: "return id(led_state) != 5;"
+            then:
+              - globals.set: {id: led_state, value: "3"}
+              - script.execute: show
+    - action: panic_seen  # a parent tapped "I'm coming" on the alert
+      then:
+        - globals.set: {id: led_state, value: "5"}
+        - script.execute: show
+    - action: panic_clear  # a parent pressed All sorted (Family → Security): LED off now (Tongai 2026-10-27)
+      then:
+        - globals.set: {id: led_state, value: "0"}
+        - script.execute: show
+
+ota:
+  - platform: esphome
+    password: !secret e_panic_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none  # mains-powered: answer fast
+  ap:
+    ssid: "E-Call Fallback Hotspot"
+    password: !secret e_panic_ap_password
+
+captive_portal:
+
+globals:
+  - id: fired  # a call went out (or failed) since the last press: a release mustn't clear its feedback
+    type: bool
+    initial_value: "false"
+  - id: led_state  # 0 off, 1 holding, 2 waiting, 3 confirmed, 4 failed, 5 a parent has seen it
+    type: int
+    initial_value: "0"
+  - id: prev_state  # what the LED showed before a press: a short tap puts it back
+    type: int
+    initial_value: "0"
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: led
+    name: "Status LED"
+    internal: true  # the button's own: not switchable from HA
+    pin: GPIO35
+    chipset: WS2812
+    rgb_order: GRB
+    num_leds: 1
+    restore_mode: ALWAYS_OFF
+    effects:
+      - pulse:
+          name: Pulse
+      - strobe:  # red: the effect's own colours override the light's
+          name: Strobe
+          colors:
+            - {state: true, brightness: 100%, red: 100%, green: 0%, blue: 0%, duration: 250ms}
+            - {state: false, duration: 250ms}
+
+script:
+  - id: show  # the only thing that drives the LED
+    mode: restart
+    then:
+      - if:
+          condition:
+            lambda: "return id(led_state) == 1;"
+          then:  # holding: amber, steady
+            - light.turn_on: {id: led, red: 100%, green: 60%, blue: 0%, brightness: 40%, effect: none}
+      - if:
+          condition:
+            lambda: "return id(led_state) == 2;"
+          then:  # sent, waiting for tanga: amber pulse; red if no confirmation in 15 s
+            - light.turn_on: {id: led, red: 100%, green: 60%, blue: 0%, brightness: 100%, effect: Pulse}
+            - delay: 15s
+            - globals.set: {id: led_state, value: "4"}  # falls through to the next block
+      - if:
+          condition:
+            lambda: "return id(led_state) == 3;"
+          then:  # confirmed: green for 30 s
+            - light.turn_on: {id: led, red: 0%, green: 100%, blue: 0%, brightness: 60%, effect: none}
+            - delay: 30s
+            - globals.set: {id: led_state, value: "0"}
+            - light.turn_off: led
+      - if:
+          condition:
+            lambda: "return id(led_state) == 4;"
+          then:  # didn't get through: red flashing for 20 s
+            - light.turn_on: {id: led, red: 100%, green: 0%, blue: 0%, brightness: 100%, effect: Strobe}
+            - delay: 20s
+            - globals.set: {id: led_state, value: "0"}
+            - light.turn_off: led
+      - if:
+          condition:
+            lambda: "return id(led_state) == 5;"
+          then:  # a parent has seen it: blue, pulsing, 10 min
+            - light.turn_on: {id: led, red: 0%, green: 30%, blue: 100%, brightness: 100%, effect: Pulse}
+            - delay: 10min
+            - globals.set: {id: led_state, value: "0"}
+      - if:
+          condition:
+            lambda: "return id(led_state) == 0;"
+          then:
+            - light.turn_off: led
+
+binary_sensor:
+  - platform: gpio  # the press itself: amber while held, so the person sees it's counting
+    id: raw_button
+    internal: true
+    pin:
+      number: GPIO41
+      inverted: true
+      allow_other_uses: true
+    filters:
+      - delayed_on: 50ms
+    on_press:
+      - globals.set: {id: fired, value: "false"}
+      - lambda: "id(prev_state) = id(led_state);"
+      - globals.set: {id: led_state, value: "1"}
+      - script.execute: show
+    on_release:
+      - if:
+          condition:
+            lambda: "return !id(fired);"
+          then:  # let go before 2 s: nothing was sent; show what was showing (waiting stays waiting)
+            - lambda: "id(led_state) = id(prev_state) == 1 ? 0 : id(prev_state);"
+            - script.execute: show
+  - platform: gpio
+    id: panic
+    name: "Panic"  # as on h-panic: one naming scheme for every call button; display name set in HA
+    device_class: safety
+    pin:
+      number: GPIO41
+      inverted: true
+      allow_other_uses: true
+    filters:
+      - delayed_on: 2s  # held 2 s: no accidental presses (M2-I)
+    on_press:
+      - globals.set: {id: fired, value: "true"}
+      - if:
+          condition:
+            api.connected:
+              state_subscription_only: true  # tanga itself, not a log window
+          then:
+            - globals.set: {id: led_state, value: "2"}
+          else:
+            - globals.set: {id: led_state, value: "4"}
+      - script.execute: show

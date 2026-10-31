@@ -2,54 +2,54 @@
 
 ```
 host: tanga
-exported_at: 2026-10-28T17:47:41+00:00
+exported_at: 2026-10-31T12:13:55+00:00
 config_dir: /homeassistant
 ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
-- config entries: 145  (custom components on disk: 28)
-- devices: 480
-- entities: 3313 across 60 platforms
-- areas: 36
+- config entries: 148  (custom components on disk: 27)
+- devices: 483
+- entities: 3342 across 60 platforms
+- areas: 37
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| ibeacon | 965 |
-| mobile_app | 349 |
+| ibeacon | 970 |
+| mobile_app | 350 |
 | hue | 317 |
 | hassio | 144 |
-| hacs | 134 |
+| hacs | 132 |
 | smartthings | 130 |
 | bermuda | 124 |
 | alexa_devices | 111 |
-| esphome | 89 |
+| esphome | 91 |
+| automation | 88 |
 | garmin_connect | 87 |
-| automation | 84 |
 | volvo | 75 |
 | mqtt | 65 |
+| input_boolean | 61 |
 | lightwave2 | 61 |
-| input_boolean | 53 |
 | homekit_controller | 46 |
 | fujitsu_airstage | 40 |
 | growatt_server_api | 37 |
-| script | 31 |
-| aarlo | 31 |
+| aarlo | 33 |
+| script | 32 |
 | nut | 27 |
 | ble_monitor | 27 |
 | group | 24 |
 | dyson_local | 23 |
 | tile | 22 |
 | input_text | 21 |
-| template | 19 |
+| template | 21 |
 | input_number | 16 |
 | sonoff | 15 |
 | roomba | 15 |
-| input_select | 13 |
-| input_button | 13 |
-| tag | 11 |
+| input_button | 15 |
+| input_select | 14 |
+| tag | 12 |
 | private_ble_device | 10 |
 | sun | 9 |
 | nest | 8 |
@@ -62,6 +62,7 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 | backup | 5 |
 | zone | 3 |
 | speedtestdotnet | 3 |
+| local_file | 3 |
 | dyson | 2 |
 | androidtv_remote | 2 |
 | webostv | 2 |
@@ -74,7 +75,6 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 | rpi_power | 1 |
 | momentary | 1 |
 | cert_expiry | 1 |
-| file | 1 |
 | timer | 1 |
 | met | 1 |
 
@@ -86,7 +86,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
 home-assistant_v2.db (18479435776 bytes) — db/log/binary
 home-assistant_v2.db-shm (65536 bytes) — db/log/binary
-home-assistant_v2.db-wal (6225352 bytes) — db/log/binary
+home-assistant_v2.db-wal (5471392 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -110,6 +110,7 @@ home-assistant_v2.db-wal (6225352 bytes) — db/log/binary
 .storage/esphome.01K9ZCAWGKG7HZTP4QA157BYAK — not in allow-list
 .storage/esphome.01KAQ1SN0PBA2SKVC9C5E079N4 — not in allow-list
 .storage/esphome.01KBJ34A95VAG6DK4BT5538TWT — not in allow-list
+.storage/esphome.01M6444G8WGGPX24F3B2M38D1N — not in allow-list
 .storage/esphome.39a67c9db005c4430e20ccafb0012f4c — not in allow-list
 .storage/esphome.5f3decfc9356c5b361239eabda83a811 — not in allow-list
 .storage/esphome.9986fbb44afda2ba99006372152f47da — not in allow-list
