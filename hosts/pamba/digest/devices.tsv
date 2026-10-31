@@ -1,8 +1,8 @@
 name	manufacturer	model	area	integrations	disabled_by	sw_version	device_id
 192.168.179.41:8123				cert_expiry			2333a4e5b9b56e30358f12c9952569ba
-ARLO CONTROLLER	Arlo	ARLO CONTROLLER	Garden	aarlo		0.8.1.18	772f60dfd38d14b184108a6d48a629fb
-Aarlo for tongai.maramba@gmail.com	Arlo			aarlo			841ceb17747d81b657c320e583b41047
-Aarlo for tongai.maramba@gmail.com	Arlo			aarlo			0c7aea12491bcb62b19657e5e58fd2ef
+ARLO CONTROLLER	Arlo	ARLO CONTROLLER	Garden	aarlo	config_entry	0.8.1.18	772f60dfd38d14b184108a6d48a629fb
+Aarlo for tongai.maramba@gmail.com	Arlo			aarlo	config_entry		841ceb17747d81b657c320e583b41047
+Aarlo for tongai.maramba@gmail.com	Arlo			aarlo	config_entry		0c7aea12491bcb62b19657e5e58fd2ef
 Advanced SSH & Web Terminal	Home Assistant Community Apps	Home Assistant Add-on		hassio		21.0.2	6d18bc3182b809ec5a17262521976fa9
 Alexa Media Player	alandtse, keatontaylor	integration		hacs			d4ee7d2b43c8ab642bfcbd7fad510761
 AppDaemon	Home Assistant Community Apps	Home Assistant Add-on		hassio		0.16.7	add26c11cc0f794a1d5ad8db21e893dd
@@ -76,7 +76,7 @@ Garage Laundry	Signify Netherlands B.V.	Hue motion sensor	Kitchen	hue		2.85.1	1c
 Garage Light Strip	Signify Netherlands B.V.	Hue lightstrip		hue		1.163.1	9593355f78d8ca36bd29609c1eb39cfa
 Garage Utility Door			Loft	smartthings			2a4df67320f54793f23c657782eac7ac
 Garden A	Google Nest	Camera	Backyard	nest			4b42f81fb3bb5debbe7ca2a9eb6a0597
-Garden C	Arlo	VMC5040		aarlo		0.8.1.18	f9bc61238265630bd65f1e2200e7d7cc
+Garden C	Arlo	VMC5040		aarlo	config_entry	0.8.1.18	f9bc61238265630bd65f1e2200e7d7cc
 Garmin Connect	Garmin Connect		Home General	garmin_connect			46c8a496742e956185b1a6085316507a
 Garmin Connect	cyberjunky	integration		hacs			5da5c0ceb5414a421f025c67e087c524
 Garmin Device	Garmin	006-B4315-00		mobile_app		29.5	85a80c50a6cfe0b4175f54b1e8e5a005
@@ -254,11 +254,11 @@ pres-h	SONOFF	SNZB-06P	Hannahs Bedroom	zha		0x00001006	9a35dcbe0b74e2fb070197c38
 pres-l	SONOFF	SNZB-06P	Loft Suite	zha		0x00001006	0ad0e6ee5c9b3bf6abc70621a0b83196
 rpi_rebooter	Espressif	wemos_d1_mini32	Hallway	esphome		2025.10.5 (Nov 13 2025, 19:53:13)	c07ca15245372534db168e898ecbed81
 study presence	Espressif	esp01_1m	Study	esphome		2023.12.5 (Jan  9 2024, 11:24:20)	8fb5730a6cb28802e8fd8bc19c141a75
-swings	Arlo	VMC5040	Garden	aarlo		0.8.1.18	8baa26fd8027a532cbb4b9962b0f73cb
+swings	Arlo	VMC5040	Garden	aarlo	config_entry	0.8.1.18	8baa26fd8027a532cbb4b9962b0f73cb
 template-entity-row	thomasloven	plugin		hacs			196fa713e3a3c74199b0b62f5be4fd91
 tojgan bright	Signify Netherlands B.V.	Hue Bridge	Garage	hue		6.3.1978545030	19a03db71128268736291848e5bbfacd
 tojgan-solar Total	Growatt		Garage	growatt_server_api			b5995b297cca9a8f9b25cf403be78294
-tojgarln	Arlo	VMB5000	Garden	aarlo		0.8.1.18	d5dbb590a0155a4114b8985bb3d6c388
+tojgarln	Arlo	VMB5000	Garden	aarlo	config_entry	0.8.1.18	d5dbb590a0155a4114b8985bb3d6c388
 tongai-mbp	Apple	MacBookPro18,3		mobile_app		14.5.0	ffc13ce7af916b22042a700bbc998b60
 tongai-mbp (2)	Apple	MacBookPro18,3		mobile_app		15.4.1	6bd32e66b143bad3cf9ff9ea311fccc8
 tongai-mbp_work	Apple	MacBookPro18,3		mobile_app		26.5.1	7d381af5739a0804b1141afe1e046d38
