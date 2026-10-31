@@ -1857,44 +1857,6 @@
         "disabled_by": null,
         "discovery_keys": {},
         "domain": "mobile_app",
-        "entry_id": "604667666d3a2806a29b73771110d870",
-        "minor_version": 1,
-        "modified_at": "2026-10-24T22:41:52.801558+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "registration",
-        "subentries": [],
-        "title": "iPhone (32)",
-        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
-            "app_data",
-            "app_id",
-            "app_name",
-            "app_version",
-            "device_id",
-            "device_name",
-            "manufacturer",
-            "model",
-            "no_legacy_encryption",
-            "os_name",
-            "os_version",
-            "secret",
-            "supports_encryption",
-            "user_id",
-            "webhook_id"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "mobile_app",
         "entry_id": "c1e2f77695764f64b7d4b620ac9c7781",
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
@@ -2654,7 +2616,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-10-28T16:05:11.399131+00:00",
+        "modified_at": "2026-10-31T11:31:21.751542+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3604,7 +3566,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-10-28T17:01:34.569151+00:00",
+        "modified_at": "2026-10-31T11:38:23.745216+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3630,7 +3592,7 @@
             "username"
           ]
         },
-        "disabled_by": null,
+        "disabled_by": "user",
         "discovery_keys": {},
         "domain": "aarlo",
         "entry_id": "01JZ81G3E3A5HHJ29RNN3YVSB7",
@@ -4137,7 +4099,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-10-28T16:49:41.547715+00:00",
+        "modified_at": "2026-10-31T10:06:03.041793+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4390,6 +4352,173 @@
         "title": "Tado",
         "unique_id": null,
         "version": 2
+      },
+      {
+        "created_at": "2026-10-29T15:38:56.885877+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "h-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M6450XFNS14BZ6T55SFJZHR5",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T15:38:56.885894+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "Hannah's call button (h-panic)",
+        "unique_id": "f4:65:0b:07:ab:34",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T15:38:59.685066+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "e-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M645107487DGV5NS1FH428F3",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T15:38:59.685084+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "Ellie's call button (e-panic)",
+        "unique_id": "50:78:7d:cd:2e:f8",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T15:39:02.105971+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "nya-proxy._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M64512JS50TZT343AXKXNK3E",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T15:39:02.105986+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "nya-proxy",
+        "unique_id": "f4:65:0b:07:70:84",
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T15:39:04.592460+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "bluetooth": [
+            {
+              "domain": "bluetooth",
+              "key": "54:8F:4F:7A:51:77",
+              "version": 1
+            }
+          ]
+        },
+        "domain": "ibeacon",
+        "entry_id": "01M645150GA2BDS8NGW1R18ZBP",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T15:39:04.592473+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "ibeacon",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-10-29T18:59:00.257871+00:00",
+        "data": {
+          "_redacted_keys": [
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "mobile_app",
+        "entry_id": "01M64GF7H15SQB536Q698D3STD",
+        "minor_version": 1,
+        "modified_at": "2026-10-29T18:59:00.359721+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "registration",
+        "subentries": [],
+        "title": "iPhone (32)",
+        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
+        "version": 1
       }
     ]
   }

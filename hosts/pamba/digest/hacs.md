@@ -70,17 +70,17 @@
 | gadgetchnnel/lovelace-text-input-row | plugin | V0.0.10 | v0.0.11 | 182113743 |
 | hacs/integration | integration | 2.0.5 | 2.0.5 | 172733314 |
 | hulkhaugen/hass-bha-icons | plugin |  |  | 179808576 |
-| iMicknl/ha-nest-protect | integration | v0.4.0b5 | v0.4.3 | 448323715 |
+| iMicknl/ha-nest-protect | integration | v0.4.0b5 | v0.5.0 | 448323715 |
 | iantrich/config-template-card | plugin | 1.3.6 | 1.3.6 | 172177543 |
 | iantrich/roku-card | plugin | 1.2.4 | 1.2.4 | 164367214 |
 | ikb42/homeassistant-lightwave2 | integration | v3.5.20 | v3.5.20 | 162808336 |
-| ilguala/navimow_pro | integration | v0.6.0 | v0.8.2 | 1309777882 |
+| ilguala/navimow_pro | integration | v0.6.0 | v0.8.3 | 1309777882 |
 | jampez77/Multiline-Entity-Card | plugin | 1.2.2 | 1.2.2 | 351472550 |
 | kalkih/mini-graph-card | plugin | v0.11.0 | v0.13.0 | 151280062 |
 | kalkih/mini-media-player | plugin | v1.16.5 | v1.16.12 | 148520838 |
 | libdyson-wg/ha-dyson | integration | v1.5.2 | v1.5.7 | 612978245 |
 | lozzd/octopus-energy-rates-card | plugin | v0.1.2 | v0.9.0 | 596085141 |
-| madmicio/LG-WebOS-Remote-Control | plugin | 2.0.2 | 2.0.4 | 257005990 |
+| madmicio/LG-WebOS-Remote-Control | plugin | 2.0.2 | 2.1.0 | 257005990 |
 | markgdev/home-assistant_OctopusAgile | integration | v0.1.1 | v0.1.1 | 259739166 |
 | muppet3000/homeassistant-growatt_server_api | integration | v1.0.4 | v1.0.4 | 585307805 |
 | nervetattoo/simple-thermostat | plugin | v2.5.0 | v2.5.0 | 158654878 |

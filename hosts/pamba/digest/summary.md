@@ -2,15 +2,15 @@
 
 ```
 host: pamba
-exported_at: 2026-10-28T17:47:34+00:00
+exported_at: 2026-10-31T12:14:19+00:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
 ```
 
-- config entries: 142  (custom components on disk: 25)
+- config entries: 146  (custom components on disk: 25)
 - devices: 266
-- entities: 2493 across 53 platforms
+- entities: 2495 across 53 platforms
 - areas: 39
 
 ## entities per platform
@@ -40,9 +40,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:1
 | script | 21 |
 | roomba | 15 |
 | sonoff | 15 |
+| tag | 13 |
 | input_select | 11 |
 | input_number | 11 |
-| tag | 11 |
 | sun | 10 |
 | input_text | 8 |
 | input_datetime | 8 |
@@ -81,7 +81,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (2875580416 bytes) — db/log/binary
 home-assistant_v2.db-shm (163840 bytes) — db/log/binary
-home-assistant_v2.db-wal (5562032 bytes) — db/log/binary
+home-assistant_v2.db-wal (5351912 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 zigbee.db-shm (32768 bytes) — db/log/binary
 zigbee.db-wal (4124152 bytes) — db/log/binary

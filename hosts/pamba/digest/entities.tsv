@@ -1,9 +1,9 @@
 entity_id	platform	config_entry	device	area	name	disabled_by	hidden_by	unique_id
 air_quality.bedroom	dyson				Bedroom	user		VS7-UK-MFA2757A
 air_quality.upstairs	dyson				Upstairs	user		ZZ9-UK-NEA5537A
-alarm_control_panel.aarlo_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		location_Home			location_home
-alarm_control_panel.aarlo_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	tojgarln			tojgarln
-alarm_control_panel.aarlo_user_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		user_location_Home			user_location_home
+alarm_control_panel.aarlo_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		location_Home	config_entry		location_home
+alarm_control_panel.aarlo_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	tojgarln	config_entry		tojgarln
+alarm_control_panel.aarlo_user_location_home	aarlo	Aarlo for tongai.maramba@gmail.com	Aarlo for tongai.maramba@gmail.com		user_location_Home	config_entry		user_location_home
 automation.ac_on_room_empty_door_also_open_loft	automation				AC on, room empty, door ALSO open (all rooms)			1779737140407
 automation.audio	automation				Audio			1656705377102
 automation.audio_change	automation				audio change			1712681075907
@@ -38,13 +38,13 @@ automation.test_temp	automation				Test temp			1709496362515
 automation.test_temp_wait	automation				test temp wait			1709909184554
 automation.work_status	automation				Work Status 			1703934406917
 automation.work_status_bookends	automation				Work Status Bookends			1704793770116
-binary_sensor.aarlo_connected_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Connected Garden C			connected_garden_c
-binary_sensor.aarlo_connected_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Connected swings			connected_swings
-binary_sensor.aarlo_connected_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	Connected tojgarln			connected_tojgarln
-binary_sensor.aarlo_motion_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Motion Garden C			motion_garden_c
-binary_sensor.aarlo_motion_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Motion swings			motion_swings
-binary_sensor.aarlo_sound_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Sound Garden C			sound_garden_c
-binary_sensor.aarlo_sound_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Sound swings			sound_swings
+binary_sensor.aarlo_connected_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Connected Garden C	config_entry		connected_garden_c
+binary_sensor.aarlo_connected_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Connected swings	config_entry		connected_swings
+binary_sensor.aarlo_connected_tojgarln	aarlo	Aarlo for tongai.maramba@gmail.com	tojgarln	Garden	Connected tojgarln	config_entry		connected_tojgarln
+binary_sensor.aarlo_motion_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Motion Garden C	config_entry		motion_garden_c
+binary_sensor.aarlo_motion_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Motion swings	config_entry		motion_swings
+binary_sensor.aarlo_sound_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Sound Garden C	config_entry		sound_garden_c
+binary_sensor.aarlo_sound_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Sound swings	config_entry		sound_swings
 binary_sensor.advanced_ssh_web_terminal_running	hassio	Supervisor	Advanced SSH & Web Terminal		Running	integration		a0d7b954_ssh_state
 binary_sensor.appdaemon_4_running	hassio	Supervisor	AppDaemon		Running	integration		a0d7b954_appdaemon_state
 binary_sensor.appdaemon_4_update_available	hassio	Supervisor	AppDaemon		Update available	integration		a0d7b954_appdaemon_update_available
@@ -130,7 +130,7 @@ binary_sensor.home_assistant_operating_system_running	hassio	Supervisor	Home Ass
 binary_sensor.home_assistant_operating_system_update_available	hassio	Supervisor	Home Assistant Operating System		Update available	integration		home_assistant_os_update_available
 binary_sensor.hue_motion_sensor_1_motion	hue	tojgan bright	Loft Bathroom 	Loft Bathroom	Motion			2b9c5f43-f5a8-49b6-af8f-a7a0eda29240
 binary_sensor.hue_motion_sensor_2_motion	hue	tojgan bright	Garage Laundry	Kitchen	Motion			f16b3ee0-4986-45d1-b8ca-ad76fb0053d6
-binary_sensor.iphone_32_focus	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Focus			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_focus
+binary_sensor.iphone_32_focus	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Focus			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_focus
 binary_sensor.kitchen_acceleration	smartthings	My home	Kitchen	Kitchen	Acceleration			e6821393-e06c-439c-baad-d48f38e8cd5b_main_accelerationSensor_acceleration_acceleration
 binary_sensor.kitchen_door	smartthings	My home	Kitchen	Kitchen	Door			e6821393-e06c-439c-baad-d48f38e8cd5b_main_contactSensor_contact_contact
 binary_sensor.kitchen_motion	hue	tojgan bright	Kitchen	Kitchen	Motion			d02614b7-d1a2-4547-a6eb-6691276df2c6
@@ -355,8 +355,8 @@ button.tagreader_restart_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader Res
 button.write_tag_random	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			KITCHEN-NFC-button-write_tag_random
 button.write_tag_random_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Random			40:91:51:4E:DB:EA-button-write_tag_random
 calendar.oppy_mowing_schedule	navimow_pro	Oppy	Oppy	Garden	Mowing schedule			0EBDA2506K0129_schedule
-camera.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C			garden_c
-camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings			swings
+camera.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C	config_entry		garden_c
+camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings	config_entry		swings
 camera.front_door	nest	Pamba	Front Door	Hallway				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-camera
 camera.garden_a	nest	Pamba	Garden A	Backyard				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera
 camera.oppy_map	navimow_pro	Oppy	Oppy	Garden	Map			0EBDA2506K0129_map
@@ -538,8 +538,8 @@ input_text.mqtt_payload	input_text				mqtt_payload			mqtt_payload
 input_text.runtime	input_text				runtime			runtime
 input_text.web	input_text				Web			web
 lawn_mower.oppy	navimow_pro	Oppy	Oppy	Garden				0EBDA2506K0129_mower
-light.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C			garden_c
-light.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings			swings
+light.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C	config_entry		garden_c
+light.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings	config_entry		swings
 light.bathroom	hue	tojgan bright	Bathroom	Bathroom		integration		a05e5b21-c560-4e2a-bb22-aaf51584e558
 light.bathroom_heating	hue	tojgan bright	Christmas!	Bathroom heating		integration		ecd59202-39f2-47d2-8e8b-0e01985b1c16
 light.bathroom_sink	hue	tojgan bright	Bathroom Sink	Bathroom				e1f392fd-0175-4169-93a4-764ab59a0060
@@ -865,17 +865,17 @@ select.pres_h_detection_sensitivity	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h
 select.pres_l_detection_sensitivity	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite	Detection sensitivity			44:e2:f8:ff:fe:24:03:c4-1-1030-detection_sensitivity
 sensor.15s	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	15s			tongaimaramba@gmail.com_a589fd3cff824897a2814cd20853b7c3
 sensor.17s	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	17s			tongaimaramba@gmail.com_937470aa07504347999b223a7c209ce0
-sensor.aarlo_battery_level_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Battery Level Garden C			battery_level_garden_c
-sensor.aarlo_battery_level_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Battery Level swings			battery_level_swings
-sensor.aarlo_captured_today_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Captured Today Garden C			captured_today_garden_c
-sensor.aarlo_captured_today_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Captured Today swings			captured_today_swings
-sensor.aarlo_last_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Last Garden C			last_garden_c
-sensor.aarlo_last_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Last swings			last_swings
-sensor.aarlo_recent_activity_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Recent Activity Garden C			recent_activity_garden_c
-sensor.aarlo_recent_activity_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Recent Activity swings			recent_activity_swings
-sensor.aarlo_signal_strength_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Signal Strength Garden C			signal_strength_garden_c
-sensor.aarlo_signal_strength_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Signal Strength swings			signal_strength_swings
-sensor.aarlo_total_cameras	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	Arlo Cameras			total_cameras
+sensor.aarlo_battery_level_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Battery Level Garden C	config_entry		battery_level_garden_c
+sensor.aarlo_battery_level_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Battery Level swings	config_entry		battery_level_swings
+sensor.aarlo_captured_today_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Captured Today Garden C	config_entry		captured_today_garden_c
+sensor.aarlo_captured_today_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Captured Today swings	config_entry		captured_today_swings
+sensor.aarlo_last_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Last Garden C	config_entry		last_garden_c
+sensor.aarlo_last_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Last swings	config_entry		last_swings
+sensor.aarlo_recent_activity_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Recent Activity Garden C	config_entry		recent_activity_garden_c
+sensor.aarlo_recent_activity_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Recent Activity swings	config_entry		recent_activity_swings
+sensor.aarlo_signal_strength_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Signal Strength Garden C	config_entry		signal_strength_garden_c
+sensor.aarlo_signal_strength_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Signal Strength swings	config_entry		signal_strength_swings
+sensor.aarlo_total_cameras	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	Arlo Cameras	config_entry		total_cameras
 sensor.abnormal_hr_counts	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Abnormal HR Counts	integration		tongaimaramba@gmail.com_abnormalHeartRateAlertsCount
 sensor.active_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Active KiloCalories			tongaimaramba@gmail.com_activeKilocalories
 sensor.active_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Active Time			tongaimaramba@gmail.com_activeSeconds
@@ -1259,16 +1259,16 @@ sensor.ipad_geocoded_location	mobile_app	iPad	Hanpad		iPad Geocoded Location			5
 sensor.ipad_last_update_trigger	mobile_app	iPad	Hanpad		iPad Last Update Trigger			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_last_update_trigger
 sensor.ipad_ssid	mobile_app	iPad	Hanpad		iPad SSID			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_connectivity_ssid
 sensor.ipad_storage	mobile_app	iPad	Hanpad		iPad Storage			540eea5b975c076c15617df62f7310a7fb3f0fee2e6a8f11da5084ca204933cd_storage
-sensor.iphone_32_battery_level	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery Level			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_battery_level
-sensor.iphone_32_battery_state	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery State			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_battery_state
-sensor.iphone_32_bssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) BSSID			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_bssid
-sensor.iphone_32_connection_type	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Connection Type			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_connection_type
-sensor.iphone_32_geocoded_location	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Geocoded Location			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_geocoded_location
-sensor.iphone_32_last_update_trigger	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Last Update Trigger			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_last_update_trigger
-sensor.iphone_32_sim_1	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 1			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_sim_1
-sensor.iphone_32_sim_2	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 2			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_sim_2
-sensor.iphone_32_ssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SSID			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_connectivity_ssid
-sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage			42545204a0774ca1cf08f3e3fa7566c5dcbeb3db4658f3915199c8fb0d916027_storage
+sensor.iphone_32_battery_level	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery Level			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_battery_level
+sensor.iphone_32_battery_state	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Battery State			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_battery_state
+sensor.iphone_32_bssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) BSSID			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_connectivity_bssid
+sensor.iphone_32_connection_type	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Connection Type			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_connectivity_connection_type
+sensor.iphone_32_geocoded_location	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Geocoded Location			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_geocoded_location
+sensor.iphone_32_last_update_trigger	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Last Update Trigger			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_last_update_trigger
+sensor.iphone_32_sim_1	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 1			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_connectivity_sim_1
+sensor.iphone_32_sim_2	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SIM 2			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_connectivity_sim_2
+sensor.iphone_32_ssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SSID			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_connectivity_ssid
+sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_storage
 sensor.isla_switch_battery_level	hue	tojgan bright	Study Switch	Isla Bedroom	Battery			476abea5-3c36-460c-a6e4-96fbdf49eaab
 sensor.isla_switch_zigbee_connectivity	hue	tojgan bright	Study Switch	Isla Bedroom	Zigbee connectivity	integration		b57a5118-a936-4f4d-b33c-f5f060b43fd1
 sensor.john_s_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	John's Bike			tongaimaramba@gmail.com_e5ab3b1e7fba4a878a2672364d43068b
@@ -2100,14 +2100,14 @@ sensor.worktop_sensor_battery	hue	tojgan bright	Worktop Sensor	Kitchen	Battery		
 sensor.worktop_sensor_light_level	hue	tojgan bright	Worktop Sensor	Kitchen	Illuminance			1b2f8d80-ed29-40c1-9b7b-e5b9b9ab9cad
 sensor.worktop_sensor_temperature	hue	tojgan bright	Worktop Sensor	Kitchen	Temperature			847ae1e3-f56d-49f0-922a-9462c545511c
 sensor.worktop_sensor_zigbee_connectivity	hue	tojgan bright	Worktop Sensor	Kitchen	Zigbee connectivity	integration		46de2556-e87d-4675-bda2-0533e4a38495
-siren.aarlo_all_arlo_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Arlo Sirens			aarlo_all_sirens
-siren.aarlo_garden_c_siren	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren			aarlo_siren_A433197NA3BFB
-siren.aarlo_swings_siren	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren			aarlo_siren_5GG39B73A4B6E
-switch.aarlo_all_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Sirens			all_sirens
-switch.aarlo_siren_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren			siren_garden_c
-switch.aarlo_siren_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren			siren_swings
-switch.aarlo_snapshot_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Snapshot			snapshot_garden_c
-switch.aarlo_snapshot_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Snapshot			snapshot_swings
+siren.aarlo_all_arlo_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Arlo Sirens	config_entry		aarlo_all_sirens
+siren.aarlo_garden_c_siren	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren	config_entry		aarlo_siren_A433197NA3BFB
+siren.aarlo_swings_siren	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren	config_entry		aarlo_siren_5GG39B73A4B6E
+switch.aarlo_all_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Sirens	config_entry		all_sirens
+switch.aarlo_siren_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren	config_entry		siren_garden_c
+switch.aarlo_siren_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren	config_entry		siren_swings
+switch.aarlo_snapshot_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Snapshot	config_entry		snapshot_garden_c
+switch.aarlo_snapshot_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Snapshot	config_entry		snapshot_swings
 switch.advanced_ssh_web_terminal	hassio	Supervisor	Advanced SSH & Web Terminal			integration		a0d7b954_ssh_state
 switch.alexa_media_player_pre_release	hacs		Alexa Media Player		Pre-release	integration		139664351
 switch.appdaemon	hassio	Supervisor	AppDaemon			integration		a0d7b954_appdaemon_state
@@ -2358,11 +2358,13 @@ tag.04_61_21_01_86_02_03	tag				Tag 04-61-21-01-86-02-03			04-61-21-01-86-02-03
 tag.04_61_28_01_ae_02_03	tag				Tag 04-61-28-01-AE-02-03			04-61-28-01-AE-02-03
 tag.04_a1_39_da_70_00_00	tag				Tag 04-A1-39-DA-70-00-00			04-A1-39-DA-70-00-00
 tag.boost_main	tag				Boost main			c589f1a6-b88d-4869-9265-59dce024b7ab
+tag.c9e068e8_208a_46f2_8a7a_cae2109983f8	tag				Tag c9e068e8-208a-46f2-8a7a-cae2109983f8			c9e068e8-208a-46f2-8a7a-cae2109983f8
 tag.downstairs_lights_off	tag				Downstairs Lights Off			80a36f97-2779-4e1b-adc9-ef93c1895868
 tag.dsl	tag				Dsl			b2165dbb-5b8d-496d-bdbc-519da9bf0cbb
 tag.fave_playlist	tag				Fave Playlist			59f194cc-4db6-4d5d-b2e4-a8c02fc33e31
 tag.front	tag				Front			5f18e4cc-d48f-4a65-ab45-02658781dac9
 tag.t_light	tag				T-light			54805471-50ef-43f7-8c19-452ec2e5d80e
+tag.test_pamba	tag				Test pamba			3e382ec5-9d5b-449e-b157-786bfeeaa1ba
 tag.testand	tag				Testand			f81e769d-b89c-4940-9a3d-46bb9bdbeb82
 text.nmudiki_nightmode_end_time	mqtt	192.168.179.41	nMudiki		Nightmode end time			2ff641fd_nightmode_end_time
 text.nmudiki_nightmode_start_time	mqtt	192.168.179.41	nMudiki		Nightmode start time			2ff641fd_nightmode_start_time
