@@ -548,6 +548,27 @@
           "name": "Panic - clear",
           "edit": "/config/automation/edit/panic_clear"
         }
+      },
+      {
+        "created": "2026-10-29T10:49:04.593858+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_167885769_tags/v0.9.0-alpha.5"
+      },
+      {
+        "created": "2026-10-29T10:49:37.662665+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_167885769_tags/v0.8.1.27"
+      },
+      {
+        "created": "2026-10-29T11:36:22.506153+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_448323715_tags/v0.5.0"
       }
     ]
   }

@@ -1,0 +1,15 @@
+# Alarm in shadow (M2 step 7; decisions M2-A, M2-C). The mode the alarm_shadow AppDaemon app reads, and its gate. The
+# app only decides and logs "would alert": nothing is sent, nothing changes. Manual fallback: none needed.
+input_boolean:
+  alarm_shadow_enabled:
+    name: Alarm shadow
+    icon: mdi:shield-home-outline
+  mode_detector_enabled:  # M2 step 7b: the mode_detector app suggests the mode in shadow (starts off)
+    name: Mode detector
+    icon: mdi:home-search-outline
+
+input_select:
+  alarm_mode:
+    name: Alarm mode
+    icon: mdi:shield-lock-outline
+    options: ["Off", "Out", "Away", "Night"]  # Out: a few hours; Away: a holiday (Tongai 2026-10-28)

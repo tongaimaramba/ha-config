@@ -1,4 +1,4 @@
-560	/homeassistant/custom_components/aarlo/
+508	/homeassistant/custom_components/aarlo/
 708	/homeassistant/custom_components/alexa_media/
 68	/homeassistant/custom_components/attributes/
 1092	/homeassistant/custom_components/bermuda/
@@ -17,7 +17,6 @@
 588	/homeassistant/custom_components/miele/
 104	/homeassistant/custom_components/monitor_docker/
 744	/homeassistant/custom_components/myskoda/
-328	/homeassistant/custom_components/nest_protect/
 84	/homeassistant/custom_components/octopusagile/
 636	/homeassistant/custom_components/places/
 84	/homeassistant/custom_components/portainer/

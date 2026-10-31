@@ -1,1 +1,4 @@
   purge_keep_days: 90
+  exclude:
+    entities:
+      - sensor.call_check  # Call check (M2-O): a Markdown page in attributes, rewritten often; its app keeps the history

@@ -1,4 +1,4 @@
-# tanga — automations.yaml (42 automations)
+# tanga — automations.yaml (41 automations)
 
 | id | alias | mode | triggers | entities referenced |
 |---|---|---|---|---|
@@ -43,4 +43,3 @@
 | 1750269427938 | Sync FP Metadata to ESPHome on Boot | single | state:binary_sensor.fp_device_status | binary_sensor.fp_device_status, input_text.fp_metadata_store |
 | 1752418954085 | bedside controller | single | event:hue_event, event:hue_event, event:hue_event, event:hue_event | climate.loft_suite_ac, climate.set_hvac_mode, climate.set_temperature, climate.turn_off, climate.turn_on, fan.pure_cool, fan.turn_off, fan.turn_on, input_boolean.ac_toggle, input_boolean.blinds_toggle, input_boolean.dyson_toggle, input_boolean.turn_off, input_boolean.turn_on, input_number.ac_temp_co |
 | 1752419002586 | solar mode force | single | state:['select.growatt_sph_work_mode_priority'], state:['select.growatt_sph_work_mode_priority'], state:['select.growatt | notify.mobile_app_tongaism25, select.growatt_sph_work_mode_priority, select.select_option, sensor.growatt_sph_device_mode |
-| 1764098343827 | Proxy to mock tap (combined, debounce, and reset) | parallel | state:['binary_sensor.front_step_proxy', 'binary_sensor.front_door_proxy'], state:['binary_sensor.garage_step_proxy', 'b | binary_sensor.front_door_proxy, binary_sensor.front_step_proxy, binary_sensor.garage_door_proxy, binary_sensor.garage_step_proxy, input_boolean.mock_tap_front_door, input_boolean.mock_tap_front_door_cooldown, input_boolean.mock_tap_garage, input_boolean.mock_tap_garage_cooldown, input_boolean.turn_o |

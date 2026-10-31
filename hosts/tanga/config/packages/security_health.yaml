@@ -1,5 +1,5 @@
 # Security health (M2 step 6; decisions M2-D, M2-E). Quiet alerts to Tongai ("Home status" channel) about the locks'
-# and cameras' health, read from pamba's mirrors (read-only; M2 step 4), and a bedtime check of doors and windows left
+# and cameras' health (the locks read from pamba's mirrors, read-only, M2 step 4; Arlo tanga's own from 2026-10-29, M2-L), and a bedtime check of doors and windows left
 # open. No lock-state alerts: the doors are never locked, only unlatched (Tongai). Arlo Swings is retired: not watched.
 # Gate: input_boolean.security_health_enabled (starts off, hard rule 6). Manual fallback: the Nuki and Arlo apps; a
 # walk round at bedtime. Owner: tanga (security, M2). The bedtime list is dashboards/data/tanga.yaml `openings`.
@@ -160,12 +160,12 @@ automation:
     mode: single
     triggers:
       - trigger: state
-        entity_id: binary_sensor.arlo_garden_c_connected_pamba
+        entity_id: binary_sensor.aarlo_connected_garden_c
         to: "off"
         for: {minutes: 30}
         id: offline
       - trigger: numeric_state
-        entity_id: sensor.arlo_garden_c_battery_pamba
+        entity_id: sensor.aarlo_battery_level_garden_c
         below: 20
         for: {minutes: 30}
         id: battery
@@ -180,7 +180,7 @@ automation:
             {{ 'Arlo Garden C offline' if trigger.id == 'offline' else 'Arlo Garden C battery low' }}
           message: >-
             {{ 'Offline for 30 min: check it in the Arlo app.' if trigger.id == 'offline'
-               else 'Battery at ' ~ states('sensor.arlo_garden_c_battery_pamba') ~ ' %: charge it.' }}
+               else 'Battery at ' ~ states('sensor.aarlo_battery_level_garden_c') ~ ' %: charge it.' }}
           data:
             tag: "security_arlo_garden_c_{{ trigger.id }}"
             channel: Home status

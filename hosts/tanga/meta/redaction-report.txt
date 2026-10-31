@@ -26,10 +26,10 @@ redaction report (replacements per file):
       3  config/esphome/loft32.yaml
       3  config/esphome/nya-proxy.yaml
       3  config/esphome/rpi-rebooter.yaml
-     85  config/esphome/secrets.yaml
+     91  config/esphome/secrets.yaml
       3  config/esphome/zane-proxy.yaml
       4  config/navimow_secrets.yaml
       2  config/pir_code.txt
      34  config/secrets.yaml
-    290  storage/core.config_entries
-  total: 488
+    296  storage/core.config_entries
+  total: 500

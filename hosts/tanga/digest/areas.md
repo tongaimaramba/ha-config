@@ -9,6 +9,7 @@
 - Driveway
 - Ellie
 - Ellies Bedroom
+- First Floor
 - Garage
 - Garden
 - Hallway
