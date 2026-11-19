@@ -10,6 +10,12 @@
           "badges": [],
           "cards": [
             {
+              "type": "custom:album-slideshow-card",
+              "photo_controls": "on_demand",
+              "entity": "camera.album_slideshow_doggo",
+              "duration": 100
+            },
+            {
               "show_state": true,
               "show_name": true,
               "camera_view": "live",
@@ -3619,17 +3625,669 @@
           "badges": [],
           "cards": [
             {
-              "entity": "camera.aarlo_swings",
-              "image_click": "play",
-              "light": "light.aarlo_front_light",
-              "name": "Swings",
-              "show": [
-                "motion",
-                "sound",
-                "snapshot",
-                "captured_today"
-              ],
-              "type": "custom:aarlo-glance"
+              "square": false,
+              "type": "grid",
+              "columns": 2,
+              "title": "Lights check",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Ground floor",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "heading",
+                  "heading": "---",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hallway_spotlights_switch",
+                  "name": "Hall spots",
+                  "vertical": false,
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_hall_spots",
+                  "name": "Hall spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "button",
+                  "name": "Lamp by the front door (not in HA)",
+                  "icon": "mdi:lightbulb-off",
+                  "tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_hall_lamp",
+                  "name": "Lamp by the front door",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.coats",
+                  "name": "Coats",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_coats",
+                  "name": "Coats",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "button",
+                  "name": "Loo light (not in HA)",
+                  "icon": "mdi:lightbulb-off",
+                  "tap_action": {
+                    "action": "none"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loo",
+                  "name": "Loo light",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lounge_spotlights_switch",
+                  "name": "Lounge spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_lounge_spots",
+                  "name": "Lounge spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lounge_pendant_switch",
+                  "name": "Pendant",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_lounge_pendant",
+                  "name": "Pendant",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lounge_wall_lights_switch",
+                  "name": "Wall lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_lounge_wall",
+                  "name": "Wall lights",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_spotlights_switch",
+                  "name": "Media room spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_media_spots",
+                  "name": "Media room spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.media_room_wall_lights_switch",
+                  "name": "Wall lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_media_wall",
+                  "name": "Wall lights",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_spotlights_switch",
+                  "name": "Dining spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_dining_spots",
+                  "name": "Dining spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_wall_light_garden",
+                  "name": "Wall light (garden)",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_dining_wall_garden",
+                  "name": "Wall light (garden)",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.dining_wall_light_road",
+                  "name": "Wall light (road)",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_dining_wall_road",
+                  "name": "Wall light (road)",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.kitchen_spotlights_switch",
+                  "name": "Kitchen spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_kitchen_spots",
+                  "name": "Kitchen spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.kitchen_worktop",
+                  "name": "Worktop",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_kitchen_worktop",
+                  "name": "Worktop",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.pantry",
+                  "name": "Pantry spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_pantry",
+                  "name": "Pantry spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.laundry",
+                  "name": "Laundry spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_laundry",
+                  "name": "Laundry spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hue_lightstrip_1",
+                  "name": "Strip",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_garage_strip",
+                  "name": "Strip",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "heading": "First floor"
+                },
+                {
+                  "type": "heading",
+                  "heading": "---",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.movie_lamp",
+                  "name": "Piano lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_piano_lamp",
+                  "name": "Piano lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hannah_spotlights_switch",
+                  "name": "Spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_hannah_spots",
+                  "name": "Spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hannah_lamp",
+                  "name": "Lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_hannah_lamp",
+                  "name": "Lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.main_spotlights_switch",
+                  "name": "Spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_ellie_spots",
+                  "name": "Spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.ellie_door_lamp",
+                  "name": "Door lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_ellie_door_lamp",
+                  "name": "Door lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.ellie_window_lamp",
+                  "name": "Window lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_ellie_window_lamp",
+                  "name": "Window lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lounge_lamp_1",
+                  "name": "Standing lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_ellie_standing_lamp",
+                  "name": "Standing lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.bathroom_sink",
+                  "name": "Sink light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_kids_bathroom_sink",
+                  "name": "Sink light",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "heading": "Loft"
+                },
+                {
+                  "type": "heading",
+                  "heading": "---",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.loft_spotlights_switch",
+                  "name": "Loft spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loft_spots",
+                  "name": "Loft spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hue_lightstrip_plus_1",
+                  "name": "Desk shelf",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_desk_shelf",
+                  "name": "Desk shelf",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.loft32_desk_light",
+                  "name": "Desk light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_desk_light",
+                  "name": "Desk light",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.work_status_on_air_light",
+                  "name": "On-air light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_on_air",
+                  "name": "On-air light",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.loft_suite_spotlights_switch",
+                  "name": "Spots",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loft_suite_spots",
+                  "name": "Spots",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.bookshelf_lamp",
+                  "name": "Bedside lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loft_bedside",
+                  "name": "Bedside lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.study_desk_lamp",
+                  "name": "Side board lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loft_sideboard",
+                  "name": "Side board lamp",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.hue_adore_wall_1",
+                  "name": "Sink light",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.light_room_loft_bathroom_sink",
+                  "name": "Sink light",
+                  "hide_state": true,
+                  "features": [
+                    {
+                      "type": "select-options"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "card": {
@@ -4373,6 +5031,26 @@
             }
           ],
           "cards": []
+        },
+        {
+          "type": "masonry",
+          "title": "Album",
+          "path": "album",
+          "visible": [
+            {
+              "user": "654b5cdf36f8494cb948a9d13e1c17c7"
+            },
+            {
+              "user": "6bba71ebf61c41e89100914d1c35e4df"
+            }
+          ],
+          "sections": [],
+          "cards": [
+            {
+              "type": "picture-entity",
+              "entity": "camera.album_slideshow_doggo"
+            }
+          ]
         }
       ]
     }

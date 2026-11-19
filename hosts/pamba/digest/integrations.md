@@ -3,6 +3,7 @@
 | domain | title | source | kind | devices | entities | disabled | entry_id |
 |---|---|---|---|---|---|---|---|
 | aarlo | Aarlo for tongai.maramba@gmail.com | user | custom | 6 | 33 | user | 01JZ81G3E3A5HHJ29RNN3YVSB7 |
+| album_slideshow | Doggo | user | custom | 1 | 30 |  | 01M7PTDD55CPGK0BSDS9JJNZB7 |
 | androidtv_remote | SHIELD | zeroconf | core | 1 | 2 |  | 5b8948e607aa97eaeead31a660937afa |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | d7ffc6642b3f4c063b57e99eaf74852f |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | 95c1fa6206d6f0b7a51e67a2d67baf42 |
@@ -26,6 +27,7 @@
 | esphome | Ellie's call button (e-panic) | ignore | core | 0 | 0 |  | 01M645107487DGV5NS1FH428F3 |
 | esphome | Fingerprint Authoriser | ignore | core | 0 | 0 |  | 01JWRZHC6P36AQ0ZAMGWDR7JJF |
 | esphome | Fingerprint Authoriser | ignore | core | 0 | 0 |  | 01JWRZHE09F6Q8GRZ4CDEZSH2T |
+| esphome | Garden proxy (garden-proxy) | ignore | core | 0 | 0 |  | 01M6KTFHE6BAZKW7M3T5JJ52WM |
 | esphome | Hannah's call button (h-panic) | ignore | core | 0 | 0 |  | 01M6450XFNS14BZ6T55SFJZHR5 |
 | esphome | c32_auth | ignore | core | 0 | 0 |  | 01JYET078C3FF23GBJT3MW57H2 |
 | esphome | doorstep presence | zeroconf | core | 1 | 4 |  | e1e592d082198849a059824bcde4b588 |
@@ -52,7 +54,6 @@
 | fujitsu_airstage | local - 50BBB5FFAB85 | user | custom | 1 | 10 |  | 01KSJA1QM2DKMQ3AEQBSTF3MQB |
 | fujitsu_airstage | local - 50BBB5FFC481 | user | custom | 1 | 10 |  | 01KSJA6ETMRJ5XENZR9B0JX7GT |
 | fujitsu_airstage | local - 9CC7D3ADCA69 | user | custom | 1 | 10 |  | 01KSJA3R5CN7SQTF7524DJ0ZM4 |
-| garmin_connect | tongaimaramba@gmail.com | user | custom | 1 | 93 |  | 01J7N3V3TBG0CBA4QWCRB8ZP6H |
 | go2rtc | go2rtc | system | core | 0 | 0 |  | 01JMQ640YFB3KK9DSJ1ZCAN92X |
 | group | Car Security | user | core | 0 | 1 |  | 32512a8a1e1341f8ca6d8d8f791537e9 |
 | group | Dining Wall Lights | user | core | 0 | 1 |  | ad294e85652dade065b20ca89f7fa7e1 |
@@ -79,7 +80,7 @@
 | group | pantry | user | core | 0 | 1 |  | 790ad5d30ef222d99be7536aa683156f |
 | group | utility | user | core | 0 | 1 |  | 18f440464495c1d0895424e4bab0cc15 |
 | growatt_server_api | tojgan-solar | user | custom | 2 | 37 |  | 26ed0faa71ef6b3aef24274377700cef |
-| hacs |  | user | custom | 59 | 118 |  | 01KAF4D4RYWCVQGHN5YB731EDB |
+| hacs |  | user | custom | 58 | 116 |  | 01KAF4D4RYWCVQGHN5YB731EDB |
 | hassio | Supervisor | system | core | 20 | 137 |  | e170bc42d8b368aa1271b400fde50598 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | c9bd9681950342d7a035531eed7d30f5 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | 3409676f1de7289f30d22cc3daad2dc7 |
@@ -87,7 +88,7 @@
 | homekit_controller | Roku 4200X 26BC via HomeKit Accessory Protocol | ignore | core | 0 | 0 |  | fb76add0fd1b89a159e68b818d86043f |
 | homekit_controller | tado Internet Bridge IB0210636544 | ignore | core | 0 | 0 |  | a2d9cc23459a1c24cd1f785553005238 |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| hue | tojgan bright | user | core | 58 | 313 |  | 47d5a131a23b580540b3bb4c78dffcd0 |
+| hue | tojgan bright | user | core | 55 | 305 |  | 47d5a131a23b580540b3bb4c78dffcd0 |
 | ibeacon | ibeacon | ignore | core | 0 | 0 |  | 01M645150GA2BDS8NGW1R18ZBP |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
@@ -95,12 +96,12 @@
 | lightwave_smart | RPI4 | user | custom | 21 | 80 |  | 01KAF4KAJNW194B6P66DG42YWP |
 | matter | matter | ignore | core | 0 | 0 |  | 01JWRZHFKXWZM1S5826TX6A4D0 |
 | miele | Miele | ignore | core | 0 | 0 |  | 01JMJZQZFNPBMM5KERGXS4NXQA |
-| mobile_app | Ellie iPhone | registration | core | 1 | 30 |  | 01KXXQJDAKHYW963D1AF4RABRC |
+| mobile_app | Ellie iPhone | registration | core | 1 | 34 |  | 01KXXQJDAKHYW963D1AF4RABRC |
 | mobile_app | Garmin Device | registration | core | 1 | 6 |  | 01JSSMYR9DKJ1ZNMC5EXAMVH57 |
 | mobile_app | Garmin Device | registration | core | 1 | 8 |  | 01M1AAN95W6TVW7D82CK8FDFY2 |
 | mobile_app | Hannah iPhone | registration | core | 1 | 14 |  | 01KA3NRYHRXG30FNAM8JXY5AK7 |
 | mobile_app | Hannah’s iPhone | registration | core | 1 | 21 |  | 0339cf5d47f896d8e8af5fc425b8ad60 |
-| mobile_app | Hannah’s iPhone13 | registration | core | 1 | 30 |  | 01KCW0QXSZ4M4H0HVWT1THFYX3 |
+| mobile_app | Hannah’s iPhone13 | registration | core | 1 | 31 |  | 01KCW0QXSZ4M4H0HVWT1THFYX3 |
 | mobile_app | MacBook Pro | registration | core | 1 | 21 |  | c1e2f77695764f64b7d4b620ac9c7781 |
 | mobile_app | TongaiPix | registration | core | 1 | 125 |  | 01K1X33GE4NXBMY7HHSFAG9QP9 |
 | mobile_app | TongaiPix9 | registration | core | 1 | 125 |  | 01JZN0BZ3SEPDQ4QY05ZTPTMYT |
@@ -113,11 +114,11 @@
 | mobile_app | tongai-mbp (2) | registration | core | 1 | 24 |  | 2e4455d642f14e852e5d58ee9f60971b |
 | mobile_app | tongai-mbp_work | registration | core | 1 | 24 |  | 01JT6NAWKK0JMS1RQJKFTBJ98E |
 | mobile_app | tongai22 | registration | core | 1 | 125 |  | 1e876a2e9e58096b516d10ef5da57bd6 |
-| mqtt | 192.168.179.41 | user | core | 9 | 235 |  | 5e4c8de897d345c4bbea45c6e9895efa |
+| mqtt | 192.168.179.41 | user | core | 9 | 234 |  | 5e4c8de897d345c4bbea45c6e9895efa |
 | navimow_pro | Oppy | user | custom | 1 | 51 |  | 01M2J126F0N1RASMM1ZJ1CYZKP |
 | nest | Pamba | user | core | 3 | 8 |  | 01JZ7Z5Q3VGSN8HBZ98THPEGF7 |
 | nest_protect | nest_protect | ignore | custom | 0 | 0 |  | 01JWRZHHRBEX2T8F1Q6NC583MC |
-| nmap_tracker | frontdoor_nmap | user | core | 0 | 1 |  | fff92b6d308a20b30009997aaa01e667 |
+| nmap_tracker | frontdoor_nmap | user | core | 0 | 2 |  | fff92b6d308a20b30009997aaa01e667 |
 | nmap_tracker | patio_nmap | user | core | 0 | 3 |  | e88c4b29201af53044186ef92f283a44 |
 | nmap_tracker | swings_nmap | user | core | 0 | 3 |  | 8418c00c08abcd8dfdcdc0fe168328a0 |
 | nut | ccf28a08-nut:3493 | user | core | 2 | 28 |  | e4593ec01a36a391177e6b62af65ce6c |
@@ -129,7 +130,7 @@
 | raspberry_pi | Raspberry Pi | system | core | 0 | 0 |  | 5be085a78cace913594f60a9f28d9f4b |
 | roomba | Robert | dhcp | core | 1 | 15 |  | 13a73bc11cbc0137864e88c6018f4cfd |
 | rpi_power | Raspberry Pi Power Supply Checker | onboarding | core | 0 | 1 |  | 7b836b3f62de3ad9780a91384a6731bf |
-| smartthings | My home | user | core | 18 | 130 |  | 01KHV34R3NJ1A41RGN36KYHCYN |
+| smartthings | My home | user | core | 26 | 152 |  | 01KHV34R3NJ1A41RGN36KYHCYN |
 | sonoff | tongaimaramba@gmail.com | import | custom | 3 | 15 |  | 01K4CC7WJV9RM53DMYH9860GHJ |
 | speedtestdotnet | SpeedTest | user | core | 1 | 3 |  | 01JPZE8P6BTFZ9AE5FXGADTVSS |
 | spotify | Spotify | ignore | core | 0 | 0 |  | 7c0befa83904312eb73fddd2e49e334f |
@@ -154,13 +155,13 @@
 | component | version | name | has config entry | docs |
 |---|---|---|---|---|
 | aarlo | 0.8.1.18 | Arlo Camera Support | yes | https://github.com/twrecked/hass-aarlo/blob/master/README.md |
+| album_slideshow | 1.17.0 | Album Slideshow Camera | yes | https://github.com/eyalgal/album_slideshow |
 | alexa_media | 5.15.0 | Alexa Media Player | NO — installed but not configured | https://github.com/alandtse/alexa_media_player/wiki |
 | attributes | 1.2.1 | Attributes | NO — installed but not configured | https://github.com/pilotak/homeassistant-attributes |
 | dyson_local | 1.5.1 | Dyson | yes | https://github.com/libdyson-wg/ha-dyson |
 | edgeos | 2.0.31 | Ubiquiti EdgeOS Routers | NO — installed but not configured | https://github.com/elad-bar/ha-edgeos |
 | eventsensor | 3.4.0 | Event sensor | yes | https://github.com/azogue/eventsensor |
 | fujitsu_airstage | 1.3.2 | Fujitsu Airstage | yes | https://github.com/danielkaldheim/ha_airstage |
-| garmin_connect | 0.2.30 | Garmin Connect | yes | https://github.com/cyberjunky/home-assistant-garmin_connect |
 | growatt_server_api | 1.0.4 | Growatt Server API | yes | https://github.com/muppet3000/homeassistant-growatt_server_api |
 | hacs | 2.0.5 | HACS | yes | https://hacs.xyz/docs/use/ |
 | keymaster | v0.0.87 | keymaster | NO — installed but not configured | https://github.com/FutureTense/keymaster |
@@ -170,7 +171,6 @@
 | myskoda | 1.23.1 | MySkoda | NO — installed but not configured | https://github.com/skodaconnect/homeassistant-myskoda/blob/main/README.md |
 | navimow_pro | 0.6.0 | Navimow (Private) | yes | https://github.com/ilguala/navimow_pro |
 | nest_protect | 0.4.0b5 | Nest Protect | yes | https://github.com/imicknl/ha-nest-protect |
-| octopusagile | 2021.3.0b0 | octopusagile | NO — installed but not configured | https://github.com/markgdev/home-assistant_OctopusAgile |
 | places | v2.8.3 | Places | yes | https://github.com/custom-components/places |
 | portainer | 0.0.0 | Portainer | NO — installed but not configured | https://github.com/tomaae/homeassistant-portainer |
 | rpi_gpio | 2022.7.0 | Raspberry Pi GPIO | NO — installed but not configured | https://github.com/thecode/ha-rpi_gpio |

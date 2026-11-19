@@ -99,7 +99,7 @@
         "domain": "mqtt",
         "entry_id": "5e4c8de897d345c4bbea45c6e9895efa",
         "minor_version": 2,
-        "modified_at": "2025-02-22T14:50:36.404447+00:00",
+        "modified_at": "2026-11-04T15:39:30.915937+00:00",
         "options": {
           "_redacted_keys": [
             "birth_message",
@@ -206,7 +206,79 @@
               "domain": "zeroconf",
               "key": [
                 "_hap._tcp.local.",
-                "Lightwave Link Plus 314B6B._hap._tcp.local."
+                "Lightwave Link Plus 314B6B (122)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (123)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (124)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (104)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (125)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (126)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (127)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (128)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (115)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (116)._hap._tcp.local."
               ],
               "version": 1
             }
@@ -215,7 +287,7 @@
         "domain": "homekit_controller",
         "entry_id": "c9bd9681950342d7a035531eed7d30f5",
         "minor_version": 1,
-        "modified_at": "2025-02-22T15:58:59.622726+00:00",
+        "modified_at": "2026-11-04T14:35:21.932447+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -274,13 +346,21 @@
                 "Basestation 5GP5977YA0116._hap._tcp.local."
               ],
               "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Basestation 5GP5977YA0116 #2._hap._tcp.local."
+              ],
+              "version": 1
             }
           ]
         },
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-10-23T02:20:32.236546+00:00",
+        "modified_at": "2026-11-04T15:04:20.328661+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -856,13 +936,85 @@
                 "tado Internet Bridge IB0210636544._hap._tcp.local."
               ],
               "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-00._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-01._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-02._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-03._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-04._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-05._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-06._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-07._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-08._hap._tcp.local."
+              ],
+              "version": 1
             }
           ]
         },
         "domain": "homekit_controller",
         "entry_id": "a2d9cc23459a1c24cd1f785553005238",
         "minor_version": 1,
-        "modified_at": "2025-02-22T15:58:59.622216+00:00",
+        "modified_at": "2026-11-04T14:25:23.565447+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2139,9 +2291,10 @@
         "domain": "group",
         "entry_id": "4e94c9b30d69fa0fd4b1ec3345778be7",
         "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2026-11-07T21:36:43.023645+00:00",
         "options": {
           "_redacted_keys": [
+            "all",
             "entities",
             "group_type",
             "hide_members",
@@ -2616,7 +2769,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-10-31T11:31:21.751542+00:00",
+        "modified_at": "2026-11-19T17:54:43.449277+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2917,32 +3070,6 @@
         "subentries": [],
         "title": "domane-phone",
         "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "2024-09-13T07:16:28.619665+00:00",
-        "data": {
-          "_redacted_keys": [
-            "id",
-            "password",
-            "username"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "garmin_connect",
-        "entry_id": "01J7N3V3TBG0CBA4QWCRB8ZP6H",
-        "minor_version": 1,
-        "modified_at": "2024-09-13T07:16:28.619683+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "tongaimaramba@gmail.com",
-        "unique_id": "tongaimaramba@gmail.com",
         "version": 1
       },
       {
@@ -3566,7 +3693,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-10-31T11:38:23.745216+00:00",
+        "modified_at": "2026-11-19T17:18:03.348711+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4072,7 +4199,7 @@
         "domain": "mobile_app",
         "entry_id": "01KCW0QXSZ4M4H0HVWT1THFYX3",
         "minor_version": 1,
-        "modified_at": "2026-10-28T12:30:59.975175+00:00",
+        "modified_at": "2026-11-03T08:01:21.978712+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4099,7 +4226,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-10-31T10:06:03.041793+00:00",
+        "modified_at": "2026-11-19T16:07:50.536024+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4237,7 +4364,7 @@
         "domain": "mobile_app",
         "entry_id": "01KXXQJDAKHYW963D1AF4RABRC",
         "minor_version": 1,
-        "modified_at": "2026-10-25T09:51:20.318623+00:00",
+        "modified_at": "2026-11-05T20:11:11.437786+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4508,7 +4635,7 @@
         "domain": "mobile_app",
         "entry_id": "01M64GF7H15SQB536Q698D3STD",
         "minor_version": 1,
-        "modified_at": "2026-10-29T18:59:00.359721+00:00",
+        "modified_at": "2026-11-16T06:26:05.816860+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4518,6 +4645,65 @@
         "subentries": [],
         "title": "iPhone (32)",
         "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-04T17:42:32.646730+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "garden-proxy._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M6KTFHE6BAZKW7M3T5JJ52WM",
+        "minor_version": 1,
+        "modified_at": "2026-11-04T17:42:32.646747+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "ignore",
+        "subentries": [],
+        "title": "Garden proxy (garden-proxy)",
+        "unique_id": "14:33:5c:4d:c7:80",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-18T07:54:47.846038+00:00",
+        "data": {
+          "_redacted_keys": [
+            "album_name",
+            "album_url",
+            "provider"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "album_slideshow",
+        "entry_id": "01M7PTDD55CPGK0BSDS9JJNZB7",
+        "minor_version": 1,
+        "modified_at": "2026-11-18T07:54:47.846054+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Doggo",
+        "unique_id": "album_slideshow:google_shared:https://photos.app.goo.gl/FwuEmUdTeLbifS6F8:Doggo",
         "version": 1
       }
     ]

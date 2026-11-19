@@ -4,6 +4,8 @@ ARLO CONTROLLER	Arlo	ARLO CONTROLLER	Garden	aarlo	config_entry	0.8.1.18	772f60df
 Aarlo for tongai.maramba@gmail.com	Arlo			aarlo	config_entry		841ceb17747d81b657c320e583b41047
 Aarlo for tongai.maramba@gmail.com	Arlo			aarlo	config_entry		0c7aea12491bcb62b19657e5e58fd2ef
 Advanced SSH & Web Terminal	Home Assistant Community Apps	Home Assistant Add-on		hassio		21.0.2	6d18bc3182b809ec5a17262521976fa9
+Album Slideshow Camera	eyalgal	integration		hacs			56997898454fed00ebc877a7541eae12
+Album Slideshow Doggo	Album Slideshow		Hallway	album_slideshow			60fd0098b515ed704b3f82b23e467756
 Alexa Media Player	alandtse, keatontaylor	integration		hacs			d4ee7d2b43c8ab642bfcbd7fad510761
 AppDaemon	Home Assistant Community Apps	Home Assistant Add-on		hassio		0.16.7	add26c11cc0f794a1d5ad8db21e893dd
 Arlo Camera Support	twrecked	integration		hacs			47031f9ec0cb036762c026edb1c8d4b4
@@ -23,7 +25,6 @@ Bedroom Presence	Espressif	esp32-s3-devkitc-1	Loft	esphome		2025.10.4 (Nov 12 20
 Bedroom Presence (D8:3B:DA:75:E6:92)	Espressif Inc. (esphome)	esp32-s3-devkitc-1	Loft	bluetooth			2f667ec8a6cbb5ca78b1aebd3cc14ba5
 Boiler Temp			Garage	smartthings			a268018de077db6b8d3ee14837cfa2d6
 Charger Card	tmjo	plugin		hacs			145b4f28370f46435160e05d25e92317
-Christmas Lights	Signify Netherlands B.V.	Hue smart plug	Bathroom heating	hue		1.122.2	94fdf90bf415b3262d25da4c4996398d
 Christmas!	Signify Netherlands B.V.	Room	Bathroom heating	hue			2d12e785bc7919c445c06504ad814f11
 Cloudflared	Cloudflared	Home Assistant Add-on		hassio		6.0.5	206fffdd898bf2d0326a98b3ffe39dd5
 Coats	Signify Netherlands B.V.	Hue white spot	Hallway	hue		1.116.12	6146c178d4326c8e6271a3faaa833676
@@ -35,8 +36,11 @@ Dining Spotlights	LightwaveRF	L22MK2	Dining Area	lightwave_smart			e0aa49ab4cf7c
 Dining Wall Light Garden	Tuya	G9--CW-WiFi & Bluetooth- LE3W	Dining Area	tuya			25280eff020a3d195e6c0c1dd0306dd4
 Dining Wall Light Road	Tuya	G9--CW-WiFi & Bluetooth- LE3W	Dining Area	tuya			2a54fe9e9a223c86e896ca4bae59cd5d
 Domane	Tile Inc.		Garage	tile		41.04.10.0	f6b456bb132ab5ce4ebd9652ffb1c8b0
+Door			Ellie	smartthings			d45b15ed7fdd59702fe6cb9f5ca56cf9
+Door			Loft	smartthings			4a6094805f5b7960894ea8ad8a480e15
+Door			Study	smartthings			e0aa71b2bcfb032d825cf102a6f76741
+Door			Hannah	smartthings			af397e079e8acbe7493c9412412d9045
 Downstairs	Google Nest	Thermostat	Dining Area	nest			5dabebc2d26f31d5281764187aa4bbee
-Downstairs Loo	Signify Netherlands B.V.	Hue white spot		hue		1.163.1	52eec4537a393cb94b8889079223dd68
 Dyson	libdyson-wg, dotvezz, cmgrayb	integration		hacs			ee37a15271590090579f97cdf704f78a
 Dyson Local	shenxn	integration		hacs			9bfe4b20e60148db52072e529d16ec23
 E Door side	Signify Netherlands B.V.	Hue ambiance candle	M Bedside	hue		1.116.12	234597f376e48524d8e2dcfce782c2e0
@@ -48,7 +52,7 @@ Ellie Hue Dimmer	Signify Netherlands B.V.	Hue dimmer switch	Ellies Bedroom	hue		
 Ellie Standing Lamp	Signify Netherlands B.V.	Hue ambiance lamp	Living Room	hue		67.116.12	48d77f08238365837c3069a5526968f8
 Ellie Window			Ellie	smartthings			3e0c5ee0f70d8016c8258731ccefe713
 Ellie Window Party			Ellie	smartthings			fac518cfcac8e7e259d583467fc8ca2e
-Ellie iPhone	Apple	iPhone15,2		mobile_app		27.0.1	f6bd6fc6df853601d586568116bf06bf
+Ellie iPhone	Apple	iPhone15,2		mobile_app		27.2	f6bd6fc6df853601d586568116bf06bf
 Ellie's Gym Bag	Tile Inc.			tile		41.04.10.0	393c5f36073cda405c3989713452112e
 Ellie's Hockey Bag	Tile Inc.			tile		41.04.10.0	c474badd84be45890b57327f5dcc9aa7
 Ellie's Phone	Tile Inc.			tile		41.04.10.0	f96672729c224b3ac5cf17d8760bbf19
@@ -77,8 +81,6 @@ Garage Light Strip	Signify Netherlands B.V.	Hue lightstrip		hue		1.163.1	9593355
 Garage Utility Door			Loft	smartthings			2a4df67320f54793f23c657782eac7ac
 Garden A	Google Nest	Camera	Backyard	nest			4b42f81fb3bb5debbe7ca2a9eb6a0597
 Garden C	Arlo	VMC5040		aarlo	config_entry	0.8.1.18	f9bc61238265630bd65f1e2200e7d7cc
-Garmin Connect	Garmin Connect		Home General	garmin_connect			46c8a496742e956185b1a6085316507a
-Garmin Connect	cyberjunky	integration		hacs			5da5c0ceb5414a421f025c67e087c524
 Garmin Device	Garmin	006-B4315-00		mobile_app		29.5	85a80c50a6cfe0b4175f54b1e8e5a005
 Garmin Device	Garmin	006-B4062-00		mobile_app		26.18	b525e58e00c8bb0743f28a5106833fc5
 Get HACS	Home Assistant Community Store	Home Assistant Add-on		hassio		1.3.1	fefb0b0ab379b86a67fa04d032a3bac0
@@ -95,7 +97,7 @@ Hannah Hue Dimmer 	Signify Netherlands B.V.	Hue dimmer switch	Hannahs Bedroom	hu
 Hannah Keys	Tile Inc.		Coats	tile		41.04.10.0	d06fb1ef1f2705966b47aa5c35287382
 Hannah Lamp	Signify Netherlands B.V.	Hue ambiance lamp	Dining Area	hue		67.116.12	5433856065066b607fc149d441bb7d47
 Hannah Spotlights	LightwaveRF	L21MK2	Hannahs Bedroom	lightwave_smart			2aa4c8b299c41558fbbd7b190c719b0d
-Hannah Spotlights Device	LightwaveRF	L21MK2	Hannah	lightwave_smart		5.08.0	8909a2bf1c0072800fe45bd494df9912
+Hannah Spotlights Device	LightwaveRF	L21MK2	Hannahs Bedroom	lightwave_smart		5.08.0	8909a2bf1c0072800fe45bd494df9912
 Hannah iPhone	Apple	iPhone14,4		mobile_app		26.1	c3fef4c369f57519e87c9e8862afe7a2
 Hannahs Bedroom	Signify Netherlands B.V.	Room	Isla	hue			c1921929e89c759a3093be8d0cf78a2e
 Hannah’s iPhone	Apple	iPhone10,4		mobile_app		16.7.12	de903fab8b261f71423ff108e9b9428f
@@ -130,8 +132,7 @@ Loft Spotlights	LightwaveRF	LW400	Loft Suite	lightwave_smart			609287dab35e87118
 Loft Suite	Signify Netherlands B.V.	Room	Loft Suite	hue			ee510b471beb712a3018f9d88add454b
 Loft Suite AC	Fujitsu Airstage	ASYG12KMCE	Loft	fujitsu_airstage			382b7f39218e70852aa848bd99ee5fdf
 Loft Suite Spotlights	LightwaveRF	L21MK3	Loft Suite	lightwave_smart			da957aea6b9bc61af71c99f90b06617c
-Loft Suite Spotlights Device	LightwaveRF	L21MK3	Loft Suite	lightwave_smart		6.01.0	fc6e63f75849d308b57d402d59d6cc88
-Lounge Lamp - Poppy	Signify Netherlands B.V.	Hue ambiance lamp	Living Room	hue		1.116.3	e08972cad570276a1b742e4e63513f11
+Loft Suite Spotlights Device	LightwaveRF	L21MK3	Loft Suite	lightwave_smart		6.09.0	fc6e63f75849d308b57d402d59d6cc88
 Lounge Lamps	Signify Netherlands B.V.	Room	Lounge Lamps	hue			5bf88ca37dbecbc66dcb5f50de12018a
 Lounge Pendant	LightwaveRF	L22MK2	Lounge Lamps	lightwave_smart			bd8e26b598401aea4990dc356d928ce5
 Lounge Pendant - Lounge Spotlights Device	LightwaveRF	L22MK2	Lounge Lamps	lightwave_smart		5.08.0	d27622db8430fd298e8f8e4aefb53497
@@ -144,12 +145,11 @@ M Bedside Light	Signify Netherlands B.V.	Hue Smart button	Main Bedroom	hue		2.85
 Main Spotlights	LightwaveRF	L21MK2	Ellies Bedroom	lightwave_smart			b08de32c64f9f943593351e8f66b69f7
 Main Spotlights Device	LightwaveRF	L21MK2	Ellies Bedroom	lightwave_smart		5.08.0	4fb378ca08bc6e85a92b8ca52f730b50
 Media Room Spotlights	LightwaveRF	L23MK3	Media area	lightwave_smart			ad102e3d2bb29cc15800abceb06268c7
-Media Room Spotlights - Media Room Wall Lights - Lounge Wall Lights Device	LightwaveRF	L23MK3	Media area	lightwave_smart		6.01.0	e3e60ad467f5deafd5cab247fc039227
+Media Room Spotlights - Media Room Wall Lights - Lounge Wall Lights Device	LightwaveRF	L23MK3	Media area	lightwave_smart		6.09.0	e3e60ad467f5deafd5cab247fc039227
 Media Room Wall Lights	LightwaveRF	L23MK3	Media area	lightwave_smart			338589bd1a4557dcd532800fdb399694
 Mini Media Player	kalkih	plugin		hacs			d18c64d1661cc51330b90af4ebcff665
 Monitor Docker	ualex73	integration		hacs			1348d179523cff063cfbedce1830f164
 Mosquitto broker	Official add-ons	Home Assistant Add-on		hassio		6.5.2	61dd34c01248136212df639e050f4e23
-Mudiki			Hallway	smartthings			84a4f329a3ac4e57cb397bc401b817ef
 Multiline Entity Card	jampez77	plugin		hacs			604eafce5253d77a134d8dd304e2c356
 Multiple Entity Row	benct	plugin		hacs			98b2c687a1cd19f58e5a15f90d1e334e
 Mummy's Keys	Tile Inc.			tile		41.04.10.0	b1b949540b60ec8e8cc4b9b9e6d80aa4
@@ -158,13 +158,12 @@ MySkoda	prior99, WebSpider, dvx76	integration		hacs			f74ccaed3787ac674b6688cfb9
 Myups	American Power Conversion	Back-UPS RS  650MI	Garage	nut		939.g2 .I	37408f5c6149d732c2f77327278116e8
 Myups				nut			f17e7881199babae1874e22e65e670fc
 NGINX Home Assistant SSL proxy	Official add-ons	Home Assistant Add-on		hassio		3.13.0	f128dad749a590678862f301ea6ecffa
-NHtojgan	Technyon	Nuki Hub		mqtt		9.14	b8f92622e77a323e18b7738028711a70
+NHtojgan	Technyon	Nuki Hub		mqtt		10.00	b8f92622e77a323e18b7738028711a70
 Navimow (Private)	ilguala	integration		hacs			3b4aecdf0c77480de25af9efde1b5762
 Nest Protect	imicknl	integration		hacs			16e55c9d9e9535b6807e1b3a79bbd88f
 Network UPS Tools	Home Assistant Community Apps	Home Assistant Add-on		hassio		0.16.1	c9bdf768a27a2799ce966be63933958e
 Node-RED	Home Assistant Community Apps	Home Assistant Add-on		hassio		18.0.4	ce6f68c55ad9d02bdf1406a8856476b1
 Notify Card	bernikr	plugin		hacs			c3fb5628373668187b53a0215afa4479
-Octopus Agile	markgdev	integration		hacs			8b8301029dddd2f57839421bc83c209c
 Oppy	Segway Navimow	X315	Garden	navimow_pro			cc243bee5e662c13aa1cfbfd6b6baf50
 Patio Door			Kitchen	smartthings			d312f10ff4c2bc96f2b2edc1aae2cb74
 Piano Lamp	Signify Netherlands B.V.	Hue ambiance lamp	Media area	hue		67.116.12	bc98d9ae11cc02d32ff6c0629ebaa0e1
@@ -172,6 +171,9 @@ Piano Lamp	Signify Netherlands B.V.	Hue Smart button	Media area	hue		2.85.1	12f5
 Piano Lamp Dimmer	Signify Netherlands B.V.	Hue dimmer switch		hue		67.116.1	a34378fa96f3af09821417a42a930bb7
 Places	Snuffy2	integration		hacs			a15339da07121dcf12dcd5ee2080f237
 Portainer	tomaae	integration		hacs			d44fe30820d907606427047318f5037d
+Presence			Loft	smartthings			505af6be2a20b86ee538b40e5e439642
+Presence			Ellie	smartthings			3fe4333bf00e7e1a663f29d6fcdfa1fd
+Presence			Hannah	smartthings			b0b1c37c193cd3b9ff93a5774416402c
 Projector	LG	HF85JA-NA	Media area	webostv		03.00.01	52f4c92f3f7cc7efccc35a0a95a2c351
 Pure Cool	Dyson	438	Main Bedroom	dyson_local			0970deab7be011ef9aa2ee0e4215ab78
 Pure Hot+Cool	Dyson	527	Isla	dyson_local			69dd7acfaca50fd74fb6c734b8eb8cce
@@ -184,7 +186,7 @@ Samba share	Official add-ons	Home Assistant Add-on		hassio		12.5.4	4c95f4a82b876
 Side Board Lamp	Signify Netherlands B.V.	Hue ambiance lamp	Loft Suite	hue		67.116.12	bb94521fc3eceedc0c2f27d2efaeeb29
 Simple Clock Card	fufar	plugin		hacs			f24ce551c0e8ea01c701dd4c7ce55807
 Simple Thermostat	nervetattoo	plugin		hacs			2c852e00ce56c4a8bf5941cea744b4ab
-SmartThings Hub		V3_HUB	Basement	smartthings		000.062.00014	c7a5466f2521056f988e3abf8c481020
+SmartThings Hub		V3_HUB	Basement	smartthings		000.062.00016	c7a5466f2521056f988e3abf8c481020
 Sonoff LAN	AlexxIT	integration		hacs			9c1951283f25cfd24c4ba228aa0376a0
 SpeedTest			Garage	speedtestdotnet			f163653737010869df5aa82ac6d63e7d
 Speedtest	Speedtest Add-on	Home Assistant Add-on		hassio		1.6.2	9d34dc8a3b8324cecfebc7a498c48227
@@ -205,21 +207,22 @@ TongaiPix9	Google	Pixel 9 Pro XL		mobile_app		36	d3ed339c3bb90f706bcfb20e1453204
 TongaiSM25	samsung	SM-S931B		mobile_app		37	b45654adb0791dcfea4e10c385bbbad1
 Utility - Laundry	Signify Netherlands B.V.	Room	Utility - Laundry	hue			3e41333898eb7d54d3a7432fb2a27d6f
 Utility - Pantry	Signify Netherlands B.V.	Room	Utility - Pantry	hue			052763e5bc3f0adc299ae9646d98b296
-Utility 1	innr	Color temperature light	Utility - Laundry	hue		2.3	68a8963f4875e0df0cf2ab24390b8a59
+Utility 1	innr	Dimmable light		hue		1.9.34	a83dbe32cd96068414b35cdc066890d9
 Utility 2	innr	Color temperature light	Utility - Laundry	hue		2.3	dce90da1a8059b0dff606760cb624555
-Utility 3	innr	Color temperature light	Utility - Laundry	hue		2.3	515287c7127bba2febaec65e8a8bc94c
-Utility 4	innr	Color temperature light	Utility - Laundry	hue		2.3	ff09f659b393f9974de12013bf7a3aa8
+Utility 3	innr	Dimmable light		hue		1.9.34	dbf42f76a44f340d49c8dc17c3bef686
+Utility 4	innr	Dimmable light		hue		1.9.34	070554ccc9add9152b051db8cce12d57
 Utility 5	innr	Color temperature light	Utility - Laundry	hue		2.3	408036590152d92a1c402b393c215c47
 Utility 6	innr	Color temperature light	Utility	hue		2.3	9405d9bd9cdb48c69e8187f59bf8d2c1
 Utility 7	innr	Color temperature light	Utility	hue		2.3	0a3a44af07ba88d5fc9d8ce751c201bd
 Utility 8	innr	Color temperature light	Utility	hue		2.3	34733444d7454f4f5ec6d1f4a77638d0
-Utility 9	Signify Netherlands B.V.	Hue white spot	Utility	hue		1.163.1	86bf8cd4ac9036124a14f41d624df02b
+Utility 9	innr	Dimmable light		hue		1.9.34	3bf272a94a80630f97c5306b69a1a40a
 Utility Back Door			Utility	smartthings			18619c06d2b8f918bf32b31590c8b8bc
 Utility Lights	Signify Netherlands B.V.	Hue dimmer switch	Utility	hue		67.116.1	3d33bfd78a645e4a568ef43ca6f46960
 Utility Motion	Signify Netherlands B.V.	Hue motion sensor	Utility	hue		67.116.1	482bace15b626f507cb65176ccccaa77
 Volvo Cars	thomasddn	integration		hacs			b4a4bdd76a60e8f3700f84f4923ded94
 WhatsPie	arifwn	integration		hacs			43659da56afdb9c3e22ca95a580018f1
 Worktop Sensor	Signify Netherlands B.V.	Hue motion sensor	Kitchen	hue		67.116.1	a7980a3d2b8f5c2c130ee3f615ac9d14
+Z-PlugRepeater			Infra	smartthings			feecf7ce915e42f5bbc29bacbabf0973
 auto-entities	thomasloven	plugin		hacs			918468bd00fb96a0a017b768b671760f
 badge-card	thomasloven	plugin		hacs			55c95ae02e5d19a83787b672c81f6d25
 closed-e	eWeLink	SNZB-04P	Ellies Bedroom	zha		0x00002200	801579d626d683bbdeb7b9e924259444
@@ -227,12 +230,13 @@ closed-h	eWeLink	SNZB-04P	Hannahs Bedroom	zha		0x00002200	3a453174e9ed8f2faafcca
 closed-l	eWeLink	SNZB-04P	Loft Suite	zha		0x00002200	0f08d746af45f06bc61738a228f9e6dc
 closed-s	eWeLink	SNZB-04P	Study	zha		0x00002200	f58f630595751c18aab50f16928a34f7
 deCONZ	Official add-ons	Home Assistant Add-on		hassio		6.23.0	43440b88f56d7d156579e033f4ced3d2
+dead			Hallway	smartthings			84a4f329a3ac4e57cb397bc401b817ef
 driveway detector	Espressif	wemos_d1_mini32	Garage	esphome		2024.3.1 (Mar 30 2024, 07:25:56)	a0e56e6d7b7697a835095c35f2272382
 family-mbp	Apple	MacBookPro16,3		mobile_app		13.1.0	a8563eb471b7919878885cec5b101758
 family_mac	Apple	MacBookPro16,3		mobile_app		13.1.0	8917cfda623a6b05da7a7e221f4a1802
 group-card	custom-cards	plugin		hacs			5b36dc149eb0cf91c6ed89727ef31315
 ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits	ExperienceLovelace	plugin		hacs			b8a5b3a91710770b830c523333751bcd
-iPhone (32)	Apple	iPhone12,1		mobile_app		27.0.1	529526ab24ff4b30e8738a51a84e11a2
+iPhone (32)	Apple	iPhone12,1		mobile_app		27.2.1	529526ab24ff4b30e8738a51a84e11a2
 keymaster	FutureTense, firstof9, raman325	integration		hacs			81719265e14586dbbb045c4ccbecc23a
 landing-blind	Espressif	esp32-c3-devkitm-1	Loft	esphome		2025.2.0 (Feb 23 2025, 18:58:16)	853378c3f641920b9579bd503c173f7e
 loft-blind	Espressif	esp01_1m		esphome		2025.3.2 (Mar 28 2025, 15:53:16)	3173bb56b76d7f4671c1dd8378a72ac7
@@ -245,7 +249,7 @@ nMukuru	Nuki	SmartLock		mqtt		5.6.9	643eafc4a2ffd23de2ebc85621aa89b1
 nMukuru	Nuki	Smart Lock Pro		mqtt			f05cae271326759cf19bc3456472e406
 nMukuru	Nuki	SmartLock		mqtt		5.9.4	c5bfed8b18686a354459b2498e2c25fd
 nMukuru	Nuki	Smart Lock Pro		mqtt			9d7160f4e11cc0f96678c9a9d5ccf441
-nuki_mudiki	Technyon	Nuki Hub		mqtt		9.14	3a86b730f528ce3ad7d5b44f55b55a02
+nuki_mudiki	Technyon	Nuki Hub		mqtt		10.00	3a86b730f528ce3ad7d5b44f55b55a02
 nukihub	Technyon	NukiHub		mqtt		9.06	6e00b620ade4eb1250d355d6e1cab571
 octopus-energy-rates-card	lozzd	plugin		hacs			14c8d59be2876292e359544ceb45e137
 patio lights	SONOFF	MINI		sonoff		3.6.0	3eb3024867025196119cbbc13ec66faf
@@ -256,7 +260,7 @@ rpi_rebooter	Espressif	wemos_d1_mini32	Hallway	esphome		2025.10.5 (Nov 13 2025, 
 study presence	Espressif	esp01_1m	Study	esphome		2023.12.5 (Jan  9 2024, 11:24:20)	8fb5730a6cb28802e8fd8bc19c141a75
 swings	Arlo	VMC5040	Garden	aarlo	config_entry	0.8.1.18	8baa26fd8027a532cbb4b9962b0f73cb
 template-entity-row	thomasloven	plugin		hacs			196fa713e3a3c74199b0b62f5be4fd91
-tojgan bright	Signify Netherlands B.V.	Hue Bridge	Garage	hue		6.3.1978545030	19a03db71128268736291848e5bbfacd
+tojgan bright	Signify Netherlands B.V.	Hue Bridge	Garage	hue		6.5.1978688000	19a03db71128268736291848e5bbfacd
 tojgan-solar Total	Growatt		Garage	growatt_server_api			b5995b297cca9a8f9b25cf403be78294
 tojgarln	Arlo	VMB5000	Garden	aarlo	config_entry	0.8.1.18	d5dbb590a0155a4114b8985bb3d6c388
 tongai-mbp	Apple	MacBookPro18,3		mobile_app		14.5.0	ffc13ce7af916b22042a700bbc998b60

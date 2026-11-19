@@ -189,17 +189,28 @@ movie_lights:
 home_fires:
   alias: Home Fires
   sequence:
-  - service: light.turn_off
-    data: {}
+  - data: {}
     target:
       entity_id: group.downstairs_lights
-  - service: light.turn_on
-    data:
+    action: light.turn_off
+  - data:
       brightness_pct: 10
     target:
       entity_id:
-      - light.lounge_lamp_2
       - light.movie_lamp
+    action: light.turn_on
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_step_pct: 10
+    target:
+      entity_id: light.hallway_spotlights_switch
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_step_pct: 20
+    target:
+      entity_id: light.kitchen_worktop
   mode: single
   icon: mdi:candle
 nearly_home:
