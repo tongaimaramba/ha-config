@@ -2,7 +2,7 @@
 
 ```
 host: tanga
-exported_at: 2026-11-19T17:56:46+00:00
+exported_at: 2026-11-19T19:35:50+00:00
 config_dir: /homeassistant
 ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux

@@ -181,7 +181,7 @@
 14639	./storage/core.area_registry
 432	./storage/core.config
 147275	./storage/core.config_entries
-422688	./storage/core.device_registry
+422682	./storage/core.device_registry
 4083722	./storage/core.entity_registry
 712	./storage/core.label_registry
 96	./storage/core.logger
