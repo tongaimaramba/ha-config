@@ -1,0 +1,35 @@
+# Perimeter status for the parents' Home (G9 v2, block 1's perimeter pill; Tongai 16 Nov: "green when all shut, red with
+# the count and what when not"). The same openings as the kiosk's `sensor.kiosk_open_things` (dashboards/data/tanga.yaml
+# `openings` minus the usually-open doors; tests keep the lists in step), with one difference on purpose: a contact that
+# is unavailable or unknown is NOT counted as shut here. The kiosk stays quiet about a dead sensor (nobody at the front
+# door can fix it); a parent should see it, because "all shut" would otherwise be a guess.
+# State: "Nothing open" (all read shut), else what is open and what can't be read, e.g. "2 open: Patio door, Study window ·
+# can't tell: Landing window". Read-only: nothing here acts. Fallback: Security's list, walking round.
+template:
+  - sensor:
+      - name: Perimeter status
+        unique_id: perimeter_status
+        icon: mdi:door-closed-lock
+        state: >-
+          {% set watch = {
+               'binary_sensor.front_door': 'Front door',
+               'binary_sensor.patio_door_door': 'Patio door',
+               'binary_sensor.kitchen_door': 'Kitchen window',
+               'binary_sensor.utility_back_door': 'Utility back door',
+               'binary_sensor.garage_out_door': 'Garage door',
+               'binary_sensor.bay_window_door': 'Bay window',
+               'binary_sensor.bay_party_wall_door': 'Bay window (party wall)',
+               'binary_sensor.landing_window_door': 'Landing window',
+               'binary_sensor.bathroom_window_door': "Kids' bathroom window",
+               'binary_sensor.ellie_window_door': "Ellie's window",
+               'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
+               'binary_sensor.guest_win_door': 'Study window' } %}
+          {% set ns = namespace(open=[], unk=[]) %}
+          {% for e, n in watch.items() %}
+            {% if is_state(e, 'on') %}{% set ns.open = ns.open + [n] %}
+            {% elif not is_state(e, 'off') %}{% set ns.unk = ns.unk + [n] %}{% endif %}
+          {% endfor %}
+          {% set parts = [] %}
+          {% if ns.open %}{% set parts = parts + [(ns.open | count) ~ ' open: ' ~ (ns.open | join(', '))] %}{% endif %}
+          {% if ns.unk %}{% set parts = parts + ["can't tell: " ~ (ns.unk | join(', '))] %}{% endif %}
+          {{ (parts | join(' · '))[:250] if parts else 'Nothing open' }}

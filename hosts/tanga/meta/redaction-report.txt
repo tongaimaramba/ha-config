@@ -15,10 +15,8 @@ redaction report (replacements per file):
       2  config/espbck/trash/office.yaml
       2  config/espbck/trash/on-air.yaml
       2  config/espbck/trash/rpi-rebooter.yaml
-      5  config/esphome/c3.yaml
       3  config/esphome/doorstep-presence.yaml
       3  config/esphome/driveway-detector.yaml
-      5  config/esphome/fp-auth.yaml
       3  config/esphome/kai-proxy.yaml
       3  config/esphome/landing-blind.yaml
       3  config/esphome/loft-blind.yaml
@@ -26,10 +24,10 @@ redaction report (replacements per file):
       3  config/esphome/loft32.yaml
       3  config/esphome/nya-proxy.yaml
       3  config/esphome/rpi-rebooter.yaml
-     91  config/esphome/secrets.yaml
+    101  config/esphome/secrets.yaml
       3  config/esphome/zane-proxy.yaml
       4  config/navimow_secrets.yaml
       2  config/pir_code.txt
-     34  config/secrets.yaml
-    296  storage/core.config_entries
-  total: 500
+     36  config/secrets.yaml
+    322  storage/core.config_entries
+  total: 528

@@ -1,13 +1,16 @@
 # One self-contained file (2026-10-27): tanga's esphome/ folder isn't deployed (the ESPHome dashboard owns it), so
-# Tongai pastes it there. Ellie's (AtomS3 Lite: button GPIO41, WS2812 LED GPIO35) will be a copy with its pins.
+# Tongai pastes it there. Ellie's is e-panic.yaml (AtomS3 Lite: button GPIO41, WS2812 LED GPIO35), a copy with its pins.
 # Hannah's call button (renamed 2026-10-28 from "panic button"; ids keep "panic" so nothing else changes).
 # Behaviour: hold 2 s → its sensor on; tanga (packages/panic.yaml) alerts both parents and calls `panic_ack` (green);
 # a parent's "I'm coming" calls `panic_seen` (blue, 10 min); All sorted calls `panic_clear` (off).
+# HSE-9 (2026-11-09): `panic_waiting` (tanga, 60 s unanswered) shows amber, pulsing slowly, until blue or off.
 # Amber while held/sending; red flashing if not confirmed in 15 s or tanga isn't connected. No Bluetooth proxy: the button must stay reliable on Wi-Fi.
 # Manual fallback: call or shout; the button only adds a phone alert.
 # Hardware (M2-H): the former Loft Controller (M5Stack Atom Lite, original ESP32: button GPIO39, SK6812
 # LED GPIO27), repurposed 2026-10-27 (Tongai); it keeps that device's keys. The Loft blind control and Loft motion
 # sensors it used to run are retired with it (loft-controller.yaml is in git history).
+# Unresolved (2026-11-09): Tongai recalls the zane board becoming this button; this header says the Loft Controller.
+# Not settled; the keys below stay as they are until it is (docs/SECURITY.md → ESP boards, PLAN M2-T).
 # First install: by USB (the dashboard's "Plug into this computer", or ESPHome Web): the framework changes from Arduino
 # to esp-idf, which OTA doesn't do reliably (no new bootloader or partition table).
 substitutions:
@@ -41,6 +44,14 @@ api:
       then:
         - globals.set: {id: led_state, value: "5"}
         - script.execute: show
+    - action: panic_waiting  # HSE-9 N-F: tanga's 60 s repeat went out and no one has answered: amber, slow pulse
+      then:
+        - if:  # not over a press being held or sent, a newer press's green, or a parent's blue
+            condition:
+              lambda: "return id(led_state) != 1 && id(led_state) != 2 && id(led_state) != 5;"
+            then:
+              - globals.set: {id: led_state, value: "6"}
+              - script.execute: show
     - action: panic_clear  # a parent pressed All sorted (Family → Security): LED off now (Tongai 2026-10-27)
       then:
         - globals.set: {id: led_state, value: "0"}
@@ -64,10 +75,17 @@ globals:
   - id: fired  # a call went out (or failed) since the last press: a release mustn't clear its feedback
     type: bool
     initial_value: "false"
-  - id: led_state  # 0 off, 1 holding, 2 waiting, 3 confirmed, 4 failed, 5 a parent has seen it
+  - id: led_state  # 0 off, 1 holding, 2 waiting, 3 confirmed, 4 failed, 5 a parent has seen it, 6 still trying (HSE-9),
+    # 7 live but can't reach tanga
     type: int
     initial_value: "0"
   - id: prev_state  # what the LED showed before a press: a short tap puts it back
+    type: int
+    initial_value: "0"
+  - id: live_prev  # Tongai 19 Nov: the live colour to go back to when tanga is reachable again
+    type: int
+    initial_value: "0"
+  - id: lost_s  # seconds a live call has been unable to reach tanga
     type: int
     initial_value: "0"
 
@@ -84,6 +102,12 @@ light:
     effects:
       - pulse:
           name: Pulse
+      - pulse:  # HSE-9: still trying, slower and softer than "sending"
+          name: Slow pulse
+          transition_length: 2s
+          update_interval: 2s
+          min_brightness: 10%
+          max_brightness: 70%
       - strobe:  # red: the effect's own colours override the light's
           name: Strobe
           colors:
@@ -109,9 +133,9 @@ script:
       - if:
           condition:
             lambda: "return id(led_state) == 3;"
-          then:  # confirmed: green for 30 s
-            - light.turn_on: {id: led, red: 0%, green: 100%, blue: 0%, brightness: 60%, effect: none}
-            - delay: 30s
+          then:  # confirmed (Tongai 19 Nov): green, slow pulse, until the next colour or All sorted; off after 2 h
+            - light.turn_on: {id: led, red: 0%, green: 100%, blue: 0%, brightness: 70%, effect: Slow pulse}
+            - delay: 2h
             - globals.set: {id: led_state, value: "0"}
             - light.turn_off: led
       - if:
@@ -125,15 +149,59 @@ script:
       - if:
           condition:
             lambda: "return id(led_state) == 5;"
-          then:  # a parent has seen it: blue, pulsing, 10 min
+          then:  # a parent has seen it: blue, pulsing, until All sorted (Tongai 19 Nov; was 10 min); off after 2 h
             - light.turn_on: {id: led, red: 0%, green: 30%, blue: 100%, brightness: 100%, effect: Pulse}
-            - delay: 10min
+            - delay: 2h
             - globals.set: {id: led_state, value: "0"}
+      - if:
+          condition:
+            lambda: "return id(led_state) == 6;"
+          then:  # still trying (HSE-9): amber, slow pulse, until I'm coming (blue) or All sorted; off after 2 h
+            # only in case tanga never sends either
+            - light.turn_on: {id: led, red: 100%, green: 60%, blue: 0%, brightness: 70%, effect: Slow pulse}
+            - delay: 2h
+            - globals.set: {id: led_state, value: "0"}
+      - if:
+          condition:
+            lambda: "return id(led_state) == 7;"
+          then:  # a live call can't reach tanga (30 s without the API): red flashing until it can (Tongai 19 Nov)
+            - light.turn_on: {id: led, red: 100%, green: 0%, blue: 0%, brightness: 100%, effect: Strobe}
       - if:
           condition:
             lambda: "return id(led_state) == 0;"
           then:
             - light.turn_off: led
+
+# Tongai 19 Nov: the light is how the room knows the call is live, so a hang must show. While a call is live (green,
+# blue or amber), 30 s without tanga's API turns it red flashing; when tanga is back the live colour returns. tanga
+# also re-sends the colour when the button reconnects (packages/panic.yaml), in case the button itself restarted.
+interval:
+  - interval: 5s
+    then:
+      - if:
+          condition:
+            and:
+              - lambda: "return id(led_state) == 3 || id(led_state) == 5 || id(led_state) == 6;"
+              - not:
+                  api.connected:
+          then:
+            - lambda: "id(lost_s) += 5;"
+            - if:
+                condition:
+                  lambda: "return id(lost_s) >= 30;"
+                then:
+                  - lambda: "id(live_prev) = id(led_state); id(led_state) = 7; id(lost_s) = 0;"
+                  - script.execute: show
+          else:
+            - lambda: "id(lost_s) = 0;"
+      - if:
+          condition:
+            and:
+              - lambda: "return id(led_state) == 7;"
+              - api.connected:
+          then:
+            - lambda: "id(led_state) = id(live_prev);"
+            - script.execute: show
 
 binary_sensor:
   - platform: gpio  # the press itself: amber while held, so the person sees it's counting

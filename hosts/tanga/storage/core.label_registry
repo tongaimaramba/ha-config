@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "core.label_registry",
+  "data": {
+    "labels": [
+      {
+        "color": "light-grey",
+        "description": null,
+        "icon": "mdi:alpha-e-circle",
+        "label_id": "ellie_calendar",
+        "name": "Ellie Calendar",
+        "created_at": "2026-11-09T14:12:04.124666+00:00",
+        "modified_at": "2026-11-09T14:14:25.089917+00:00"
+      },
+      {
+        "color": "lime",
+        "description": null,
+        "icon": "mdi:alpha-h-circle",
+        "label_id": "hannah_calendar",
+        "name": "Hannah Calendar",
+        "created_at": "2026-11-09T14:12:50.768312+00:00",
+        "modified_at": "2026-11-09T14:13:46.527631+00:00"
+      }
+    ]
+  }
+}

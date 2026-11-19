@@ -116,7 +116,10 @@ automation:
             importance: low
 
   # A Nuki hub's firmware is behind the latest: once, when either side changes (so today's 9.14 vs 9.18 gap shows on
-  # House ops → Security, not as an alert). Fallback: the hub's web page.
+  # House ops → Security, not as an alert). Only when "latest" is a newer version than the installed one, compared
+  # number by number (10.00 > 9.19): on 12 Nov NukiHub offered 9.19 while on 10.00 and this asked for the downgrade
+  # (SEC-26 note). A version that isn't plain numbers (unknown, unavailable, a beta suffix) never alerts.
+  # Fallback: the hub's web page.
   - id: security_nuki_hub_firmware_behind
     alias: Security - Nuki hub firmware behind
     mode: queued
@@ -139,11 +142,20 @@ automation:
       - condition: state
         entity_id: input_boolean.security_health_enabled
         state: "on"
-      - condition: template
+      - condition: template  # latest is a newer version than installed (numbers only; anything else: no alert)
         value_template: >-
+          {% set a, b = states(have), states(latest) %}
+          {% set ns = namespace(cmp=0) %}
+          {% if a is match('^[0-9]+([.][0-9]+)*$') and b is match('^[0-9]+([.][0-9]+)*$') %}
+            {% set av, bv = a.split('.') | map('int') | list, b.split('.') | map('int') | list %}
+            {% for i in range([av | length, bv | length] | max) %}
+              {% set x = av[i] if i < av | length else 0 %}
+              {% set y = bv[i] if i < bv | length else 0 %}
+              {% if ns.cmp == 0 and y != x %}{% set ns.cmp = 1 if y > x else -1 %}{% endif %}
+            {% endfor %}
+          {% endif %}
           {{ trigger.from_state is not none and trigger.from_state.state not in ['unavailable', 'unknown']
-             and states(have) not in ['unavailable', 'unknown'] and states(latest) not in ['unavailable', 'unknown']
-             and states(have) != states(latest) }}
+             and ns.cmp > 0 }}
     actions:
       - action: notify.mobile_app_tongaism25
         data:
@@ -186,7 +198,8 @@ automation:
             channel: Home status
             importance: low
 
-  # Bedtime: doors and windows still open (M2-E). Fallback: a walk round.
+  # Bedtime: doors and windows still open (M2-E). Fallback: a walk round. The garage–utility door is left out: it is
+  # usually open (Tongai 2026-11-05; `usually_open` in dashboards/data/tanga.yaml).
   - id: security_bedtime_open
     alias: Security - bedtime doors and windows
     mode: single
@@ -200,42 +213,42 @@ automation:
       - condition: template
         value_template: >-
           {{ expand([
-                  'binary_sensor.front_door',
-                  'binary_sensor.patio_door_door',
-                  'binary_sensor.kitchen_door',
-                  'binary_sensor.utility_back_door',
-                  'binary_sensor.garage_utility_door_door',
-                  'binary_sensor.garage_out_door',
-                  'binary_sensor.bay_window_door',
                   'binary_sensor.bay_party_wall_door',
+                  'binary_sensor.bay_window_door',
+                  'binary_sensor.front_door',
+                  'binary_sensor.garage_out_door',
+                  'binary_sensor.utility_back_door',
+                  'binary_sensor.kitchen_door',
+                  'binary_sensor.patio_door_door',
+                  'binary_sensor.guest_win_door',
                   'binary_sensor.landing_window_door',
                   'binary_sensor.bathroom_window_door',
                   'binary_sensor.ellie_window_door',
-                  'binary_sensor.ellie_window_party_door',
-                  'binary_sensor.guest_win_door'
+                  'binary_sensor.ellie_window_party_door'
               ]) | selectattr('state', 'eq', 'on') | list | count > 0 }}
     actions:
-      - action: notify.mobile_app_tongaism25
+      - action: script.notification_route  # HSE-7: with the router off this is the old direct push to Tongai
         data:
+          id: bedtime_open
           title: Open at bedtime
           message: >-
             {%- set names = {
-              'binary_sensor.front_door': "Front door",
-              'binary_sensor.patio_door_door': "Patio door",
-              'binary_sensor.kitchen_door': "Kitchen door",
-              'binary_sensor.utility_back_door': "Utility back door",
-              'binary_sensor.garage_utility_door_door': "Garage–utility door",
-              'binary_sensor.garage_out_door': "Garage side door",
-              'binary_sensor.bay_window_door': "Bay window",
               'binary_sensor.bay_party_wall_door': "Bay window (party wall)",
+              'binary_sensor.bay_window_door': "Bay window",
+              'binary_sensor.front_door': "Front door",
+              'binary_sensor.garage_out_door': "Garage door",
+              'binary_sensor.utility_back_door': "Utility back door",
+              'binary_sensor.kitchen_door': "Kitchen window",
+              'binary_sensor.patio_door_door': "Patio door",
+              'binary_sensor.guest_win_door': "Study window",
               'binary_sensor.landing_window_door': "Landing window",
               'binary_sensor.bathroom_window_door': "Kids' bathroom window",
               'binary_sensor.ellie_window_door': "Ellie's window",
               'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
-              'binary_sensor.guest_win_door': "Study window",
             } -%}
-            {% for s in expand(names.keys() | list) | selectattr('state', 'eq', 'on') -%}
-              {{ names[s.entity_id] }}{{ ', ' if not loop.last }}
+            {#- in the house's order (expand() would sort by entity id) -#}
+            {% for e, n in names.items() if is_state(e, 'on') -%}
+              {{ n }}{{ ', ' if not loop.last }}
             {%- endfor %}
           data:
             tag: security_bedtime_open

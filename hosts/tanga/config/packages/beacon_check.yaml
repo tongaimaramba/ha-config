@@ -1,0 +1,48 @@
+# Beacon check (SEC-2, agreed by Tongai 2026-11-11). The Samsung's home/away flips may be the HA app's BLE transmitter
+# stalling (docs/reports/2026-11-08-samsung-presence.md, cause 2). The stall test (checklist step 7) only tells us
+# something if it is done while the stall is still there, before anything else touches the phone. So at 06:45, if the
+# beacon (device_tracker.tongai_samsung25, the app's BLE transmitter heard by the proxies) has said away for 10 min+
+# while the app's GPS (device_tracker.tongaism25) says home, Tongai gets one quiet push asking him to do the test now.
+# Alerts only: nothing here changes presence, locks, alarm or heating.
+# Gate: input_boolean.beacon_check_enabled (starts off; hard rule 6).
+# Manual fallback: look at device_tracker.tongai_samsung25 in HA in the morning; if it says away while you are home,
+# do the stall test by hand.
+
+input_boolean:
+  beacon_check_enabled:
+    name: Beacon check
+    icon: mdi:bluetooth-audio
+
+automation:
+  # Morning stall-test prompt: beacon away for 10 min+ (last_changed, so a short flicker doesn't count; unavailable or
+  # unknown is a different fault and doesn't count either), GPS home. Quiet push, one per morning (fixed tag replaces
+  # yesterday's). Manual fallback: check device_tracker.tongai_samsung25 in HA and do the stall test by hand.
+  - id: beacon_check_morning
+    alias: Beacon check - morning stall test
+    mode: single
+    triggers:
+      - trigger: time
+        at: "06:45:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.beacon_check_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set b = states.device_tracker.tongai_samsung25 %}
+          {{ b is not none and b.state not in ['home', 'unavailable', 'unknown']
+             and (now() - b.last_changed).total_seconds() >= 10 * 60 }}
+      - condition: state
+        entity_id: device_tracker.tongaism25
+        state: home
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Phone beacon stalled?
+          message: >-
+            Before anything else: HA app > Settings > Companion app > Manage sensors > BLE Transmitter >
+            Transmit off and on. Then tell Claude the time.
+          data:
+            tag: beacon_check
+            channel: Home status
+            importance: low

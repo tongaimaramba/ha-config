@@ -32,31 +32,51 @@ template:
                | rejectattr('entity_id', 'in', ['climate.pure_hot_cool'])
                | selectattr('state', 'in', ['unavailable', 'unknown'])
                | map(attribute='name') | list | join(', ') }}
-      # Battery-powered house devices under 25%. Left out, by exact device-name fragments (not loose substrings, so
-      # e.g. an "upstairs" sensor is kept): phones, Macs, iPads, the solar battery, the UPS and the car.
+      # Batteries to replace soon. With input_boolean.battery_forecast_enabled on and the forecast published
+      # (packages/battery_forecast.yaml, G6): the devices with about a week or less left at their own drain rate
+      # (sensor.battery_forecast, the battery_forecast AppDaemon app) while it was published in the last 26 h (a stale
+      # forecast, e.g. AppDaemon stopped, is not trusted). Otherwise the old rule: battery-powered house
+      # devices under 25%. Left out, by exact device-name fragments (not loose substrings, so e.g. an "upstairs" sensor
+      # is kept): phones, Macs, iPads, the solar battery (sph_ over Modbus since M5 step 7; growatt_/inverter_ before),
+      # the UPS, the car (vivo_; volvo_ before) and its charger (octopus_), the robot vacuum (robert_).
       - name: Batteries low
         unique_id: climate_health_batteries_low
         icon: mdi:battery-alert
         state: >-
-          {{ states.sensor | selectattr('attributes.device_class', 'defined')
-             | selectattr('attributes.device_class', 'eq', 'battery')
-             | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|myups_|volvo_')
-             | map(attribute='state') | select('is_number') | map('float') | select('lt', 25) | list | count }}
+          {%- set at = as_datetime(state_attr('sensor.battery_forecast', 'updated') or '', none) -%}
+          {%- if is_state('input_boolean.battery_forecast_enabled', 'on') and has_value('sensor.battery_forecast')
+                and at is not none and (now() - at).total_seconds() < 93600 -%}
+            {{ states('sensor.battery_forecast') | int(0) }}
+          {%- else -%}
+            {{ states.sensor | selectattr('attributes.device_class', 'defined')
+               | selectattr('attributes.device_class', 'eq', 'battery')
+               | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|sph_|myups_|volvo_|vivo_|octopus_|robert_')
+               | map(attribute='state') | select('is_number') | map('float') | select('lt', 25) | list | count }}
+          {%- endif -%}
         attributes:
           devices: >-
-            {% set ns = namespace(out=[]) %}
-            {% for s in states.sensor
-                 | selectattr('attributes.device_class', 'defined')
-                 | selectattr('attributes.device_class', 'eq', 'battery')
-                 | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|myups_|volvo_')
-                 if s.state | is_number and s.state | float < 25 %}
-              {% set ns.out = ns.out + [s.name ~ ' ' ~ (s.state | float | round(0) | int) ~ '%'] %}
-            {% endfor %}
-            {{ ns.out | join(', ') }}
+            {%- set at = as_datetime(state_attr('sensor.battery_forecast', 'updated') or '', none) -%}
+            {%- if is_state('input_boolean.battery_forecast_enabled', 'on') and has_value('sensor.battery_forecast')
+                  and at is not none and (now() - at).total_seconds() < 93600 -%}
+              {{ state_attr('sensor.battery_forecast', 'devices') or '' }}
+            {%- else -%}
+              {% set ns = namespace(out=[]) %}
+              {% for s in states.sensor
+                   | selectattr('attributes.device_class', 'defined')
+                   | selectattr('attributes.device_class', 'eq', 'battery')
+                   | rejectattr('entity_id', 'search', 'iphone|ipad|_mbp|family_mac|tongaism25|tongaipix|tongai22|growatt_|inverter_|sph_|myups_|volvo_|vivo_|octopus_|robert_')
+                   if s.state | is_number and s.state | float < 25 %}
+                {% set ns.out = ns.out + [s.name ~ ' ' ~ (s.state | float | round(0) | int) ~ '%'] %}
+              {% endfor %}
+              {{ ns.out | join(', ') }}
+            {%- endif -%}
 
       # SmartThings devices that have gone silent: every entity unavailable for 2 h+ (brief drop-outs, like the kitchen
-      # contact's, don't alert), or nothing reported for 12 h (a starting
-      # guess; tune once their normal check-in interval is known). Excludes the deprecated SmartThings Mudiki lock.
+      # contact's, don't alert), or, for devices that report a measurement (temperature etc.), nothing reported for
+      # 12 h. Contact-only devices (the bedroom and study door sensors: door + battery, no measurement) send nothing
+      # while the door isn't used, so for them only "unavailable" counts (Tongai, 11 Nov, after a false "E Door"
+      # alert). That is still a heartbeat: HA marks a SmartThings entity unavailable when the hub reports the device
+      # OFFLINE (its health check-in; HA 2026.10 smartthings/entity.py). Excludes the deprecated SmartThings Mudiki lock.
       # Known limit: an HA restart resets last_reported, so a device that died while still showing its last values
       # looks fresh for up to 12 h after a restart; devices SmartThings marks unavailable are caught regardless.
       - name: Devices silent
@@ -71,8 +91,9 @@ template:
                 {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
                 {% set last = st | map(attribute='last_reported') | max %}
                 {% set since = st | map(attribute='last_changed') | max %}
+                {% set measures = st | selectattr('attributes.state_class', 'defined') | list | count > 0 %}
                 {% if (alive == 0 and (now() - since).total_seconds() > 2 * 3600)
-                      or (now() - last).total_seconds() > 12 * 3600 %}
+                      or (measures and (now() - last).total_seconds() > 12 * 3600) %}
                   {% set ns.out = ns.out + [name] %}
                 {% endif %}
               {% endif %}
@@ -88,8 +109,9 @@ template:
                 {% set alive = st | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count %}
                 {% set last = st | map(attribute='last_reported') | max %}
                 {% set since = st | map(attribute='last_changed') | max %}
+                {% set measures = st | selectattr('attributes.state_class', 'defined') | list | count > 0 %}
                 {% if (alive == 0 and (now() - since).total_seconds() > 2 * 3600)
-                      or (now() - last).total_seconds() > 12 * 3600 %}
+                      or (measures and (now() - last).total_seconds() > 12 * 3600) %}
                   {% set ns.out = ns.out + [name] %}
                 {% endif %}
               {% endif %}
@@ -231,13 +253,15 @@ automation:
             channel: Home status
             importance: low
 
-  # Daily battery digest at 08:00 (M1-F). Manual fallback: the device's own app.
+  # Daily battery digest at about 08:00 (M1-F). Manual fallback: the device's own app.
+  # Sent at 08:02:37, not 08:00:00 (10 Nov 2026): on 8 and 10 Nov the push relay rejected it on the hour ("Error
+  # sending notification", 0.3-0.75 s) while pushes at other times went through; on-the-dot sends meet the relay's busiest second.
   - id: climate_health_battery_digest
     alias: Climate health - daily battery digest
     mode: single
     triggers:
       - trigger: time
-        at: "08:00:00"
+        at: "08:02:37"
     conditions:
       - condition: state
         entity_id: input_boolean.climate_health_enabled
@@ -245,8 +269,9 @@ automation:
       - condition: template
         value_template: "{{ states('sensor.batteries_low') | int(0) > 0 or states('sensor.devices_silent') | int(0) > 0 }}"
     actions:
-      - action: notify.mobile_app_tongaism25
+      - action: script.notification_route  # HSE-7: with the router off this is the old direct push to Tongai
         data:
+          id: climate_battery_digest
           title: "Batt {{ states('sensor.batteries_low') }} low · {{ states('sensor.devices_silent') }} silent"
           message: >-
             {{ (state_attr('sensor.batteries_low', 'devices') or '') | replace(' Battery', '') | truncate(80) }}
@@ -257,7 +282,8 @@ automation:
             channel: Home status
             importance: low
 
-  # A SmartThings device newly went silent (unavailable 2 h+, or no report for 12 h; held 30 min): quiet alert, so a
+  # A SmartThings device newly went silent (unavailable 2 h+, or a measuring device with no report for 12 h; held
+  # 30 min): quiet alert, so a
   # dead sensor is replaced before it matters. Manual fallback: SmartThings app → device status.
   - id: climate_health_device_silent
     alias: Climate health - device went silent
@@ -280,8 +306,9 @@ automation:
              and (trigger.to_state.attributes.devices or []) | reject('in', trigger.from_state.attributes.devices)
                  | list | count > 0 }}
     actions:
-      - action: notify.mobile_app_tongaism25
+      - action: script.notification_route  # HSE-7: with the router off this is the old direct push to Tongai
         data:
+          id: climate_sensor_silent
           title: Sensor silent
           message: >-
             {{ (trigger.to_state.attributes.devices or [])

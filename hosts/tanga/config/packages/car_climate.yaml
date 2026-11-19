@@ -1,15 +1,39 @@
 # Car climate as one toggle on Family → Car (Tongai 2026-10-24: one button with its state, not Start and Stop).
-# Volvo reports no climatisation state, so this is read from the two buttons' last presses (a button's state is the
-# time it was last pressed): on from a Start press until a Stop press or 30 minutes, Volvo's usual run. It can be
-# wrong: a start or stop made only in the Volvo app or the car isn't seen. The dashboard's stop presses
-# input_button.car_climate_stopped, then opens the Volvo app (Android) or runs the "Stop car climate" Shortcut (iPhone):
-# Volvo's API acknowledges climatization-stop but the car ignores it. So "off" means "someone pressed stop here",
-# not that the car confirmed it (Tongai, 2026-10-27).
+# Volvo reports no climatisation state, so this is read from presses: on from a start that went through until a Stop
+# press or 30 minutes, Volvo's usual run. It can be wrong: a start or stop made only in the Volvo app or the car isn't
+# seen. The dashboard's stop presses input_button.car_climate_stopped, then opens the Volvo app (Android) or runs the
+# "Stop car climate" Shortcut (iPhone): Volvo's API acknowledges climatization-stop but the car ignores it. So "off"
+# means "someone pressed stop here", not that the car confirmed it (Tongai, 2026-10-27).
+# HSE-24 (Tongai 2026-11-15): a start goes through script.car_climate_start (the dashboard and Alexa), which presses
+# input_button.car_climate_started only when the Volvo press didn't fail. The Volvo button's own state can't be used:
+# HA sets a button's state to the press time before the press runs, so a rejected start (415, 13 Nov) looked "on".
 # Manual fallback: the Volvo Cars app, the car's own controls.
 input_button:
   car_climate_stopped:
     name: Car climate stopped
     icon: mdi:fan-off
+  car_climate_started:  # pressed only by script.car_climate_start, after a start the integration didn't reject
+    name: Car climate started
+    icon: mdi:fan
+
+script:
+  # Start the car's climate (HSE-24): the Car climate tile's start and Alexa's "Warm Up Vivo" (HA is the gateway).
+  # Presses Volvo's start; if that raises (the integration raises when Volvo rejects the command), the script stops
+  # there with the error, so car_climate_started isn't pressed and the tile stays off. No continue_on_error, on
+  # purpose. Not gated (hard rule 6 is for new automations): it replaces the direct press that was already live, and
+  # an off gate would break the tile and Alexa on deploy day.
+  # Manual fallback: the Volvo Cars app (start climate there), or the car's own controls.
+  car_climate_start:
+    alias: Car climate start
+    icon: mdi:car-defrost-front
+    mode: single
+    sequence:
+      - action: button.press
+        target:
+          entity_id: button.garage_vivo_start_climatisation
+      - action: input_button.press
+        target:
+          entity_id: input_button.car_climate_started
 
 template:
   - binary_sensor:
@@ -17,14 +41,14 @@ template:
         unique_id: car_climate_from_presses
         icon: mdi:car-defrost-front
         state: >-
-          {% set s = states('button.garage_vivo_start_climatisation') | as_datetime(none) %}
+          {% set s = states('input_button.car_climate_started') | as_datetime(none) %}
           {% set stops = [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
              | map('as_datetime', none) | reject('none') | list %}
           {% set t = stops | max if stops else none %}
           {{ s is not none and (t is none or s > t) and now() - s < timedelta(minutes=30) }}
         attributes:
-          started: "{{ states('button.garage_vivo_start_climatisation') }}"
+          started: "{{ states('input_button.car_climate_started') }}"
           stopped: >-
             {{ [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
                | map('as_datetime', none) | reject('none') | max | default('', true) }}
-          read_from: "button presses (Volvo gives no climate state)"
+          read_from: "starts that went through and stop presses (Volvo gives no climate state)"

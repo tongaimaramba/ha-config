@@ -17,7 +17,7 @@
 588	/homeassistant/custom_components/miele/
 104	/homeassistant/custom_components/monitor_docker/
 744	/homeassistant/custom_components/myskoda/
-84	/homeassistant/custom_components/octopusagile/
+3436	/homeassistant/custom_components/octopus_energy/
 636	/homeassistant/custom_components/places/
 84	/homeassistant/custom_components/portainer/
 80	/homeassistant/custom_components/rpi_gpio/

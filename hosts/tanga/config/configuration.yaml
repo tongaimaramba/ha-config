@@ -7,6 +7,13 @@ notify: !include notify.yaml
 #gpio: !include gpio.yaml
 #frontend: !include frontend.yaml
 #panel_custom: !include panel_custom.yaml
+# Logging (10 Nov 2026): the default stays at warning (what tanga logs today). mobile_app.notify at debug records the
+# push relay's reply, so a failed push says why (the 08:00 battery digest failed on 8 and 10 Nov with no reason logged).
+# About 10 pushes a day, so little extra log. Drop the debug line once the cause is known.
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mobile_app.notify: debug
 homeassistant:
   customize: !include customize.yaml
   whitelist_external_dirs: /config/media
@@ -47,6 +54,47 @@ lovelace:
       icon: mdi:home-account
       show_in_sidebar: true
       require_admin: false
+    # G9 v2 (block 1, PLAN G9V2-A): one dashboard per person, generated from dashboards/specs/tanga/<name>-home/. The old
+    # Family and Kids stay alongside for a week (G9-D). Each person's default dashboard is set on their phone after the
+    # deploy (Tongai). Adding these needs an HA restart. Fallback: Family / Kids.
+    tongai-home:
+      mode: yaml
+      filename: dashboards/tongai-home.yaml
+      title: Tongai
+      icon: mdi:account
+      show_in_sidebar: true
+      require_admin: false
+    mojgan-home:
+      mode: yaml
+      filename: dashboards/mojgan-home.yaml
+      title: Mojgan
+      icon: mdi:account-heart
+      show_in_sidebar: true
+      require_admin: false
+    hannah-home:
+      mode: yaml
+      filename: dashboards/hannah-home.yaml
+      title: Hannah
+      icon: mdi:account-music
+      show_in_sidebar: true
+      require_admin: false
+    ellie-home:
+      mode: yaml
+      filename: dashboards/ellie-home.yaml
+      title: Ellie
+      icon: mdi:account-star
+      show_in_sidebar: true
+      require_admin: false
+    # The front-door iPad's page (HSE-6): for the non-admin, local-only `kiosk` login only. Out of every sidebar (the kiosk
+    # user's default dashboard is set to it); read-only apart from the downstairs lights and the hot-water boost.
+    # Adding it needs an HA restart. Manual fallback: the Family and Kids dashboards on the phones.
+    front-door:
+      mode: yaml
+      filename: dashboards/front-door.yaml
+      title: Front door
+      icon: mdi:tablet-dashboard
+      show_in_sidebar: false
+      require_admin: false
 ble_monitor:
   discovery: false  # Manual device addition
   devices:
@@ -62,31 +110,29 @@ alexa:
     endpoint: https://api.eu.amazonalexa.com/v3/events
     client_id: amzn1.application-oa2-client.aeb034512a0b425d88189e5c2edea01c
     client_secret: !secret alx_client_secret
+    # HSE-11 (Tongai 2026-11-10): exactly these 13, built in packages/alexa_routines.yaml (the 3 lamp groups, the 6
+    # boosts, Loft cosy, Morning lights), plus the Vivo climate start and the doorbell chime. Nothing else is exposed.
+    # HSE-24 (Tongai 2026-11-15): "Warm Up Vivo" is script.car_climate_start (packages/car_climate.yaml), not Volvo's
+    # button, so a start the car rejects isn't shown as on: HA is the gateway for Alexa to the house.
     filter:
       include_entities:
-  #      - sensor.volvo_viv_battery_charge_level
-        - light.coats
-        - button.garage_vivo_start_climatisation
-        - cover.landing_blind_landing_blind
-        - cover.loft_blind_loft_suite_blind
-        - light.downstairs_lights
+        - light.hannahs_lamps
+        - light.ellies_lamps
+        - light.loft_lamps
+        - script.alexa_warm_hannah
+        - script.alexa_cool_hannah
+        - script.alexa_warm_ellie
+        - script.alexa_cool_ellie
+        - script.alexa_warm_loft
+        - script.alexa_cool_loft
+        - script.loft_cosy
+        - script.kitchen_morning
+        - script.car_climate_start
         - event.front_door_chime
-        - lock.garage_vivo_lock
-      include_entity_globs:
-        - binary_sensor.*_contact
-    #    - sensor.*_locator
-      #include_domains:
-      #  - switch
-      #exclude_entities:
-      #  - switch.outside
     entity_config:
-      button.garage_vivo_start_climatisation:
+      script.car_climate_start:
         name: "Warm Up Vivo"
-        display_categories: FAN
-      cover.loft_blind_loft_suite_blind:
-        name: "Bedroom Blind"
-      over.landing_blind_landing_blind:
-        name: "Landing Blind"
+        display_categories: ACTIVITY_TRIGGER  # HA's own for a script; Alexa lists it under Scenes
 #
 http:
 #  ssl_certificate: /ssl/fullchain.pem
@@ -135,19 +181,6 @@ rest_command:
     url: "http://192.168.179.63/network/"
   read_rpi:
     url: "http://192.168.179.63/"
-# litra
-  litra_control:
-    url: "http://192.168.179.175:5000/{{ endpoint }}"
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {% if endpoint == 'power' %}
-        {"on": {{ value|lower }}}
-      {% elif endpoint == 'brightness' %}
-        {"level": {{ value|int }}}
-      {% elif endpoint == 'temperature' %}
-        {"level": {{ value|int }}}
-      {% endif %}
 #
 ## Oppy
 #
@@ -189,12 +222,7 @@ rest_command:
   #  client_secret: !secret miele_secret 
 #    lang: en
 #
-## Emulated Hue -> Alexa Integration
-#
-emulated_hue:
-  listen_port: 80
-  expose_by_default: false
-  entities: !include emulated_hue.yaml
+## Emulated Hue: dropped (HSE-11 decision F, Tongai 2026-11-10); Alexa reaches tanga only through `alexa:` above.
 
 
 ## OWM
@@ -220,29 +248,12 @@ emulated_hue:
 #  user_agent: linux
 #  stream_snapshot_stop: 5
 #  stream_snapshot: true 
-cover:
-  - platform: template
-    covers:
-      blind_left:
-        device_class: blind
-        unique_id: loft_blind
-        friendly_name: Loft Blind
-        value_template: ''
-        open_cover:
-          service: switch.turn_on
-          entity_id: switch.blind_up
-        close_cover:
-          service: switch.turn_on
-          entity_id: switch.blind_down
-        stop_cover:
-          service: switch.turn_on
-          entity_id: switch.blind_stop
-    
-    
+# Template cover `cover.blind_left` ("Loft Blind") removed 2026-11-08 (G5): legacy `platform: template`, not loaded since
+# HA 2026.10, and its switch.blind_up/down/stop no longer exist. The loft blind is the ESPHome
+# cover.loft_blind_loft_suite_blind (backlog 4); its manual fallback is the blind's own buttons.
 #
-# media player
-media_player:
-  - platform: aarlo
+# Legacy YAML `media_player/sensor/binary_sensor: - platform: aarlo` removed 2026-11-08 (G5): Arlo runs as the UI
+# `aarlo` integration (M2-L), which creates every aarlo entity; the YAML platforms created none and logged an error.
 # Camera
 #camera:
 #  - platform: aarlo
@@ -255,19 +266,6 @@ ffmpeg:
 ## Sensors
 #
 sensor:
-# Camera Sensor
-  - platform: aarlo
-    monitored_conditions:
-    - total_cameras
-    - last_capture
-    - recent_activity
-    - captured_today
-    - battery_level
-    - signal_strength
-#    - temperature
-#    - humidity
-#    - air_quality
-#
 # ESpresence Devices
 #
   - platform: mqtt_room
@@ -320,27 +318,9 @@ sensor:
     timeout: 30
     away_timeout: 120
 #
-# # litra state sensor
 #
-  - platform: rest
-    name: litra_beam_power
-    resource: http://192.168.179.175:5000/state
-    value_template: "{{ value_json.power }}"
-    scan_interval: 1  # Poll every 1 second (not 5)
-    json_attributes:
-      - power
-      - brightness
-      - temperature
-    force_update: true  # Force updates even if value appears unchanged
-#
-## n8n 
-# #
-  - platform: template
-    sensors:
-      school_events:
-        friendly_name: "School Events"
-   #     state: "init"
-#
+## n8n: legacy template sensor `school_events` removed 2026-11-08 (G5): no state template, not loaded since HA 2026.10,
+# nothing reads it (the school-day briefing is backlog 2).
 #
 ## Oppy 
 # #
@@ -398,23 +378,6 @@ sensor:
             {{ meta }}
           {% endif %}
 
-#   - platform: rest
-#     name: litra_beam_power
-#     resource: "http://192.168.179.175:5000/state"
-#     value_template: "{{ value_json.power }}"
-#     scan_interval: 1
-
-#   - platform: rest
-#     name: litra_beam_brightness
-#     resource: "http://192.168.179.175:5000/state"
-#     value_template: "{{ value_json.brightness }}"
-#     scan_interval: 1
-
-#   - platform: rest
-#     name: litra_beam_temperature
-#     resource: "http://192.168.179.175:5000/state"
-#     value_template: "{{ value_json.temperature }}"
-#     scan_interval: 1
 #
 # rpi_rest sensor
 #   - platform: rest
@@ -463,35 +426,8 @@ sensor:
 #
 ## Others on Arlo
 #
-template:
-  # Litra Beam desk light, via rest_command.litra_control. Moved 2026-10-09 from the legacy
-  # `light: - platform: template` syntax, which HA 2026.10 dropped (M1-K); same unique_id, so the same entity.
-  - light:
-      - name: "Litra Beam"
-        unique_id: litra_beam_light
-        state: "{{ state_attr('sensor.litra_beam_power', 'power') | default(false) }}"
-        level: "{{ state_attr('sensor.litra_beam_power', 'brightness') | int }}"
-        temperature: "{{ state_attr('sensor.litra_beam_power', 'temperature') | int }}"
-        turn_on:
-          - action: rest_command.litra_control
-            data:
-              endpoint: power
-              value: true
-        turn_off:
-          - action: rest_command.litra_control
-            data:
-              endpoint: power
-              value: false
-        set_level:
-          - action: rest_command.litra_control
-            data:
-              endpoint: brightness
-              value: "{{ brightness }}"
-        set_temperature:
-          - action: rest_command.litra_control
-            data:
-              endpoint: temperature
-              value: "{{ color_temp }}"
+# The Litra Beam desk light (template light `light.litra_beam`, `rest_command.litra_control`, REST sensor
+# `sensor.litra_beam_power` polling Dave) was removed 2026-11-09: the lamp moved to the Mac (Logi Tune), Dave retired.
 # The loft-only AC scenarios' dummy lights (scenario_1/2/3_light, loft_door_closed, alexa_started_ac) were removed
 # 2026-10-09 (M1-K): off and never run on tanga. pamba keeps its copy until retired.
 #

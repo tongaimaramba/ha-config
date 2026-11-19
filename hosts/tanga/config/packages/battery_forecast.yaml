@@ -1,0 +1,12 @@
+# Battery forecast (backlog 9, G6, 2026-11-08): the switch from "battery under 25 %" to "about a week of battery
+# left". The forecast itself is the battery_forecast AppDaemon app (sensor.battery_forecast: days left per device from
+# a drain model learned from that device's own history, decision G6-A, apps/battery_forecast.yaml). With this on, climate_health.yaml's sensor.batteries_low (the
+# attention strip on House ops → Health and the 08:00 battery digest) counts the devices the forecast says are due;
+# off, or while the forecast isn't published (AppDaemon down), it keeps the old rule (under 25 %). No automation here.
+# Gate: input_boolean.battery_forecast_enabled (starts off, hard rule 6). Manual fallback: each device's own app.
+# Owner: tanga (platform health).
+
+input_boolean:
+  battery_forecast_enabled:
+    name: Battery warnings by days left
+    icon: mdi:battery-clock-outline

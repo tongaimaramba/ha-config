@@ -2,3 +2,15 @@
   exclude:
     entities:
       - sensor.call_check  # Call check (M2-O): a Markdown page in attributes, rewritten often; its app keeps the history
+      - sensor.quick_notes_events  # Quick notes (HSE-8): the Extras calendar's next 14 days, rewritten every 15 min
+      - sensor.quick_notes  # Quick notes: the Coming up list, rewritten every 5 min
+      - sensor.briefing_events  # School-day briefing (HSE-8): the calendars' events as a list, rewritten every 15 min
+      - sensor.briefing_forecast  # HSE-8 walking days (18 Nov): 48 hourly forecast rows, rewritten every 30 min
+      - sensor.briefing_hannah  # HSE-8: her day with her personal reminders (no history kept of them)
+      - sensor.briefing_ellie
+      - sensor.briefing_reminders_hannah  # HSE-8: her own reminder list
+      - sensor.briefing_reminders_ellie
+      - sensor.homework_events  # Homework lists (HSE-8): the homework feeds' events as a list, rewritten every 30 min
+      - sensor.homework_items  # Homework lists: what is on the children's lists, rewritten on every tick
+      - sensor.kiosk_children  # G9 v2 kiosk: the girls' chores, homework and fixtures (copies of unrecorded data)
+      - sensor.kiosk_forecast  # G9 v2 kiosk: tomorrow's forecast, rewritten every 30 min

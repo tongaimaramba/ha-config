@@ -45,63 +45,10 @@ manage_guest_access:
         value: 0
       entity_id: input_number.monitor_action
       service: input_number.set_value
-bathtime_on:
-  alias: Bathtime On
-  sequence:
-  - type: turn_on
-    device_id: ef52ca73e86842ce81d6c44af594b4a7
-    entity_id: light.bathroom_sink
-    domain: light
-    brightness_pct: 80
-  - type: turn_on
-    device_id: bc964c1c755b413e95e17234a6885d04
-    entity_id: light.bathroom_heater
-    domain: light
-    brightness_pct: 100
-  - type: turn_on
-    device_id: 40e5bd673eba4cd59035ba018b61bead
-    entity_id: light.isla_wall
-    domain: light
-    brightness_pct: 80
-  - service: climate.turn_on
-    data: {}
-    entity_id: climate.upstairs
-  - service: climate.set_temperature
-    data:
-      temperature: 24
-      hvac_mode: heat
-    entity_id: climate.upstairs
-  - type: turn_on
-    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
-    entity_id: light.m_side
-    domain: light
-    brightness_pct: 100
-  mode: single
-  icon: mdi:shower
-bathtime_off:
-  alias: Bathtime Off
-  sequence:
-  - type: turn_off
-    device_id: ef52ca73e86842ce81d6c44af594b4a7
-    entity_id: light.bathroom_sink
-    domain: light
-  - type: turn_off
-    device_id: bc964c1c755b413e95e17234a6885d04
-    entity_id: light.bathroom_heater
-    domain: light
-  - type: turn_off
-    device_id: 40e5bd673eba4cd59035ba018b61bead
-    entity_id: light.isla_wall
-    domain: light
-  - service: climate.turn_off
-    data: {}
-    entity_id: climate.upstairs
-  - type: turn_off
-    device_id: b6ea6c8fbf4d4a1eb30a7dad448c5b2a
-    entity_id: light.m_side
-    domain: light
-  mode: single
-  icon: mdi:shower
+# Bathtime On / Off removed 2026-11-08 (backlog 5, G5): disabled on tanga since Aug 2024 (unknown device
+# ef52ca73..., the old bathroom sink light; three of its four lights and climate.upstairs no longer exist here).
+# Lighting and heating are pamba's (OWNERSHIP); pamba keeps its identical copy. Manual fallback: wall switches
+# and tado's own dials/app.
 relaunch_apps:
   alias: Relaunch Apps
   sequence:
@@ -205,25 +152,6 @@ nearly_home:
       entity_id: input_boolean.away_on_holiday
   mode: single
   icon: mdi:road
-grid:
-  alias: Grid
-  sequence:
-  - if:
-    - condition: template
-      value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<=100
-        }}'
-    then:
-    - service: input_boolean.turn_on
-      metadata: {}
-      data: {}
-      target:
-        entity_id: input_boolean.importing
-    else:
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id: input_boolean.importing
-  mode: single
 change_sound_output:
   alias: change sound output
   sequence:
@@ -431,46 +359,246 @@ manage_fp_metadata:
         data:
           value: '{{ filtered | join('';'') }}'
         action: input_text.set_value
+# Sets the inverter's work mode and checks it took; the Battery First Scheduler, the Export optimiser and the watchdog
+# (packages/solar_health.yaml) call it. M5 step 7 (M5-I D, after the 3 Nov incident): by the inverter's own time slots,
+# over Modbus (packages/solar_modbus.yaml), as SolarAssistant did; never by writing 1044 (read only; it reverts).
+#   Battery first: Grid First slot 1 off (1082 = 0), AC charge on (1092 = 1), Battery First slot 1 start = now (1100),
+#     end = the backstop (1101), on (1102 = 1). Stop SOC (1091) left as is.
+#   Grid first: Battery First slot 1 off (1102 = 0), Grid First slot 1 start = now (1080), end (1081), on (1082 = 1).
+#   Load first: both slots off (1102 = 0, 1082 = 0).
+# Times are hour × 256 + minute on the inverter's clock (sensor.sph_clock_drift watches it). Start is now to the
+# minute, cut down (never a minute ahead). The backstop end (`until`, HH:MM) is enforced by the inverter even if HA or
+# the link dies: Battery first defaults to 05:30 (the cheap rate's end), Grid first to an hour on; HA ends early with
+# Load first or extends by asking again. Refused before anything is recorded or written, each firing
+# solar_mode_change_failed with a reason: Modbus writes off; an unknown mode; a bad window (Battery first over 8 h, Grid
+# first over 16 h, or empty); Battery first starting outside the cheap rate (23:30-05:30) unless an Intelligent Octopus
+# dispatch is on (the whole home is at the cheap rate then); a request older than 2 min, or whose time has no zone
+# ("expired": a late or replayed command never acts; on 3 Nov a stale 03:00 Battery first ran at 07:21 by day). The
+# other mode's slot is always off before one is turned on: the inverter refuses overlapping slots.
+# Read-back: 1044 (sensor.sph_device_mode), the slot enables (sensor.sph_slot_mode), the slot's end and AC charge must
+# all match the request; set up that way already: nothing to do. The request is kept in input_text.solar_mode_requested
+# for the watchdog. Settings are a sequence step, so a caller can't override them.
+# Manual fallback: ShinePhone (work mode / time slots).
 set_growatt_sph_mode_with_retry:
   alias: Set Growatt SPH Mode with Retry
   mode: single
   fields:
     expected_mode:
-      description: Expected inverter mode/state, e.g. "Battery first".
+      description: Inverter mode, "Battery first", "Grid first" or "Load first".
       example: Battery first
       required: true
-  variables:
-    mqtt_topic: solar_assistant/inverter_1/work_mode_priority/set
-    max_attempts: 3
-    delay_seconds: 8
+    until:
+      description: Backstop end HH:MM for Battery first (default 05:30) or Grid first (default an hour on).
+      example: "05:30"
+    requested_at:
+      description: When the request was made (ISO with a zone); default now. Older than 2 min, it is dropped.
+    source:
+      description: Who asked; "watchdog" when the watchdog made the request.
   sequence:
   - variables:
-      attempt: 0
+      modes: [Load first, Battery first, Grid first]
+      max_attempts: 3
+      delay_seconds: 12  # the forced read-back reschedules the 10 s poll
+      max_age_seconds: 120
+      max_window_minutes: {Battery first: 480, Grid first: 960}
+      dispatching: binary_sensor.octopus_energy_00000000_0009_4000_8020_000000069f30_intelligent_dispatching
+      asked_at: '{{ requested_at if requested_at is defined and requested_at else now().isoformat() }}'
+      asked_by: '{{ source if source is defined and source else ''caller'' }}'
+      start_hm: '{{ now().strftime(''%H:%M'') }}'
+      end_hm: >-
+        {%- if until is defined and until -%}{{ until }}
+        {%- elif expected_mode == 'Battery first' -%}05:30
+        {%- elif expected_mode == 'Grid first' -%}{{ (now() + timedelta(minutes=60)).strftime('%H:%M') }}
+        {%- endif -%}
+  - variables:
+      start_reg: '{{ (start_hm[:2] | int(0)) * 256 + (start_hm[3:] | int(0)) }}'
+      end_reg: '{{ (end_hm[:2] | int(0)) * 256 + (end_hm[3:] | int(0)) }}'
+      window_minutes: >-
+        {{ ((end_hm[:2] | int(0)) * 60 + (end_hm[3:] | int(0)) - (start_hm[:2] | int(0)) * 60 - (start_hm[3:] | int(0))) % 1440 }}
+      cheap_now: "{{ start_hm >= '23:30' or start_hm < '05:30' or is_state(dispatching, 'on') }}"
+  - variables:
+      window_ok: >-
+        {{ expected_mode == 'Load first'
+           or (end_hm is match('^([01][0-9]|2[0-3]):[0-5][0-9]$')
+               and 0 < window_minutes <= max_window_minutes.get(expected_mode, 0)) }}
+  - if:
+    - condition: state
+      entity_id: input_boolean.solar_modbus_writes_enabled
+      state: 'off'
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }}'
+        attempts: 0
+        reason: Modbus writes are off
+    - stop: Modbus writes are off
+  - if:
+    - condition: template
+      value_template: '{{ expected_mode not in modes }}'
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }}'
+        attempts: 0
+        reason: unknown mode
+    - stop: unknown mode
+  - if:
+    - condition: template
+      value_template: '{{ not window_ok }}'
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }}'
+        attempts: 0
+        reason: 'bad window {{ start_hm }}-{{ end_hm }}'
+    - stop: bad window
+  # never grid-charge at the day rate (review of 4186206: a charging-window flag left on asked for it by day)
+  - if:
+    - condition: template
+      value_template: "{{ expected_mode == 'Battery first' and not cheap_now }}"
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }}'
+        attempts: 0
+        reason: 'outside the cheap rate ({{ start_hm }})'
+    - stop: outside the cheap rate
+  # a command never acts late, and an expired one is never recorded (else the watchdog would re-apply it)
+  - if:
+    - condition: template
+      value_template: >-
+        {% set t = as_datetime(asked_at, none) %}
+        {{ t is none or t.tzinfo is none or (now() - t).total_seconds() > max_age_seconds }}
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }}'
+        attempts: 0
+        reason: expired
+    - stop: expired
+  # what HA wants from now: sensor.sph_mode_wanted and the watchdog read it (survives a restart)
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.solar_mode_requested
+    data:
+      value: '{{ expected_mode }}|{{ asked_at }}|{{ end_hm }}|{{ asked_by }}'
+  # already set up that way (mode, slots, end and AC charge): nothing to write
+  - if:
+    - condition: template
+      value_template: >-
+        {{ states('sensor.sph_device_mode') == expected_mode and states('sensor.sph_slot_mode') == expected_mode
+           and (expected_mode == 'Load first'
+                or (expected_mode == 'Battery first'
+                    and states('sensor.sph_battery_first_slot_1_end_raw') | int(-1) == end_reg
+                    and states('sensor.sph_ac_charge_raw') | int(-1) == 1)
+                or (expected_mode == 'Grid first'
+                    and states('sensor.sph_grid_first_slot_1_end_raw') | int(-1) == end_reg)) }}
+    then:
+    - stop: already in that mode
   - repeat:
       until:
       - condition: template
-        value_template: '{{ states(''sensor.growatt_sph_device_mode'') == expected_mode
-          or repeat.index >= max_attempts }}'
+        value_template: >-
+          {{ (states('sensor.sph_device_mode') == expected_mode and states('sensor.sph_slot_mode') == expected_mode
+              and (expected_mode == 'Load first'
+                   or (expected_mode == 'Battery first'
+                       and states('sensor.sph_battery_first_slot_1_end_raw') | int(-1) == end_reg
+                       and states('sensor.sph_ac_charge_raw') | int(-1) == 1)
+                   or (expected_mode == 'Grid first'
+                       and states('sensor.sph_grid_first_slot_1_end_raw') | int(-1) == end_reg)))
+             or repeat.index >= max_attempts }}
       sequence:
-      - data:
-          topic: '{{ mqtt_topic }}'
-          payload: '{{ expected_mode }}'
-          qos: 1
-        action: mqtt.publish
-      - wait_for_trigger:
-        - entity_id: sensor.growatt_sph_device_mode
-          to: '{{ expected_mode }}'
-          trigger: state
+      # and not on a retry either: more than 2 min after it was asked, it is dropped
+      - if:
+        - condition: template
+          value_template: >-
+            {% set t = as_datetime(asked_at, none) %}
+            {{ t is none or t.tzinfo is none or (now() - t).total_seconds() > max_age_seconds }}
+        then:
+        - event: solar_mode_change_failed
+          event_data:
+            expected: '{{ expected_mode }}'
+            actual: '{{ states(''sensor.sph_device_mode'') }}'
+            attempts: '{{ repeat.index - 1 }}'
+            reason: expired
+        - stop: expired
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: "{{ expected_mode == 'Battery first' }}"
+          sequence:
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1082, value: 0}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1092, value: 1}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1100, value: '{{ start_reg }}'}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1101, value: '{{ end_reg }}'}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1102, value: 1}
+        - conditions:
+          - condition: template
+            value_template: "{{ expected_mode == 'Grid first' }}"
+          sequence:
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1102, value: 0}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1080, value: '{{ start_reg }}'}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1081, value: '{{ end_reg }}'}
+          - action: modbus.write_register
+            data: {hub: sph, slave: 1, address: 1082, value: 1}
+        default:
+        - action: modbus.write_register
+          data: {hub: sph, slave: 1, address: 1102, value: 0}
+        - action: modbus.write_register
+          data: {hub: sph, slave: 1, address: 1082, value: 0}
+      # read back now rather than at the next poll
+      - action: homeassistant.update_entity
+        target:
+          entity_id:
+          - sensor.sph_work_mode_raw
+          - sensor.sph_battery_first_slot_1_enabled_raw
+          - sensor.sph_grid_first_slot_1_enabled_raw
+          - sensor.sph_battery_first_slot_1_end_raw
+          - sensor.sph_grid_first_slot_1_end_raw
+          - sensor.sph_ac_charge_raw
+      # M5-F review: a state trigger's `to:` isn't a template, so the old wait_for_trigger never matched and every
+      # try sat out its full timeout; wait_template ends as soon as the mode lands
+      - wait_template: >-
+          {{ states('sensor.sph_device_mode') == expected_mode and states('sensor.sph_slot_mode') == expected_mode
+             and (expected_mode == 'Load first'
+                  or (expected_mode == 'Battery first'
+                      and states('sensor.sph_battery_first_slot_1_end_raw') | int(-1) == end_reg
+                      and states('sensor.sph_ac_charge_raw') | int(-1) == 1)
+                  or (expected_mode == 'Grid first'
+                      and states('sensor.sph_grid_first_slot_1_end_raw') | int(-1) == end_reg)) }}
         timeout:
           seconds: '{{ delay_seconds }}'
         continue_on_timeout: true
-  description: ''
-set_growatt_mode_from_dropdown:
-  alias: Set Growatt Mode From Dropdown
-  sequence:
-  - data:
-      expected_mode: '{{ states(''input_select.inverter_mode'') }}'
-    action: script.set_growatt_sph_mode_with_retry
+  # M5-F: after the last try, say so if the mode didn't take (packages/solar_health.yaml alerts on it)
+  - if:
+    - condition: template
+      value_template: >-
+        {{ not (states('sensor.sph_device_mode') == expected_mode and states('sensor.sph_slot_mode') == expected_mode
+                and (expected_mode == 'Load first'
+                     or (expected_mode == 'Battery first'
+                         and states('sensor.sph_battery_first_slot_1_end_raw') | int(-1) == end_reg
+                         and states('sensor.sph_ac_charge_raw') | int(-1) == 1)
+                     or (expected_mode == 'Grid first'
+                         and states('sensor.sph_grid_first_slot_1_end_raw') | int(-1) == end_reg))) }}
+    then:
+    - event: solar_mode_change_failed
+      event_data:
+        expected: '{{ expected_mode }}'
+        actual: '{{ states(''sensor.sph_device_mode'') }} (slots {{ states(''sensor.sph_slot_mode'') }})'
+        attempts: '{{ max_attempts }}'
   description: ''
 ha_config_sync_tanga:
   alias: "Sync tanga config snapshot"

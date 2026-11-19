@@ -1,0 +1,95 @@
+# Quick notes (HSE-8 follow-up, Tongai 10 Nov): the post-it on the back of the front door. The "Quick note" card on
+# Family -> Home and Kids -> Home writes an all-day event into the parents' Local Calendar "Extras"
+# (calendar.kids_extras), which the school briefing reads (apps/quick_notes.yaml, apps/school_briefing.yaml). This
+# package holds the form, the Add script and the calendar read for the "Coming up" list. Owner: tanga.
+#
+# GATE input_boolean.briefing_enabled (the briefing's, packages/school_briefing.yaml; starts off): off, Add writes
+# nothing (the app says why under the card). The form and the read run either way and write nothing.
+# Known limitation: one shared form for everyone; two people filling it at once overwrite each other's choices.
+# Manual fallback: add the event in HA's Calendar panel -> Extras ("Hannah: bring old clothes", "Both: ...",
+# "Ellie: No school: dentist").
+input_text:
+  quick_note_text:
+    name: What?
+    icon: mdi:note-edit-outline
+    max: 60
+
+input_select:
+  # When? (chips). A weekday means the next one after today; Pick a date uses quick_note_date. Back to Tomorrow after
+  # each Add (and at a restart).
+  quick_note_day:
+    name: When?
+    icon: mdi:calendar
+    options: [Today, Tomorrow, Mon, Tue, Wed, Thu, Fri, Sat, Sun, Pick a date]
+    initial: Tomorrow
+  # Who? (chips: Family, Hannah, Ellie, Both). "Not picked" has no chip: it is the empty choice after an Add. Family
+  # (G9 v2 block 2, 17 Nov): a household note, on the parents' lists, never in the kids' briefings.
+  quick_note_who:
+    name: Who?
+    icon: mdi:account
+    options: [Not picked, Family, Hannah, Ellie, Both]
+    initial: Not picked
+
+input_datetime:
+  quick_note_date:
+    name: Date
+    has_date: true
+    has_time: false
+
+input_boolean:
+  # One toggle (lit while on): the note means no school that day for who it's for. Off after each Add.
+  quick_note_no_school:
+    name: No school
+    icon: mdi:school-outline
+
+script:
+  # The Add button on the Quick note card. The app (apps/quick_notes.yaml) checks the form and the gate and writes
+  # the event; the press's user is logged. Manual fallback: add the event in Calendar -> Extras.
+  quick_note_add:
+    alias: Quick note add
+    icon: mdi:note-plus-outline
+    mode: single  # a double tap runs it once (the app also ignores the same note again within 30 s)
+    max_exceeded: silent
+    sequence:
+      - event: quick_note
+        event_data:
+          action: add
+
+template:
+  # The Extras calendar, read for the Coming up list (14 days: today and the next 13). Every 15 min, at start and on
+  # a `briefing_refresh` event (the app fires one after an Add). Title, start and end only. State 'ok' or
+  # 'unavailable'. Excluded from the recorder (recorder_config.yaml). Manual fallback: Calendar -> Extras.
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/15"
+      - trigger: event
+        event_type: briefing_refresh
+    actions:
+      - action: calendar.get_events
+        continue_on_error: true
+        target:
+          entity_id: calendar.kids_extras
+        data:
+          start_date_time: "{{ today_at().isoformat() }}"
+          duration:
+            days: 14
+        response_variable: cal
+    sensor:
+      - name: Quick notes events
+        unique_id: quick_notes_events
+        icon: mdi:calendar-sync
+        state: >-
+          {{ 'ok' if cal is defined and cal is mapping and cal.get('calendar.kids_extras') is mapping
+             else 'unavailable' }}
+        attributes:
+          fetched: "{{ now().isoformat() }}"
+          events: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- set r = cal.get('calendar.kids_extras') if cal is defined and cal is mapping else none -%}
+            {%- for e in (r.events if r is mapping and r.events is defined else []) -%}
+            {%- set ns.l = ns.l + [{'s': ((e.summary or '') | string)[:90],
+                'b': e.start | string, 'e': (e.end or '') | string}] -%}
+            {%- endfor -%}
+            {{ ns.l }}

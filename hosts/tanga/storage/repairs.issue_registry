@@ -569,6 +569,41 @@
         "domain": "hacs",
         "is_persistent": false,
         "issue_id": "restart_required_448323715_tags/v0.5.0"
+      },
+      {
+        "created": "2026-11-01T14:16:56.854528+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_401282856_tags/v19.2.1"
+      },
+      {
+        "created": "2026-11-01T14:53:04.900179+00:00",
+        "dismissed_version": null,
+        "domain": "octopus_energy",
+        "is_persistent": false,
+        "issue_id": "intelligent_manual_service_b2080da87cebe3aa766ce51db0fb1e88fb6c4d5bb33b7ec63518bfa2676b1123"
+      },
+      {
+        "created": "2026-11-13T18:06:23.665314+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_401282856_tags/v19.3.0"
+      },
+      {
+        "created": "2026-11-18T18:05:54.729918+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "536af95303d95108b931f8c892fb6a56"
+      },
+      {
+        "created": "2026-11-18T18:06:07.539059+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": false,
+        "issue_id": "automation.morning_validation_failed_actions"
       }
     ]
   }

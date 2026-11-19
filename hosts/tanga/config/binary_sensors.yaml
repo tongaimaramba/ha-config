@@ -1,11 +1,4 @@
-#Aarlo Integration
-  - platform: aarlo
-    monitored_conditions:
-    - motion
-    - sound
-#    - ding
-#    - cry
-    - connectivity
+# Legacy `platform: aarlo` removed 2026-11-08 (G5): the UI `aarlo` integration (M2-L) creates the aarlo binary sensors.
 #
 # door led
 #

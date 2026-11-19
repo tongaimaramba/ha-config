@@ -1,0 +1,112 @@
+# Notification router (HSE-7; docs/reports/2026-11-08-notification-inventory.md). One place that decides who gets a
+# notification and how loud (Tongai 8 Nov: "which I see, which Mojgan sees, and how loud"). The decisions are made by the
+# AppDaemon app apps/notify_router.yaml; this package holds the gate, the dashboard's controls and the sender's entry.
+#
+# GATE input_boolean.notification_router_enabled (starts off, hard rule 6). Off: script.notification_route sends to
+# Tongai exactly what the sender wrote, as the sender did before it was converted; nothing else changes. On: it hands
+# the push to the app, but only while the app has been heard from in the last 2 minutes (sensor.notification_router's
+# heartbeat, every 30 s), so a stopped AppDaemon or a restart of HA still sends the old direct push. A push handed over
+# in the up-to-2-minute window after AppDaemon dies is the one case not covered (an event has no acknowledgement); the
+# app itself falls back to the direct push if it hits an error before sending. Owner: tanga.
+# Manual fallback: turn the gate off.
+#
+# Senders (converted in HSE-7: bedtime_open, climate_battery_digest, climate_sensor_silent, connections_still_down,
+# nfc_test) call:
+#   - action: script.notification_route
+#     data: {id: <notification id>, title: "...", message: "...", data: {tag: ..., channel: Home status, importance: low}}
+# with the title, message and data they used to give notify.mobile_app_tongaism25 directly. `level` (quiet / normal /
+# urgent) is for senders whose loudness varies by incident; it is used only when the notification's setting is auto.
+# Not for the call buttons or anything that must work without AppDaemon (safety senders stay direct until Tongai agrees).
+input_boolean:
+  notification_router_enabled:
+    name: Notification router
+    icon: mdi:bell-cog-outline
+
+# The editor on House ops -> Notifications works on the picked notification (only the routable ones are listed; the
+# list is checked against apps/notify_router.yaml by tests).
+input_select:
+  notification_pick:
+    name: Notification
+    icon: mdi:bell-outline
+    options:
+      - Open at bedtime
+      - Daily battery digest
+      - Sensor went silent
+      - Connection still down
+      - NFC scan test alert
+
+# Presses from the dashboard; the app flips the picked notification's setting (a press, not a toggle you can mis-set).
+input_button:
+  notification_flip_tongai:
+    name: Tongai gets it
+    icon: mdi:cellphone-message
+  notification_flip_mojgan:
+    name: Mojgan gets it
+    icon: mdi:cellphone-message
+  notification_test:
+    name: Send a test
+    icon: mdi:bell-ring-outline
+
+script:
+  # The one entry for senders. Mode queued: two senders at once both get through, in order.
+  # Manual fallback: gate off (every sender sends directly again).
+  notification_route:
+    alias: Notification route
+    icon: mdi:bell-cog-outline
+    mode: queued
+    max: 20
+    fields:
+      id:
+        description: The notification's id (see dashboards/data/notifications.yaml)
+        example: bedtime_open
+      title:
+        description: Push title
+      message:
+        description: Push text
+      data:
+        description: The sender's own notification data (tag, channel, importance, actions ...)
+      level:
+        description: quiet, normal or urgent; used only when the notification's setting is auto
+    sequence:
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.notification_router_enabled
+                state: "on"
+              - condition: state
+                entity_id: sensor.notification_router
+                state: "ok"
+              - condition: template
+                value_template: >-
+                  {% set hb = state_attr('sensor.notification_router', 'heartbeat') %}
+                  {{ hb is string and (now() - as_datetime(hb)).total_seconds() < 120 }}
+            sequence:
+              - event: notification_router_send
+                event_data:
+                  id: "{{ id }}"
+                  title: "{{ title }}"
+                  message: "{{ message }}"
+                  data: "{{ data | default({}) }}"
+                  level: "{{ level | default('') }}"
+        default:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: "{{ title }}"
+              message: "{{ message }}"
+              data: "{{ data | default({}) }}"
+
+  # The loudness buttons on House ops -> Notifications: Off / Quiet / Normal / Urgent for the picked notification.
+  # A safety notification is kept at Normal or above by the app. Manual fallback: the same event from Developer tools.
+  notification_set_loudness:
+    alias: Notification loudness
+    icon: mdi:volume-high
+    mode: queued
+    fields:
+      mode:
+        description: Off, Quiet, Normal or Urgent
+    sequence:
+      - event: notification_router_set
+        event_data:
+          name: "{{ states('input_select.notification_pick') }}"
+          field: loudness
+          value: "{{ mode }}"

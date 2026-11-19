@@ -1,0 +1,265 @@
+# The front-door kiosk by time of day (G9 v2 block 4; design docs/reports/2026-11-16-g9v2-design.md "Kiosk", decision
+# G9-F; PLAN G9V2-D). The kiosk is one page (dashboards/specs/tanga/front-door/10-home.yaml) whose sections are shown by
+# sensor.kiosk_period. Three template sensors, all passive: they read states (and, read-only, the weather forecast)
+# and write only their own state. Nothing here acts on the tablet, a light, a lock, the
+# alarm or the heating, and nothing sends a notification.
+#
+#   sensor.kiosk_period    morning / day / evening / night / weekend. The boundaries are in ONE place, `bounds` below:
+#                          night 22:00-06:30 (the time and the screensaver only); evening 17:00-22:00 every day (darker
+#                          from 21:00: attribute `dark`); and from 06:30 to 17:00 on a school day morning until 09:00
+#                          (sensor.briefing_kiosk's morning `window` also starts at 06:30), then day; on a weekend or a
+#                          school holiday, weekend. A school day is what the school-day briefing says (its
+#                          sensor.briefing_<child> `day` is today until 15:00 on a school day: the app's SWITCH; the
+#                          term dates stay in apps/school_briefing.yaml, nothing is copied here). From 15:00 the
+#                          briefing shows the next school day, so the answer read before 15:00 is kept (attributes
+#                          `school_day`, `school_day_date`); with no answer for today (briefing off, HA started after
+#                          15:00) a weekday counts as a school day, as the app itself does outside its term dates.
+#   sensor.kiosk_forecast  tomorrow's weather (met.no's daily forecast): `headline` "Tomorrow: 7° to 11°", `lines`.
+#   sensor.kiosk_children  per girl (attribute `hannah`, `ellie`): `badges`, today's chores for her (Chores: Doggo, an
+#                          instrument) or none while Chores is off; `homework`, what is still to do on her homework list
+#                          (sensor.homework_items, packages/homework.yaml: due today or later); `fixtures`, today's
+#                          and tomorrow's
+#                          matches from her team calendars and her school feed (sensor.briefing_events).
+#
+# New entities: a "Template entities" reload loads them (no restart). Not gated: they only read (the kiosk's gate,
+# input_boolean.kiosk_enabled, is for what acts on the tablet: packages/kiosk.yaml). Owner: tanga.
+# Manual fallback: the phones' dashboards (Todo, Homework, the girls' Today), a weather app; the kiosk page itself
+# still shows the time if every sensor here is unavailable (a section whose period can't be read is hidden).
+# The preview control (round 2, Tongai 19 Nov: to see and test each period without waiting). On House ops -> Actions
+# (admin), never on the kiosk. Auto: the clock decides. Starts at Auto (the first option; no `initial`, hard rule 6).
+input_select:
+  kiosk_period_override:
+    name: Kiosk period (preview)
+    icon: mdi:tablet-dashboard
+    options: [Auto, Morning, Day, Evening, Weekend, Night]
+
+# When the preview ends: set by kiosk_period_override_start when a period is picked (the one place for the 30 minutes)
+input_datetime:
+  kiosk_period_override_until:
+    name: Kiosk preview until
+    icon: mdi:timer-sand
+    has_date: true
+    has_time: true
+
+# A period picked on House ops: the preview lasts 30 minutes from the pick (THE one place for that length).
+# Not gated: it only times a preview (code review of #446). Manual fallback: pick Auto on House ops -> Actions.
+automation:
+  - id: kiosk_period_override_start
+    alias: Kiosk - preview period starts its 30 minutes
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_select.kiosk_period_override
+        not_to: [Auto, unavailable, unknown]
+    variables:
+      minutes: 30
+    actions:
+      - action: input_datetime.set_datetime
+        target: {entity_id: input_datetime.kiosk_period_override_until}
+        data:
+          timestamp: "{{ now().timestamp() + minutes * 60 }}"
+
+  # Back to Auto when the preview's time is up, and at HA start (a restart ends any preview: sensor.kiosk_period
+  # also ignores a pick when it is worked out at start, so nothing flashes), so a preview is never left on the hall
+  # screen. Not gated (code review of #446: a reset needs no safety gate). Manual fallback: pick Auto on House ops.
+  - id: kiosk_period_override_reset
+    alias: Kiosk - preview period back to Auto
+    mode: single
+    triggers:
+      - trigger: time
+        at: input_datetime.kiosk_period_override_until
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: input_select.kiosk_period_override
+            state: Auto
+    actions:
+      - action: input_select.select_option
+        target: {entity_id: input_select.kiosk_period_override}
+        data: {option: Auto}
+
+template:
+  # ---- sensor.kiosk_period ----
+  - triggers:
+      - trigger: time_pattern
+        minutes: "/1"  # the boundaries are read from `bounds`, not repeated as trigger times
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+      - trigger: state
+        entity_id: [sensor.briefing_hannah, sensor.briefing_ellie]
+        to: ~
+      - trigger: state
+        entity_id: [input_select.kiosk_period_override, input_datetime.kiosk_period_override_until]
+    variables:
+      # THE ONE PLACE for the kiosk's times (HH:MM, Europe/London). `switch` is the briefing app's SWITCH (15:00).
+      bounds: {morning: "06:30", day: "09:00", evening: "17:00", dark: "21:00", night: "22:00", switch: "15:00"}
+      hm: "{{ now().strftime('%H:%M') }}"
+      today: "{{ now().date().isoformat() }}"
+      # Is today a school day? Before 15:00: the briefing's `day` for either girl is today; a girl whose briefing
+      # says "No school this week" (a holiday: no `day`) has none. Later: the answer kept from before 15:00.
+      # Neither: a weekday is one, unless both say "No school this week". Saturday and Sunday never are.
+      school_day: >-
+        {%- set kids = ['sensor.briefing_hannah', 'sensor.briefing_ellie'] -%}
+        {%- set days = [state_attr(kids[0], 'day'), state_attr(kids[1], 'day')] | select('string') | list -%}
+        {%- set none_week = kids | select('is_state', 'No school this week') | list | count -%}
+        {%- if now().weekday() >= 5 -%}{{ false }}
+        {%- elif hm < bounds.switch and (days or none_week) -%}{{ today in days }}
+        {%- elif state_attr('sensor.kiosk_period', 'school_day_date') == today
+                 and state_attr('sensor.kiosk_period', 'school_day') in [true, false] -%}
+          {{ state_attr('sensor.kiosk_period', 'school_day') }}
+        {%- else -%}{{ none_week < 2 }}{%- endif -%}
+      # A preview (House ops -> Actions): the period picked there, until input_datetime.kiosk_period_override_until
+      # (kiosk_period_override_start sets it); never when worked out at HA start (a restart ends a preview)
+      override: >-
+        {%- set o = states('input_select.kiosk_period_override') -%}
+        {%- set until = state_attr('input_datetime.kiosk_period_override_until', 'timestamp') -%}
+        {%- if trigger.platform != 'homeassistant' and o in ['Morning', 'Day', 'Evening', 'Weekend', 'Night']
+               and until is number and until > now().timestamp() -%}{{ o | lower }}{%- endif -%}
+      period: >-
+        {%- if override -%}{{ override }}
+        {%- elif hm < bounds.morning or hm >= bounds.night -%}night
+        {%- elif hm >= bounds.evening -%}evening
+        {%- elif not school_day -%}weekend
+        {%- elif hm < bounds.day -%}morning
+        {%- else -%}day{%- endif -%}
+    sensor:
+      - name: Kiosk period
+        unique_id: kiosk_period
+        icon: mdi:clock-time-four-outline
+        state: "{{ period }}"
+        attributes:
+          # the real answer, kept for after 15:00 (a preview never overwrites it: see `shown_school_day`)
+          school_day: "{{ school_day }}"
+          school_day_date: "{{ today }}"
+          override: "{{ override != '' }}"
+          # what the screen shows: a preview's own (Morning and Day are school days, Weekend not; Night is dark)
+          shown_school_day: >-
+            {{ true if override in ['morning', 'day'] else false if override == 'weekend' else school_day }}
+          dark: >-
+            {{ override == 'night' if override else (hm >= bounds.dark or hm < bounds.morning) }}
+          bounds: "{{ bounds }}"
+
+  # ---- sensor.kiosk_forecast: tomorrow's weather, every 30 min (met.no gives a daily forecast: supported_features 3)
+  - triggers:
+      - trigger: time_pattern
+        minutes: "/30"
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+    actions:
+      - action: weather.get_forecasts
+        continue_on_error: true
+        target:
+          entity_id: weather.garden_outside_weather_home
+        data:
+          type: daily
+        response_variable: fc
+    sensor:
+      - name: Kiosk forecast
+        unique_id: kiosk_forecast
+        icon: mdi:weather-partly-cloudy
+        # The first daily entry after today (met.no's first is today's), else unavailable
+        state: >-
+          {%- set days = ((fc.get('weather.garden_outside_weather_home') or {}).get('forecast') or [])
+                         if fc is defined and fc is mapping else [] -%}
+          {%- set t = days | selectattr('datetime', 'defined')
+                      | selectattr('datetime', '>', (today_at() + timedelta(days=1)).isoformat()[:10]) | list -%}
+          {{ 'ok' if t else 'unavailable' }}
+        attributes:
+          headline: >-
+            {%- set days = ((fc.get('weather.garden_outside_weather_home') or {}).get('forecast') or [])
+                           if fc is defined and fc is mapping else [] -%}
+            {%- set t = (days | selectattr('datetime', 'defined')
+                         | selectattr('datetime', '>', (today_at() + timedelta(days=1)).isoformat()[:10]) | list
+                         + [none])[0] -%}
+            {%- set lo = t.templow if t and t.templow is number else none -%}
+            {%- set hi = t.temperature if t and t.temperature is number else none -%}
+            {%- if hi is not none and lo is not none -%}Tomorrow: {{ lo | round(0) | int }}° to {{ hi | round(0) | int }}°
+            {%- elif hi is not none -%}Tomorrow: up to {{ hi | round(0) | int }}°
+            {%- elif t -%}Tomorrow{%- else -%}Tomorrow: no forecast{%- endif -%}
+          lines: >-
+            {%- set days = ((fc.get('weather.garden_outside_weather_home') or {}).get('forecast') or [])
+                           if fc is defined and fc is mapping else [] -%}
+            {%- set t = (days | selectattr('datetime', 'defined')
+                         | selectattr('datetime', '>', (today_at() + timedelta(days=1)).isoformat()[:10]) | list
+                         + [none])[0] -%}
+            {%- set words = {'clear-night': 'Clear', 'cloudy': 'Cloudy', 'fog': 'Fog', 'hail': 'Hail',
+                             'lightning': 'Thunder', 'lightning-rainy': 'Thunder and rain', 'partlycloudy':
+                             'Sunny spells', 'pouring': 'Heavy rain', 'rainy': 'Rain', 'snowy': 'Snow',
+                             'snowy-rainy': 'Sleet', 'sunny': 'Sunny', 'windy': 'Windy',
+                             'windy-variant': 'Windy'} -%}
+            {%- if t -%}
+              {%- set p = t.precipitation_probability -%}
+              {{ [words.get(t.condition, t.condition | default('', true)),
+                  ('Rain likely (' ~ p | int ~ ' %)') if p is number and p >= 50 else
+                  ('Dry' if p is number and p < 20 else '')] | select | list }}
+            {%- else -%}{{ [] }}{%- endif -%}
+          summary: "No forecast yet."
+
+  # ---- sensor.kiosk_children: each girl's badges, homework and fixtures, every 15 min and on any change ----
+  - triggers:
+      - trigger: time_pattern
+        minutes: "/15"
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+      - trigger: state
+        entity_id: [sensor.chores, input_boolean.chores_enabled, sensor.briefing_events, sensor.homework_items]
+    variables:
+      # Her team calendars: apps/school_briefing.yaml `teams` (a test keeps the two in step)
+      teams: {hannah: [calendar.15b_hockey], ellie: [calendar.u12b_hockey]}
+    sensor:
+      - name: Kiosk children
+        unique_id: kiosk_children
+        icon: mdi:human-female-girl
+        state: "{{ now().strftime('%H:%M') }}"  # when it was last worked out
+        attributes:
+          # {hannah: {badges: [{text, icon}], homework: ["Maths sheet (Tue)"], fixtures: ["Sat 10:15 · Hockey: ..."]},
+          #  ellie: {...}}
+          girls: >-
+            {%- set names = {'hannah': 'Hannah', 'ellie': 'Ellie'} -%}
+            {%- set chores = (state_attr('sensor.chores', 'chores') or [])
+                             if is_state('input_boolean.chores_enabled', 'on') else [] -%}
+            {%- set dow = now().strftime('%a') -%}
+            {%- set events = state_attr('sensor.briefing_events', 'events') or [] -%}
+            {%- set days = [now().date().isoformat(), (now() + timedelta(days=1)).date().isoformat()] -%}
+            {%- set homework = state_attr('sensor.homework_items', 'items') or [] -%}
+            {%- set ns = namespace(out={}) -%}
+            {%- for key, name in names.items() -%}
+              {%- set b = namespace(l=[]) -%}
+              {%- for c in chores if c.who in [name, 'Both'] and dow in (c.days or []) -%}
+                {%- set w = c.what | lower -%}
+                {%- set icon = 'mdi:dog' if 'dog' in w else ('mdi:music' if w is search(
+                    'practi|oboe|flute|piano|violin|cello|guitar|drum|clarinet|sax|trumpet|sing|music|instrument')
+                    else 'mdi:checkbox-marked-circle-outline') -%}
+                {%- set b.l = b.l + [{'text': c.what, 'icon': icon}] -%}
+              {%- endfor -%}
+              {%- set h = namespace(l=[]) -%}
+              {%- for x in homework if x.t == 'todo.' ~ key ~ '_homework' and x.st == 'needs_action' -%}
+                {%- set h.l = h.l + [(x.d or '9999-12-31') ~ '|' ~ x.s] -%}
+              {%- endfor -%}
+              {%- set hwk = namespace(l=[]) -%}
+              {%- for x in (h.l | sort)[:5] -%}
+                {%- set d = x.split('|', 1)[0] -%}{%- set s = x.split('|', 1)[1] -%}
+                {%- set hwk.l = hwk.l + [s ~ ('' if d == '9999-12-31'
+                                              else ' (' ~ strptime(d, '%Y-%m-%d').strftime('%a') ~ ')')] -%}
+              {%- endfor -%}
+              {%- set f = namespace(l=[], seen=[]) -%}
+              {%- for e in events if e.c in teams[key] or (e.c == 'calendar.' ~ key ~ '_socs' and ' vs ' in e.s) -%}
+                {%- set whole = e.b | length == 10 -%}
+                {%- set t = strptime(e.b, '%Y-%m-%d') if whole else as_local(as_datetime(e.b)) -%}
+                {%- if t.date().isoformat() in days and e.b not in f.seen and f.l | count < 4 -%}
+                  {%- set f.l = f.l + [t.strftime('%a' if whole else '%a %H:%M') ~ ' · ' ~ e.s] -%}
+                  {%- set f.seen = f.seen + [e.b] -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- set ns.out = dict(ns.out, **{key: {'badges': b.l, 'homework': hwk.l, 'fixtures': f.l}}) -%}
+            {%- endfor -%}
+            {{ ns.out }}

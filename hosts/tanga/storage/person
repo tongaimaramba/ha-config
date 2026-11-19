@@ -26,13 +26,6 @@
         "picture": null
       },
       {
-        "name": "Feasby",
-        "device_trackers": [],
-        "user_id": "c99ca07941bd4465a02d08ecb04551bc",
-        "picture": null,
-        "id": "feasby"
-      },
-      {
         "id": "hannah",
         "name": "Hannah",
         "device_trackers": [
@@ -52,9 +45,10 @@
           "device_tracker.ellie_s_gym_bag",
           "device_tracker.ellie_s_phone",
           "device_tracker.ellie_bag",
-          "device_tracker.ellie_s_hockey_bag"
+          "device_tracker.ellie_s_hockey_bag",
+          "device_tracker.ellies_iphone"
         ],
-        "user_id": null,
+        "user_id": "e520ec98069d4d2d88d78957b83c1e87",
         "picture": null
       }
     ]

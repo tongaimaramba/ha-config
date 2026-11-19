@@ -1,0 +1,57 @@
+# Inverter write alert (M4-B, 2026-11-03). Configuring the Modbus hub (M5-I) exposes modbus.write_register /
+# write_coil / stop to every HA login and long-lived token, for any register. Only script.set_growatt_sph_mode_with_retry
+# should write, and only the seven slot registers (1080-1082, 1092, 1100-1102). This tells Tongai, quietly, about any
+# Modbus call that isn't one of those writes made while that script is running: another register, a coil, a stop, or a
+# write from a login, token or other automation. Not a reload ("Reload all YAML" calls modbus.reload; a reload writes
+# nothing). It reports; it doesn't undo (the mode watchdog in solar_health.yaml
+# corrects the inverter's mode; anything else needs a look in ShinePhone).
+# Gate: input_boolean.modbus_write_alert_enabled (starts off, hard rule 6). Manual fallback: the logbook (each Modbus
+# call shows the user or automation that made it) and ShinePhone's settings. Owner: tanga (solar).
+
+input_boolean:
+  modbus_write_alert_enabled:
+    name: Inverter write alert
+    icon: mdi:shield-alert
+
+automation:
+  - id: modbus_write_alert
+    alias: Solar - unexpected inverter write
+    description: Quiet push on any Modbus call other than the mode script's own slot writes (M4-B)
+    # one push per 5-min burst; a second, different burst inside that window still gets its push after it (queued, 2)
+    mode: queued
+    max: 2
+    max_exceeded: silent
+    triggers:
+      - trigger: event
+        event_type: call_service
+        event_data:
+          domain: modbus
+    conditions:
+      - condition: state
+        entity_id: input_boolean.modbus_write_alert_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set d = trigger.event.data %}
+          {% set s = d.service_data or {} %}
+          {{ d.service != 'reload' and not (d.service == 'write_register'
+                  and is_state('script.set_growatt_sph_mode_with_retry', 'on')
+                  and s.get('hub') == 'sph' and (s.get('slave', 1) | int(-1)) == 1
+                  and (s.get('address') | int(-1)) in [1080, 1081, 1082, 1092, 1100, 1101, 1102]) }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Unexpected inverter write
+          message: >-
+            {% set s = trigger.event.data.service_data or {} %}
+            modbus.{{ trigger.event.data.service }}{{ ' at ' ~ s.get('address') if s.get('address') is not none }}
+            {{- ' = ' ~ s.get('value') if s.get('value') is not none }}
+            {{- ' by a login or token' if trigger.event.context.user_id else ' by an automation or script' }}
+            {{- '' if is_state('script.set_growatt_sph_mode_with_retry', 'on') else ', not the mode script' }}.
+            Check the logbook and ShinePhone · tanga
+          data:
+            tag: modbus_write_alert
+            channel: Home status
+            importance: low
+      # one push per burst (a run of rogue writes is one event of interest)
+      - delay: {minutes: 5}

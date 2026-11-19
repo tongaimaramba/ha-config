@@ -367,134 +367,6 @@
     target:
       entity_id: switch.pure_cool_night_mode
   mode: single
-- id: '1683826970594'
-  alias: Tap 3 - dining
-  description: 'Controls dining and kitchen spot lights '
-  trigger:
-  - platform: event
-    event_type: hue_event
-    event_data:
-      id: lamps_dial_button
-      device_id: 3756abd49c3c8e41a4fdc630733b55e8
-      type: short_release
-      subtype: 3
-  condition: []
-  action:
-  - if:
-    - condition: state
-      state: 'on'
-      entity_id: light.kd_spots
-    then:
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id:
-        - light.kd_spots
-    else:
-    - service: light.turn_on
-      data: {}
-      target:
-        entity_id:
-        - light.kd_spots
-  mode: single
-- id: '1683911066946'
-  alias: Tap 2 - music room
-  description: Controls music room lights
-  trigger:
-  - platform: event
-    event_type: hue_event
-    event_data:
-      id: lamps_dial_button
-      device_id: 3756abd49c3c8e41a4fdc630733b55e8
-      type: short_release
-      subtype: 2
-  condition: []
-  action:
-  - if:
-    - condition: state
-      state: 'on'
-      entity_id: light.lounge_ceiling_lights
-    then:
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id: light.lounge_ceiling_lights
-    else:
-    - service: light.turn_on
-      data: {}
-      target:
-        entity_id: light.lounge_ceiling_lights
-  mode: single
-- id: '1683972433242'
-  alias: Tap 4 - dining wall lights
-  description: ''
-  trigger:
-  - platform: event
-    event_type: hue_event
-    event_data:
-      id: lamps_dial_button
-      device_id: 3756abd49c3c8e41a4fdc630733b55e8
-      type: short_release
-      subtype: 4
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: light.dining_wall_lights
-      state: 'on'
-    then:
-    - service: light.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: light.dining_wall_lights
-    else:
-    - service: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 60
-      target:
-        entity_id: light.dining_wall_lights
-  mode: single
-- id: '1683972591632'
-  alias: Tap 1 - lounge lamps
-  description: Controls lounge lamps
-  trigger:
-  - platform: event
-    event_type: hue_event
-    event_data:
-      id: lamps_dial_button
-      device_id: 3756abd49c3c8e41a4fdc630733b55e8
-      type: short_release
-      subtype: 1
-  condition: []
-  action:
-  - if:
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: light.lounges_wall_lamps
-        state: 'on'
-    then:
-    - data: {}
-      target:
-        entity_id:
-        - light.lounges_wall_lamps
-      action: light.turn_off
-    else:
-    - metadata: {}
-      data:
-        brightness_pct: 34
-      target:
-        entity_id: light.lounge_wall_lights
-      action: light.turn_on
-    - metadata: {}
-      data:
-        brightness_pct: 71
-      target:
-        entity_id: light.media_room_wall_lights
-      action: light.turn_on
-  mode: single
 - id: '1684702121322'
   alias: 'Hannah moving '
   description: ''
@@ -775,14 +647,6 @@
     event_data:
       id: study_switch_button
       device_id: 82b358b1c55a0301fdaa1ca8aed855ba
-      type: short_release
-      subtype: 3
-    id: On-litra
-  - trigger: event
-    event_type: hue_event
-    event_data:
-      id: study_switch_button
-      device_id: 82b358b1c55a0301fdaa1ca8aed855ba
       unique_id: e0095477-8e2e-476b-8a30-6dc12b1656c1
       type: short_release
       subtype: 4
@@ -825,16 +689,6 @@
     - conditions:
       - condition: trigger
         id:
-        - On-litra
-      sequence:
-      - action: light.turn_on
-        metadata: {}
-        data: {}
-        target:
-          entity_id: light.litra_beam
-    - conditions:
-      - condition: trigger
-        id:
         - 'Off'
       sequence:
       - action: light.turn_off
@@ -845,7 +699,6 @@
           - light.hue_lightstrip_plus_1
           - light.work_status_on_air_light
           - light.loft32_desk_light
-          - light.litra_beam
   mode: single
 - id: '1704060038348'
   alias: Ellie Nightlight goes off
@@ -1065,21 +918,22 @@
     id: Start
     enabled: false
     trigger: time
+  # 2026-11-03: a dead band and hold times (it flipped Grid/Load first every 1-4 min with solar ≈ load, each flip
+  # 2-4 writes to the inverter's settings): Load first once the house uses more than the sun gives for 2 min, Grid
+  # first once 200 W or more is spare for 5 min; in between it stays as it is. Unreadable power doesn't trigger either.
   - alias: Solar production less than house needs
-    value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<100
-      }}'
+    value_template: >-
+      {{ has_value('sensor.sph_pv_power') and has_value('sensor.sph_load_power')
+         and (states('sensor.sph_pv_power') | float(0)) - (states('sensor.sph_load_power') | float(0)) < 0 }}
     for:
-      hours: 0
-      minutes: 0
-      seconds: 10
+      minutes: 2
     id: Importing
     trigger: template
-  - value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))>=100
-      }}'
+  - value_template: >-
+      {{ has_value('sensor.sph_pv_power') and has_value('sensor.sph_load_power')
+         and (states('sensor.sph_pv_power') | float(0)) - (states('sensor.sph_load_power') | float(0)) >= 200 }}
     for:
-      hours: 0
-      minutes: 1
-      seconds: 0
+      minutes: 5
     id: Exporting
     trigger: template
     alias: Solar production more than house needs
@@ -1112,10 +966,25 @@
         - End
         - Sunset
       sequence:
-      - action: script.set_growatt_sph_mode_with_retry
-        data:
-          expected_mode: Load first
-        alias: Change to Load First (mqtt)
+      # M5 step 5: a manual mode (House ops → Solar) holds until Auto; the window flag still follows the sun
+      # M5 step 6: nothing while solar_control acts (input_boolean.solar_control_acting; off = rollback); the window
+      # flag still follows the sun, so a rollback by day finds it right. Only while the app is alive (sensor.solar_control
+      # updated in the last 10 min): silent, this acts again by itself (see the Battery First Scheduler's note)
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_boolean.solar_manual_hold
+            state: 'on'
+        - condition: template
+          value_template: >-
+            {{ not (is_state('input_boolean.solar_control_acting', 'on') and states.sensor.solar_control is not none
+                     and (now() - states.sensor.solar_control.last_updated).total_seconds() < 600) }}
+        then:
+        - action: script.set_growatt_sph_mode_with_retry
+          data:
+            expected_mode: Load first
+          alias: Change to Load First (mqtt)
       - target:
           entity_id: input_boolean.export_window
         data: {}
@@ -1127,6 +996,15 @@
       - condition: state
         entity_id: input_boolean.export_window
         state: 'on'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
+      - condition: template
+        value_template: >-
+          {{ not (is_state('input_boolean.solar_control_acting', 'on') and states.sensor.solar_control is not none
+                   and (now() - states.sensor.solar_control.last_updated).total_seconds() < 600) }}
       sequence:
       - action: script.set_growatt_sph_mode_with_retry
         data:
@@ -1141,20 +1019,52 @@
       - condition: state
         entity_id: input_boolean.export_window
         state: 'on'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
+      - condition: template
+        value_template: >-
+          {{ not (is_state('input_boolean.solar_control_acting', 'on') and states.sensor.solar_control is not none
+                   and (now() - states.sensor.solar_control.last_updated).total_seconds() < 600) }}
       - condition: numeric_state
-        entity_id: sensor.growatt_sph_battery_state_of_charge
+        entity_id: sensor.sph_battery_soc
         above: 55
       sequence:
+      # M5 step 7: the Grid First slot ends by itself when the export window closes (the Sunset trigger, 2 h before
+      # sunset; the start/end_window time triggers are disabled), as the backstop; the script's 1 h default if the
+      # sun's next setting can't be read
       - action: script.set_growatt_sph_mode_with_retry
         data:
           expected_mode: Grid first
+          until: >-
+            {%- set s = as_datetime(state_attr('sun.sun', 'next_setting'), none) -%}
+            {{ ((s | as_local) - timedelta(hours=2)).strftime('%H:%M') if s is not none else '' }}
         alias: Change to Grid First (mqtt)
       alias: If there's too much power and battery is full then export
+    # 2026-11-03 review: never during the overnight charge. Outside the export window an Importing/Exporting edge
+    # (e.g. after a Modbus read blip) lands here; mid-charge it would end the 03:00-05:30 charge
     default:
-    - action: script.set_growatt_sph_mode_with_retry
-      data:
-        expected_mode: Load first
-      alias: Change to Load First (mqtt)
+    # and nothing under a manual mode (M5 step 5): it holds until Auto
+    - if:
+      - condition: state
+        entity_id: input_boolean.battery_charging_window
+        state: 'off'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
+      - condition: template
+        value_template: >-
+          {{ not (is_state('input_boolean.solar_control_acting', 'on') and states.sensor.solar_control is not none
+                   and (now() - states.sensor.solar_control.last_updated).total_seconds() < 600) }}
+      then:
+      - action: script.set_growatt_sph_mode_with_retry
+        data:
+          expected_mode: Load first
+        alias: Change to Load First (mqtt)
   mode: single
 - id: '1709496362515'
   alias: Test temp
@@ -1176,7 +1086,7 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ (float(states(''sensor.growatt_sph_pv_power''))-float(states(''sensor.growatt_sph_load_power'')))<=150
+    value_template: '{{ (float(states(''sensor.sph_pv_power''))-float(states(''sensor.sph_load_power'')))<=150
       }}'
     for:
       hours: 0
@@ -1202,10 +1112,10 @@
   - entity_id:
     - sensor.garage_vivo_charging_status
     to: charging
-    id: Eva Charge Start
+    id: Vivo Charge Start
     trigger: state
   - trigger: state
-    id: Eva Charge Stop
+    id: Vivo Charge Stop
     entity_id:
     - sensor.garage_vivo_charging_status
     from: charging
@@ -1213,13 +1123,47 @@
     - idle
     - done
     - error
-  conditions: []
+  # M5 step 6: stands down entirely while solar_control acts (input_boolean.solar_control_acting; off = rollback): the
+  # app does the 03:00, the 05:30, the car branches and their pushes, the skip and the charging-window flag. Only while
+  # the app is alive (sensor.solar_control updated in the last 10 min; it writes every 30 s): silent, this acts again
+  # by itself (review of d1cbc74). Overlap risk: an app that freezes for over 10 min and then comes back could act
+  # beside this at one trigger; both go through the retry script (mode: single, one call wins) and want the same at
+  # 03:00 / 05:30, so at worst one extra mode change
+  conditions:
+  - condition: template
+    value_template: >-
+      {{ not (is_state('input_boolean.solar_control_acting', 'on') and states.sensor.solar_control is not none
+               and (now() - states.sensor.solar_control.last_updated).total_seconds() < 600) }}
   actions:
   - choose:
+    # M5 step 5: "Skip tonight's charge" is used up here (off, and tonight recorded for the 03:10 alert); no 03:00
+    # charge either while a manual mode holds (until Auto). The 05:30 Load first below always runs: a manual hold never
+    # keeps Battery first past 05:30
     - conditions:
       - condition: trigger
         id:
         - Start
+      - condition: state
+        entity_id: input_boolean.solar_skip_charge_tonight
+        state: 'on'
+      sequence:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.solar_skip_charge_tonight
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.solar_charge_skipped
+        data:
+          date: '{{ now().date().isoformat() }}'
+    - conditions:
+      - condition: trigger
+        id:
+        - Start
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
       sequence:
       - action: script.set_growatt_sph_mode_with_retry
         data:
@@ -1234,19 +1178,39 @@
         id:
         - End
       sequence:
-      - action: script.set_growatt_sph_mode_with_retry
-        data:
-          expected_mode: Load first
-        alias: Change to Load First (mqtt)
+      # M5 step 7 review: the window flag goes off first, whatever the mode change does (left on, a car charge
+      # stopping by day asked for Battery first); solar_modbus_charging_window_reset catches a missed 05:30
       - metadata: {}
         data: {}
         target:
           entity_id: input_boolean.battery_charging_window
         action: input_boolean.turn_off
+      # M5 step 5 review: a hold left on after a Battery first request (an older manual Load/Grid first, then Battery
+      # first by hand) ends with the charge, so it can't skip the next 03:00. Read before the Load first below
+      # replaces the request
+      - if:
+        - condition: template
+          value_template: >-
+            {{ states('input_text.solar_mode_requested').startswith('Battery first|') }}
+        then:
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.solar_manual_hold
+      - action: script.set_growatt_sph_mode_with_retry
+        continue_on_error: true
+        data:
+          expected_mode: Load first
+        alias: Change to Load First (mqtt)
     - conditions:
       - condition: trigger
         id:
-        - Eva Charge Start
+        - Vivo Charge Start
+      # a manual mode holds until Auto (M5 step 5)
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
       sequence:
       - if:
         - condition: state
@@ -1259,21 +1223,26 @@
           alias: Change to Load First (mqtt)
         - metadata: {}
           data:
-            title: Eva
-            message: Eva started charging. Load First engaged. This isn't a house
+            title: Vivo
+            message: Vivo started charging. Load First engaged. This isn't a house
               battery charging window
           action: notify.mobile_app_tongaism25
         else:
         - metadata: {}
           data:
-            title: Eva
-            message: Evie started charging. Battery First already engaged. This is
+            title: Vivo
+            message: Vivo started charging. Battery First already engaged. This is
               a house battery charging window
           action: notify.mobile_app_tongaism25
     - conditions:
       - condition: trigger
         id:
-        - Eva Charge Stop
+        - Vivo Charge Stop
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: input_boolean.solar_manual_hold
+          state: 'on'
       sequence:
       - if:
         - condition: state
@@ -1286,8 +1255,8 @@
             expected_mode: Load first
         - metadata: {}
           data:
-            title: Eva
-            message: Eva stopped charging. Load First engaged. This isn't a house
+            title: Vivo
+            message: Vivo stopped charging. Load First engaged. This isn't a house
               battery charging window
           action: notify.mobile_app_tongaism25
         else:
@@ -1297,8 +1266,8 @@
           alias: Change to Battery First (mqtt)
         - metadata: {}
           data:
-            title: Eva
-            message: Eva stopped charging. Battery First still needed. This is a house
+            title: Vivo
+            message: Vivo stopped charging. Battery First still needed. This is a house
               battery charging window
           action: notify.mobile_app_tongaism25
   mode: single
@@ -1323,48 +1292,6 @@
     metadata: {}
     data: {}
   mode: single
-- id: '1736714739898'
-  alias: downstairs off
-  description: ''
-  trigger:
-  - platform: time
-    at: '23:00:00'
-  condition:
-  - condition: state
-    entity_id: light.downstairs_lights
-    state: 'on'
-  action:
-  - action: script.downstairs_lights_off
-    metadata: {}
-    data: {}
-  mode: single
-- id: '1739571868760'
-  alias: Dawn lamp
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - input_boolean.dawn_lamp
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: input_boolean.dawn_lamp
-      state: 'on'
-    then:
-    - action: light.turn_on
-      metadata: {}
-      data:
-        brightness_pct: 19
-      target:
-        entity_id: light.study_desk_lamp
-    else:
-    - action: light.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: light.study_desk_lamp
-  mode: single
 - id: '1742664762678'
   alias: Run speedtest
   description: ''
@@ -1378,20 +1305,6 @@
     metadata: {}
     data:
       addon: 6b87c29e_speedtest_addon
-  mode: single
-- id: '1744811803504'
-  alias: Force Litra Beam State Sync
-  description: ''
-  triggers:
-  - trigger: time_pattern
-    seconds: /30
-  conditions: []
-  actions:
-  - action: homeassistant.update_entity
-    metadata: {}
-    data:
-      entity_id:
-      - sensor.litra_beam_power
   mode: single
 - id: '1749894430384'
   alias: Fingerprint Enrollment Management
@@ -1721,76 +1634,4 @@
             data: {}
             target:
               entity_id: input_boolean.blinds_toggle
-  mode: single
-- id: '1752419002586'
-  alias: solar mode force
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - select.growatt_sph_work_mode_priority
-    from:
-    id: Change to Battery First
-    to: Battery first
-  - trigger: state
-    entity_id:
-    - select.growatt_sph_work_mode_priority
-    from:
-    to: Load first
-    id: Change to Load First
-    enabled: false
-  - trigger: state
-    entity_id:
-    - select.growatt_sph_work_mode_priority
-    from:
-    to: Grid first
-    id: Change to Grid First
-    enabled: false
-  conditions:
-  - condition: time
-    after: 02:59:30
-    before: 03:05:00
-    enabled: true
-  actions:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id:
-        - Change to Battery First
-      sequence:
-      - repeat:
-          sequence:
-          - action: select.select_option
-            metadata: {}
-            data:
-              option: Battery first
-            target:
-              entity_id: select.growatt_sph_work_mode_priority
-          - delay:
-              hours: 0
-              minutes: 1
-              seconds: 0
-              milliseconds: 0
-          until:
-          - condition: state
-            entity_id: sensor.growatt_sph_device_mode
-            state: Battery first
-    - conditions:
-      - condition: trigger
-        id:
-        - Change to Load First
-      sequence:
-      - action: notify.mobile_app_tongaism25
-        metadata: {}
-        data:
-          message: 'Test: load first'
-    - conditions:
-      - condition: trigger
-        id:
-        - Change to Grid First
-      sequence:
-      - action: notify.mobile_app_tongaism25
-        metadata: {}
-        data:
-          message: 'Test: grid first'
   mode: single

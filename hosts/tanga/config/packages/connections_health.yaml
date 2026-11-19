@@ -22,7 +22,7 @@ template:
         icon: mdi:lan-disconnect
         state: >-
           {% set watch = {
-               'Solar inverter (MQTT)': 'sensor.growatt_sph_pv_power',
+               'Solar inverter (Modbus)': 'sensor.sph_pv_power',
                'Solar cloud (Growatt)': 'sensor.tojgan_solar_total_output_power',
                'Hue': 'binary_sensor.coats_motion',
                'Nest cameras': 'camera.camera',
@@ -42,7 +42,7 @@ template:
         attributes:
           devices: >-
             {% set watch = {
-                 'Solar inverter (MQTT)': 'sensor.growatt_sph_pv_power',
+                 'Solar inverter (Modbus)': 'sensor.sph_pv_power',
                  'Solar cloud (Growatt)': 'sensor.tojgan_solar_total_output_power',
                  'Hue': 'binary_sensor.coats_motion',
                  'Nest cameras': 'camera.camera',
@@ -56,6 +56,29 @@ template:
               {% if s is none or (s.state in ['unavailable', 'unknown']
                                   and (now() - s.last_changed).total_seconds() > 1800) %}
                 {% set ns.out = ns.out + [name] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.out }}
+          # the same names with when each went down (Tongai 2026-11-05: a morning reminder should say for how long)
+          labels: >-
+            {% set watch = {
+                 'Solar inverter (Modbus)': 'sensor.sph_pv_power',
+                 'Solar cloud (Growatt)': 'sensor.tojgan_solar_total_output_power',
+                 'Hue': 'binary_sensor.coats_motion',
+                 'Nest cameras': 'camera.camera',
+                 'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
+                 'Volvo': 'sensor.garage_vivo_battery',
+                 'Alexa': 'binary_sensor.the_loft_connectivity',
+                 'Met.no weather': 'weather.garden_outside_weather_home' } %}
+            {% set ns = namespace(out=[]) %}
+            {% for name, e in watch.items() %}
+              {% set s = expand(e) | first | default(none) %}
+              {% if s is none %}
+                {% set ns.out = ns.out + [name ~ ' (missing)'] %}
+              {% elif s.state in ['unavailable', 'unknown'] and (now() - s.last_changed).total_seconds() > 1800 %}
+                {% set at = as_local(s.last_changed) %}
+                {% set when = at.strftime('%H:%M') if at.date() == now().date() else at.strftime('%d %b %H:%M') %}
+                {% set ns.out = ns.out + [name ~ ' (since ' ~ when ~ ')'] %}
               {% endif %}
             {% endfor %}
             {{ ns.out }}
@@ -110,10 +133,13 @@ automation:
         entity_id: sensor.connections_down
         above: 0
     actions:
-      - action: notify.mobile_app_tongaism25
+      - action: script.notification_route  # HSE-7: with the router off this is the old direct push to Tongai
         data:
+          id: connections_still_down
           title: "Still down: {{ states('sensor.connections_down') }}"
-          message: "{{ state_attr('sensor.connections_down', 'devices') | join(', ') }} · tanga"
+          message: >-
+            {{ (state_attr('sensor.connections_down', 'labels') or state_attr('sensor.connections_down', 'devices'))
+               | join(', ') }} · tanga
           data:
             tag: connections_health_down
             channel: Home status

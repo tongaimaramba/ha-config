@@ -1,0 +1,293 @@
+# Household lighting on tanga (ROADMAP HSE-1; docs/CUTOVER.md "Lighting"): pamba's six lighting automations, rebuilt from
+# its live copies (2026-11-08): the four Hue Tap-dial buttons, "downstairs off" at 23:30 and the Dawn lamp. Same triggers,
+# conditions and service calls as pamba's, apart from the deliberate differences listed below; tests/test_lighting.py
+# compares them with a snapshot of pamba's six (tests/fixtures/pamba_lighting.yaml). tanga's old, never-run copies are
+# gone from automations.yaml (OWNERSHIP: deprecated), and script.downstairs_lights_off there is left as it was: the 23:30
+# run calls the new script.lighting_downstairs_off (pamba's list), so nothing changes before the gate is on.
+#
+# Deliberate differences from pamba's:
+#   - Dawn lamp fires only on a real on/off toggle of the helper (from and to both on/off). pamba's trigger is unfiltered,
+#     so on pamba the helper going unavailable (a restart) runs the "off" branch; here it does not (restart-safe).
+#   - Dawn lamp names the Loft Bedside lamp as light.bookshelf_lamp; pamba names its Hue device (65a4ac3e..., the same
+#     lamp on both boxes).
+#   - A tap counts only if it is a fresh short_release (not a restart or Hue reconnect replaying the last press).
+#   - "Tap 1 unavailable notice": a quiet push (Home status, low) when both wall lights read unavailable, at most one
+#     per 10 minutes, so a dead Lightwave link shows itself once the gate is on.
+#   - 23:30 calls its own script (above).
+#
+# Gate: input_boolean.lighting_enabled (starts off, hard rule 6). With it off NOTHING here acts; pamba keeps the lights
+# until the Cut-over. ORDER ON THE DAY (CUTOVER "Lighting"): pamba's six automations OFF first, then deploy, then the gate
+# ON. Gate on while pamba's taps are still on is a race: one press reaches both boxes, and if one box has already
+# switched the lights when the other reads their state, the second switches them back.
+#
+# PRE-FLIGHT before the gate goes on (all three):
+#   1. pamba's six are off: Tap 1 - lounge lamps, Tap 2 - music room, Tap 3 - dining, Tap 4 - dining wall lights,
+#      downstairs off, Dawn lamp (pamba's Settings > Automations; press each tap: nothing happens).
+#   2. The stub entities below are not unavailable (tools/ha-get tanga /api/states/<id>), or you accept that the tap
+#      does nothing for them.
+#   3. This package is deployed (the gate is a helper from that deploy on).
+#
+# STUBS until the Lightwave sign-in on the day (CUTOVER "Lighting" step 1). These lights are Lightwave or Tuya, which work
+# only on pamba today; on tanga they exist but read unavailable, so a tap on tanga switches nothing (and does no harm):
+#   Tap 1  light.lounge_wall_lights, light.media_room_wall_lights   tanga's dead `lightwave2` ids. After the sign-in
+#          replace them with the `lightwave_smart` ids (pamba's: light.lounge_wall_lights_switch,
+#          light.media_room_wall_lights_switch) everywhere Tap 1 and its notice name them (each is marked STUB).
+#   Tap 2  light.lounge_ceiling_lights   UI group (pendant + spots); Tongai re-points its members, no change here
+#   Tap 3  light.kd_spots                UI group (dining + kitchen spots); same
+#   Tap 4  light.dining_wall_lights      UI group of the two Tuya wall lights; same ("Off at the wall" is normal)
+#   23:30  light.downstairs_lights       UI group; the Hue members work now, the Lightwave ones after the re-point
+# Hue only, working now: the buttons themselves, the Dawn lamp's two lamps, the lightstrip, the movie lamp.
+# Partial go (Lightwave refuses a second session): leave pamba's four taps ON and switch tanga's four tap automations off
+# with their on/off toggles (Settings > Automations; a package's automations can't be edited in the UI, but the toggle
+# works and survives restarts; never delete them), and move only "downstairs off" and "Dawn lamp".
+#
+# Physical fallback (MIGRATION principle 8): every Lightwave wall switch and every Hue dimmer works with HA down; this
+# layer only sits beside them. Each automation below says what it is for and its manual fallback.
+
+input_boolean:
+  lighting_enabled:
+    name: Lighting
+    icon: mdi:lightbulb-group
+
+# Downstairs lights off: the list of pamba's script.downstairs_lights_off (copied 2026-11-08): the downstairs group, the
+# movie lamp, the on-air light, the Loft32 desk light, the lightstrip, and the lights socket. Only the gated 23:30
+# automation calls it (a new script, so tanga's own script.downstairs_lights_off is untouched until the Cut-over).
+# Manual fallback: the wall switches and the Hue dimmers / app.
+script:
+  lighting_downstairs_off:
+    alias: Lighting - downstairs lights off
+    description: "Downstairs, movie lamp, on-air light, Loft32 desk light, lightstrip and lights socket off (pamba's list)."
+    mode: single
+    icon: mdi:light-switch
+    sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+            - light.downstairs_lights
+            - light.movie_lamp
+            - light.work_status_on_air_light
+            - light.loft32_desk_light
+            - light.hue_lightstrip_plus_1
+      - action: switch.turn_off
+        target:
+          entity_id: switch.sonoff_lights
+
+automation:
+  # Tap 1 (lounge lamps): wall lights off if either is on, else on at 34 % (lounge) and 71 % (media room), as pamba's.
+  # A press counts only when it is fresh: an event entity coming back from unavailable (a Hue reconnect, a restart) repeats
+  # its last press, and an attribute-only update keeps the same press; neither may toggle the lights. `unknown` before
+  # the press is fine (a new or re-paired button has never been pressed): the first press counts.
+  # Manual fallback: the lounge and media-room wall switches, or the Hue tap's own pairing (unaffected).
+  - id: lighting_tap_1_lounge_lamps
+    alias: Lighting - Tap 1 lounge lamps
+    description: "Lounge and media-room wall lights toggle from Hue tap button 1 (pamba's Tap 1). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: event.hue_tap_dial_switch_1_button_1
+    conditions:
+      - &gate
+        condition: state
+        entity_id: input_boolean.lighting_enabled
+        state: "on"
+      - &fresh_press
+        condition: template
+        value_template: >-
+          {{ trigger.from_state is not none and trigger.from_state.state != 'unavailable'
+             and trigger.to_state.state not in ['unavailable', 'unknown']
+             and trigger.from_state.state != trigger.to_state.state
+             and trigger.to_state.attributes.event_type == 'short_release'
+             and as_datetime(trigger.to_state.state) > now() - timedelta(seconds=30) }}
+    actions:
+      - if:
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: light.lounge_wall_lights  # STUB until the Lightwave sign-in
+                state: "on"
+              - condition: state
+                entity_id: light.media_room_wall_lights  # STUB until the Lightwave sign-in
+                state: "on"
+        then:
+          - action: light.turn_off
+            target:
+              entity_id:
+                - light.media_room_wall_lights  # STUB until the Lightwave sign-in
+                - light.lounge_wall_lights  # STUB until the Lightwave sign-in
+        else:
+          - action: light.turn_on
+            data:
+              brightness_pct: 34
+            target:
+              entity_id: light.lounge_wall_lights  # STUB until the Lightwave sign-in
+          - action: light.turn_on
+            data:
+              brightness_pct: 71
+            target:
+              entity_id: light.media_room_wall_lights  # STUB until the Lightwave sign-in
+
+  # Tap 1 notice: the gate is on and Tap 1 was pressed, but both wall lights are unavailable (Lightwave not signed in on
+  # tanga, or down), so Tap 1 switched nothing. One quiet push per 10 minutes (single mode; the delay is the rate limit)
+  # so the check on the day shows the problem. Manual fallback: the wall switches; re-enable pamba's Tap 1.
+  - id: lighting_tap_1_unavailable_notice
+    alias: Lighting - Tap 1 unavailable notice
+    description: "Quiet push when Tap 1 is pressed and both wall lights are unavailable (at most every 10 min). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: event.hue_tap_dial_switch_1_button_1
+    conditions:
+      - *gate
+      - *fresh_press
+      - condition: state
+        entity_id:
+          - light.lounge_wall_lights  # STUB until the Lightwave sign-in
+          - light.media_room_wall_lights  # STUB until the Lightwave sign-in
+        state: unavailable
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Lighting
+          message: "Lighting tap 1: lounge/media lights unavailable (Lightwave not signed in)"
+          data:
+            tag: lighting_tap_1_unavailable
+            channel: Home status
+            importance: low
+      - delay: {minutes: 10}
+
+  # Tap 2 (music room): the lounge ceiling lights (pendant + spots) toggle, as pamba's.
+  # Manual fallback: the lounge pendant and spotlight wall switches.
+  - id: lighting_tap_2_music_room
+    alias: Lighting - Tap 2 music room
+    description: "Lounge ceiling lights toggle from Hue tap button 2 (pamba's Tap 2). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: event.hue_tap_dial_switch_1_button_2
+    conditions:
+      - *gate
+      - *fresh_press
+    actions:
+      - if:
+          - condition: state
+            entity_id: light.lounge_ceiling_lights
+            state: "on"
+        then:
+          - action: light.turn_off
+            target:
+              entity_id: light.lounge_ceiling_lights
+        else:
+          - action: light.turn_on
+            target:
+              entity_id: light.lounge_ceiling_lights
+
+  # Tap 3 (dining): the dining and kitchen spots toggle, as pamba's.
+  # Manual fallback: the dining and kitchen spotlight wall switches.
+  - id: lighting_tap_3_dining
+    alias: Lighting - Tap 3 dining
+    description: "Dining and kitchen spots toggle from Hue tap button 3 (pamba's Tap 3). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: event.hue_tap_dial_switch_1_button_3
+    conditions:
+      - *gate
+      - *fresh_press
+    actions:
+      - if:
+          - condition: state
+            entity_id: light.kd_spots
+            state: "on"
+        then:
+          - action: light.turn_off
+            target:
+              entity_id: light.kd_spots
+        else:
+          - action: light.turn_on
+            target:
+              entity_id: light.kd_spots
+
+  # Tap 4 (dining wall lights): the two Tuya wall lights toggle, on at 60 %, as pamba's.
+  # Manual fallback: the wall switch (the Tuya lights are often off at the wall: nothing here can wake them) or the
+  # Tuya app.
+  - id: lighting_tap_4_dining_wall_lights
+    alias: Lighting - Tap 4 dining wall lights
+    description: "Dining wall lights toggle from Hue tap button 4 (pamba's Tap 4). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: event.hue_tap_dial_switch_1_button_4
+    conditions:
+      - *gate
+      - *fresh_press
+    actions:
+      - if:
+          - condition: state
+            entity_id: light.dining_wall_lights
+            state: "on"
+        then:
+          - action: light.turn_off
+            target:
+              entity_id: light.dining_wall_lights
+        else:
+          - action: light.turn_on
+            data:
+              brightness_pct: 60
+            target:
+              entity_id: light.dining_wall_lights
+
+  # Downstairs off at 23:30 (pamba's "downstairs off"; tanga's old copy ran at 23:00): if anything downstairs is still on,
+  # run script.lighting_downstairs_off (below; its list is pamba's script's, not tanga's older script.downstairs_lights_off).
+  # Manual fallback: that script from the Developer tools or the Hue app, or the wall switches.
+  - id: lighting_downstairs_off
+    alias: Lighting - downstairs off
+    description: "Downstairs lights off at 23:30 if any are on (pamba's downstairs off). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: time
+        at: "23:30:00"
+    conditions:
+      - *gate
+      - condition: state
+        entity_id: light.downstairs_lights
+        state: "on"
+    actions:
+      - action: script.lighting_downstairs_off
+
+  # Dawn lamp (pamba's): the helper input_boolean.dawn_lamp on = the Side Board lamp at 19 % and the Loft Bedside lamp on
+  # (pamba names that lamp by its Hue device, 65a4ac3e..., which is light.bookshelf_lamp on both boxes); off = both off.
+  # Deliberate difference: fires only on a real toggle (not on unavailable or a restart; pamba's trigger is unfiltered).
+  # Nothing on a tanga dashboard flips the helper yet.
+  # Manual fallback: the lamps' own Hue dimmers or the Hue app.
+  - id: lighting_dawn_lamp
+    alias: Lighting - Dawn lamp
+    description: "Dawn lamp helper on: Side Board lamp 19 %, Loft Bedside lamp on; off: both off (pamba's Dawn lamp). Gate: Lighting."
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.dawn_lamp
+        from: ["on", "off"]
+        to: ["on", "off"]
+    conditions:
+      - *gate
+    actions:
+      - if:
+          - condition: state
+            entity_id: input_boolean.dawn_lamp
+            state: "on"
+        then:
+          - action: light.turn_on
+            data:
+              brightness_pct: 19
+            target:
+              entity_id: light.study_desk_lamp
+          - action: light.turn_on
+            target:
+              entity_id: light.bookshelf_lamp
+        else:
+          - action: light.turn_off
+            target:
+              entity_id: light.study_desk_lamp
+          - action: light.turn_off
+            target:
+              entity_id: light.bookshelf_lamp

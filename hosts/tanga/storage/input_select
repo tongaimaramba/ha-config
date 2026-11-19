@@ -76,16 +76,6 @@
         "icon": "mdi:hand-back-left-outline"
       },
       {
-        "id": "inverter_mode",
-        "name": "Inverter Mode",
-        "icon": "mdi:server",
-        "options": [
-          "Load first",
-          "Battery first",
-          "Grid first"
-        ]
-      },
-      {
         "id": "calibration_location",
         "name": "Calibration Location",
         "icon": "mdi:map-marker-radius",

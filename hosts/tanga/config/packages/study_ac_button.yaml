@@ -1,0 +1,59 @@
+# Study AC on the desk button (exception E-2, M1d-I; docs/CUTOVER.md "(c) Desk button's Study AC"). The Study's Hue
+# switch (tanga's event.hannah_switch_button_*: the same switch as pamba's `study_switch_button`, week-2 report):
+# button 3 "AC" toggles the Study AC, then sets 20 °C auto; button 4 "Off" turns it off. pamba's AC actions copied
+# exactly from its "On air desk button" (id 1703971587073); that automation keeps the button's lights and work status.
+# tanga's first AC command: lint-refs' acting_owner_guard allows exactly this automation and climate.study_study_ac
+# (tools/hosts.json). The id is tanga's Airstage id today (registry snapshot 31 Oct; the `_study_` tidy is M1g's).
+# Gate: input_boolean.study_ac_button_enabled (starts off, hard rule 6). Turned on only after Tongai removes the AC part
+# from pamba's desk automation: climate.toggle on both boxes from one press would cancel out.
+# Manual fallback: the Study AC's Fujitsu remote or the Airstage app (and, until Tongai removes it, pamba's copy).
+
+input_boolean:
+  study_ac_button_enabled:
+    name: Study AC desk button
+    icon: mdi:gesture-tap-button
+
+automation:
+  # Desk button 3 / 4 (short release, as pamba) → the Study AC: toggle then 20 °C auto / off. Only a fresh press counts:
+  # an event entity coming back from unavailable (a Hue reconnect, a restart) repeats its last press, and an
+  # attribute-only update keeps the same press; neither may toggle the AC. Manual fallback: the Fujitsu remote or the
+  # Airstage app.
+  - id: study_ac_desk_button
+    alias: Study AC - desk button
+    mode: single  # as pamba's: a press while the last one is still running is dropped
+    triggers:
+      - trigger: state
+        entity_id: event.hannah_switch_button_3
+        id: ac
+      - trigger: state
+        entity_id: event.hannah_switch_button_4
+        id: "off"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.study_ac_button_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {{ trigger.from_state is not none and trigger.from_state.state not in ['unavailable', 'unknown']
+             and trigger.to_state.state not in ['unavailable', 'unknown']
+             and trigger.from_state.state != trigger.to_state.state
+             and trigger.to_state.attributes.event_type == 'short_release'
+             and as_datetime(trigger.to_state.state) > now() - timedelta(seconds=30) }}
+    actions:
+      - choose:
+          - conditions: "{{ trigger.id == 'ac' }}"
+            sequence:
+              - action: climate.toggle
+                target:
+                  entity_id: climate.study_study_ac
+              - action: climate.set_temperature
+                data:
+                  temperature: 20
+                  hvac_mode: auto
+                target:
+                  entity_id: climate.study_study_ac
+          - conditions: "{{ trigger.id == 'off' }}"
+            sequence:
+              - action: climate.turn_off
+                target:
+                  entity_id: climate.study_study_ac

@@ -3,7 +3,9 @@
 # Immediately") that calls script.nfc_scan on tanga. Both become one event, `nfc_identified` {tag, phone, person, path,
 # reason}, which the auto_unlock_shadow app consumes (only as fired by this automation: origin LOCAL, no user).
 # `person` comes from the signed-in HA user: it proves who, not where (a Shortcut runs anywhere), so the shadow also
-# needs that person's phone home or arriving;
+# needs a second signal at the door, for BOTH paths (G15): that person's arrival window or fresh BLE at the front door
+# (a window only at the garage). To act it also needs an independent signal beside BLE (a GPS-opened window, a GPS
+# arrival, a Wi-Fi join: the BLE fix, CUTOVER decision L); "phone home" alone is not enough;
 # `phone` must be on the allowlist and belong to that person, else person is `unknown` (fail closed). Tanga only until the Cut-over (an iPhone adds tanga as a second server to
 # test). Gated input_boolean.nfc_enabled (starts off). Manual fallback: a key, the Nuki app.
 input_boolean:
@@ -45,14 +47,16 @@ automation:
     triggers:
       - trigger: tag
         tag_id:
-          - c9e068e8-208a-46f2-8a7a-cae2109983f8  # Front Door Tap (2026-10-29; to be replaced by an on-metal tag)
+          - 4b9480e7-dec4-442d-b832-b025febe9791  # F-tap (on-metal, 2026-11-01): the only front-door tag (old sticker retired 11 Nov, SEC-6)
+          - 1e41aa12-a1f5-4765-a2c3-b0bb388f3975  # G-tap (garage, 2026-11-02): the shadow's garage door (v2)
         id: ha_tag
       - trigger: event
         event_type: nfc_scanned
         id: shortcut
     variables:
       tag_map:  # tag id → door
-        c9e068e8-208a-46f2-8a7a-cae2109983f8: front_door
+        4b9480e7-dec4-442d-b832-b025febe9791: front_door
+        1e41aa12-a1f5-4765-a2c3-b0bb388f3975: garage
       phone_owners:  # allowlist: phone name → person (Android: the device's name in HA)
         TongaiSM25: person.tongai
         Tongai iPhone: person.tongai
@@ -108,8 +112,9 @@ automation:
         entity_id: input_boolean.nfc_test_alerts_enabled
         state: "on"
     actions:
-      - action: notify.mobile_app_tongaism25
+      - action: script.notification_route  # HSE-7: with the router off this is the old direct push to Tongai
         data:
+          id: nfc_test
           title: "NFC: {{ trigger.event.data.tag }}"
           message: >-
             {{ trigger.event.data.person | replace('person.', '') | title }} · {{ trigger.event.data.phone }} ·
