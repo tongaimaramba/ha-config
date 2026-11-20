@@ -2,7 +2,7 @@
 
 ```
 host: tanga
-exported_at: 2026-11-19T19:35:50+00:00
+exported_at: 2026-11-20T08:41:06+00:00
 config_dir: /homeassistant
 ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
@@ -89,9 +89,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
-home-assistant_v2.db (18759385088 bytes) — db/log/binary
-home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (12096352 bytes) — db/log/binary
+home-assistant_v2.db (18820853760 bytes) — db/log/binary
+home-assistant_v2.db-shm (65536 bytes) — db/log/binary
+home-assistant_v2.db-wal (5236552 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -131,6 +131,7 @@ home-assistant_v2.db-wal (12096352 bytes) — db/log/binary
 .storage/http.auth — not in allow-list
 .storage/local_calendar.extras.ics — not in allow-list
 .storage/local_todo.ellie_homework.ics — not in allow-list
+.storage/local_todo.hannah_homework.ics — not in allow-list
 .storage/mobile_app — not in allow-list
 .storage/nest.event_media — not in allow-list
 .storage/octopus_energy.1900029019461_20L3348755_weekday_consumption — not in allow-list

@@ -361,7 +361,7 @@
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-11-04T15:04:20.327118+00:00",
+        "modified_at": "2026-11-20T04:16:29.406663+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -418,7 +418,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-11-19T19:23:47.775741+00:00",
+        "modified_at": "2026-11-20T08:36:22.564065+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4195,7 +4195,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-11-19T15:12:12.661411+00:00",
+        "modified_at": "2026-11-20T02:51:36.566041+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4418,7 +4418,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-11-19T19:32:33.970120+00:00",
+        "modified_at": "2026-11-20T08:39:00.014035+00:00",
         "options": {
           "_redacted_keys": []
         },
