@@ -1,0 +1,318 @@
+# Security and Map tabs, option A (PLAN SM-A..SM-L; docs/reports/2026-11-19-security-map-rethink.md): the three sensors
+# the parents' Security and Map pages read. All three are passive: they read states and write only their own state.
+# Nothing here acts on a lock, the alarm, the heating or a phone, and nothing sends a notification.
+#
+#   sensor.security_verdict   "is the house secure?" (SM-A, SM-C). State: `secure` (every perimeter door and window
+#                             reads shut), `open` (something is open) or `check` (nothing open, but something can't
+#                             be told). Attributes: `headline` ("House secure", "2 things to look at"), `detail`
+#                             ("Every door and window shut · House mode: Night"), `open` and `check` (one line per
+#                             thing, with since when). The openings are sensor.perimeter_status's
+#                             (packages/perimeter.yaml; tests keep the lists in step), and as there a contact that
+#                             is unavailable or unknown is "can't tell", NEVER shut. The locks (pamba's, mirrored,
+#                             read-only) are NOT part of "secure" and an unlocked lock is never mentioned (Tongai 19
+#                             Nov: "no need to mention that the locks are unlocked, that is default state. They are
+#                             always unlocked and then unlatch to open."): a lock state never changes the verdict,
+#                             however long it lasts (the front lock rests at `open` for hours after an unlatch). A
+#                             lock is listed only when jammed or otherwise not in a normal state, when it can't be
+#                             read (its hub or the bridge offline), or when its battery is under 20 %. The House
+#                             mode is read from input_select.alarm_mode as words; it is not a control.
+#   sensor.security_recent    Security's "Recent" list (SM-D): attribute `items`, newest first, each {key, at, text}:
+#                             the doorbell rang, motion or a person at the front door or in the garden (Nest), motion
+#                             at the back fence (Arlo), a front or garage lock unlatched, a perimeter door or window
+#                             opened, a person arrived home. One row per source (a new event replaces that source's
+#                             older row), so a busy camera can't push the doorbell off the list; the last 8 are
+#                             kept, sorted by when each happened (an arrival is recorded 2 minutes late).
+#   sensor.presence_today     Map's "Today" list (SM-J): attribute `items`, today's rows, newest first, each
+#                             {key, at, text, who, to}: "Hannah arrived at School", "Mojgan left home", "Tongai
+#                             arrived home", from each person's sensor.presence_<person>_where
+#                             (packages/presence.yaml). At most 12. Its state is the newest row's text. Attribute
+#                             `memory`: the day, and per person her last CONFIRMED status and when it began.
+#
+# TODAY'S RULE (reviews of #438, 19 Nov). A status is a named place (Home or a zone's name) or Away. It is CONFIRMED
+# once it has lasted 2 minutes; Unknown / unavailable are never confirmed and never change anything.
+# A row is written only when a person's confirmed status changes:
+#   to a named place   "X arrived at P" ("X arrived home"), stamped when she got there (not 2 minutes later);
+#   to Away            "X left P", P being the confirmed place before it, stamped when she left.
+# A named place straight to another (Away never confirmed between them) is just the arrival. The same confirmed
+# status again is nothing. With no memory of a person (first run, a deploy) her first confirmation only sets it.
+# So a short visit or a flap, anything under 2 minutes, can never touch the list or the memory.
+# The memory (`memory`: each person's last confirmed status) carries across days unchanged; only the rows are for
+# today. A row belongs to the day it happened: an arrival at 23:59:10 confirmed at 00:01:10 is yesterday's and is not
+# listed (the page lists today's times only), but the memory takes it, so the next change is right. At midnight the
+# list is emptied.
+# Replayed in tests/test_security_map.py: 19 Nov Hannah (Home -> Away 88 s -> School: "arrived at School" 08:07, no
+# "left home": accepted), the 18 Nov evening flips (nothing), Home -> Away 3 h -> Home -> Away 30 s -> Home, Home ->
+# Away -> Home 20 s -> Away, Home -> Away -> School 30 s -> Away, School -> Unknown 30 s -> Away -> School, a restart
+# with an empty memory (nothing), and three across midnight.
+# Recent's "arrived home" is dropped when the person was not-home for under 2 minutes.
+#
+# What the times mean: "since 21:12" is the entity's last change as HA knows it; a restart of HA resets it to the
+# restart (as presence's `since`). The lists start empty on first load and survive restarts (trigger-based template
+# sensors restore their state and attributes).
+#
+# New entities: a "Template entities" reload loads them (no restart). Until an entity here first triggers, the lists
+# read "Nothing yet" and the verdict is worked out at the reload, at HA start, on any change, and every 5 minutes.
+# Manual fallback: the plan pages (Security -> Doors and windows), Home's perimeter pill, the Nest / Arlo / Nuki apps,
+# the HA map (Map -> Today's trails); none of those depends on this file.
+template:
+  # ---- sensor.security_verdict ----
+  - triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.front_door
+          - binary_sensor.patio_door_door
+          - binary_sensor.kitchen_door
+          - binary_sensor.utility_back_door
+          - binary_sensor.garage_out_door
+          - binary_sensor.bay_window_door
+          - binary_sensor.bay_party_wall_door
+          - binary_sensor.landing_window_door
+          - binary_sensor.bathroom_window_door
+          - binary_sensor.ellie_window_door
+          - binary_sensor.ellie_window_party_door
+          - binary_sensor.guest_win_door
+          - sensor.front_lock_pamba
+          - sensor.garage_lock_pamba
+          - sensor.front_lock_battery_pamba
+          - sensor.garage_lock_battery_pamba
+          - input_select.alarm_mode
+        to: ~  # a change of state, not of attributes
+      - trigger: time_pattern
+        minutes: "/5"  # "since Tue 21:12" once the day turns; and a first answer soon after anything odd
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+    variables:
+      calc: >-
+        {%- set watch = {
+             'binary_sensor.front_door': 'Front door',
+             'binary_sensor.patio_door_door': 'Patio door',
+             'binary_sensor.kitchen_door': 'Kitchen window',
+             'binary_sensor.utility_back_door': 'Utility back door',
+             'binary_sensor.garage_out_door': 'Garage door',
+             'binary_sensor.bay_window_door': 'Bay window',
+             'binary_sensor.bay_party_wall_door': 'Bay window (party wall)',
+             'binary_sensor.landing_window_door': 'Landing window',
+             'binary_sensor.bathroom_window_door': "Kids' bathroom window",
+             'binary_sensor.ellie_window_door': "Ellie's window",
+             'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
+             'binary_sensor.guest_win_door': 'Study window' } -%}
+        {%- set locks = [
+             ('sensor.front_lock_pamba', 'sensor.front_lock_battery_pamba', 'Front door lock'),
+             ('sensor.garage_lock_pamba', 'sensor.garage_lock_battery_pamba', 'Garage door lock') ] -%}
+        {%- set normal = ['locked', 'unlocked', 'open', 'opening', 'unlatched', 'unlatching', 'locking', 'unlocking'] -%}
+        {%- macro when(d) -%}
+          {%- set l = as_local(d) -%}
+          {{- l.strftime('%H:%M') if l.date() == now().date() else l.strftime('%a %H:%M') -}}
+        {%- endmacro -%}
+        {%- set ns = namespace(open=[], check=[]) -%}
+        {%- for e, n in watch.items() -%}
+          {%- set o = states[e] -%}
+          {%- if o is not none and o.state == 'on' -%}
+            {%- set ns.open = ns.open + [n ~ ' open · since ' ~ when(o.last_changed)] -%}
+          {%- elif o is none -%}
+            {%- set ns.check = ns.check + [n ~ ": can't tell · no sensor"] -%}
+          {%- elif o.state != 'off' -%}
+            {%- set ns.check = ns.check + [n ~ ": can't tell · sensor silent since " ~ when(o.last_changed)] -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for e, b, n in locks -%}
+          {%- set s = states(e) -%}
+          {%- if s in ['unknown', 'unavailable'] -%}
+            {%- set ns.check = ns.check + [n ~ ": can't tell · not heard from its hub"] -%}
+          {%- elif s not in normal -%}
+            {%- set ns.check = ns.check + [n ~ ': ' ~ s] -%}
+          {%- endif -%}
+          {%- set level = states(b) | int(-1) -%}
+          {%- if 0 <= level < 20 -%}
+            {%- set ns.check = ns.check + [n ~ ' battery ' ~ level ~ ' %'] -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- set m = states('input_select.alarm_mode') -%}
+        {%- set mode = 'House mode: ' ~ (m if m not in ['unknown', 'unavailable'] else "can't tell") -%}
+        {%- set count = (ns.open | count) + (ns.check | count) -%}
+        {{ {
+          'state': 'open' if ns.open else ('check' if ns.check else 'secure'),
+          'headline': 'House secure' if count == 0 else (count ~ (' thing' if count == 1 else ' things') ~ ' to look at'),
+          'detail': mode if count else ('Every door and window shut · ' ~ mode),
+          'open': ns.open,
+          'check': ns.check,
+        } }}
+    sensor:
+      - name: Security verdict
+        unique_id: security_verdict
+        icon: mdi:shield-home
+        state: "{{ calc.state }}"
+        attributes:
+          headline: "{{ calc.headline }}"
+          detail: "{{ calc.detail }}"
+          open: "{{ calc.open }}"
+          check: "{{ calc.check }}"
+
+  # ---- sensor.security_recent ----
+  - triggers:
+      - trigger: state
+        entity_id:
+          - event.front_door_chime
+          - event.front_door_motion
+          - event.garden_a_motion
+        to: ~
+      - trigger: state
+        entity_id: binary_sensor.aarlo_motion_garden_c
+        from: "off"
+        to: "on"
+      - trigger: state
+        entity_id:
+          - sensor.front_lock_pamba
+          - sensor.garage_lock_pamba
+        to:
+          - open
+          - unlatched
+      - trigger: state
+        entity_id:
+          - binary_sensor.front_door
+          - binary_sensor.patio_door_door
+          - binary_sensor.kitchen_door
+          - binary_sensor.utility_back_door
+          - binary_sensor.garage_out_door
+          - binary_sensor.bay_window_door
+          - binary_sensor.bay_party_wall_door
+          - binary_sensor.landing_window_door
+          - binary_sensor.bathroom_window_door
+          - binary_sensor.ellie_window_door
+          - binary_sensor.ellie_window_party_door
+          - binary_sensor.guest_win_door
+        from: "off"
+        to: "on"
+      - trigger: state
+        entity_id:
+          - binary_sensor.presence_tongai
+          - binary_sensor.presence_mojgan
+          - binary_sensor.presence_hannah
+          - binary_sensor.presence_ellie
+        from: "off"
+        to: "on"
+        for: "00:02:00"  # as the arrival alerts' debounce
+    variables:
+      ev: >-
+        {%- set cams = {
+             'event.front_door_motion': 'at the front door',
+             'event.garden_a_motion': 'in the garden' } -%}
+        {%- set locks = {
+             'sensor.front_lock_pamba': 'Front door',
+             'sensor.garage_lock_pamba': 'Garage door' } -%}
+        {%- set doors = {
+             'binary_sensor.front_door': 'Front door',
+             'binary_sensor.patio_door_door': 'Patio door',
+             'binary_sensor.kitchen_door': 'Kitchen window',
+             'binary_sensor.utility_back_door': 'Utility back door',
+             'binary_sensor.garage_out_door': 'Garage door',
+             'binary_sensor.bay_window_door': 'Bay window',
+             'binary_sensor.bay_party_wall_door': 'Bay window (party wall)',
+             'binary_sensor.landing_window_door': 'Landing window',
+             'binary_sensor.bathroom_window_door': "Kids' bathroom window",
+             'binary_sensor.ellie_window_door': "Ellie's window",
+             'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
+             'binary_sensor.guest_win_door': 'Study window' } -%}
+        {%- set people = {
+             'binary_sensor.presence_tongai': 'Tongai',
+             'binary_sensor.presence_mojgan': 'Mojgan',
+             'binary_sensor.presence_hannah': 'Hannah',
+             'binary_sensor.presence_ellie': 'Ellie' } -%}
+        {%- set gone = ['unknown', 'unavailable'] -%}
+        {%- set e = trigger.entity_id -%}
+        {%- set t = trigger.to_state -%}
+        {%- set f = trigger.from_state -%}
+        {%- set ns = namespace(text='') -%}
+        {%- if t is not none and f is not none and t.state not in gone and f.state not in gone -%}
+          {%- if e == 'event.front_door_chime' -%}
+            {%- set ns.text = 'Doorbell rang' -%}
+          {%- elif e in cams -%}
+            {%- set kind = t.attributes.get('event_type') -%}
+            {%- if kind != 'camera_sound' -%}
+              {%- set ns.text = ('Person ' if kind == 'camera_person' else 'Motion ') ~ cams[e] -%}
+            {%- endif -%}
+          {%- elif e == 'binary_sensor.aarlo_motion_garden_c' -%}
+            {%- set ns.text = 'Motion at the back fence' -%}
+          {%- elif e in locks -%}
+            {%- if f.state not in ['open', 'unlatched'] -%}{%- set ns.text = locks[e] ~ ' unlatched' -%}{%- endif -%}
+          {%- elif e in doors -%}
+            {%- set ns.text = doors[e] ~ ' opened' -%}
+          {%- elif e in people and (t.last_changed - f.last_changed).total_seconds() >= 120 -%}
+            {%- set ns.text = people[e] ~ ' arrived home' -%}
+          {%- endif -%}
+        {%- endif -%}
+        {{ {'key': e, 'at': t.last_changed.isoformat(), 'text': ns.text} if ns.text else {} }}
+    sensor:
+      - name: Security recent
+        unique_id: security_recent
+        icon: mdi:history
+        state: "{{ ev.text if ev.get('text') else (this.state if this is defined and this is not none else none) }}"
+        attributes:
+          items: >-
+            {%- set old = (this.attributes.get('items') if this is defined and this is not none else none) or [] -%}
+            {%- set old = old if old is not string else [] -%}
+            {{ (([ev] + (old | rejectattr('key', 'eq', ev.key) | list)) | sort(attribute='at', reverse=true))[:8]
+               if ev.get('text') else old }}
+
+  # ---- sensor.presence_today ----
+  # One calculation (`calc`) reads the sensor's own last `items` and `memory` (through `this`; by its entity id if
+  # `this` isn't given to trigger variables) and gives the new ones; the entity only reads `calc`.
+  - triggers:
+      - trigger: state
+        id: held
+        entity_id:
+          - sensor.presence_tongai_where
+          - sensor.presence_mojgan_where
+          - sensor.presence_hannah_where
+          - sensor.presence_ellie_where
+        to: ~
+        for: "00:02:00"  # confirmed: as the arrival alerts' debounce
+      - trigger: time
+        id: midnight  # empties the list (rows are today's only); the memory is kept
+        at: "00:00:00"
+    variables:
+      calc: >-
+        {%- set people = {
+             'sensor.presence_tongai_where': 'Tongai',
+             'sensor.presence_mojgan_where': 'Mojgan',
+             'sensor.presence_hannah_where': 'Hannah',
+             'sensor.presence_ellie_where': 'Ellie' } -%}
+        {%- set gone = ['unknown', 'unavailable', 'Unknown', ''] -%}
+        {%- set today = now().date() -%}
+        {%- set mine = this if this is defined and this is not none else states.sensor.presence_today -%}
+        {%- set a = mine.attributes if (mine is not none and mine.attributes is mapping) else {} -%}
+        {%- set old = a.get('items') -%}
+        {%- set old = old if (old is iterable and old is not string and old is not mapping) else [] -%}
+        {%- set mem = a.get('memory') -%}
+        {%- set ns = namespace(people=mem if mem is mapping else {}, rows=[]) -%}
+        {%- for i in old if i is mapping and i.get('at') and i.get('text')
+               and as_local(as_datetime(i.at)).date() == today -%}
+          {%- set ns.rows = ns.rows + [i] -%}
+        {%- endfor -%}
+        {%- if trigger.id == 'held' and trigger.to_state is not none and trigger.to_state.state not in gone -%}
+          {%- set who = people[trigger.entity_id] -%}
+          {%- set status = trigger.to_state.state -%}
+          {%- set when = trigger.to_state.last_changed -%}
+          {%- set before = ns.people.get(who) -%}
+          {%- if before and before != status and as_local(when).date() == today -%}
+            {%- set text = who ~ (' left ' ~ ('home' if before == 'Home' else before) if status == 'Away'
+                                  else (' arrived home' if status == 'Home' else ' arrived at ' ~ status)) -%}
+            {%- set key = trigger.entity_id ~ ' ' ~ when.isoformat() -%}
+            {%- set ns.rows = (([{'key': key, 'at': when.isoformat(), 'text': text, 'who': who, 'to': status}]
+                                + (ns.rows | rejectattr('key', 'eq', key) | list))
+                               | sort(attribute='at', reverse=true))[:12] -%}
+          {%- endif -%}
+          {%- set ns.people = dict(ns.people, **{who: status}) -%}
+        {%- endif -%}
+        {{ {'items': ns.rows, 'memory': ns.people,
+            'state': (ns.rows | first).text if ns.rows else 'Nothing yet'} }}
+    sensor:
+      - name: Presence today
+        unique_id: presence_today
+        icon: mdi:map-clock-outline
+        state: "{{ calc.state }}"
+        attributes:
+          items: "{{ calc['items'] }}"
+          memory: "{{ calc.memory }}"

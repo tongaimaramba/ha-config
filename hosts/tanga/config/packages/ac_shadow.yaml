@@ -1,7 +1,63 @@
-# Shadow AC alerts on tanga (M1d step 4; decisions M1d-A/C/D). The gate for the ac_shadow AppDaemon app
-# (appdaemon/apps/ac_shadow.yaml), which only decides and logs: it never notifies or changes an AC.
-# Starts off (hard rule 6). Manual fallback: none needed; pamba's own AC alerts keep running.
+# AC alerts on tanga (M1d step 4; decisions M1d-A/C/D; exception E-1, M1d-H). The gates for the ac_shadow AppDaemon
+# app (appdaemon/apps/ac_shadow.yaml) and the bridge-silent alert its sending mode depends on. The app never changes an
+# AC. Both gates start off (hard rule 6).
+#   ac_shadow_enabled: shadow only, decides and logs "would alert", compares with pamba. Manual fallback: none needed;
+#     pamba's own AC alerts keep running.
+#   ac_alerts_enabled (E-1): tanga sends pamba's three AC alerts to Tongai instead of pamba; turned on only with pamba's
+#     three AC automations turned off (docs/CUTOVER.md "(a) AC alerts"). Manual fallback: turn this off and pamba's
+#     three back on (the CUTOVER roll back).
 input_boolean:
   ac_shadow_enabled:
     name: AC alerts shadow
     icon: mdi:ghost-outline
+  ac_alerts_enabled:
+    name: AC alerts
+    icon: mdi:air-conditioner
+
+automation:
+  # Bridge to pamba silent for 15 min while tanga sends the AC alerts (E-1; week-2 report): the alerts read the ACs
+  # through pamba's mirrors, so a silent bridge means silent AC alerts (the app pauses: "no_bridge"). The doors and
+  # presence are tanga's own SmartThings sensors since SEC-12: their outage alert is room_sensors_offline
+  # (packages/room_sensors.yaml), not this one.
+  # The heartbeat test is sensor.smartthings_sync's (climate_health.yaml): no heartbeat from pamba for 15 min, or pamba
+  # reporting no live mirrors (its HA down); plus no heartbeat entity at all for 15 min. Quiet, once per silence (and
+  # once when "AC alerts" is turned on during one, or with no heartbeat entity at all: within 5 min of a tanga restart
+  # that can be a false alarm, accepted). Gated by "AC alerts": it only matters while tanga sends them; the
+  # 2-h "Bridge to pamba silent" (climate health) covers the bridge otherwise.
+  # Manual fallback: while the bridge is down, turn pamba's three AC automations back on (CUTOVER "(a)" roll back);
+  # restart AppDaemon on pamba (ha_bridge) if its heartbeat doesn't come back.
+  - id: ac_alerts_bridge_silent
+    alias: AC alerts - bridge to pamba silent
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {% set hb = states.sensor.ha_bridge_rpi4_heartbeat %}
+          {{ hb is not none and (hb.last_changed < now() - timedelta(minutes=15)
+             or state_attr('sensor.ha_bridge_rpi4_heartbeat', 'mirrors_live') | int(0) == 0) }}
+      - trigger: template
+        value_template: "{{ states.sensor.ha_bridge_rpi4_heartbeat is none }}"
+        for: {minutes: 15}
+      - trigger: state
+        entity_id: input_boolean.ac_alerts_enabled
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.ac_alerts_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set hb = states.sensor.ha_bridge_rpi4_heartbeat %}
+          {{ hb is none or hb.last_changed < now() - timedelta(minutes=15)
+             or state_attr('sensor.ha_bridge_rpi4_heartbeat', 'mirrors_live') | int(0) == 0 }}
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Bridge to pamba silent
+          message: >-
+            No news from pamba for 15 min: tanga's AC alerts can't see the ACs. If it lasts, turn pamba's three AC
+            automations back on.
+          data:
+            tag: ac_alerts_bridge_silent
+            channel: Home status
+            importance: low

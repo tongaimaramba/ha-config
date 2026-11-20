@@ -1,0 +1,110 @@
+# Homework to-do lists (HSE-8 follow-up, Tongai 10 Nov). The school's homework feeds (calendar.hannah_homework,
+# calendar.ellie_homework: one event per piece of homework, on its due date) are copied into a to-do list per child
+# (todo.hannah_homework, todo.ellie_homework: Local To-do lists made in the UI) by the AppDaemon app apps/homework.yaml.
+# The children tick items off on Kids -> Homework; on Friday evenings the same page shows what is still to do, soonest
+# due first. This package holds the gate and the two reads the app needs (it can't call a service that returns data).
+# Owner: tanga.
+#
+# GATE input_boolean.homework_enabled (starts off, hard rule 6). Off: nothing is copied; the lists and the page work
+# as plain to-do lists. The app only ever adds items (never edits or deletes one).
+# Manual fallback: the school's homework app or site, and the calendar app.
+input_boolean:
+  homework_enabled:
+    name: Homework to-do lists
+    icon: mdi:book-check-outline
+
+template:
+  # The homework feeds, read for the app: every 30 min, at start and on a `homework_refresh` event, today 00:00 + 42
+  # days (the school sets homework a week or two ahead; how far ahead the feed publishes is unverified). Title, due
+  # (the event's start), and the description's lines without the indent, at most 600 characters (the subject, class,
+  # homework title, set by / set on / due on, one a line). State 'ok' or 'unavailable' (the read failed: the app then adds nothing). Excluded from
+  # the recorder (recorder_config.yaml). Manual fallback: the calendar app.
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/30"
+      - trigger: event
+        event_type: homework_refresh
+    actions:
+      - action: calendar.get_events
+        continue_on_error: true
+        target:
+          entity_id:
+            - calendar.hannah_homework
+            - calendar.ellie_homework
+        data:
+          start_date_time: "{{ today_at().isoformat() }}"
+          duration:
+            days: 42
+        response_variable: cal
+    sensor:
+      - name: Homework events
+        unique_id: homework_events
+        icon: mdi:calendar-check
+        state: "{{ 'ok' if cal is defined and cal is mapping else 'unavailable' }}"
+        attributes:
+          fetched: "{{ now().isoformat() }}"
+          events: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- if cal is defined and cal is mapping -%}
+            {%- for c, r in cal.items() -%}
+            {%- for e in (r.events if r is mapping and r.events is defined else []) -%}
+            {%- set ns.l = ns.l + [{'c': c, 's': ((e.summary or '') | string)[:90], 'b': e.start | string,
+                'd': (((e.description or '') | string).splitlines() | map('trim') | reject('eq', '')
+                      | join('\n'))[:600]}] -%}
+            {%- endfor -%}
+            {%- endfor -%}
+            {%- endif -%}
+            {{ ns.l }}
+
+  # What is already on the two lists (open and ticked), so the app never adds a piece of homework twice even if its
+  # own record is lost. Read at start, every 30 min, whenever a list changes (its state is the open count) and on a
+  # `homework_refresh` event. Only items due today or later (the app never adds past-due homework, so older ones
+  # can't matter; the attribute stays small as the lists grow over a year). State 'ok' or 'unavailable' (a list
+  # doesn't exist yet: the app then adds nothing).
+  # Excluded from the recorder. Manual fallback: none needed (the lists themselves are the record).
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/30"
+      - trigger: state
+        entity_id:
+          - todo.hannah_homework
+          - todo.ellie_homework
+      - trigger: event
+        event_type: homework_refresh
+    actions:
+      - action: todo.get_items
+        continue_on_error: true
+        target:
+          entity_id:
+            - todo.hannah_homework
+            - todo.ellie_homework
+        data:
+          status: [needs_action, completed]
+        response_variable: lists
+    sensor:
+      - name: Homework items
+        unique_id: homework_items
+        icon: mdi:format-list-checks
+        state: >-
+          {{ 'ok' if lists is defined and lists is mapping and 'todo.hannah_homework' in lists
+             and 'todo.ellie_homework' in lists else 'unavailable' }}
+        attributes:
+          fetched: "{{ now().isoformat() }}"
+          items: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- if lists is defined and lists is mapping -%}
+            {%- for t, r in lists.items() -%}
+            {%- for i in (r['items'] if r is mapping and r['items'] is defined else []) -%}
+            {%- set due = ((i.due or '') | string)[:10] -%}
+            {%- if due >= today_at().date() | string -%}
+            {%- set ns.l = ns.l + [{'t': t, 's': ((i.summary or '') | string)[:255], 'd': due,
+                'st': (i.status or '') | string}] -%}
+            {%- endif -%}
+            {%- endfor -%}
+            {%- endfor -%}
+            {%- endif -%}
+            {{ ns.l }}

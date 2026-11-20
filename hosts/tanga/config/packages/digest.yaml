@@ -1,0 +1,6 @@
+# Daily digest on/off (R-D, 2026-11-05): the AppDaemon app `digest` (appdaemon/apps/digest.yaml) records only while
+# this is on. Starts off (hard rule 6). Manual fallback: none needed (the digest only reads).
+input_boolean:
+  digest_enabled:
+    name: Daily digest
+    icon: mdi:notebook-outline

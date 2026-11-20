@@ -1,0 +1,340 @@
+# Visitors (SEC-25, decision M2-S D2/D5, Tongai 2026-11-11): who is expected when, set from the "Visitors" card on
+# House ops -> Security instead of a calendar (repeat entries are easy to lose track of). Three visitors, each fixed
+# here by id, name, door and entry (shown read-only on the card); everything else is a helper set from the card:
+#   walker       Dog walker     garage side door, own key   core days Mon, Tue, Thu   10:00-12:30
+#   cleaner_wed  Cleaner (Wed)  front door, own key         Wed                       12:00-15:00
+#   cleaner_thu  Cleaner (Thu)  front door, let in          irregular: a next-visit date   08:30-14:00
+# Per visitor: an on/off switch, day tick boxes (weekly visitors) or a next-visit date (cleaner_thu), the time window,
+# and three exceptions: Not today (skip = today), Away until <date>, Extra visit <date>.
+# sensor.visitors_expected reads them (state: how many are expected now; `now`: their ids; `today`: per visitor
+# expected/start/end/door/entry/reason). The house_modes visitor recogniser and the alarm shadow read the sensor or
+# the helpers directly; nothing here acts on the house, the locks or the alarm.
+# Helpers have no `initial:` so the card's values survive restarts; a fresh date reads 1970-01-01 (HA's default:
+# "not set") and a fresh time 00:00:00. Deploy day: run script.visitors_set_defaults once (it fills only the windows
+# and days that were never set), then turn each visitor's switch on from the card.
+# Gate: input_boolean.visitors_enabled (starts off, hard rule 6) for the one automation (the date tidy-up). The card's
+# scripts only set a helper, as setting it by hand would, so they are not gated.
+# Manual fallback: none needed; it only records who is expected. Unset or wrong values only mean a visit isn't
+# recognised (the recogniser then asks or alerts as for anyone else). Owner: tanga (security, M2).
+
+input_boolean:
+  visitors_enabled:
+    name: Visitors
+    icon: mdi:account-clock
+  visitor_walker_enabled:
+    name: Dog walker
+    icon: mdi:dog-side
+  visitor_walker_mon: {name: Dog walker Mon, icon: mdi:calendar-check}
+  visitor_walker_tue: {name: Dog walker Tue, icon: mdi:calendar-check}
+  visitor_walker_wed: {name: Dog walker Wed, icon: mdi:calendar-check}
+  visitor_walker_thu: {name: Dog walker Thu, icon: mdi:calendar-check}
+  visitor_walker_fri: {name: Dog walker Fri, icon: mdi:calendar-check}
+  visitor_walker_sat: {name: Dog walker Sat, icon: mdi:calendar-check}
+  visitor_walker_sun: {name: Dog walker Sun, icon: mdi:calendar-check}
+  visitor_cleaner_wed_enabled:
+    name: Cleaner (Wed)
+    icon: mdi:broom
+  visitor_cleaner_wed_mon: {name: Cleaner (Wed) Mon, icon: mdi:calendar-check}
+  visitor_cleaner_wed_tue: {name: Cleaner (Wed) Tue, icon: mdi:calendar-check}
+  visitor_cleaner_wed_wed: {name: Cleaner (Wed) Wed, icon: mdi:calendar-check}
+  visitor_cleaner_wed_thu: {name: Cleaner (Wed) Thu, icon: mdi:calendar-check}
+  visitor_cleaner_wed_fri: {name: Cleaner (Wed) Fri, icon: mdi:calendar-check}
+  visitor_cleaner_wed_sat: {name: Cleaner (Wed) Sat, icon: mdi:calendar-check}
+  visitor_cleaner_wed_sun: {name: Cleaner (Wed) Sun, icon: mdi:calendar-check}
+  visitor_cleaner_thu_enabled:
+    name: Cleaner (Thu)
+    icon: mdi:broom
+
+input_datetime:
+  visitor_walker_start: {name: Dog walker from, has_date: false, has_time: true, icon: mdi:clock-start}
+  visitor_walker_end: {name: Dog walker until, has_date: false, has_time: true, icon: mdi:clock-end}
+  visitor_walker_skip: {name: Dog walker not on, has_date: true, has_time: false, icon: mdi:calendar-remove}
+  visitor_walker_away_until: {name: Dog walker away until, has_date: true, has_time: false, icon: mdi:calendar-arrow-right}
+  visitor_walker_extra: {name: Dog walker extra visit, has_date: true, has_time: false, icon: mdi:calendar-plus}
+  visitor_cleaner_wed_start: {name: Cleaner (Wed) from, has_date: false, has_time: true, icon: mdi:clock-start}
+  visitor_cleaner_wed_end: {name: Cleaner (Wed) until, has_date: false, has_time: true, icon: mdi:clock-end}
+  visitor_cleaner_wed_skip: {name: Cleaner (Wed) not on, has_date: true, has_time: false, icon: mdi:calendar-remove}
+  visitor_cleaner_wed_away_until:
+    {name: Cleaner (Wed) away until, has_date: true, has_time: false, icon: mdi:calendar-arrow-right}
+  visitor_cleaner_wed_extra: {name: Cleaner (Wed) extra visit, has_date: true, has_time: false, icon: mdi:calendar-plus}
+  visitor_cleaner_thu_start: {name: Cleaner (Thu) from, has_date: false, has_time: true, icon: mdi:clock-start}
+  visitor_cleaner_thu_end: {name: Cleaner (Thu) until, has_date: false, has_time: true, icon: mdi:clock-end}
+  visitor_cleaner_thu_skip: {name: Cleaner (Thu) not on, has_date: true, has_time: false, icon: mdi:calendar-remove}
+  visitor_cleaner_thu_away_until:
+    {name: Cleaner (Thu) away until, has_date: true, has_time: false, icon: mdi:calendar-arrow-right}
+  visitor_cleaner_thu_extra: {name: Cleaner (Thu) extra visit, has_date: true, has_time: false, icon: mdi:calendar-plus}
+  visitor_cleaner_thu_next: {name: Cleaner (Thu) next visit, has_date: true, has_time: false, icon: mdi:calendar-star}
+
+# Who is expected today and now. Trigger-based so the visitor list and the per-visitor result are worked out once
+# (in `actions`) and shared by the state and every attribute; re-read every minute (windows open and close) and on
+# any helper change (the card updates at once).
+#   expected today = enabled AND not skipped today AND not away (away_until >= today) AND (a ticked day today OR an
+#                    extra visit today OR, for cleaner_thu, the next visit today)
+#   reason (why expected is what it is): off | away | skipped | next | extra | pattern (the day ticks decided it,
+#                    either way)
+#   now = expected today AND start <= now < end
+# `status_<id>` and `summary`: the card's plain sentences (door and entry, then today's status).
+template:
+  - triggers:
+      - trigger: time_pattern
+        minutes: /1
+      - trigger: state
+        entity_id:
+          - input_boolean.visitor_walker_enabled
+          - input_boolean.visitor_walker_mon
+          - input_boolean.visitor_walker_tue
+          - input_boolean.visitor_walker_wed
+          - input_boolean.visitor_walker_thu
+          - input_boolean.visitor_walker_fri
+          - input_boolean.visitor_walker_sat
+          - input_boolean.visitor_walker_sun
+          - input_datetime.visitor_walker_start
+          - input_datetime.visitor_walker_end
+          - input_datetime.visitor_walker_skip
+          - input_datetime.visitor_walker_away_until
+          - input_datetime.visitor_walker_extra
+          - input_boolean.visitor_cleaner_wed_enabled
+          - input_boolean.visitor_cleaner_wed_mon
+          - input_boolean.visitor_cleaner_wed_tue
+          - input_boolean.visitor_cleaner_wed_wed
+          - input_boolean.visitor_cleaner_wed_thu
+          - input_boolean.visitor_cleaner_wed_fri
+          - input_boolean.visitor_cleaner_wed_sat
+          - input_boolean.visitor_cleaner_wed_sun
+          - input_datetime.visitor_cleaner_wed_start
+          - input_datetime.visitor_cleaner_wed_end
+          - input_datetime.visitor_cleaner_wed_skip
+          - input_datetime.visitor_cleaner_wed_away_until
+          - input_datetime.visitor_cleaner_wed_extra
+          - input_boolean.visitor_cleaner_thu_enabled
+          - input_datetime.visitor_cleaner_thu_start
+          - input_datetime.visitor_cleaner_thu_end
+          - input_datetime.visitor_cleaner_thu_skip
+          - input_datetime.visitor_cleaner_thu_away_until
+          - input_datetime.visitor_cleaner_thu_extra
+          - input_datetime.visitor_cleaner_thu_next
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+    actions:
+      - variables:
+          # Fixed per visitor (D5): the door and entry are facts, not settings. `weekly`: day tick boxes; otherwise a
+          # next-visit date (the irregular Thursday cleaner).
+          visitors:
+            walker: {name: Dog walker, door: garage, entry: key, weekly: true}
+            cleaner_wed: {name: Cleaner (Wed), door: front, entry: key, weekly: true}
+            cleaner_thu: {name: Cleaner (Thu), door: front, entry: let_in, weekly: false}
+          today: >-
+            {%- set d = now().strftime('%Y-%m-%d') -%}
+            {%- set dow = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'][now().weekday()] -%}
+            {%- set ns = namespace(out={}) -%}
+            {%- for id, v in visitors.items() -%}
+              {%- set p = 'input_datetime.visitor_' ~ id ~ '_' -%}
+              {%- set on = is_state('input_boolean.visitor_' ~ id ~ '_enabled', 'on') -%}
+              {%- set away = states(p ~ 'away_until') -%}
+              {%- set away = away is match('[0-9]{4}-[0-9]{2}-[0-9]{2}$') and away >= d -%}
+              {%- set skip = states(p ~ 'skip') == d -%}
+              {%- set extra = states(p ~ 'extra') == d -%}
+              {%- set nxt = not v.weekly and states(p ~ 'next') == d -%}
+              {%- set tick = v.weekly and is_state('input_boolean.visitor_' ~ id ~ '_' ~ dow, 'on') -%}
+              {%- set reason = 'off' if not on else 'away' if away else 'skipped' if skip
+                  else 'next' if nxt else 'extra' if extra else 'pattern' -%}
+              {%- set s = states(p ~ 'start')[:5] -%}
+              {%- set e = states(p ~ 'end')[:5] -%}
+              {%- set ns.out = dict(ns.out, **{id: {
+                  'expected': reason in ['next', 'extra'] or (reason == 'pattern' and tick),
+                  'start': s if s is match('[0-9]{2}:[0-9]{2}$') else '',
+                  'end': e if e is match('[0-9]{2}:[0-9]{2}$') else '',
+                  'door': v.door, 'entry': v.entry, 'reason': reason}}) -%}
+            {%- endfor -%}
+            {{ ns.out }}
+          now_ids: >-
+            {%- set hm = now().strftime('%H:%M') -%}
+            {%- set ns = namespace(ids=[]) -%}
+            {%- for id, t in today.items() if t.expected and t.start and t.end and t.start <= hm < t.end -%}
+              {%- set ns.ids = ns.ids + [id] -%}
+            {%- endfor -%}
+            {{ ns.ids }}
+          lines: >-
+            {%- macro day(x) -%}
+              {{ x[8:10] | int }} {{ ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov',
+                'Dec'][x[5:7] | int - 1] }}
+            {%- endmacro -%}
+            {%- set d = now().strftime('%Y-%m-%d') -%}
+            {%- set hm = now().strftime('%H:%M') -%}
+            {%- set ns = namespace(out={}) -%}
+            {%- for id, t in today.items() -%}
+              {%- set p = 'input_datetime.visitor_' ~ id ~ '_' -%}
+              {%- set where = ('Front door' if t.door == 'front' else 'Garage side door') ~ ', '
+                  ~ ('own key' if t.entry == 'key' else 'let in') ~ '. ' -%}
+              {%- set window = t.start ~ '–' ~ t.end if t.start and t.end else 'no time set' -%}
+              {%- if t.reason == 'off' -%}{%- set now_text = 'Off: not expected.' -%}
+              {%- elif t.reason == 'away' -%}{%- set now_text = 'Away until ' ~ day(states(p ~ 'away_until')) ~ '.' -%}
+              {%- elif t.reason == 'skipped' -%}{%- set now_text = 'Not today.' -%}
+              {%- elif not t.expected -%}{%- set now_text = 'Not expected today.' -%}
+              {%- elif id in now_ids -%}{%- set now_text = 'Expected now, until ' ~ t.end ~ '.' -%}
+              {%- elif t.end and hm >= t.end -%}{%- set now_text = 'Visit window over (' ~ window ~ ').' -%}
+              {%- else -%}{%- set now_text = 'Expected today, ' ~ window ~ '.' -%}
+              {%- endif -%}
+              {%- set later = namespace(text='') -%}
+              {%- for key, label in [('next', 'Next visit'), ('extra', 'Extra visit')] -%}
+                {%- set x = states(p ~ key) -%}
+                {%- if x is match('[0-9]{4}-[0-9]{2}-[0-9]{2}$') and x > d -%}
+                  {%- set later.text = later.text ~ ' ' ~ label ~ ' ' ~ day(x) ~ '.' -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- set ns.out = dict(ns.out, **{id: where ~ now_text ~ later.text}) -%}
+            {%- endfor -%}
+            {{ ns.out }}
+    sensor:
+      - name: Visitors expected
+        unique_id: visitors_expected
+        icon: mdi:account-clock
+        state: "{{ now_ids | count }}"
+        attributes:
+          now: "{{ now_ids }}"
+          today: "{{ today }}"
+          status_walker: "{{ lines.walker }}"
+          status_cleaner_wed: "{{ lines.cleaner_wed }}"
+          status_cleaner_thu: "{{ lines.cleaner_thu }}"
+          summary: >-
+            {%- set ns = namespace(here=[], l=[]) -%}
+            {%- for id, t in today.items() if t.expected -%}
+              {%- set ns.l = ns.l + [visitors[id].name ~ ' ' ~ t.start ~ '–' ~ t.end] -%}
+              {%- if id in now_ids -%}{%- set ns.here = ns.here + [visitors[id].name] -%}{%- endif -%}
+            {%- endfor -%}
+            {{ ('Expected now: ' ~ ns.here | join(', ') if ns.here else 'No visitor expected now') ~ '. '
+               ~ ('Today: ' ~ ns.l | join(', ') if ns.l else 'No visits today') ~ '.' }}
+
+script:
+  # The card's "Not today" button: marks today as skipped for that visitor; pressed again the same day, it undoes
+  # that (skip back to 1970-01-01, "not set"). Not gated: it only sets a helper, as setting the date by hand would.
+  # Manual fallback: set "<visitor> not on" to today (or another date) in the helper's dialog.
+  visitor_walker_not_today:
+    alias: Visitors - dog walker not today
+    icon: mdi:calendar-remove
+    mode: single
+    sequence:
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.visitor_walker_skip
+        data:
+          date: >-
+            {{ '1970-01-01' if is_state('input_datetime.visitor_walker_skip', now().strftime('%Y-%m-%d'))
+               else now().strftime('%Y-%m-%d') }}
+  visitor_cleaner_wed_not_today:  # as visitor_walker_not_today
+    alias: Visitors - Wednesday cleaner not today
+    icon: mdi:calendar-remove
+    mode: single
+    sequence:
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.visitor_cleaner_wed_skip
+        data:
+          date: >-
+            {{ '1970-01-01' if is_state('input_datetime.visitor_cleaner_wed_skip', now().strftime('%Y-%m-%d'))
+               else now().strftime('%Y-%m-%d') }}
+  visitor_cleaner_thu_not_today:  # as visitor_walker_not_today
+    alias: Visitors - Thursday cleaner not today
+    icon: mdi:calendar-remove
+    mode: single
+    sequence:
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.visitor_cleaner_thu_skip
+        data:
+          date: >-
+            {{ '1970-01-01' if is_state('input_datetime.visitor_cleaner_thu_skip', now().strftime('%Y-%m-%d'))
+               else now().strftime('%Y-%m-%d') }}
+
+  # Run once by Tongai on deploy day (Developer tools -> Actions, or the script's Run): fills in the facts Tongai gave
+  # (11 Nov) for any visitor whose time window was never set (both times still 00:00:00 or unknown): the window and,
+  # for weekly visitors, the day tick boxes. A visitor already set from the card is left alone, so running it again is
+  # harmless. It doesn't turn any visitor's switch on (Tongai does, on the card). Not gated: a one-off setter.
+  # Manual fallback: set the same values on the Visitors card.
+  visitors_set_defaults:
+    alias: Visitors - set first values
+    icon: mdi:account-clock-outline
+    mode: single
+    sequence:
+      - repeat:
+          for_each:
+            - {id: walker, start: "10:00:00", end: "12:30:00", days: [mon, tue, thu]}
+            - {id: cleaner_wed, start: "12:00:00", end: "15:00:00", days: [wed]}
+            - {id: cleaner_thu, start: "08:30:00", end: "14:00:00", days: []}
+          sequence:
+            - if:
+                - condition: template
+                  value_template: >-
+                    {%- set unset = ['00:00:00', 'unknown', 'unavailable'] -%}
+                    {{ states('input_datetime.visitor_' ~ repeat.item.id ~ '_start') in unset
+                       and states('input_datetime.visitor_' ~ repeat.item.id ~ '_end') in unset }}
+              then:
+                - action: input_datetime.set_datetime
+                  target:
+                    entity_id: "{{ 'input_datetime.visitor_' ~ repeat.item.id ~ '_start' }}"
+                  data:
+                    time: "{{ repeat.item.start }}"
+                - action: input_datetime.set_datetime
+                  target:
+                    entity_id: "{{ 'input_datetime.visitor_' ~ repeat.item.id ~ '_end' }}"
+                  data:
+                    time: "{{ repeat.item.end }}"
+                - if:
+                    - condition: template
+                      value_template: "{{ repeat.item.days | count > 0 }}"
+                  then:
+                    - action: input_boolean.turn_on
+                      target:
+                        entity_id: >-
+                          {%- set ns = namespace(ids=[]) -%}
+                          {%- for d in repeat.item.days -%}
+                            {%- set ns.ids = ns.ids + ['input_boolean.visitor_' ~ repeat.item.id ~ '_' ~ d] -%}
+                          {%- endfor -%}
+                          {{ ns.ids }}
+
+automation:
+  # Tidy-up: a one-off date (cleaner_thu's next visit, any visitor's extra visit) is cleared once it has passed, i.e.
+  # after that day's window end, so the card never shows a stale date and the next visit needs setting again (D5).
+  # "Cleared" = 1970-01-01, HA's own "not set" date (an input_datetime can't be emptied). Runs at each window's end,
+  # just after midnight (a missed end, e.g. a restart) and at start-up. Gate: input_boolean.visitors_enabled.
+  # Manual fallback: set the date on the Visitors card; a stale past date is harmless (only today's date counts).
+  - id: visitors_clear_past_dates
+    alias: Visitors - clear past visit dates
+    mode: queued
+    triggers:
+      - trigger: time
+        at:
+          - input_datetime.visitor_walker_end
+          - input_datetime.visitor_cleaner_wed_end
+          - input_datetime.visitor_cleaner_thu_end
+          - "00:05:00"
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: state
+        entity_id: input_boolean.visitors_enabled
+        state: "on"
+    actions:
+      - repeat:
+          for_each:
+            - {date: input_datetime.visitor_walker_extra, end: input_datetime.visitor_walker_end}
+            - {date: input_datetime.visitor_cleaner_wed_extra, end: input_datetime.visitor_cleaner_wed_end}
+            - {date: input_datetime.visitor_cleaner_thu_extra, end: input_datetime.visitor_cleaner_thu_end}
+            - {date: input_datetime.visitor_cleaner_thu_next, end: input_datetime.visitor_cleaner_thu_end}
+          sequence:
+            - if:
+                - condition: template
+                  value_template: >-
+                    {%- set v = states(repeat.item.date) -%}
+                    {%- set e = states(repeat.item.end)[:5] -%}
+                    {%- set d = now().strftime('%Y-%m-%d') -%}
+                    {{ v is match('[0-9]{4}-[0-9]{2}-[0-9]{2}$') and v != '1970-01-01'
+                       and (v < d or (v == d and e is match('[0-9]{2}:[0-9]{2}$') and now().strftime('%H:%M') >= e)) }}
+              then:
+                - action: input_datetime.set_datetime
+                  target:
+                    entity_id: "{{ repeat.item.date }}"
+                  data:
+                    date: "1970-01-01"

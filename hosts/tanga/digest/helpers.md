@@ -1,12 +1,11 @@
 # tanga — UI-created helpers (.storage/input_*, counter, timer, zone)
 
-## input_boolean (30)
+## input_boolean (27)
 
 | entity_id | name | settings |
 |---|---|---|
 | input_boolean.just_got_home | away on holiday | {} |
 | input_boolean.just_knocked | Disable Alarm Auto Modes | {} |
-| input_boolean.tap_to_open | Importing | {} |
 | input_boolean.iphone_wifi | iphone_wifi | {"icon": "mdi:wifi"} |
 | input_boolean.relaunch | relaunch | {} |
 | input_boolean.pump_timer | pump_timer | {"icon": "mdi:water-pump"} |
@@ -32,8 +31,6 @@
 | input_boolean.stop_recording | Stop Recording | {"icon": "mdi:stop-circle"} |
 | input_boolean.test_bridge_rpi5 | test bridge rpi5 | {"icon": "mdi:bridge"} |
 | input_boolean.bridge_sync | bridge sync | {"icon": "mdi:database-sync-outline"} |
-| input_boolean.mock_tap_front_door_cooldown | mock_tap_front_door_cooldown | {"icon": "mdi:sleep"} |
-| input_boolean.mock_tap_garage_cooldown | mock_tap_garage_cooldown | {"icon": "mdi:sleep"} |
 
 ## input_datetime (6)
 
@@ -46,15 +43,13 @@
 | input_datetime.high_start | high start | {"has_date": true, "has_time": true, "icon": "mdi:currency-gbp"} |
 | input_datetime.high_end | high end | {"has_date": false, "has_time": true, "icon": "mdi:currency-gbp"} |
 
-## input_number (13)
+## input_number (11)
 
 | entity_id | name | settings |
 |---|---|---|
 | input_number.timer_length | timer length | {"min": 0.0, "max": 600.0, "icon": "mdi:av-timer", "unit_of_measurement": " mins", "mode": "box", "step": 1.0} |
 | input_number.daily_event_count | daily event count | {"min": 0.0, "max": 1.0, "step": 0.01, "mode": "slider"} |
 | input_number.battery_max_charge | Battery Max Charge | {"min": 0.0, "max": 100.0, "mode": "slider", "step": 1.0, "unit_of_measurement": "%"} |
-| input_number.off_peak_electric | Peak Grid Consumption Today | {"min": 0.0, "max": 1000.0, "mode": "box", "step": 1.0, "icon": "mdi:led-outline", "unit_of_measurement": "kWh"} |
-| input_number.peak_electric_price | Peak Electric Price | {"min": 0.0, "max": 100.0, "icon": "mdi:led-on", "mode": "box", "step": 1.0} |
 | input_number.blind_open_duration | blind_open_duration | {"min": 0.0, "max": 100.0, "icon": "mdi:timer", "mode": "slider", "step": 1.0} |
 | input_number.blind_close_duration | blind_close_duration | {"min": 0.0, "max": 100.0, "icon": "mdi:timer", "mode": "slider", "step": 1.0} |
 | input_number.fp_slot_id | Fingerprint ID (Auto-assigned) | {"min": 1.0, "max": 127.0, "mode": "box", "step": 1.0} |
@@ -64,7 +59,7 @@
 | input_number.max_lockout_attempts | Max Lockout Attempts | {"min": 2.0, "max": 10.0, "step": 1.0, "mode": "box"} |
 | input_number.fp_delete_id | Fingerprint ID to Delete | {"min": 1.0, "max": 127.0, "mode": "box", "step": 1.0} |
 
-## input_select (9)
+## input_select (8)
 
 | entity_id | name | settings |
 |---|---|---|
@@ -74,7 +69,6 @@
 | input_select.matcher | matcher | {"icon": "mdi:alarm-panel", "options": ["open", "retry", "fail", "ants"]} |
 | input_select.work_status | Work Status | {"icon": "mdi:laptop", "options": ["Not working, yay!", "At work", "On a call", "Focus time"]} |
 | input_select.fp_enroll_finger | Finger Name | {"options": ["Left Thumb", "Right Thumb", "Left Index", "Right Index", "Left Middle", "Right Middle", "Left Ring", "Right Ring", "Left Little", "Right Little"], |
-| input_select.inverter_mode | Inverter Mode | {"icon": "mdi:server", "options": ["Load first", "Battery first", "Grid first"]} |
 | input_select.calibration_location | Calibration Location | {"icon": "mdi:map-marker-radius", "options": ["test desk", "inside front door", "outside front door", "outside garage", "car door driver", "car door passenger", |
 | input_select.motion_travel_path | Motion Travel Path | {"options": ["Arriving from left pavement", "Arriving from right pavement", "Arriving by car into driveway", "Leaving to left pavement", "Leaving to right pavem |
 
@@ -119,21 +113,24 @@
 
 _none_
 
-## zone (3)
+## zone (7)
 
 | entity_id | name | settings |
 |---|---|---|
-| zone.school | School | {"latitude": 51.39945666354604, "longitude": -0.3033095598220826, "icon": "mdi:school", "passive": false, "radius": 110.39644167948852} |
-| zone.m_work | Maple Works | {"latitude": 51.394462979231, "longitude": -0.3082783520221711, "icon": "mdi:office-building", "passive": false, "radius": 7.305791288997416} |
-| zone.t_work | Meta Office Kings Cross | {"latitude": 51.538114321228925, "longitude": -0.12655735015869143, "icon": "mdi:office-building", "passive": false, "radius": 184.0} |
+| zone.school | School | {"latitude": 51.39920272162223, "longitude": -0.30331449839823676, "icon": "mdi:school", "passive": false, "radius": 106.0} |
+| zone.hinchley_wood | Hinchley Wood | {"latitude": 51.36834780591349, "longitude": -0.3451325611249274, "icon": "mdi:shoe-sneaker", "passive": false, "radius": 169.0} |
+| zone.church | Church | {"latitude": 51.41775403919203, "longitude": -0.2855732686637964, "icon": "mdi:church-outline", "passive": false, "radius": 35.0} |
+| zone.npl | NPL | {"latitude": 51.42454267593948, "longitude": -0.34200773561366304, "icon": "mdi:scale", "passive": false, "radius": 236.0} |
+| zone.shc | SHC | {"latitude": 51.38197313549108, "longitude": -0.3246875433117964, "icon": "mdi:hockey-sticks", "passive": false, "radius": 114.0} |
+| zone.tgc | TGC | {"latitude": 51.37551580372187, "longitude": -0.2939921703888615, "icon": "mdi:gymnastics", "passive": false, "radius": 72.0} |
+| zone.jpmc | JPMC | {"latitude": 51.504364308038674, "longitude": -0.020008451913582803, "icon": "mdi:bank-circle", "passive": false, "radius": 345.0} |
 
-## person (5)
+## person (4)
 
 | entity_id | name | settings |
 |---|---|---|
 | person.tongai | Tongai | {"device_trackers": ["device_tracker.garmin_device", "device_tracker.bermuda_tongai_phone_bermuda_tracker", "device_tracker.tongai_samsung25"], "user_id": "654b |
 | person.mojgan | Mojgan | {"device_trackers": ["device_tracker.mm_iphone", "device_tracker.iphone_32"], "user_id": "06495997aca44e59a54f1b3138ad088e", "picture": null} |
-| person.feasby | Feasby | {"device_trackers": [], "user_id": "c99ca07941bd4465a02d08ecb04551bc", "picture": null} |
 | person.hannah | Hannah | {"device_trackers": ["device_tracker.hannahs_iphone", "device_tracker.hannah_hockey_bag", "device_tracker.hannah_keys", "device_tracker.hannah_iphone", "device_ |
-| person.ellie | Ellie | {"device_trackers": ["device_tracker.ellie_s_gym_bag", "device_tracker.ellie_s_phone", "device_tracker.ellie_bag", "device_tracker.ellie_s_hockey_bag"], "user_i |
+| person.ellie | Ellie | {"device_trackers": ["device_tracker.ellie_s_gym_bag", "device_tracker.ellie_s_phone", "device_tracker.ellie_bag", "device_tracker.ellie_s_hockey_bag", "device_ |
 

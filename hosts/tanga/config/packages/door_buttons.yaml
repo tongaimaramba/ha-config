@@ -1,0 +1,70 @@
+# Door buttons (SEC-5; M1f-I stubs until now). Tongai 16 Nov: both doors, a tap opens straight away (no hold, no
+# confirm box), on Family and Kids only (not the kiosk). Owner: tanga (the buttons); the locks stay on pamba until
+# the Nukis move.
+#
+# Path: the Front door / Garage door tile -> script.door_open_front / script.door_open_garage (logged, with the
+# presser's user) -> event `door_button` -> the door_buttons app (apps/door_buttons.yaml) -> tanga's half of the bridge
+# (allowed people only) -> pamba runs script.door_button_front_from_tanga / script.door_button_garage_from_tanga
+# (packages/tanga_door_buttons.yaml on pamba, apart from auto-unlock's script), each of which only ever UNLATCHES its
+# one lock, behind pamba's own gate ("tanga door buttons allowed") and at most once per 30 s.
+#
+# GATE input_boolean.door_buttons_enabled (starts off; turned on in Cut-over block 3 after pamba's copy). Off: a tap
+# does nothing but log, and the tiles say "use Basics". Two gates must be on for a door to open: this one and pamba's.
+#
+# Manual fallback (always): the Nuki app, the keypad, the key; pamba's Basics until the Cut-over.
+# Roll back (1 min): turn "Door buttons" off (tanga), or "tanga door buttons allowed" off (pamba).
+input_boolean:
+  door_buttons_enabled:
+    name: Door buttons
+    icon: mdi:door-open
+
+script:
+  # The Front door tile on Family -> Home and Kids -> Home. Purpose: unlatch the front door now. The app checks the
+  # gate again and sends the one fixed request. Manual fallback: the Nuki app, the keypad, the key.
+  door_open_front:
+    alias: Door button - front door
+    icon: mdi:door-open
+    mode: single  # a tap while it is still running is dropped; the app ignores a repeat within 5 s, pamba within 30 s
+    max_exceeded: silent
+    sequence:
+      - if:
+          - condition: not  # anything but "on" (off, unknown, unavailable) sends nothing
+            conditions:
+              - condition: state
+                entity_id: input_boolean.door_buttons_enabled
+                state: "on"
+        then:
+          - action: logbook.log
+            continue_on_error: true
+            data:
+              name: Door buttons
+              message: "Front door button pressed while Door buttons is off: nothing sent"
+          - stop: Door buttons is off
+      - event: door_button
+        event_data:
+          door: front
+
+  # The Garage door tile on Family -> Home and Kids -> Home. Purpose: unlatch the garage side door now.
+  # Manual fallback: the Nuki app, the keypad, the key.
+  door_open_garage:
+    alias: Door button - garage door
+    icon: mdi:door-open
+    mode: single
+    max_exceeded: silent
+    sequence:
+      - if:
+          - condition: not  # anything but "on" (off, unknown, unavailable) sends nothing
+            conditions:
+              - condition: state
+                entity_id: input_boolean.door_buttons_enabled
+                state: "on"
+        then:
+          - action: logbook.log
+            continue_on_error: true
+            data:
+              name: Door buttons
+              message: "Garage door button pressed while Door buttons is off: nothing sent"
+          - stop: Door buttons is off
+      - event: door_button
+        event_data:
+          door: garage

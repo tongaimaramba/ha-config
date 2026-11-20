@@ -32,25 +32,6 @@
         "unit_of_measurement": "%"
       },
       {
-        "id": "off_peak_electric",
-        "min": 0.0,
-        "max": 1000.0,
-        "mode": "box",
-        "name": "Peak Grid Consumption Today",
-        "step": 1.0,
-        "icon": "mdi:led-outline",
-        "unit_of_measurement": "kWh"
-      },
-      {
-        "id": "peak_electric_price",
-        "min": 0.0,
-        "max": 100.0,
-        "name": "Peak Electric Price",
-        "icon": "mdi:led-on",
-        "mode": "box",
-        "step": 1.0
-      },
-      {
         "id": "blind_open_duration",
         "min": 0.0,
         "max": 100.0,

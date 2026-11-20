@@ -1,0 +1,207 @@
+# Solar controls (M5 step 5, decisions M5-G, M5-B, M5-D): what Tongai can do from House ops → Solar → Control, what the
+# parents see on Family → Home ("Solar today"), and the monthly payback line.
+#   - Manual mode (input_boolean.solar_manual_hold): while on, the Battery First Scheduler's 03:00 charge and car-charging
+#     branches and the Export optimiser leave the inverter's mode alone ("a manual mode holds until Auto", M5-B); Auto
+#     is turning it off (it takes effect at the optimiser's next change). Never past 05:30 in Battery first: the
+#     scheduler's 05:30 Load first runs whatever the hold says, and a Battery first always has the inverter-enforced
+#     05:30 end (the retry script's backstop). The mode buttons run script.solar_manual_mode, which turns the hold on
+#     (not for Battery first: a held Battery first would skip the next 03:00; the 05:30 End also clears a hold left on
+#     after a Battery first request) and asks the retry script (source "manual").
+#   - Skip tonight's charge (input_boolean.solar_skip_charge_tonight): a one-shot. The scheduler's next 03:00 uses it up
+#     (turns it off and records the night in input_datetime.solar_charge_skipped, so the 03:10 missed-charge alert stays
+#     quiet only on that night); 06:00 clears one the 03:00 never saw (HA down). Named as a skip, not "charge
+#     tonight": an input_boolean that has never been set starts off, so off has to mean "charge as usual".
+#   - The monthly line (input_boolean.solar_monthly_digest_enabled): the 1st at 09:00, last month's saving and the
+#     payback so far, one quiet push to Tongai.
+# The mode itself is still written only by script.set_growatt_sph_mode_with_retry (packages/solar_modbus.yaml gates it
+# with input_boolean.solar_modbus_writes_enabled); the watchdog (packages/solar_health.yaml) follows the last request,
+# a manual one included.
+# Manual fallback: the ShinePhone app (work mode, time slots); Settings → Helpers for the switches.
+# Owner: tanga (solar).
+
+input_boolean:
+  solar_manual_hold:
+    name: Solar manual mode
+    icon: mdi:hand-back-right-outline
+  solar_skip_charge_tonight:
+    name: Skip tonight's solar charge
+    icon: mdi:battery-off-outline
+  solar_monthly_digest_enabled:
+    name: Solar monthly line
+    icon: mdi:calendar-month-outline
+
+# The night whose 03:00 charge a skip was used on (set by the Battery First Scheduler; read by the 03:10 alert).
+input_datetime:
+  solar_charge_skipped:
+    name: Solar charge skipped on
+    icon: mdi:battery-off-outline
+    has_date: true
+    has_time: false
+
+script:
+  # A mode from the dashboard: hold it (the automations stop changing it) and ask the retry script. Battery first ends
+  # at 05:30 and is refused outside the cheap rate (23:30-05:30, or an Intelligent Octopus dispatch), with an urgent
+  # alert, as any refused Battery first; it doesn't hold (the scheduler's own 03:00 asks for the same, and a hold would
+  # skip it). Grid first ends 2 h before sunset (as the Export optimiser's), or after the retry script's hour when that
+  # has passed. The hold goes on first (so nothing changes the mode while the retry script works) and stays on even if
+  # the change is refused or busy: Auto turns it off. The retry script is `mode: single`, so a call while it runs would
+  # be dropped silently: wait up to 60 s for it, else report "busy" (solar_health alerts). Fallback: ShinePhone.
+  solar_manual_mode:
+    alias: Solar - manual mode
+    mode: single
+    max_exceeded: silent
+    fields:
+      mode:
+        description: Inverter mode, "Load first", "Grid first" or "Battery first".
+        example: Grid first
+        required: true
+    sequence:
+      - condition: template
+        value_template: "{{ mode in ['Load first', 'Grid first', 'Battery first'] }}"
+      - if:
+          - condition: template
+            value_template: "{{ mode != 'Battery first' }}"
+        then:
+          - action: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.solar_manual_hold
+      - wait_template: "{{ is_state('script.set_growatt_sph_mode_with_retry', 'off') }}"
+        timeout: "00:01:00"
+        continue_on_timeout: true
+      - if:
+          - condition: template
+            value_template: "{{ not wait.completed }}"
+        then:
+          - event: solar_mode_change_failed
+            event_data:
+              expected: "{{ mode }}"
+              actual: "{{ states('sensor.sph_device_mode') }}"
+              attempts: 0
+              reason: busy
+          - stop: busy
+      - action: script.set_growatt_sph_mode_with_retry
+        continue_on_error: true
+        data:
+          expected_mode: "{{ mode }}"
+          until: >-
+            {%- if mode == 'Battery first' -%}05:30
+            {%- elif mode == 'Grid first' -%}
+              {%- set s = as_datetime(state_attr('sun.sun', 'next_setting'), none) -%}
+              {%- set e = (s | as_local) - timedelta(hours=2) if s is not none else none -%}
+              {{ e.strftime('%H:%M') if e is not none and e.date() == now().date() and e > now() + timedelta(minutes=5)
+                 else '' }}
+            {%- endif -%}
+          source: manual
+
+automation:
+  # Skip tonight's charge is for one night: the 03:00 uses it up; this clears one the 03:00 never saw (HA down at
+  # 03:00), so it can't skip a later night. Not gated (an exception to hard rule 6, review of de8134b): it only puts a
+  # one-shot back to its default (charge as usual), the safe direction, and never touches a device; a gate left off
+  # would let a skip carry over night after night. Fallback: turn it off in House ops → Solar or Settings → Helpers.
+  - id: solar_controls_skip_charge_reset
+    alias: Solar - skip charge reset
+    mode: single
+    triggers:
+      - trigger: time
+        at: "06:00:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_skip_charge_tonight
+        state: "on"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.solar_skip_charge_tonight
+
+  # The monthly payback line (M5-D): on the 1st at 09:00, last month's saving (only the days the app counted, said
+  # when short) and the total against the install cost, with the break-even date; then, on its own line, the solar
+  # watch's verdict (sensor.solar_watch `digest`, M5 step 8: "optimal" or its flags; left out while the watch is
+  # off). Quiet, Tongai only. Gated by
+  # input_boolean.solar_monthly_digest_enabled (starts off). Fallback: House ops → Solar → Payback.
+  - id: solar_controls_monthly_digest
+    alias: Solar - monthly payback line
+    mode: single
+    triggers:
+      - trigger: time
+        at: "09:00:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_monthly_digest_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ now().day == 1 and has_value('sensor.solar_payback') }}"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar payback
+          message: >-
+            {%- set p = 'sensor.solar_payback' -%}
+            {%- set last = state_attr(p, 'last_month') -%}
+            {%- set days = state_attr(p, 'last_month_days') | int(0) -%}
+            {%- set month = (now().replace(day=1) - timedelta(days=1)) -%}
+            {%- set b = state_attr(p, 'break_even') | string -%}
+            {%- set names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] -%}
+            {{ month.strftime('%B') }}: saved £{{ '%.2f' | format(last | float(0)) }}
+            {%- if days < month.day %} ({{ days }} of {{ month.day }} days counted){% endif %} · £{{
+            '{:,.0f}'.format(states(p) | float(0)) }} of £{{ '{:,.0f}'.format(state_attr(p, 'install_cost') | float(0))
+            }} ({{ state_attr(p, 'percent') | float(0) | round(0) | int }} %)
+            {%- if b is match('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') %}, pays for itself around {{ names[b[5:7] | int - 1] }}
+            {{- ' ' ~ b[:4] }}{% endif %} · tanga
+            {%- set w = state_attr('sensor.solar_watch', 'digest') %}{{ ('\n' ~ w) if w else '' }}
+          data:
+            tag: solar_monthly
+            channel: Home status
+            importance: low
+
+template:
+  - sensor:
+      # The inverter's mode in plain words, for the parents' "Solar today" (Family → Home); `headline` + `lines` are
+      # House ops' text above the controls (`summary` the same as one paragraph, the fallback): who is setting the
+      # mode and what tonight holds.
+      - name: Solar mode plain
+        unique_id: solar_mode_plain
+        icon: mdi:solar-power-variant
+        state: >-
+          {{ {'Load first': 'Using sun and battery', 'Grid first': 'Selling to the grid',
+              'Battery first': 'Charging the battery (cheap rate)'}.get(states('sensor.sph_device_mode'), 'Not known') }}
+        attributes:
+          summary: >-
+            {%- if is_state('input_boolean.solar_manual_hold', 'on') -%}
+              **Manual:** the 03:00 charge and the export optimiser leave the mode alone
+              ({{ states('sensor.sph_device_mode') }} now) until Auto. The 05:30 Load first still runs, and a Grid
+              first lapses at its end time.
+            {%- elif is_state('input_boolean.solar_control_acting', 'on') -%}
+              **Auto (solar control):** the 03:00–05:30 charge and the export decisions are solar control's
+              ({{ states('sensor.sph_device_mode') }} now); after Manual, Auto takes effect within a minute.
+            {%- else -%}
+              **Auto:** the 03:00–05:30 charge and the export optimiser set the mode
+              ({{ states('sensor.sph_device_mode') }} now); after Manual, Auto takes effect at the optimiser's next
+              change.
+            {%- endif %}
+            {%- if is_state('input_boolean.solar_skip_charge_tonight', 'on') %} Tonight's 03:00 charge is skipped
+            (back on at 06:00).{% endif %}
+            {%- if not is_state('input_boolean.solar_modbus_writes_enabled', 'on') %} **Modbus writes are off:**
+            nothing reaches the inverter.{% endif %}
+          # the same as House ops' Control report (dash `report`): a headline, then one fact per line
+          headline: >-
+            {{ 'Manual' if is_state('input_boolean.solar_manual_hold', 'on') else 'Auto' }} ·
+            {{ states('sensor.sph_device_mode') ~ ' now' if has_value('sensor.sph_device_mode') else 'mode not known' }}
+          lines: >-
+            {%- set manual = is_state('input_boolean.solar_manual_hold', 'on') -%}
+            {{ (['**Modbus writes are off:** nothing reaches the inverter']
+                  if not is_state('input_boolean.solar_modbus_writes_enabled', 'on') else [])
+               + (['Manual: the 03:00 charge and the export optimiser leave the mode alone until Auto',
+                   'The 05:30 Load first still runs; a Grid first lapses at its end time'] if manual else
+                  ['Solar control sets the mode (the 03:00–05:30 charge and exports); after Manual, Auto acts within '
+                   ~ 'a minute'] if is_state('input_boolean.solar_control_acting', 'on') else
+                  ['The 03:00–05:30 charge and the export optimiser set the mode'])
+               + (["Tonight's 03:00 charge is skipped (back on at 06:00)"]
+                  if is_state('input_boolean.solar_skip_charge_tonight', 'on') else []) }}
+      # Today's saving in £ (sensor.solar_payback's `today`), so a tile can show it with its unit.
+      - name: Solar saved today
+        unique_id: solar_saved_today
+        icon: mdi:cash-plus
+        unit_of_measurement: GBP
+        device_class: monetary
+        state: "{{ state_attr('sensor.solar_payback', 'today') | float(0) }}"
+        availability: "{{ has_value('sensor.solar_payback') and state_attr('sensor.solar_payback', 'today') is not none }}"

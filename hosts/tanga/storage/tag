@@ -45,11 +45,6 @@
         "migrated": true
       },
       {
-        "id": "5f18e4cc-d48f-4a65-ab45-02658781dac9",
-        "last_scanned": "2022-08-14T13:35:13.290448+00:00",
-        "migrated": true
-      },
-      {
         "id": "b2165dbb-5b8d-496d-bdbc-519da9bf0cbb",
         "last_scanned": "2023-02-25T22:19:12.110525+00:00",
         "migrated": true
@@ -60,8 +55,13 @@
         "migrated": true
       },
       {
-        "id": "c9e068e8-208a-46f2-8a7a-cae2109983f8",
-        "last_scanned": "2026-10-30T07:54:12.501056+00:00",
+        "id": "4b9480e7-dec4-442d-b832-b025febe9791",
+        "last_scanned": "2026-11-17T20:16:54.159423+00:00",
+        "device_id": "921a844606756b2654d139d54f7ce4b9"
+      },
+      {
+        "id": "1e41aa12-a1f5-4765-a2c3-b0bb388f3975",
+        "last_scanned": "2026-11-18T12:29:48.954398+00:00",
         "device_id": "921a844606756b2654d139d54f7ce4b9"
       }
     ]

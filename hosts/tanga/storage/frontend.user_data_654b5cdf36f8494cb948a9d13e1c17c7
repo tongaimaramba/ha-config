@@ -4,7 +4,8 @@
   "key": "frontend.user_data_654b5cdf36f8494cb948a9d13e1c17c7",
   "data": {
     "core": {
-      "showAdvanced": true
+      "showAdvanced": true,
+      "default_panel": "tongai-home"
     },
     "language": {
       "language": "en-GB",
@@ -18,7 +19,6 @@
       "panelOrder": [
         "tongai-test",
         "dashboard-basics",
-        "lovelace-new",
         "logbook",
         "history",
         "5c53de3b_esphome",
@@ -27,14 +27,20 @@
         "ccf28a08_ssh",
         "a0d7b954_sqlite-web",
         "cebe7a76_hassio_google_drive_backup",
-        "developer-tools"
+        "family-home",
+        "climate-home",
+        "house-ops",
+        "kids-home",
+        "calendar",
+        "todo"
       ],
       "hiddenPanels": [
         "lovelace-guest",
         "mdiindex",
         "map",
         "media-browser",
-        "energy"
+        "energy",
+        "lovelace-tab"
       ]
     }
   }

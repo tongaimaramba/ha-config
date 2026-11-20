@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_6192a979aeb14ae2b73f8f730b25a934",
+  "data": {
+    "core": {
+      "default_panel": "front-door"
+    },
+    "sidebar": {
+      "panelOrder": [
+        "front-door"
+      ],
+      "hiddenPanels": [
+        "climate-home",
+        "family-home",
+        "kids-home",
+        "tongai-home",
+        "mojgan-home",
+        "hannah-home",
+        "dashboard-basics",
+        "mdiindex",
+        "map",
+        "media-browser",
+        "history",
+        "logbook",
+        "energy",
+        "calendar",
+        "todo",
+        "ellie-home"
+      ]
+    }
+  }
+}

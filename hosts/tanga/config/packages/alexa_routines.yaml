@@ -1,0 +1,606 @@
+# Alexa routines (HSE-11, decided by Tongai 10 Nov 2026; ROADMAP HSE-11 decisions A to F). What HA exposes to Alexa
+# (configuration.yaml `alexa: smart_home: filter:`, 13 entities) is built here: per bedroom a warm boost and a cool boost
+# (scripts, which Alexa sees as scenes that routines can run), the three bedrooms' lamp groups (Alexa lights), "Loft
+# cosy" and "Morning lights". Alexa routines (phrase -> scene) are set up in the Alexa app: docs/reports/
+# 2026-11-10-alexa-setup.md.
+#
+# Boosts (A, B; CLM-1 "Boost = target + 2 °C for 30 min"). "Target" is the room target of docs/ROOM_CLIMATE.md: tado's
+# current target for the room (the `temperature` of the room's tado thermostat, the same `tado:` entity the
+# room_climate app reads in appdaemon/apps/room_climate.yaml). Warm: the room's AC heats at target + 2 °C for 30 min;
+# cool: the AC cools at target - 2 °C for 30 min. Rounded to the AC's 0.5 °C step and kept inside its own range (live
+# 10 Nov: min_temp 18, max_temp 30, step 0.5 on all four) and never below 18 °C, so a cool boost against the 18 °C
+# setback cools at 18 °C. A warm boost also stops early once the room is warm enough (CLM-3 C, Tongai 11 Nov; PLAN
+# M1g-C): tado's own reading (the room's tado thermostat; in the Study the radiator valve) at the target recorded at the
+# start + 1 °C, checked once the AC has run its 20-min minimum (M1g-F, docs/ROOM_CLIMATE.md rule 2), so it ends between
+# 20 and 30 min. A cool boost runs its 30 min. A cool boost is refused while the room's radiator is heating (ROOM_CLIMATE
+# rule 4, "never both"; the radiator is not switched off for it). Known interplay: during a tado Heating boost (25 °C) the room target is 25, so a warm boost
+# then asks the AC for 27 °C. Afterwards the AC goes back to what it was doing before the boost: off if it was off, else
+# its mode and set-point. A second call for the same room while a boost runs restarts the 30 min (and may switch
+# warm <-> cool); it never stacks, and the "before" state stays the one from before the first call.
+# The end restores unless a person clearly took over: the AC's mode changed (incl. switched off), or its set-point moved
+# 1 °C or more from what the boost set and the AC read back. When unsure it restores rather than leave a boost running.
+# The room's restorable timer is started before the AC is touched, so a boost always ends, even across a restart or when
+# a command to the AC fails.
+#
+# Two callers share this one boost (CLM-1 decision B, CLM-3 11 Nov): Alexa (the scenes below, `source: alexa`, the
+# default; Hannah, Ellie, Loft) and the room pages' Boost 30 min / Cool 30 min (packages/room_boost.yaml,
+# `source: page`; those three and the Study).
+#
+# Gates (E). Alexa: `input_boolean.alexa_boosts_enabled` ("Alexa boosts", starts off; hard rule 6, no `initial`) AND
+# `input_boolean.heating_boost_enabled` (heating_boost.yaml) must both be on for a boost to start; this includes cosy's
+# boost part. Room pages: `input_boolean.room_boost_enabled` ("Room boost buttons") AND the room's own
+# `input_boolean.room_boost_<room>_enabled` AND `heating_boost_enabled` (room_boost.yaml; all start off). The boost END is deliberately ungated: a boost already running must always end, or an AC could heat or
+# cool all night. Lights are ungated. "Morning lights" has its own gate `input_boolean.alexa_morning_lights_enabled`
+# (starts off), turned on after Lightwave moves to tanga at the Cut-over (its lights aren't on tanga until then).
+# Ownership: the ACs are pamba's to act on until the Cut-over heating block (OWNERSHIP "Heating and AC"); "Alexa boosts"
+# stays off until that block, where it is turned on (Tongai, 10 Nov); the room pages' switches likewise, Study first.
+# lint-refs' acting-owner guard allows exactly the four room entries below (tools/hosts.json).
+#
+# Manual fallback: the AC's Fujitsu remote or the Airstage app (boosts); the lamp's own switch, the Hue app or the Alexa
+# app (lamps); the Lightwave wall switches (morning lights).
+
+input_boolean:
+  alexa_boosts_enabled:
+    name: Alexa boosts
+    icon: mdi:account-voice
+  alexa_morning_lights_enabled:
+    name: Alexa morning lights
+    icon: mdi:weather-sunset-up
+
+input_text:
+  # A running boost per room: "ac|kind|set-point|previous mode|previous set-point|set-point the AC read back|room
+  # target at the start"; empty when idle.
+  alexa_boost_hannah:
+    name: Alexa boost Hannah state
+    max: 160
+  alexa_boost_ellie:
+    name: Alexa boost Ellie state
+    max: 160
+  alexa_boost_loft:
+    name: Alexa boost Loft state
+    max: 160
+  alexa_boost_study:
+    name: Alexa boost Study state
+    max: 160
+
+timer:
+  alexa_boost_hannah:
+    name: Alexa boost Hannah
+    duration: "00:30:00"
+    restore: true
+  alexa_boost_ellie:
+    name: Alexa boost Ellie
+    duration: "00:30:00"
+    restore: true
+  alexa_boost_loft:
+    name: Alexa boost Loft
+    duration: "00:30:00"
+    restore: true
+  alexa_boost_study:
+    name: Alexa boost Study
+    duration: "00:30:00"
+    restore: true
+
+# Lamp groups (D), exposed to Alexa as lights; Alexa room groups (the room's Echo + its lamps) make "Alexa, lamps on"
+# work per room. Named without the apostrophe so the ids are light.hannahs_lamps etc.; the customize below gives the
+# name people (and Alexa) see. Members: Hue lamps (Hue's own names in brackets). Ungated. Manual fallback: the lamp's
+# switch or the Hue app.
+light:
+  - platform: group
+    name: Hannahs lamps
+    unique_id: alexa_hannahs_lamps
+    entities:
+      - light.hannah_lamp            # "Hannah Lamp"
+  - platform: group
+    name: Ellies lamps
+    unique_id: alexa_ellies_lamps
+    entities:
+      - light.ellie_door_lamp        # "Ellie Door Lamp"
+      - light.ellie_window_lamp      # "Ellie Window Lamp"
+      - light.lounge_lamp_1          # "Ellie Standing Lamp"
+  - platform: group
+    name: Loft lamps
+    unique_id: alexa_loft_lamps
+    entities:
+      - light.bookshelf_lamp         # "Loft Bedside Lamp"
+      - light.study_desk_lamp        # "Side Board Lamp"
+
+homeassistant:
+  customize:
+    light.hannahs_lamps:
+      friendly_name: Hannah's lamps
+    light.ellies_lamps:
+      friendly_name: Ellie's lamps
+
+script:
+  # The boost itself, for the six Alexa scenes below, Loft cosy and the room pages (room_boost.yaml). Checks the
+  # caller's gates, reads the room's target, records the AC's state (first call only), sets the AC and (re)starts the
+  # room's 30-min timer. Says why when it can't start (alexa_boost_say: Tongai's phone for Alexa; the page and the
+  # presser's phone for a room page). Manual fallback: the AC's Fujitsu remote or the Airstage app.
+  alexa_room_boost:
+    alias: Alexa room boost
+    icon: mdi:thermostat-auto
+    mode: parallel  # rooms are independent; a repeat for one room restarts its timer (see the top)
+    max: 8
+    fields:
+      room:
+        description: hannah, ellie, loft or study
+        example: loft
+      kind:
+        description: warm (AC heat at target + 2 °C) or cool (AC cool at target - 2 °C)
+        example: warm
+      source:
+        description: alexa (the default) or page (a room page's button, with its own gates)
+        example: page
+      who:
+        description: room pages only, the presser's notify service (alexa_boost_say)
+        example: notify.mobile_app_tongaism25
+    variables:
+      boost_minutes: 30
+      source: "{{ 'page' if source is defined and source == 'page' else 'alexa' }}"
+      who: "{{ who if source == 'page' and who is defined and who else '' }}"
+      rooms:
+        # `id` names the entry for lint-refs' acting-owner guard (tools/hosts.json); tado: the room's thermostat, the
+        # room_climate app's `tado:` (its `temperature` is the room target); gate: the room's own room-page switch.
+        hannah:
+          id: alexa_boost_room_hannah
+          name: Hannah's room
+          ac: climate.hannahs_bedroom_hannah_ac
+          tado: climate.tado_smart_thermostat_su3283363072
+          timer: timer.alexa_boost_hannah
+          record: input_text.alexa_boost_hannah
+          gate: input_boolean.room_boost_hannah_enabled
+        ellie:
+          id: alexa_boost_room_ellie
+          name: Ellie's room
+          ac: climate.ellies_bedroom_ellie_ac
+          tado: climate.tado_smart_thermostat_su3124240128
+          timer: timer.alexa_boost_ellie
+          record: input_text.alexa_boost_ellie
+          gate: input_boolean.room_boost_ellie_enabled
+        loft:
+          id: alexa_boost_room_loft
+          name: the Loft
+          ac: climate.loft_suite_loft_suite_ac
+          tado: climate.tado_smart_thermostat_su2586204416
+          timer: timer.alexa_boost_loft
+          record: input_text.alexa_boost_loft
+          gate: input_boolean.room_boost_loft_enabled
+        study:
+          id: alexa_boost_room_study
+          name: the Study
+          ac: climate.study_study_ac
+          tado: climate.tado_smart_radiator_thermostat_va0611323648  # the radiator valve: no tado wall unit here
+          timer: timer.alexa_boost_study
+          record: input_text.alexa_boost_study
+          gate: input_boolean.room_boost_study_enabled
+      r: "{{ rooms.get(room) }}"
+      hvac: "{{ 'cool' if kind == 'cool' else 'heat' }}"
+      target: "{{ state_attr(r.tado, 'temperature') if r and state_attr(r.tado, 'temperature') | is_number else '' }}"
+      # target ± 2, to the AC's 0.5 °C step, inside the AC's own range and never under 18 °C
+      setpoint: >-
+        {% if target | is_number %}
+          {% set raw = target | float + (-2 if hvac == 'cool' else 2) %}
+          {% set lo = [state_attr(r.ac, 'min_temp') | float(18), 18] | max %}
+          {% set hi = state_attr(r.ac, 'max_temp') | float(30) %}
+          {{ [[(raw * 2) | round / 2, lo] | max, hi] | min }}
+        {% endif %}
+      running: "{{ r and states(r.record) not in ['', 'unknown', 'unavailable'] }}"
+    sequence:
+      # The caller's gates must all be on: any one off stops the boost.
+      - if:
+          - condition: template
+            value_template: >-
+              {{ not (is_state('input_boolean.heating_boost_enabled', 'on')
+                      and (is_state('input_boolean.alexa_boosts_enabled', 'on') if source != 'page'
+                           else (is_state('input_boolean.room_boost_enabled', 'on')
+                                 and r and is_state(r.gate, 'on')))) }}
+        then:
+          - action: script.alexa_boost_say
+            data:
+              title: "{{ 'Room boost' if source == 'page' else 'Alexa boost' }} is switched off"
+              message: >-
+                {% if source == 'page' %}Turn on "Room boost buttons", the room's own switch and "Heating boost"
+                (House ops → Climate) to use it{% else %}Turn on "Alexa boosts" and "Heating boost" to use it{% endif %}
+                · or use the AC remote
+              who: "{{ who }}"
+          - stop: Boosts are switched off
+      - if:
+          - condition: template
+            value_template: "{{ not r or kind not in ['warm', 'cool'] }}"
+        then:
+          - stop: Unknown room or kind
+      - if:
+          - condition: template
+            value_template: >-
+              {{ not (setpoint | is_number) or states(r.ac) in ['unavailable', 'unknown'] }}
+        then:
+          - action: script.alexa_boost_say
+            data:
+              title: "{{ kind | capitalize }} {{ r.name }} failed"
+              message: >-
+                {{ 'AC offline' if states(r.ac) in ['unavailable', 'unknown'] else 'Room target unknown (tado)' }}
+                · use the AC remote
+              who: "{{ who }}"
+          - stop: Can't boost
+      # Never both (ROOM_CLIMATE rule 4): no cooling while the radiator heats. The radiator isn't touched.
+      - if:
+          - condition: template
+            value_template: "{{ hvac == 'cool' and state_attr(r.tado, 'hvac_action') == 'heating' }}"
+        then:
+          - action: script.alexa_boost_say
+            data:
+              title: "Cool {{ r.name }} not started"
+              message: The radiator is heating · turn the room target down first, or use the AC remote
+              who: "{{ who }}"
+          - stop: Radiator heating
+      # The state to go back to: recorded only by the first call, so a repeat doesn't record the boost as "before".
+      # The last field is the room target now (a warm boost's early stop compares tado's reading with it).
+      - action: input_text.set_value
+        target:
+          entity_id: "{{ r.record }}"
+        data:
+          value: >-
+            {% if running %}{% set old = states(r.record).split('|') %}{{ r.ac }}|{{ kind }}|{{ setpoint }}|{{ old[3] }}|{{ old[4] }}||{{ target }}
+            {%- else %}{{ r.ac }}|{{ kind }}|{{ setpoint }}|{{ states(r.ac) }}|{{ state_attr(r.ac, 'temperature')
+              if state_attr(r.ac, 'temperature') | is_number else '' }}||{{ target }}{% endif %}
+      # The timer first: whatever happens to the AC commands below, the end runs in 30 min.
+      - action: timer.start
+        target:
+          entity_id: "{{ r.timer }}"
+        data:
+          duration: "{{ '00:%02d:00' % boost_minutes }}"
+      - action: climate.set_hvac_mode
+        continue_on_error: true
+        target:
+          entity_id: "{{ r.ac }}"
+        data:
+          hvac_mode: "{{ hvac }}"
+      - action: climate.set_temperature
+        continue_on_error: true
+        target:
+          entity_id: "{{ r.ac }}"
+        data:
+          temperature: "{{ setpoint }}"
+      - wait_template: >-
+          {{ is_state(r.ac, hvac) and state_attr(r.ac, 'temperature') | is_number
+             and (state_attr(r.ac, 'temperature') | float - setpoint | float) | abs < 1 }}
+        timeout: "00:00:30"
+        continue_on_timeout: true
+      # Remember what the AC read back (the end compares against it); say so if it didn't take the boost.
+      - action: input_text.set_value
+        target:
+          entity_id: "{{ r.record }}"
+        data:
+          value: >-
+            {% set old = states(r.record).split('|') %}{{ old[:5] | join('|') }}|{{ state_attr(r.ac, 'temperature')
+              if state_attr(r.ac, 'temperature') | is_number else '' }}|{{ old[6] if old | count > 6 else '' }}
+      - if:
+          - condition: template
+            value_template: "{{ not wait.completed }}"
+        then:
+          - action: script.alexa_boost_say
+            data:
+              title: "{{ kind | capitalize }} {{ r.name }}: AC didn't respond"
+              message: >-
+                Asked {{ hvac }} {{ setpoint }}°C, it shows {{ states(r.ac) }} · boost ends
+                {{ (now() + timedelta(minutes=boost_minutes)).strftime('%H:%M') }} · or use the AC remote
+              who: "{{ who }}"
+
+  # Say why a boost didn't start or didn't take: for a room page (`who` set) on the page and the presser's phone
+  # (heating_buttons_say, packages/heating_buttons.yaml), for Alexa on Tongai's phone; always quiet. Manual fallback:
+  # none needed (it only reports).
+  alexa_boost_say:
+    alias: Alexa room boost - say what happened
+    icon: mdi:message-text
+    mode: queued
+    max: 8
+    fields:
+      title:
+        description: Short headline
+      message:
+        description: What happened and what to do instead
+      who:
+        description: the presser's notify service (room pages); empty for Alexa
+    sequence:
+      - if:
+          - condition: template
+            value_template: "{{ who is defined and who | string | length > 0 }}"
+        then:
+          - action: script.heating_buttons_say
+            data:
+              title: "{{ title }}"
+              message: "{{ message }}"
+              who: "{{ who }}"
+        else:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: "{{ title }}"
+              message: "{{ message }}"
+              data:
+                tag: alexa_boost
+                channel: Home status
+                importance: low
+
+  # The six Alexa scenes (A, B): one per room and kind, named as the routine phrase. Each runs alexa_room_boost, which
+  # holds the gates. Manual fallback: the room AC's Fujitsu remote or the Airstage app.
+  alexa_warm_hannah:
+    alias: Warm Hannah's room
+    icon: mdi:fire
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: hannah, kind: warm}
+  alexa_cool_hannah:
+    alias: Cool Hannah's room
+    icon: mdi:snowflake
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: hannah, kind: cool}
+  alexa_warm_ellie:
+    alias: Warm Ellie's room
+    icon: mdi:fire
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: ellie, kind: warm}
+  alexa_cool_ellie:
+    alias: Cool Ellie's room
+    icon: mdi:snowflake
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: ellie, kind: cool}
+  alexa_warm_loft:
+    alias: Warm the Loft
+    icon: mdi:fire
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: loft, kind: warm}
+  alexa_cool_loft:
+    alias: Cool the Loft
+    icon: mdi:snowflake
+    sequence:
+      - action: script.alexa_room_boost
+        data: {room: loft, kind: cool}
+
+  # Loft cosy: Loft lamps at 30 % (ungated) and the Loft warm boost (gated, inside alexa_room_boost). Manual fallback:
+  # the lamps' switches or the Hue app; the Loft AC's remote.
+  loft_cosy:
+    alias: Loft cosy
+    icon: mdi:sofa
+    sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.loft_lamps
+        data:
+          brightness_pct: 30
+      - action: script.alexa_room_boost
+        data: {room: loft, kind: warm}
+
+  # Morning lights (C): the living room (lounge) and media room wall lights, hallway and kitchen spots on (Tongai,
+  # 10 Nov). The ids are pamba's live Lightwave ones (lightwave_smart), which tanga gets when Lightwave moves at the
+  # Cut-over (as #299's lights.yaml expects); until then they aren't on tanga (lint-refs baseline lines marked "remove
+  # after the Lightwave move"), so the gate stays off and is turned on after the move. Check the ids then.
+  # Dining wall lights: two Tuya Wi-Fi bulbs (Tongai, 10 Nov), named one by one (the UI group light.dining_wall_lights
+  # has stale members). Unreliable through the Tuya cloud, so they've been kept off at the wall; Tongai is trying the
+  # no-cost fixes (local control, then maybe open firmware). While they're unreachable HA skips them and the rest
+  # still come on. Manual fallback: the Lightwave wall switches and the dining wall switch.
+  kitchen_morning:
+    alias: Morning lights
+    icon: mdi:weather-sunset-up
+    sequence:
+      - condition: state
+        entity_id: input_boolean.alexa_morning_lights_enabled
+        state: "on"
+      - action: light.turn_on
+        target:
+          entity_id:
+            - light.lounge_wall_lights_switch
+            - light.media_room_wall_lights_switch
+            - light.hallway_spotlights_switch
+            - light.kitchen_spotlights_switch
+            - light.dining_wall_light_garden
+            - light.dining_wall_light_road
+
+automation:
+  # End a boost when its room's timer finishes, and at start-up for any boost whose timer is no longer running.
+  # Deliberately ungated (see the top). AC unreadable: keep the record, retry in 5 min. AC still as the boost set it:
+  # put it back (off, or the previous mode and set-point). Changed by anything else meanwhile: leave it alone.
+  # Manual fallback: the AC's Fujitsu remote or the Airstage app.
+  - id: alexa_boost_end
+    alias: Alexa boost - end
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.alexa_boost_hannah
+      - trigger: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.alexa_boost_ellie
+      - trigger: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.alexa_boost_loft
+      - trigger: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.alexa_boost_study
+      - trigger: homeassistant
+        event: start
+    actions:
+      - repeat:
+          for_each:
+            - {timer: timer.alexa_boost_hannah, record: input_text.alexa_boost_hannah}
+            - {timer: timer.alexa_boost_ellie, record: input_text.alexa_boost_ellie}
+            - {timer: timer.alexa_boost_loft, record: input_text.alexa_boost_loft}
+            - {timer: timer.alexa_boost_study, record: input_text.alexa_boost_study}
+          sequence:
+            - variables:
+                parts: "{{ states(repeat.item.record).split('|') }}"
+                # 7 fields since CLM-1 (the room target at the start); 6 from before it
+                due: >-
+                  {{ parts | count in [6, 7]
+                     and ((trigger.platform == 'event' and trigger.event.data.entity_id == repeat.item.timer)
+                          or (trigger.platform != 'event' and is_state(repeat.item.timer, 'idle'))) }}
+            - if:
+                - condition: template
+                  value_template: "{{ due }}"
+              then:
+                - variables:
+                    ac: "{{ parts[0] }}"
+                    boost_mode: "{{ 'cool' if parts[1] == 'cool' else 'heat' }}"
+                    boost_temp: "{{ parts[2] }}"
+                    prev_mode: "{{ parts[3] }}"
+                    prev_temp: "{{ parts[4] }}"
+                    read_back: "{{ parts[5] }}"
+                    readable: "{{ states(ac) not in ['unavailable', 'unknown'] }}"
+                    now_temp: "{{ state_attr(ac, 'temperature') | float(-100) }}"
+                    # Untouched: same mode, and the set-point within 1 °C of what the boost set or the AC read back.
+                    # Unsure (neither known) counts as untouched: better to restore than leave a boost running.
+                    untouched: >-
+                      {{ readable and states(ac) == boost_mode
+                         and ((boost_temp | is_number and (now_temp - boost_temp | float) | abs < 1)
+                              or (read_back | is_number and (now_temp - read_back | float) | abs < 1)
+                              or not (boost_temp | is_number or read_back | is_number)) }}
+                - choose:
+                    - conditions:
+                        - condition: template
+                          value_template: "{{ not readable }}"
+                      sequence:
+                        - action: timer.start
+                          target:
+                            entity_id: "{{ repeat.item.timer }}"
+                          data:
+                            duration: "00:05:00"
+                    - conditions:
+                        - condition: template
+                          value_template: "{{ untouched and prev_mode in ['', 'off', 'unknown', 'unavailable'] }}"
+                      sequence:
+                        - action: climate.turn_off
+                          target:
+                            entity_id: "{{ ac }}"
+                        - action: input_text.set_value
+                          target:
+                            entity_id: "{{ repeat.item.record }}"
+                          data:
+                            value: ""
+                    - conditions:
+                        - condition: template
+                          value_template: "{{ untouched }}"
+                      sequence:
+                        - action: climate.set_hvac_mode
+                          target:
+                            entity_id: "{{ ac }}"
+                          data:
+                            hvac_mode: "{{ prev_mode }}"
+                        - if:
+                            - condition: template
+                              value_template: "{{ prev_temp | is_number }}"
+                          then:
+                            - action: climate.set_temperature
+                              continue_on_error: true  # e.g. fan-only takes no set-point
+                              target:
+                                entity_id: "{{ ac }}"
+                              data:
+                                temperature: "{{ prev_temp | float }}"
+                        - action: input_text.set_value
+                          target:
+                            entity_id: "{{ repeat.item.record }}"
+                          data:
+                            value: ""
+                  # A person took over (mode changed, or set-point moved 1 °C or more), or already off: hands off,
+                  # forget the boost; say so if the AC is still running.
+                  default:
+                    - action: input_text.set_value
+                      target:
+                        entity_id: "{{ repeat.item.record }}"
+                      data:
+                        value: ""
+                    - if:
+                        - condition: template
+                          value_template: "{{ states(ac) != 'off' }}"
+                      then:
+                        - action: notify.mobile_app_tongaism25
+                          data:
+                            title: Boost ended, AC left as changed
+                            message: >-
+                              {{ state_attr(ac, 'friendly_name') or ac }} is {{ states(ac) }}
+                              {{ state_attr(ac, 'temperature') }}°C (changed by hand) · AC remote to stop
+                            data:
+                              tag: alexa_boost
+                              channel: Home status
+                              importance: low
+
+  # Stop a warm boost early once the room is warm enough (CLM-3 C, Tongai 11 Nov; PLAN M1g-C): tado's own reading
+  # (`current_temperature` of the room's tado thermostat; in the Study the radiator valve) at the room target recorded
+  # at the start + 1 °C, once the AC has run its minimum (20 min, M1g-F; docs/ROOM_CLIMATE.md rule 2), so a warm
+  # boost ends between 20 and 30 min. Checked when a warm boost reaches its minimum run (10 min left on the timer) and
+  # whenever a room's tado reading changes, not every minute (each run keeps a trace). It ends the boost by finishing
+  # the room's timer, so alexa_boost_end restores the AC exactly as at 30 min (or leaves a person's change alone). Cool
+  # boosts run their 30 min. Deliberately ungated, like alexa_boost_end: it only ever ends a boost that its gates let
+  # start. Unreadable tado reading or AC: nothing (the 30 min, or alexa_boost_end's 5-min retry, still ends it).
+  # Manual fallback: the AC's Fujitsu remote or the Airstage app.
+  - id: alexa_boost_warm_enough
+    alias: Alexa boost - stop when warm enough
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id:
+          - climate.tado_smart_thermostat_su3283363072
+          - climate.tado_smart_thermostat_su3124240128
+          - climate.tado_smart_thermostat_su2586204416
+          - climate.tado_smart_radiator_thermostat_va0611323648
+        attribute: current_temperature
+      # a warm boost reaches its minimum run: 600 s = (boost_minutes - min_run_minutes) * 60 below
+      - trigger: template
+        value_template: >-
+          {% set ns = namespace(due=false) %}
+          {% for r in ['hannah', 'ellie', 'loft', 'study'] %}
+            {% set f = state_attr('timer.alexa_boost_' ~ r, 'finishes_at') %}
+            {% if '|warm|' in states('input_text.alexa_boost_' ~ r) and f and as_datetime(f) is not none
+                  and (as_datetime(f) - now()).total_seconds() <= 600 %}{% set ns.due = true %}{% endif %}
+          {% endfor %}
+          {{ ns.due }}
+    conditions:
+      - condition: template
+        value_template: >-
+          {{ ['input_text.alexa_boost_hannah', 'input_text.alexa_boost_ellie', 'input_text.alexa_boost_loft',
+              'input_text.alexa_boost_study'] | map('states') | select('contains', '|warm|') | list | count > 0 }}
+    actions:
+      - variables:
+          stop_above: 1  # °C over the room target (Tongai, 11 Nov)
+          min_run_minutes: 20  # the AC's minimum run (M1g-F); 0 would stop as soon as it is warm enough
+          boost_minutes: 30  # as alexa_room_boost
+      - repeat:
+          for_each:
+            # tado: the same thermostat as alexa_room_boost's room entry (a test checks they agree)
+            - {timer: timer.alexa_boost_hannah, record: input_text.alexa_boost_hannah,
+               tado: climate.tado_smart_thermostat_su3283363072}
+            - {timer: timer.alexa_boost_ellie, record: input_text.alexa_boost_ellie,
+               tado: climate.tado_smart_thermostat_su3124240128}
+            - {timer: timer.alexa_boost_loft, record: input_text.alexa_boost_loft,
+               tado: climate.tado_smart_thermostat_su2586204416}
+            - {timer: timer.alexa_boost_study, record: input_text.alexa_boost_study,
+               tado: climate.tado_smart_radiator_thermostat_va0611323648}
+          sequence:
+            - variables:
+                parts: "{{ states(repeat.item.record).split('|') }}"
+                reading: "{{ state_attr(repeat.item.tado, 'current_temperature') }}"
+                finishes: "{{ state_attr(repeat.item.timer, 'finishes_at') }}"
+                left_s: >-
+                  {{ (as_datetime(finishes) - now()).total_seconds()
+                     if finishes and as_datetime(finishes) is not none else 99999 }}
+                warm_enough: >-
+                  {{ parts | count == 7 and parts[1] == 'warm' and parts[6] | is_number and reading | is_number
+                     and is_state(repeat.item.timer, 'active')
+                     and states(parts[0]) not in ['unavailable', 'unknown']
+                     and left_s | float(99999) <= (boost_minutes - min_run_minutes) * 60
+                     and reading | float >= parts[6] | float + stop_above }}
+            - if:
+                - condition: template
+                  value_template: "{{ warm_enough }}"
+              then:
+                - action: timer.finish
+                  target:
+                    entity_id: "{{ repeat.item.timer }}"

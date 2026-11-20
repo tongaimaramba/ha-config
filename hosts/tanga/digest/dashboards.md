@@ -95,7 +95,7 @@ _no views / strategy dashboard_
 - `/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381165` (None)
 - `/hacsfiles/roku-card/roku-card.js?hacstag=164367214124` (None)
 - `/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878250` (None)
-- `/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=303101606172` (None)
+- `/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281600` (None)
 - `/hacsfiles/lovelace-battery-entity-row/battery-entity-row.js` (None)
 - `/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620110` (None)
 - `/hacsfiles/ha-floorplan/floorplan.js?hacstag=1883234941044` (None)

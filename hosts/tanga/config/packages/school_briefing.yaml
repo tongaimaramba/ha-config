@@ -1,0 +1,184 @@
+# School-day briefing (HSE-8; proposal B-A..B-F in docs/reports/2026-11-08-proposals-briefing-modes-night.md, Tongai's
+# decisions 9 Nov). The rules and the sending are the AppDaemon app apps/school_briefing.yaml; this package holds the
+# gate, the calendar read and the "My reminders" form on the Kids dashboard. Owner: tanga.
+#
+# GATE input_boolean.briefing_enabled (starts off, hard rule 6). Off: no push is sent and sensor.briefing_<child> /
+# sensor.briefing_kiosk read 'Nothing yet'. Reading the calendars and editing reminders don't send anything and run
+# either way. Manual fallback: the calendars in the phone's calendar app; pack the bag the night before.
+input_boolean:
+  briefing_enabled:
+    name: School-day briefing
+    icon: mdi:school-outline
+  # Tongai 2026-11-17: no pushes to the kids' phones until he says (starts off). Off: the 07:15 push is not sent; the
+  # Kids dashboard and the hall screen still show the day. The parents' pushes are unaffected.
+  notify_kids:
+    name: Kids' pushes
+    icon: mdi:cellphone-message
+  # "Show on the hall screen" for the reminder being added (off: only her own push and her dashboard)
+  reminder_hannah_hall:
+    name: Show on the hall screen
+    icon: mdi:monitor-shimmer
+  reminder_ellie_hall:
+    name: Show on the hall screen
+    icon: mdi:monitor-shimmer
+
+# The add form, one per child (each child's own on Kids -> My reminders; parents don't see the forms). The app reads
+# them when the child presses Add, and clears them after.
+input_select:
+  reminder_hannah_rule:
+    name: Kind of reminder
+    icon: mdi:format-list-bulleted-type
+    options: [Every week, On a date, When my calendar says]
+  reminder_ellie_rule:
+    name: Kind of reminder
+    icon: mdi:format-list-bulleted-type
+    options: [Every week, On a date, When my calendar says]
+
+input_text:
+  reminder_hannah_thing:
+    name: What to take
+    icon: mdi:bag-personal
+    max: 40
+  reminder_hannah_days:
+    name: "Which days (every week), e.g. Tue Thu"
+    icon: mdi:calendar-week
+    max: 40
+  reminder_hannah_word:
+    name: "Word in my calendar, e.g. swimming"
+    icon: mdi:text-search
+    max: 30
+  reminder_ellie_thing:
+    name: What to take
+    icon: mdi:bag-personal
+    max: 40
+  reminder_ellie_days:
+    name: "Which days (every week), e.g. Tue Thu"
+    icon: mdi:calendar-week
+    max: 40
+  reminder_ellie_word:
+    name: "Word in my calendar, e.g. swimming"
+    icon: mdi:text-search
+    max: 30
+
+input_datetime:
+  reminder_hannah_date:
+    name: Date (one-off)
+    has_date: true
+    has_time: false
+  reminder_ellie_date:
+    name: Date (one-off)
+    has_date: true
+    has_time: false
+
+script:
+  # The Add and Remove buttons on Kids -> My reminders. The event carries the pressing user (the script runs in the
+  # press's context); the app adds only for that child herself, removes for her or a parent, refuses a press with no
+  # user. Manual fallback: none needed (a reminder is a convenience; the calendar app still works).
+  briefing_reminder:
+    alias: Briefing reminder
+    icon: mdi:bag-personal
+    mode: queued
+    max: 10
+    fields:
+      action:
+        description: add or remove
+        example: add
+      child:
+        description: hannah or ellie
+        example: hannah
+      slot:
+        description: For remove, the row number (1-15) on the list
+        example: 1
+    sequence:
+      - event: briefing_reminder
+        event_data:
+          action: "{{ action }}"
+          child: "{{ child }}"
+          slot: "{{ slot | default(0) }}"
+
+template:
+  # The calendars, read for the app (calendar.get_events returns a service response, which an AppDaemon app may not
+  # get on this box: unverified). Every 15 min, at start and on a `briefing_refresh` event: today 00:00 + 9 days, so
+  # Sunday's week look-ahead sees to the next Sunday. Title, start, end, location only (no descriptions: the team
+  # feeds' are long and the school's empty). State 'ok' or 'unavailable' (the read failed: the app then sends
+  # nothing it can't back). Excluded from the recorder (recorder_config.yaml): a list rewritten every 15 min.
+  # Manual fallback: the calendar app.
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/15"
+      - trigger: event
+        event_type: briefing_refresh
+    actions:
+      - action: calendar.get_events
+        continue_on_error: true
+        target:
+          entity_id:
+            - calendar.hannah_socs     # school feeds
+            - calendar.ellie_socs
+            - calendar.15b_hockey      # team calendars (apps/school_briefing.yaml `teams`): add new ones here too
+            - calendar.u12b_hockey
+            - calendar.kids_extras     # "Extras": parents' Take: items and one-off days off
+        data:
+          start_date_time: "{{ today_at().isoformat() }}"
+          duration:
+            days: 9
+        response_variable: cal
+    sensor:
+      - name: Briefing events
+        unique_id: briefing_events
+        icon: mdi:calendar-sync
+        state: "{{ 'ok' if cal is defined and cal is mapping else 'unavailable' }}"
+        attributes:
+          fetched: "{{ now().isoformat() }}"
+          events: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- if cal is defined and cal is mapping -%}
+            {%- for c, r in cal.items() -%}
+            {%- for e in (r.events if r is mapping and r.events is defined else []) -%}
+            {%- set ns.l = ns.l + [{'c': c, 's': ((e.summary or '') | string)[:90],
+                'b': e.start | string, 'e': (e.end or '') | string,
+                'l': ((e.location or '') | string)[:40]}] -%}
+            {%- endfor -%}
+            {%- endfor -%}
+            {%- endif -%}
+            {{ ns.l }}
+  # The hourly forecast, read for the app's walking days (Tongai 18 Nov: lots of walking between buildings and rain
+  # forecast -> take a coat with a hood or an umbrella). weather.get_forecasts returns a service response, read here as
+  # the calendars are. Every 30 min, at start and on `briefing_refresh`: the next 48 hours, time, precipitation (mm),
+  # its probability when met.no gives one, condition. State 'ok' or 'unavailable' (then no walking day is flagged).
+  # Excluded from the recorder. Manual fallback: a weather app.
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: time_pattern
+        minutes: "/30"
+      - trigger: event
+        event_type: briefing_refresh
+    actions:
+      - action: weather.get_forecasts
+        continue_on_error: true
+        target:
+          entity_id: weather.garden_outside_weather_home
+        data:
+          type: hourly
+        response_variable: fc
+    sensor:
+      - name: Briefing forecast
+        unique_id: briefing_forecast
+        icon: mdi:weather-pouring
+        state: >-
+          {{ 'ok' if fc is defined and fc is mapping
+             and (fc.get('weather.garden_outside_weather_home') or {}).get('forecast') else 'unavailable' }}
+        attributes:
+          fetched: "{{ now().isoformat() }}"
+          hours: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- if fc is defined and fc is mapping -%}
+            {%- for f in ((fc.get('weather.garden_outside_weather_home') or {}).get('forecast') or [])[:48] -%}
+            {%- set ns.l = ns.l + [{'t': f.datetime | string, 'p': f.precipitation | default(none),
+                'pp': f.precipitation_probability | default(none), 'c': f.condition | default('')}] -%}
+            {%- endfor -%}
+            {%- endif -%}
+            {{ ns.l }}

@@ -1,0 +1,400 @@
+# Solar health (M5 step 2, decision M5-F; the backlog's "solar scheduler health alert", Tongai 2026-10-23). The
+# Battery First Scheduler (Battery first 03:00, Load first 05:30) and the Export optimiser change the inverter's mode
+# through script.set_growatt_sph_mode_with_retry: Modbus straight to the inverter since M5 step 7
+# (packages/solar_modbus.yaml; it was MQTT to SolarAssistant). On 2026-10-29 MQTT was refused ~15 h and the
+# 03:00 charge never happened, unnoticed; on 2-3 Nov SolarAssistant went silent, both mode changes failed with quiet
+# alerts nobody acted on, and a stale Battery first ran at 07:21 by day until 08:41. This tells Tongai when:
+#   - URGENT (a normal push on the "Solar urgent" channel, one per incident; not the alarm channel): the 03:00 Battery
+#     first didn't land by 03:10; Battery first on when HA doesn't want it (the watchdog, again every 30 min while it
+#     stays, or still on at 05:40); any Battery first change that failed or was refused; the inverter's clock over
+#     10 min off HA's (a BST/GMT hour moves the charge);
+#   - quietly (Home status, low): the charge stopped before 05:30; any other mode change that failed after its
+#     retries, or wasn't tried (Modbus writes off, an unknown mode, a bad window, expired): the script fires
+#     solar_mode_change_failed; the inverter's mode differs from what HA wants (sensor.sph_mode_wanted) for 5 min: the
+#     watchdog re-applies it once (M5 step 7) and says so; the inverter's clock over 60 s off;
+#   - either solar automation is off or unavailable for 10 min (also checked at start-up and when the gate goes on);
+#   - the inverter's readings stop for 5 min (M5 step 7): a Modbus sensor keeps its restored value, and stays
+#     "available", when the port never answers, so silence is judged on last_reported.
+# The watchdog's corrections are gated by input_boolean.solar_modbus_writes_enabled, not by the alerts gate.
+# Not caught: a mode change asked for while the retry script is still running (it is `mode: single`, so the call is
+# dropped); solar_control (M5 step 3) replaces that path.
+# A longer outage also shows on the Connections alert ("Solar inverter (Modbus)", packages/connections_health.yaml).
+# Gate: input_boolean.solar_health_enabled (starts off, hard rule 6). Manual fallback: House ops → Solar (Inverter mode)
+# and the ShinePhone app. Owner: tanga (solar).
+
+input_boolean:
+  solar_health_enabled:
+    name: Solar alerts
+    icon: mdi:solar-power-variant
+
+automation:
+  # 03:00 Battery first didn't land: no overnight charge at the cheap rate. Urgent (3 Nov). Not when the 03:00 used up
+  # a "Skip tonight's charge" tonight (M5 step 5: input_datetime.solar_charge_skipped is today); a manual mode still
+  # alerts, saying so (left on by mistake, it skips every night).
+  # Fallback: ShinePhone.
+  - id: solar_health_charge_missed
+    alias: Solar - overnight charge didn't start
+    mode: single
+    triggers:
+      - trigger: time
+        at: "03:10:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ states('input_datetime.solar_charge_skipped') != now().date().isoformat() }}"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.sph_device_mode
+            state: Battery first
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar charge didn't start
+          message: >-
+            Inverter is {{ states('sensor.sph_device_mode') }} at 03:10, not Battery first · no cheap
+            overnight charge{{ ' · manual mode is on: Auto in House ops' if is_state('input_boolean.solar_manual_hold',
+            'on') else '' }} · tanga
+          data:
+            tag: solar_urgent_charge
+            channel: Solar urgent
+            importance: default
+
+  # The charge stopped part-way: Battery first left while the 03:00–05:30 window is on (a car-charging branch, the
+  # Export optimiser's fallback, a manual change). 5 min, so a retry that lands doesn't alert.
+  - id: solar_health_charge_interrupted
+    alias: Solar - overnight charge stopped
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.sph_device_mode
+        from: Battery first
+        for: {minutes: 5}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.battery_charging_window
+        state: "on"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.sph_device_mode
+            state: Battery first
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar charge stopped
+          message: >-
+            Inverter went {{ states('sensor.sph_device_mode') }} at {{ as_timestamp(trigger.from_state.last_changed)
+            | timestamp_custom('%H:%M') }}, before 05:30 · tanga
+          data:
+            tag: solar_health_charge
+            channel: Home status
+            importance: low
+
+  # Battery first still on after 05:30: the battery keeps charging from the grid at the peak rate. Checked at 05:40;
+  # urgent, the same tag as the watchdog's stuck Battery first, so one replaces the other. (The Export optimiser's
+  # sunrise trigger only opens its window; it never sets Battery first.)
+  - id: solar_health_charge_not_ended
+    alias: Solar - overnight charge didn't end
+    mode: single
+    triggers:
+      - trigger: time
+        at: "05:40:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+      - condition: state
+        entity_id: sensor.sph_device_mode
+        state: Battery first
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar charge didn't end
+          message: Inverter still Battery first at 05:40 · charging at the peak rate · tanga
+          data:
+            tag: solar_urgent_battery_first
+            channel: Solar urgent
+            importance: default
+
+  # A mode change that didn't take after the script's retries, or wasn't tried (any time of day). A Battery first
+  # one is urgent (review of 4186206): asked in the cheap rate it means no overnight charge; refused outside it, a flag
+  # or caller asked to grid-charge at the day rate. Fallback: set it in ShinePhone.
+  - id: solar_health_mode_change_failed
+    alias: Solar - mode change failed
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: event
+        event_type: solar_mode_change_failed
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+      # one quiet push per 30 min: the Export optimiser can ask again every few minutes while Modbus is down or writes
+      # are off; a Battery first failure always gets through
+      - condition: template
+        value_template: >-
+          {{ trigger.event.data.expected == 'Battery first' or this.attributes.last_triggered is none
+             or (now() - this.attributes.last_triggered).total_seconds() > 1800 }}
+    actions:
+      - variables:
+          urgent: "{{ trigger.event.data.expected == 'Battery first' }}"
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar mode change failed
+          message: >-
+            {% set d = trigger.event.data -%}
+            Asked for {{ d.expected }}, inverter is {{ d.actual }}
+            {%- if d.reason is not defined %} after {{ d.attempts }} tries
+            {%- elif d.reason is match('reverted') %} for 5 min · {{ d.reason }}
+            {%- else %} · not tried: {{ d.reason }}{% endif %} · tanga
+          data:
+            tag: "{{ 'solar_urgent_mode' if urgent else 'solar_health_mode' }}"
+            channel: "{{ 'Solar urgent' if urgent else 'Home status' }}"
+            importance: "{{ 'default' if urgent else 'low' }}"
+
+  # Watchdog (M5 step 7, after the 3 Nov incident): corrects the inverter, not just reports. Corrections are gated by
+  # Modbus writes only, pushes by the alerts gate only (review of 4186206).
+  # - The inverter's mode has differed from what HA wants (sensor.sph_mode_wanted: the last request inside its window,
+  #   else Load first) for 5 min, by day or night: re-apply it once (a request the watchdog made itself is not
+  #   re-applied, so it can't loop), then a quiet "reverted" through solar_mode_change_failed (urgent if HA wants
+  #   Battery first: the cheap-rate charge).
+  # - Battery first when HA doesn't want it (no request, past its backstop end, SolarAssistant's or ShinePhone's
+  #   leftovers): always set Load first, at most once per 15 min, and an urgent push worded from the mode read back
+  #   after; again every 30 min while it stays on.
+  # - Never judged mid-change (G4, 2026-11-08): while the mode script runs (anyone's change: the scheduler, solar_control,
+  #   the Export optimiser, a manual mode) it waits for it to finish (up to 90 s; a run is ~40 s at most), then goes on
+  #   only if the inverter still differs; and it reads the mode back only once the script is idle again. Its :00 / :30
+  #   re-check fell on the scheduler's 03:00 and 05:30: at 05:30 it called the busy `mode: single` script ("Already
+  #   running") 0.1 s before the inverter took Load first and read back Battery first, i.e. a false "couldn't correct"
+  #   push. Still `mode: single` (one urgent push per incident): a trigger during a wait is dropped, and the run that is
+  #   waiting judges the inverter as it is once the script is idle.
+  # Fallback: ShinePhone (time slots).
+  - id: solar_health_mode_watchdog
+    alias: Solar - mode watchdog
+    mode: single
+    triggers:
+      - trigger: template
+        id: differs
+        value_template: >-
+          {{ has_value('sensor.sph_device_mode') and has_value('sensor.sph_mode_wanted')
+             and states('sensor.sph_device_mode') != states('sensor.sph_mode_wanted') }}
+        for: {minutes: 5}
+      - trigger: time_pattern
+        id: recheck
+        minutes: /30
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: input_boolean.solar_modbus_writes_enabled
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.solar_health_enabled
+            state: "on"
+      - condition: template
+        value_template: >-
+          {{ has_value('sensor.sph_device_mode') and has_value('sensor.sph_mode_wanted')
+             and states('sensor.sph_device_mode') != states('sensor.sph_mode_wanted') }}
+    actions:
+      - wait_template: "{{ not is_state('script.set_growatt_sph_mode_with_retry', 'on') }}"
+        timeout: {seconds: 90}
+        continue_on_timeout: true
+      - condition: template
+        value_template: >-
+          {{ has_value('sensor.sph_device_mode') and has_value('sensor.sph_mode_wanted')
+             and states('sensor.sph_device_mode') != states('sensor.sph_mode_wanted') }}
+      - variables:
+          wanted: "{{ states('sensor.sph_mode_wanted') }}"
+          actual: "{{ states('sensor.sph_device_mode') }}"
+          request: "{{ states('input_text.solar_mode_requested').split('|') }}"
+          writes_on: "{{ is_state('input_boolean.solar_modbus_writes_enabled', 'on') }}"
+          alerts_on: "{{ is_state('input_boolean.solar_health_enabled', 'on') }}"
+          unwanted_bf: "{{ actual == 'Battery first' and wanted != 'Battery first' }}"
+      - variables:
+          recent_fix: >-
+            {% set t = as_datetime(request[1], none) if request | count == 4 else none %}
+            {{ request | count == 4 and request[3] == 'watchdog' and t is not none and t.tzinfo is not none
+               and (now() - t).total_seconds() < 900 }}
+      - variables:
+          fix: >-
+            {{ writes_on and ((unwanted_bf and not recent_fix)
+                              or (not unwanted_bf and trigger.id == 'differs' and request[-1] != 'watchdog')) }}
+      # the half-hourly re-check is only for a Battery first that stays on
+      - condition: template
+        value_template: "{{ unwanted_bf or trigger.id == 'differs' }}"
+      - if:
+          - condition: template
+            value_template: "{{ fix }}"
+        then:
+          - action: script.set_growatt_sph_mode_with_retry
+            continue_on_error: true
+            data:
+              expected_mode: "{{ 'Load first' if unwanted_bf else wanted }}"
+              until: "{{ request[2] if not unwanted_bf and wanted != 'Load first' and request | count == 4 else '' }}"
+              source: watchdog
+      - wait_template: "{{ not is_state('script.set_growatt_sph_mode_with_retry', 'on') }}"
+        timeout: {seconds: 90}
+        continue_on_timeout: true
+      - variables:
+          after: "{{ states('sensor.sph_device_mode') }}"
+      - if:
+          - condition: template
+            value_template: "{{ unwanted_bf }}"
+        then:
+          - if:
+              - condition: template
+                value_template: "{{ alerts_on }}"
+            then:
+              - action: notify.mobile_app_tongaism25
+                data:
+                  title: Solar charging from the grid
+                  message: >-
+                    {%- if after != 'Battery first' -%}
+                      Battery first was on, HA wants {{ wanted }} · set Load first
+                    {%- elif not writes_on -%}
+                      Battery first on, HA wants {{ wanted }} · Modbus writes off: set Load first in ShinePhone
+                    {%- else -%}
+                      Battery first on, HA wants {{ wanted }} · couldn't correct: set Load first in ShinePhone
+                    {%- endif %} · tanga
+                  data:
+                    tag: solar_urgent_battery_first
+                    channel: Solar urgent
+                    importance: default
+        else:
+          - event: solar_mode_change_failed
+            event_data:
+              expected: "{{ wanted }}"
+              actual: "{{ after }}"
+              attempts: 0
+              reason: "{{ 'reverted, re-applied' if fix else 'reverted, not corrected' }}"
+
+  # The inverter's clock against HA's (M5 step 7 review): the slots start and end on the inverter's clock. Over 5 min
+  # for 10 min: quiet (raised from 60 s, Tongai 2026-11-05: it drifts ~5 s a day and a minute changes nothing; at that
+  # rate a ping every ~7 weeks). Over 10 min: urgent, most likely a BST/GMT hour, which moves the overnight charge an
+  # hour. Fallback: set the inverter's clock in ShinePhone (never written from HA).
+  - id: solar_health_clock_drift
+    alias: Solar - inverter clock drifting
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {{ has_value('sensor.sph_clock_drift') and 300 < states('sensor.sph_clock_drift') | float(0) | abs <= 600 }}
+        for: {minutes: 10}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Inverter clock off
+          message: >-
+            Inverter clock {{ states('sensor.sph_clock_drift') | int(0) }} s off HA's · set it in ShinePhone · tanga
+          data:
+            tag: solar_health_clock
+            channel: Home status
+            importance: low
+
+  - id: solar_health_clock_wrong
+    alias: Solar - inverter clock wrong
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {{ has_value('sensor.sph_clock_drift') and states('sensor.sph_clock_drift') | float(0) | abs > 600 }}
+        for: {minutes: 10}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Inverter clock wrong
+          message: >-
+            Inverter clock {{ (states('sensor.sph_clock_drift') | float(0) / 60) | round(0) | int }} min off HA's ·
+            the overnight charge moves with it · set it in ShinePhone · tanga
+          data:
+            tag: solar_urgent_clock
+            channel: Solar urgent
+            importance: default
+
+  # The inverter's readings stopped (M5 step 7): nothing reported for 5 min (the load is polled every 10 s), or
+  # unavailable/unknown for 5 min. A Modbus sensor restores its last value at start-up and stays "available" if the
+  # port never answers, so its state alone can't tell; last_reported moves on every poll even when the value is the
+  # same (HA 2024.3+; the boiler and SmartThings checks use it too). The trigger re-checks each minute (now()).
+  # Fallback: House ops → Solar (are the numbers moving?), the Pi Zero back on the adapter (M5-I F).
+  - id: solar_health_inverter_silent
+    alias: Solar - inverter readings stopped
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {% set s = states.sensor.sph_load_power %}
+          {{ s is none
+             or (now() - (s.last_changed if s.state in ['unavailable', 'unknown'] else s.last_reported))
+                .total_seconds() > 300 }}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar inverter silent
+          message: >-
+            No inverter readings for 5 min ({{ states('sensor.sph_load_power') }}) · the Modbus adapter or its cable ·
+            tanga
+          data:
+            tag: solar_health_data
+            channel: Home status
+            importance: low
+
+  # A solar automation switched off (or broken: unavailable) for 10 min; also one already off at start-up or when the
+  # gate goes on (a state trigger needs a change). Fallback: Settings → Automations.
+  - id: solar_health_automation_off
+    alias: Solar - automation off
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id:
+          - automation.battery_first_scheduler
+          - automation.export_optimiser
+        to: ["off", "unavailable"]
+        for: {minutes: 10}
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: input_boolean.solar_health_enabled
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_health_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
+             | select('is_state', 'on') | list | count < 2 }}
+    actions:
+      - delay: {minutes: 10}  # at start-up, give the automations time to load
+      - condition: template
+        value_template: >-
+          {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
+             | select('is_state', 'on') | list | count < 2 }}
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar automation off
+          message: >-
+            {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
+               | reject('is_state', 'on') | map('state_attr', 'friendly_name') | join(', ') }} off · tanga
+          data:
+            tag: solar_health_automation
+            channel: Home status
+            importance: low

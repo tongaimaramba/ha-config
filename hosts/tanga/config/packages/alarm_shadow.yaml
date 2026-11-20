@@ -4,6 +4,9 @@ input_boolean:
   alarm_shadow_enabled:
     name: Alarm shadow
     icon: mdi:shield-home-outline
+  alarm_visitors_enabled:  # SEC-25 F/D4: the shadow honours expected visitors (sensor.house_visitor); starts off
+    name: Alarm shadow honours visitors
+    icon: mdi:account-key-outline
   mode_detector_enabled:  # M2 step 7b: the mode_detector app suggests the mode in shadow (starts off)
     name: Mode detector
     icon: mdi:home-search-outline

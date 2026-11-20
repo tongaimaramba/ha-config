@@ -1,0 +1,496 @@
+# Solar inverter over Modbus (M5 step 7, decision M5-I). tanga reads and writes the Growatt SPH 3600 (SPH 3000-6000TL
+# BL-UP family) itself, in place of SolarAssistant (a Pi Zero relaying it over MQTT, which kept dropping out). The
+# Waveshare USB-RS485 adapter moves from the Pi Zero to tanga, wired to the inverter's VPP port: Modbus RTU, 9600 8N1,
+# unit 1. Register map: 0xAHA/Growatt_ModbusTCP profiles/sph.py SPH_3000_6000 (confirmed on an SPH 3600); 32-bit values
+# are two registers, high word first (HA's default, no `swap`). Energy totals are the inverter's lifetime counters (they
+# never reset, unlike SolarAssistant's weekly ones), so HA's statistics and the Energy dashboard take them as they are.
+# Mode changes (M5-I D, after the 3 Nov incident): by time slots, as SolarAssistant did, never by writing 1044 (read
+# only in Growatt's protocol; here only the read-back). script.set_growatt_sph_mode_with_retry writes the Battery First
+# or Grid First slot 1 with start = now and an end the inverter enforces itself (the backstop), disabling the other
+# mode's slot first; Load first disables both. Only while input_boolean.solar_modbus_writes_enabled is on (starts off,
+# hard rule 6). solar_health_mode_watchdog (packages/solar_health.yaml) corrects the inverter when it differs from
+# sensor.sph_mode_wanted.
+# Manual fallback: the SolarAssistant Pi Zero on the shelf (the adapter back on it: rollback F), and the ShinePhone app
+# for the work mode. Owner: tanga (solar).
+
+input_boolean:
+  solar_modbus_writes_enabled:
+    name: Solar Modbus writes
+    icon: mdi:solar-power-variant
+
+# The retry script's last request, set just before it writes: "mode|asked at (ISO)|backstop end HH:MM|source" (source
+# "watchdog" when the watchdog re-applied it, so it corrects once per incident). sensor.sph_mode_wanted reads it.
+automation:
+  # The overnight-charge flag (input_boolean.battery_charging_window, the Battery First Scheduler's) back off at 05:35
+  # if it was left on (HA down at 05:30, a failed or dropped call): left on, a car charge stopping by day would ask for
+  # Battery first. Gated by the writes gate (hard rule 6). Fallback: turn it off in Settings → Helpers.
+  - id: solar_modbus_charging_window_reset
+    alias: Solar - charging window reset
+    mode: single
+    triggers:
+      - trigger: time
+        at: "05:35:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_modbus_writes_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.battery_charging_window
+        state: "on"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.battery_charging_window
+
+input_text:
+  solar_mode_requested:
+    name: Solar mode requested
+    icon: mdi:solar-power-variant
+    max: 100
+
+modbus:
+  - name: sph
+    type: serial
+    method: rtu
+    # The Waveshare adapter (FTDI FT232R, serial B0019PJF), from Settings → System → Hardware on swap day (2026-11-03).
+    # By id, never /dev/ttyUSB0: tanga also has a Z-Wave stick, and the numbering can swap.
+    port: /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B0019PJF-if00-port0
+    baudrate: 9600
+    bytesize: 8
+    parity: N
+    stopbits: 1
+    sensors:
+      # ---- now: input registers, every 10 s ----
+      - name: SPH PV power
+        unique_id: sph_pv_power
+        slave: 1
+        address: 1  # Ppv, both strings
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      # The two strings (read only, M5 step 8: solar_watch's string voltage; every 60 s, it samples every 5 min).
+      # PV1 = loft, 6 panels (~200 V; the Growatt cloud's MPPT1); PV2 = kitchen 4 + loft 1, 5 panels (~160 V; MPPT2).
+      # The installer's design numbers them the other way round. Friendly names in customize.yaml.
+      - name: SPH PV1 voltage
+        unique_id: sph_pv1_voltage
+        slave: 1
+        address: 3  # Vpv1
+        input_type: input
+        data_type: uint16
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: V
+        device_class: voltage
+        state_class: measurement
+        scan_interval: 60
+      - name: SPH PV2 voltage
+        unique_id: sph_pv2_voltage
+        slave: 1
+        address: 7  # Vpv2
+        input_type: input
+        data_type: uint16
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: V
+        device_class: voltage
+        state_class: measurement
+        scan_interval: 60
+      - name: SPH load power
+        unique_id: sph_load_power
+        slave: 1
+        address: 1037  # PLocalLoad total, the house
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH grid import power
+        unique_id: sph_grid_import_power
+        slave: 1
+        address: 1021  # PactouserTotal
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH grid export power
+        unique_id: sph_grid_export_power
+        slave: 1
+        address: 1029  # PactogridTotal
+        input_type: input
+        data_type: int32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH battery charge power
+        unique_id: sph_battery_charge_power
+        slave: 1
+        address: 1011  # Pcharge1
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH battery discharge power
+        unique_id: sph_battery_discharge_power
+        slave: 1
+        address: 1009  # Pdischarge1
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 0
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH battery SOC
+        unique_id: sph_battery_soc
+        slave: 1
+        address: 1014  # SOC
+        input_type: input
+        data_type: uint16
+        unit_of_measurement: "%"
+        device_class: battery
+        state_class: measurement
+        scan_interval: 10
+      - name: SPH battery voltage
+        unique_id: sph_battery_voltage
+        slave: 1
+        address: 1013  # Vbat
+        input_type: input
+        data_type: uint16
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: V
+        device_class: voltage
+        state_class: measurement
+        scan_interval: 10
+      # ---- work mode: holding register 1044 (0 Load first, 1 Battery first, 2 Grid first). Read only (Growatt
+      # protocol V1.24 marks it R; written, it reverts ~90 s later, 0xAHA #394): the read-back after a slot write ----
+      - name: SPH work mode raw
+        unique_id: sph_work_mode_raw
+        slave: 1
+        address: 1044  # priority
+        input_type: holding
+        data_type: uint16
+        scan_interval: 10
+      # ---- time slots (holding, read only here: the retry script writes them). Growatt storage protocol V1.24
+      # (0xAHA's Protocols/, holding table): 1080-1082 Grid First slot 1, 1083-1088 slots 2-3, 1091 Bat First stop
+      # SOC, 1092 AC charge, 1100-1102 Bat First slot 1, 1103-1108 slots 2-3. Times are hour × 256 + minute. ----
+      - name: SPH battery first slot 1 start raw
+        unique_id: sph_battery_first_slot_1_start_raw
+        slave: 1
+        address: 1100  # Bat First Start Time 1
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH battery first slot 1 end raw
+        unique_id: sph_battery_first_slot_1_end_raw
+        slave: 1
+        address: 1101  # Bat First Stop Time 1
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH battery first slot 1 enabled raw
+        unique_id: sph_battery_first_slot_1_enabled_raw
+        slave: 1
+        address: 1102  # BatFirst on/off Switch 1
+        input_type: holding
+        data_type: uint16
+        scan_interval: 10
+      - name: SPH grid first slot 1 start raw
+        unique_id: sph_grid_first_slot_1_start_raw
+        slave: 1
+        address: 1080  # Grid First Start Time 1
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH grid first slot 1 end raw
+        unique_id: sph_grid_first_slot_1_end_raw
+        slave: 1
+        address: 1081  # Grid First Stop Time 1
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH grid first slot 1 enabled raw
+        unique_id: sph_grid_first_slot_1_enabled_raw
+        slave: 1
+        address: 1082  # Grid First Stop Switch 1 (the enable)
+        input_type: holding
+        data_type: uint16
+        scan_interval: 10
+      - name: SPH AC charge raw
+        unique_id: sph_ac_charge_raw
+        slave: 1
+        address: 1092  # AC charge Switch (when Bat First)
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH battery first stop SOC
+        unique_id: sph_battery_first_stop_soc
+        slave: 1
+        address: 1091  # wBatFirst stop SOC, left as is
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      # The inverter's clock (Growatt protocol V1.24 holding 45-50: Sys Year, Month, Day, Hour, Min, Sec; local time),
+      # read in one go so the fields agree: "year,month,day,hour,min,sec". The slots run on this clock, so
+      # sensor.sph_clock_drift compares it with HA's. Read only: a wrong clock is set in ShinePhone, never from here.
+      - name: SPH inverter clock raw
+        unique_id: sph_inverter_clock_raw
+        slave: 1
+        address: 45  # Sys Year .. Sys Sec
+        input_type: holding
+        data_type: custom
+        count: 6
+        structure: ">6H"
+        scan_interval: 60
+      # the other slots: never written; any of them on is a leftover (SolarAssistant, ShinePhone) to clear by hand
+      - name: SPH battery first slot 2 enabled raw
+        unique_id: sph_battery_first_slot_2_enabled_raw
+        slave: 1
+        address: 1105  # BatFirst on/off Switch 2
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH battery first slot 3 enabled raw
+        unique_id: sph_battery_first_slot_3_enabled_raw
+        slave: 1
+        address: 1108  # BatFirst on/off Switch 3
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH grid first slot 2 enabled raw
+        unique_id: sph_grid_first_slot_2_enabled_raw
+        slave: 1
+        address: 1085  # Grid First Stop Switch 2
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      - name: SPH grid first slot 3 enabled raw
+        unique_id: sph_grid_first_slot_3_enabled_raw
+        slave: 1
+        address: 1088  # Grid First Stop Switch 3
+        input_type: holding
+        data_type: uint16
+        scan_interval: 60
+      # ---- lifetime energy: input registers, kWh × 0.1, every 60 s; never reset ----
+      # nan_value 0: a raw 0 (a bad read; the real totals are thousands of kWh) gives no value (unknown), not 0,
+      # which HA's statistics would take as a meter reset and then count the whole total again as new energy.
+      - name: SPH PV energy total
+        unique_id: sph_pv_energy_total
+        nan_value: 0
+        slave: 1
+        address: 91  # Epv_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH PV1 energy total
+        unique_id: sph_pv1_energy_total
+        nan_value: 0
+        slave: 1
+        address: 61  # Epv1_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH PV2 energy total
+        unique_id: sph_pv2_energy_total
+        nan_value: 0
+        slave: 1
+        address: 65  # Epv2_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH grid import energy total
+        unique_id: sph_grid_import_energy_total
+        nan_value: 0
+        slave: 1
+        address: 1046  # Etouser_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      # One report has this disagreeing with the Growatt portal on another unit: validated against the Octopus export
+      # meter for the first weeks after the swap (SolarAssistant on the shelf until then).
+      - name: SPH grid export energy total
+        unique_id: sph_grid_export_energy_total
+        nan_value: 0
+        slave: 1
+        address: 1050  # Etogrid_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH battery discharge energy total
+        unique_id: sph_battery_discharge_energy_total
+        nan_value: 0
+        slave: 1
+        address: 1054  # Edischarge1_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH battery charge energy total
+        unique_id: sph_battery_charge_energy_total
+        nan_value: 0
+        slave: 1
+        address: 1058  # Echarge1_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+      - name: SPH load energy total
+        unique_id: sph_load_energy_total
+        nan_value: 0
+        slave: 1
+        address: 1062  # Elocalload_total
+        input_type: input
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: kWh
+        device_class: energy
+        state_class: total_increasing
+        scan_interval: 60
+
+template:
+  - sensor:
+      # The mode by name, as SolarAssistant's device_mode gave it: what the automations, solar_control and the retry
+      # script's read-back compare against. Unavailable for any other value (or none), so nothing acts on a guess.
+      - name: SPH device mode
+        unique_id: sph_device_mode
+        icon: mdi:solar-power-variant
+        state: >-
+          {{ {0: 'Load first', 1: 'Battery first', 2: 'Grid first'}.get(states('sensor.sph_work_mode_raw') | int(-1)) }}
+        availability: >-
+          {{ states('sensor.sph_work_mode_raw') | int(-1) in [0, 1, 2] }}
+      # What the slot enables say, for the read-back: one slot 1 on is that mode, none on is Load first; both, or a
+      # slot 2/3 left on, is "Mixed" (never what was asked, so the script's read-back fails and alerts).
+      - name: SPH slot mode
+        unique_id: sph_slot_mode
+        icon: mdi:timetable
+        state: >-
+          {%- set bf = states('sensor.sph_battery_first_slot_1_enabled_raw') | int(-1) -%}
+          {%- set gf = states('sensor.sph_grid_first_slot_1_enabled_raw') | int(-1) -%}
+          {%- set others = ['sensor.sph_battery_first_slot_2_enabled_raw', 'sensor.sph_battery_first_slot_3_enabled_raw',
+                            'sensor.sph_grid_first_slot_2_enabled_raw', 'sensor.sph_grid_first_slot_3_enabled_raw']
+                           | map('states') | map('int', 0) | select('gt', 0) | list | count -%}
+          {%- if others > 0 or (bf == 1 and gf == 1) -%}Mixed
+          {%- elif bf == 1 -%}Battery first
+          {%- elif gf == 1 -%}Grid first
+          {%- else -%}Load first{%- endif -%}
+        availability: >-
+          {{ states('sensor.sph_battery_first_slot_1_enabled_raw') | int(-1) in [0, 1]
+             and states('sensor.sph_grid_first_slot_1_enabled_raw') | int(-1) in [0, 1] }}
+      # The mode HA wants now, from the last request: Battery first / Grid first while inside its window (asked at →
+      # the next backstop end), else Load first (also with no request, or a malformed one). Re-checked each minute.
+      # The watchdog compares the inverter against this.
+      # The window is worked out in local time (the request's own offset may be the other side of a clock change);
+      # a time without a zone counts as malformed.
+      - name: SPH mode wanted
+        unique_id: sph_mode_wanted
+        icon: mdi:solar-power-variant-outline
+        state: >-
+          {%- set p = states('input_text.solar_mode_requested').split('|') -%}
+          {%- set t = as_datetime(p[1], none) if p | count == 4 else none -%}
+          {%- if t is none or t.tzinfo is none or p[0] not in ['Battery first', 'Grid first']
+                or p[2] is not match('^([01][0-9]|2[0-3]):[0-5][0-9]$') -%}
+            Load first
+          {%- else -%}
+            {%- set t = t | as_local -%}
+            {%- set e = t.replace(hour=p[2][:2] | int, minute=p[2][3:] | int, second=0, microsecond=0) -%}
+            {%- set e = e + timedelta(days=1) if e <= t else e -%}
+            {{ p[0] if t <= now() < e else 'Load first' }}
+          {%- endif -%}
+        attributes:
+          source: >-
+            {% set p = states('input_text.solar_mode_requested').split('|') %}
+            {{ p[3] if p | count == 4 else 'none' }}
+      # The inverter's clock less HA's, in seconds, at the moment it was read (last_reported): the slots' start and
+      # backstop end run on the inverter's clock. A two-digit year is taken as 20xx. Alerts: packages/solar_health.yaml.
+      - name: SPH clock drift
+        unique_id: sph_clock_drift
+        icon: mdi:clock-alert-outline
+        unit_of_measurement: s
+        state_class: measurement
+        state: >-
+          {%- set s = states.sensor.sph_inverter_clock_raw -%}
+          {%- set p = (s.state.split(',') | map('int', -1) | list) if s else [] -%}
+          {%- set inv = as_datetime('%04d-%02d-%02dT%02d:%02d:%02d' | format(p[0] + (2000 if p[0] < 100 else 0), p[1],
+                                    p[2], p[3], p[4], p[5]), none) if p | count == 6 and p | min >= 0 else none -%}
+          {{ ((inv.replace(tzinfo=now().tzinfo) - s.last_reported).total_seconds()) | round(0) if inv else 'unknown' }}
+        availability: >-
+          {%- set s = states.sensor.sph_inverter_clock_raw -%}
+          {%- set p = (s.state.split(',') | map('int', -1) | list) if s else [] -%}
+          {{ p | count == 6 and p | min >= 0 and as_datetime('%04d-%02d-%02dT%02d:%02d:%02d'
+             | format(p[0] + (2000 if p[0] < 100 else 0), p[1], p[2], p[3], p[4], p[5]), none) is not none }}
+      # Net grid power, positive = importing (as SolarAssistant's grid_power).
+      - name: SPH grid power
+        unique_id: sph_grid_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        state: >-
+          {{ (states('sensor.sph_grid_import_power') | float(0) - states('sensor.sph_grid_export_power') | float(0))
+             | round(0) }}
+        availability: >-
+          {{ has_value('sensor.sph_grid_import_power') and has_value('sensor.sph_grid_export_power') }}
+      # Net battery power, positive = charging, negative = discharging (as SolarAssistant's battery_power).
+      - name: SPH battery power
+        unique_id: sph_battery_power
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
+        state: >-
+          {{ (states('sensor.sph_battery_charge_power') | float(0) - states('sensor.sph_battery_discharge_power') | float(0))
+             | round(0) }}
+        availability: >-
+          {{ has_value('sensor.sph_battery_charge_power') and has_value('sensor.sph_battery_discharge_power') }}

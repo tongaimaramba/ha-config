@@ -13,6 +13,7 @@
 - Garage
 - Garden
 - Hallway
+- Hannah
 - Hannahs Bedroom
 - Home General
 - Hot Water

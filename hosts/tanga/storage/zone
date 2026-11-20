@@ -6,30 +6,66 @@
     "items": [
       {
         "id": "school",
-        "latitude": 51.39945666354604,
-        "longitude": -0.3033095598220826,
+        "latitude": 51.39920272162223,
+        "longitude": -0.30331449839823676,
         "name": "School",
         "icon": "mdi:school",
         "passive": false,
-        "radius": 110.39644167948852
+        "radius": 106.0
       },
       {
-        "id": "m_work",
-        "latitude": 51.394462979231,
-        "longitude": -0.3082783520221711,
-        "name": "Maple Works",
-        "icon": "mdi:office-building",
+        "id": "hinchley_wood",
+        "latitude": 51.36834780591349,
+        "longitude": -0.3451325611249274,
+        "name": "Hinchley Wood",
+        "icon": "mdi:shoe-sneaker",
         "passive": false,
-        "radius": 7.305791288997416
+        "radius": 169.0
       },
       {
-        "id": "t_work",
-        "latitude": 51.538114321228925,
-        "longitude": -0.12655735015869143,
-        "name": "Meta Office Kings Cross",
-        "icon": "mdi:office-building",
+        "id": "church",
+        "latitude": 51.41775403919203,
+        "longitude": -0.2855732686637964,
+        "name": "Church",
+        "icon": "mdi:church-outline",
         "passive": false,
-        "radius": 184.0
+        "radius": 35.0
+      },
+      {
+        "id": "npl",
+        "latitude": 51.42454267593948,
+        "longitude": -0.34200773561366304,
+        "name": "NPL",
+        "icon": "mdi:scale",
+        "passive": false,
+        "radius": 236.0
+      },
+      {
+        "id": "shc",
+        "latitude": 51.38197313549108,
+        "longitude": -0.3246875433117964,
+        "name": "SHC",
+        "icon": "mdi:hockey-sticks",
+        "passive": false,
+        "radius": 114.0
+      },
+      {
+        "id": "tgc",
+        "latitude": 51.37551580372187,
+        "longitude": -0.2939921703888615,
+        "name": "TGC",
+        "icon": "mdi:gymnastics",
+        "passive": false,
+        "radius": 72.0
+      },
+      {
+        "id": "jpmc",
+        "latitude": 51.504364308038674,
+        "longitude": -0.020008451913582803,
+        "name": "JPMC",
+        "icon": "mdi:bank-circle",
+        "passive": false,
+        "radius": 345.0
       }
     ]
   }

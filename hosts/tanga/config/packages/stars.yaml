@@ -1,0 +1,172 @@
+# End of day stars (G9 v2 block 4; design docs/reports/2026-11-16-g9v2-design.md "Kiosk", evening; PLAN G9V2-D).
+# Each evening on the front-door kiosk each girl ticks five things: Snack box empty, Phone on charge, iPad on charge,
+# Pack books, Uniform and socks (from Tongai's photo, 16 Nov; the same five for both: to be confirmed). All five
+# ticked = a star for that evening. The kiosk's Stars tab shows the week, Monday to Sunday, for both; it starts again
+# on Monday. The ticks are the one thing the kiosk may switch besides lights and the hot-water boost
+# (tools/halive/dash.py KIOSK_TOGGLE_OK lists exactly these ten).
+#
+# Helpers (all input_boolean, restored over a restart):
+#   stars_enabled                 the gate ("Stars", starts off; hard rule 6, no `initial`). Off: the kiosk hides the
+#                                 ticks and the Stars tab link, and neither automation does anything.
+#   stars_<girl>_<item>           tonight's ticks, ten (cleared each night at 04:00).
+#   stars_<girl>_week_<mon..sun>  the week's stars, fourteen (cleared on Monday at 04:00).
+# The "star day" runs 04:00 to 04:00, so ticks done just after midnight still count for the evening before.
+# Read by the kiosk: sensor.stars_week (state "Ellie 3 · Hannah 4"; attributes `ellie`, `hannah`: seven true/false,
+# Monday first; `today`: the star day's index, 0 = Monday).
+#
+# New helpers and automations: the deploy needs an HA restart (new input_booleans; a reload of input_boolean,
+# template entities and automations would also do). Owner: tanga.
+# Manual fallback: a paper star chart on the fridge; a parent can tick or clear any of these in Settings -> Helpers.
+input_boolean:
+  stars_enabled:
+    name: Stars
+    icon: mdi:star-circle
+  # Tonight's ticks (the kiosk's tiles; names as on the kiosk)
+  stars_ellie_snack_box: {name: Ellie Snack box empty, icon: mdi:check-circle}
+  stars_ellie_phone: {name: Ellie Phone on charge, icon: mdi:check-circle}
+  stars_ellie_ipad: {name: Ellie iPad on charge, icon: mdi:check-circle}
+  stars_ellie_books: {name: Ellie Pack books, icon: mdi:check-circle}
+  stars_ellie_uniform: {name: Ellie Uniform and socks, icon: mdi:check-circle}
+  stars_hannah_snack_box: {name: Hannah Snack box empty, icon: mdi:check-circle}
+  stars_hannah_phone: {name: Hannah Phone on charge, icon: mdi:check-circle}
+  stars_hannah_ipad: {name: Hannah iPad on charge, icon: mdi:check-circle}
+  stars_hannah_books: {name: Hannah Pack books, icon: mdi:check-circle}
+  stars_hannah_uniform: {name: Hannah Uniform and socks, icon: mdi:check-circle}
+  # The week's stars (written only by the automations below)
+  stars_ellie_week_mon: {name: Ellie star Mon, icon: mdi:star}
+  stars_ellie_week_tue: {name: Ellie star Tue, icon: mdi:star}
+  stars_ellie_week_wed: {name: Ellie star Wed, icon: mdi:star}
+  stars_ellie_week_thu: {name: Ellie star Thu, icon: mdi:star}
+  stars_ellie_week_fri: {name: Ellie star Fri, icon: mdi:star}
+  stars_ellie_week_sat: {name: Ellie star Sat, icon: mdi:star}
+  stars_ellie_week_sun: {name: Ellie star Sun, icon: mdi:star}
+  stars_hannah_week_mon: {name: Hannah star Mon, icon: mdi:star}
+  stars_hannah_week_tue: {name: Hannah star Tue, icon: mdi:star}
+  stars_hannah_week_wed: {name: Hannah star Wed, icon: mdi:star}
+  stars_hannah_week_thu: {name: Hannah star Thu, icon: mdi:star}
+  stars_hannah_week_fri: {name: Hannah star Fri, icon: mdi:star}
+  stars_hannah_week_sat: {name: Hannah star Sat, icon: mdi:star}
+  stars_hannah_week_sun: {name: Hannah star Sun, icon: mdi:star}
+
+template:
+  - sensor:
+      # The week for the kiosk's Stars tab (read-only; the kiosk never names the week's helpers)
+      - name: Stars week
+        unique_id: stars_week
+        icon: mdi:star-box-multiple
+        state: >-
+          {%- set days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] -%}
+          {%- set ns = namespace(out=[]) -%}
+          {%- for key, name in [('ellie', 'Ellie'), ('hannah', 'Hannah')] -%}
+            {%- set n = days | map('regex_replace', '^', 'input_boolean.stars_' ~ key ~ '_week_')
+                        | select('is_state', 'on') | list | count -%}
+            {%- set ns.out = ns.out + [name ~ ' ' ~ n] -%}
+          {%- endfor -%}
+          {{ ns.out | join(' · ') }}
+        attributes:
+          ellie: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- for d in ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] -%}
+              {%- set ns.l = ns.l + [is_state('input_boolean.stars_ellie_week_' ~ d, 'on')] -%}
+            {%- endfor -%}
+            {{ ns.l }}
+          hannah: >-
+            {%- set ns = namespace(l=[]) -%}
+            {%- for d in ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] -%}
+              {%- set ns.l = ns.l + [is_state('input_boolean.stars_hannah_week_' ~ d, 'on')] -%}
+            {%- endfor -%}
+            {{ ns.l }}
+          today: "{{ (now() - timedelta(hours=4)).weekday() }}"
+
+automation:
+  # A star for the evening when all five of a girl's ticks are on, and none when one is taken off again by a person
+  # (a tap on the kiosk, or a parent in Helpers). The 04:00 clear-down is not a person, so it never takes a star away.
+  # The star goes on the "star day" (04:00 to 04:00): ticks done at 00:30 count for the evening before.
+  # Manual fallback: the paper chart; a parent can switch a week's star in Settings -> Helpers.
+  - id: stars_award
+    alias: Stars - a star when all five are ticked
+    mode: queued
+    max: 20
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_boolean.stars_ellie_snack_box
+          - input_boolean.stars_ellie_phone
+          - input_boolean.stars_ellie_ipad
+          - input_boolean.stars_ellie_books
+          - input_boolean.stars_ellie_uniform
+          - input_boolean.stars_hannah_snack_box
+          - input_boolean.stars_hannah_phone
+          - input_boolean.stars_hannah_ipad
+          - input_boolean.stars_hannah_books
+          - input_boolean.stars_hannah_uniform
+        from: ["on", "off"]
+        to: ["on", "off"]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.stars_enabled
+        state: "on"
+      # A tick, or an untick by a person (an automation's change has no user)
+      - condition: template
+        value_template: "{{ trigger.to_state.state == 'on' or trigger.to_state.context.user_id is not none }}"
+    actions:
+      - variables:
+          girl: "{{ trigger.entity_id.split('.')[1].split('_')[1] }}"
+          all_ticked: >-
+            {{ ['snack_box', 'phone', 'ipad', 'books', 'uniform']
+               | map('regex_replace', '^', 'input_boolean.stars_' ~ girl ~ '_') | select('is_state', 'on')
+               | list | count == 5 }}
+          star: "input_boolean.stars_{{ girl }}_week_{{ (now() - timedelta(hours=4)).strftime('%a') | lower }}"
+      - condition: template
+        value_template: "{{ girl in ['ellie', 'hannah'] }}"
+      - action: "input_boolean.turn_{{ 'on' if all_ticked else 'off' }}"
+        target:
+          entity_id: "{{ star }}"
+
+  # Every night at 04:00 the ticks are cleared for the next evening; on Monday the week's stars too (the Stars tab
+  # starts again). Manual fallback: untick by hand on the kiosk; clear the week in Settings -> Helpers.
+  - id: stars_reset
+    alias: Stars - clear the ticks each night and the week on Monday
+    mode: single
+    triggers:
+      - trigger: time
+        at: "04:00:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.stars_enabled
+        state: "on"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id:
+            - input_boolean.stars_ellie_snack_box
+            - input_boolean.stars_ellie_phone
+            - input_boolean.stars_ellie_ipad
+            - input_boolean.stars_ellie_books
+            - input_boolean.stars_ellie_uniform
+            - input_boolean.stars_hannah_snack_box
+            - input_boolean.stars_hannah_phone
+            - input_boolean.stars_hannah_ipad
+            - input_boolean.stars_hannah_books
+            - input_boolean.stars_hannah_uniform
+      - if:
+          - condition: time
+            weekday: mon
+        then:
+          - action: input_boolean.turn_off
+            target:
+              entity_id:
+                - input_boolean.stars_ellie_week_mon
+                - input_boolean.stars_ellie_week_tue
+                - input_boolean.stars_ellie_week_wed
+                - input_boolean.stars_ellie_week_thu
+                - input_boolean.stars_ellie_week_fri
+                - input_boolean.stars_ellie_week_sat
+                - input_boolean.stars_ellie_week_sun
+                - input_boolean.stars_hannah_week_mon
+                - input_boolean.stars_hannah_week_tue
+                - input_boolean.stars_hannah_week_wed
+                - input_boolean.stars_hannah_week_thu
+                - input_boolean.stars_hannah_week_fri
+                - input_boolean.stars_hannah_week_sat
+                - input_boolean.stars_hannah_week_sun

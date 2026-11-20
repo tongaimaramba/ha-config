@@ -1,4 +1,18 @@
+# The home's coordinates are in this box's secrets.yaml (home_latitude, home_longitude), not the repo (8 Nov 2026).
 zone.home:
-  latitude: 51.3889375
-  longitude: -0.2847698
-  radius: 10
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # 75 m (Tongai, 9 Nov 2026): GPS at home is within 25 m overnight (14 days measured) and the back fence is about 60 m
+  # from this centre, so 75 m covers the whole property with a margin. It was 10 m. Undo: set it back to 10 and reload
+  # core config. This entry overrides the zone's radius in the UI; edit it here, not there.
+  radius: 75
+# The two solar strings as a person reads them (M5 step 8; packages/solar_modbus.yaml): PV1 = loft, 6 panels (~200 V),
+# PV2 = kitchen 4 + loft 1, 5 panels (~160 V), from the Growatt cloud's MPPT1/MPPT2 voltages (Tongai, 2026-11-03).
+sensor.sph_pv1_voltage:
+  friendly_name: PV1 loft (6 panels) voltage
+sensor.sph_pv2_voltage:
+  friendly_name: PV2 kitchen 4 + loft 1 (5 panels) voltage
+sensor.sph_pv1_energy_total:
+  friendly_name: PV1 loft (6 panels) energy total
+sensor.sph_pv2_energy_total:
+  friendly_name: PV2 kitchen 4 + loft 1 (5 panels) energy total

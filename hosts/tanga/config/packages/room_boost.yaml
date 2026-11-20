@@ -1,0 +1,171 @@
+# Room-page Boost 30 min / Cool 30 min (ROADMAP CLM-1, the acting half; CLM-3 decision B, Tongai 11 Nov; PLAN M1g-C/D).
+# The Family room pages of the four rooms with an AC (Loft suite, Ellie, Hannah, Study) get working Boost and Cool
+# buttons. They do not have their own boost: each tap runs script.room_boost_button, which hands the room and kind to
+# the shared boost of the Alexa routines, script.alexa_room_boost (packages/alexa_routines.yaml, #311), with
+# `source: page`. That one script does the boost for Alexa and the pages: Boost = the AC heats at the room target
+# (tado's) + 2 °C for 30 min, ending early once tado reads target + 1 °C after a 20-min minimum run; Cool = the AC
+# cools at target - 2 °C (never under 18) for 30 min, refused while the radiator heats; afterwards the AC goes back to
+# what it was doing, unless a person changed it meanwhile (then it is left alone). The automatic catch-up stays in
+# shadow (CLM-3 decision A): only a tap acts.
+#
+# One button per action (Tongai 2026-10-24: one toggle, state in the colour): Boost lights while a warm boost runs in
+# that room and shows "until hh:mm"; a tap on the lit button ends it early (ROOM_CLIMATE rule 2, "pressed again"),
+# which puts the AC back as at 30 min. Cool likewise. Schedule is lit when neither runs.
+#
+# Gates (hard rule 6: start off, no `initial`): `input_boolean.room_boost_enabled` ("Room boost buttons", the one-tap
+# stop for every room) AND the room's own `input_boolean.room_boost_<room>_enabled` (so the Cut-over can go room by
+# room, Study first) AND `input_boolean.heating_boost_enabled` (heating_boost.yaml, the house's boost switch) must all be
+# on for a boost to START; alexa_room_boost checks them. Ending a boost is ungated (a running boost must always be
+# endable). Ownership: the ACs are pamba's to act on until the Cut-over heating block (OWNERSHIP "Heating and AC"), so
+# these switches stay off until that block. Feedback: what a tap did or refused goes on the page (5 min) and quietly to
+# the presser's phone (heating_buttons_say, as the CLM-2 heating buttons).
+# Manual fallback: the AC's Fujitsu remote or the Airstage app; tado's app or the radiator valve for the radiator.
+
+input_boolean:
+  room_boost_enabled:
+    name: Room boost buttons
+    icon: mdi:thermostat-auto
+  room_boost_study_enabled:
+    name: Room boost - Study
+    icon: mdi:desk
+  room_boost_loft_enabled:
+    name: Room boost - Loft suite
+    icon: mdi:bed-king-outline
+  room_boost_ellie_enabled:
+    name: Room boost - Ellie
+    icon: mdi:bed-outline
+  room_boost_hannah_enabled:
+    name: Room boost - Hannah
+    icon: mdi:bed-outline
+
+template:
+  - sensor:
+      # What the room page lights: warm (Boost), cool (Cool) or off (Schedule), read from the shared boost's own record
+      # (input_text.alexa_boost_<room>, set while a boost runs, Alexa's or the page's); `until` is when its timer ends.
+      # Display only.
+      - name: Room boost Study
+        unique_id: room_boost_study
+        icon: mdi:thermostat-auto
+        state: >-
+          {% set p = states('input_text.alexa_boost_study').split('|') %}
+          {{ p[1] if p | count >= 6 and p[1] in ['warm', 'cool'] else 'off' }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.alexa_boost_study', 'finishes_at') %}
+            {{ 'until ' ~ as_timestamp(f) | timestamp_custom('%H:%M') if f and is_state('timer.alexa_boost_study', 'active')
+               else '' }}
+      - name: Room boost Loft
+        unique_id: room_boost_loft
+        icon: mdi:thermostat-auto
+        state: >-
+          {% set p = states('input_text.alexa_boost_loft').split('|') %}
+          {{ p[1] if p | count >= 6 and p[1] in ['warm', 'cool'] else 'off' }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.alexa_boost_loft', 'finishes_at') %}
+            {{ 'until ' ~ as_timestamp(f) | timestamp_custom('%H:%M') if f and is_state('timer.alexa_boost_loft', 'active')
+               else '' }}
+      - name: Room boost Ellie
+        unique_id: room_boost_ellie
+        icon: mdi:thermostat-auto
+        state: >-
+          {% set p = states('input_text.alexa_boost_ellie').split('|') %}
+          {{ p[1] if p | count >= 6 and p[1] in ['warm', 'cool'] else 'off' }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.alexa_boost_ellie', 'finishes_at') %}
+            {{ 'until ' ~ as_timestamp(f) | timestamp_custom('%H:%M') if f and is_state('timer.alexa_boost_ellie', 'active')
+               else '' }}
+      - name: Room boost Hannah
+        unique_id: room_boost_hannah
+        icon: mdi:thermostat-auto
+        state: >-
+          {% set p = states('input_text.alexa_boost_hannah').split('|') %}
+          {{ p[1] if p | count >= 6 and p[1] in ['warm', 'cool'] else 'off' }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.alexa_boost_hannah', 'finishes_at') %}
+            {{ 'until ' ~ as_timestamp(f) | timestamp_custom('%H:%M') if f and is_state('timer.alexa_boost_hannah', 'active')
+               else '' }}
+
+script:
+  # A room page's Boost 30 min (kind warm) or Cool 30 min (kind cool). The same kind already running in that room: end
+  # it now (ungated; the boost's own end puts the AC back). Otherwise: start it, or switch a running boost to this kind,
+  # through script.alexa_room_boost with `source: page`, which checks the three switches and the AC and says why when
+  # it can't. Says "on until hh:mm" on the page when it started. Never touches an AC itself. Manual fallback: the AC's
+  # Fujitsu remote or the Airstage app.
+  room_boost_button:
+    alias: Room boost - page button
+    icon: mdi:gesture-tap-button
+    # Taps wait their turn (one may take up to 30 s while the AC answers): none is dropped, and a quick double tap is
+    # start-then-stop in that order, never a race on the same room.
+    mode: queued
+    max: 6
+    fields:
+      room:
+        description: study, loft, ellie or hannah (alexa_room_boost's room keys)
+        example: study
+      kind:
+        description: warm (Boost 30 min) or cool (Cool 30 min)
+        example: warm
+    variables:
+      names: {study: Study, loft: Loft suite, ellie: Ellie, hannah: Hannah}
+      ok: "{{ room is defined and room in names and kind is defined and kind in ['warm', 'cool'] }}"
+      record: "{{ 'input_text.alexa_boost_' ~ room if ok else '' }}"
+      timer: "{{ 'timer.alexa_boost_' ~ room if ok else '' }}"
+      running: >-
+        {% set p = states(record).split('|') if ok else [] %}{{ p[1] if p | count >= 6 else '' }}
+      label: "{{ (names[room] if ok else '') ~ (' boost' if kind == 'warm' else ' cool') }}"
+      # Whose phone gets the notice: the HA user who tapped (ids as in dashboards/data/tanga.yaml), else Tongai's.
+      who: >-
+        {{ {'654b5cdf36f8494cb948a9d13e1c17c7': 'notify.mobile_app_tongaism25',
+            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_mojgan_iphone'}
+           .get(context.user_id if context is defined and context else none, 'notify.mobile_app_tongaism25') }}
+    sequence:
+      - if:
+          - condition: template
+            value_template: "{{ not ok }}"
+        then:
+          - stop: Unknown room or kind
+      # Pressed again: end it now (the timer's end restores the AC, or leaves a person's change alone).
+      - if:
+          - condition: template
+            value_template: "{{ running == kind }}"
+        then:
+          - action: timer.finish
+            continue_on_error: true
+            target:
+              entity_id: "{{ timer }}"
+          - action: script.heating_buttons_say
+            data:
+              title: "{{ label }} ended"
+              message: The AC goes back to how it was, unless someone changed it meanwhile
+              who: "{{ who }}"
+              phone: false
+          - stop: Ended by the button
+      - action: script.alexa_room_boost
+        data:
+          room: "{{ room }}"
+          kind: "{{ kind }}"
+          source: page
+          who: "{{ who }}"
+      # Started (or switched): the record holds this kind, the timer runs and the AC took it (its mode is the boost's
+      # and the set-point it read back is within 1 °C). Otherwise alexa_room_boost has said why ("AC offline", "AC
+      # didn't respond", ...), on the page and the phone, and that message is left showing.
+      - if:
+          - condition: template
+            value_template: >-
+              {% set p = states(record).split('|') %}
+              {{ p | count >= 6 and p[1] == kind and is_state(timer, 'active')
+                 and is_state(p[0], 'heat' if kind == 'warm' else 'cool')
+                 and p[2] | is_number and p[5] | is_number and (p[5] | float - p[2] | float) | abs < 1 }}
+        then:
+          - action: script.heating_buttons_say
+            data:
+              title: "{{ label }} on"
+              message: >-
+                {{ 'AC heat' if kind == 'warm' else 'AC cool' }} {{ states(record).split('|')[2] }}° until
+                {{ as_timestamp(state_attr(timer, 'finishes_at')) | timestamp_custom('%H:%M')
+                   if state_attr(timer, 'finishes_at') else 'in 30 min' }} · tap again to stop
+              who: "{{ who }}"
+              phone: false

@@ -1,0 +1,58 @@
+# Garden BLE presence node (Tongai 2026-11-04): Olimex ESP32-POE-ISO-EA (WROOM-32UE, external antenna, Ethernet with
+# 802.3af PoE), in the back-garden cabinet by the swings. A Bluetooth proxy for Bermuda on tanga, like kai/nya/zane, so
+# a phone in the garden is still seen as home (the gap the swings Pi's Monitor-App node never closed). Ethernet only:
+# no Wi-Fi, no fallback hotspot, no web server. Not deployed by `make deploy` (decision B): paste into tanga's ESPHome
+# Device Builder; the two secrets live only in the box's esphome/secrets.yaml.
+# Manual fallback: none needed; presence falls back to the house proxies and the phones' GPS.
+esphome:
+  name: garden-proxy
+  friendly_name: Garden proxy
+
+esp32:
+  board: esp32-poe-iso
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+  encryption:
+    key: !secret garden_proxy_api_key
+
+ota:
+  - platform: esphome
+    password: !secret garden_proxy_ota_password
+
+# LAN8720 as on Olimex's ESP32-POE boards (ESPHome's ethernet docs); the PHY is powered from GPIO12.
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk:
+    pin: GPIO17
+    mode: CLK_OUT
+  phy_addr: 0
+  power_pin: GPIO12
+
+# Ethernet leaves the radio to Bluetooth alone, so scan all the time (window = interval)
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+sensor:
+  - platform: uptime
+    name: Uptime
+
+text_sensor:
+  - platform: ethernet_info
+    ip_address:
+      name: IP address
+
+button:
+  - platform: restart
+    name: Restart

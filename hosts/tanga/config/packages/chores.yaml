@@ -1,0 +1,59 @@
+# Chores (G9 v2 block 2; PLAN G9V2-B): the form on Todo (Tongai's and Mojgan's dashboards): What? / Who? / day chips,
+# Add and Remove. The chores app (apps/chores.yaml) checks the form and keeps the weekly list (sensor.chores). Owner:
+# tanga.
+#
+# GATE input_boolean.chores_enabled ("Chores", starts off; hard rule 6, no `initial`): off, Add and Remove change
+# nothing and the app says why under the card.
+# Known limitation: one shared form for everyone; two people filling it at once overwrite each other's choices.
+# Manual fallback: the paper list on the fridge.
+input_boolean:
+  chores_enabled:
+    name: Chores
+    icon: mdi:broom
+  # The day chips (lit while picked; cleared after each Add or Remove)
+  chore_day_mon: {name: Mon, icon: mdi:calendar-week}
+  chore_day_tue: {name: Tue, icon: mdi:calendar-week}
+  chore_day_wed: {name: Wed, icon: mdi:calendar-week}
+  chore_day_thu: {name: Thu, icon: mdi:calendar-week}
+  chore_day_fri: {name: Fri, icon: mdi:calendar-week}
+  chore_day_sat: {name: Sat, icon: mdi:calendar-week}
+  chore_day_sun: {name: Sun, icon: mdi:calendar-week}
+
+input_text:
+  chore_what:
+    name: What?
+    icon: mdi:broom
+    max: 40
+
+input_select:
+  # Who? (chips). "Not picked" has no chip: it is the empty choice after an Add or Remove.
+  chore_who:
+    name: Who?
+    icon: mdi:account
+    options: [Not picked, Hannah, Ellie, Both, Family]
+    initial: Not picked
+
+script:
+  # The Add button on Todo -> Chores. Purpose: save the chore in the form. The app checks the form and the gate.
+  # Manual fallback: the paper list on the fridge.
+  chore_add:
+    alias: Chore add
+    icon: mdi:plus-circle-outline
+    mode: single  # a tap while the last one is still being handled is dropped
+    max_exceeded: silent
+    sequence:
+      - event: chore
+        event_data:
+          action: add
+
+  # The Remove button on Todo -> Chores. Purpose: remove the chore named in What? (and Who?, if picked).
+  # Manual fallback: the paper list on the fridge.
+  chore_remove:
+    alias: Chore remove
+    icon: mdi:minus-circle-outline
+    mode: single
+    max_exceeded: silent
+    sequence:
+      - event: chore
+        event_data:
+          action: remove

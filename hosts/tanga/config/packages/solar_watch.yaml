@@ -1,0 +1,8 @@
+# Solar watch (M5 step 8, M5-J): the on/off for the solar_watch AppDaemon app (apps/solar_watch.yaml), which checks
+# once a day whether the solar setup is still optimal (tariff, usage, panels, battery) and sends a quiet push when
+# something new is off. Starts off (hard rule 6); while off the app only files readings. Owner: tanga (solar).
+# Manual fallback: none needed (it changes nothing); the hand analysis is docs/reports/2026-11-02-payback-recommendations.md.
+input_boolean:
+  solar_watch_enabled:
+    name: Solar watch
+    icon: mdi:solar-panel

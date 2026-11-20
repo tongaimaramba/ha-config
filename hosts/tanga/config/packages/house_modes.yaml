@@ -1,0 +1,37 @@
+# House modes (M3, ROADMAP SEC-11; proposal M-G, Tongai 2026-11-09): the switches for the house_modes AppDaemon app,
+# which sets input_select.alarm_mode (packages/alarm_shadow.yaml) by rule. The master switch and one switch per rule,
+# all starting off (hard rule 6: no initial_state). Master on with a rule off = that rule only logs "would set".
+# ALARM: each switch goes on only with Tongai's yes, one rule at a time. Manual fallback: set the mode by hand
+# (Family -> Home, House ops -> Security); switching any of these off stops that rule at once.
+input_boolean:
+  house_modes_enabled:
+    name: House modes
+    icon: mdi:home-switch-outline
+  house_modes_morning_off_enabled:  # Night -> Off: upstairs, then downstairs within 10 min, after 06:00 (weekends too)
+    name: Morning Off
+    icon: mdi:weather-sunset-up
+  house_modes_morning_backstop_enabled:  # Night -> Off from 10:00: a parent's phone home and someone up
+    name: Morning Off backstop
+    icon: mdi:clock-check-outline
+  house_modes_evening_night_enabled:  # Off -> Night from 23:30: a parent home, doors shut, downstairs quiet
+    name: Bedtime Night
+    icon: mdi:weather-night
+  house_modes_loft_night_enabled:  # Off -> Night on the Loft signal (waits for the Loft sensor to be back)
+    name: Loft Night
+    icon: mdi:bed-outline
+  house_modes_out_prompt_enabled:  # both parents' phones leave: a one-tap "Set Out?" to Tongai
+    name: Out prompt
+    icon: mdi:home-export-outline
+  # Automatic Out. DO NOT switch on before the Out prompt has run 2 weeks at >= 90 % acceptance with no wrong Out
+  # (Tongai 2026-11-09); until then the app asks instead even if this is on.
+  house_modes_auto_out_enabled:
+    name: Automatic Out (not before the bar)
+    icon: mdi:home-lock
+  house_modes_arrival_off_enabled:  # Out / Away -> Off when a parent's phone arrives home with a door event (3 min)
+    name: Arrival Off
+    icon: mdi:home-import-outline
+  # SEC-25: Out / Away -> Off at the door on a household signal; expected visitors keep Out (sensor.house_visitor).
+  # Off = shadow (logs only, no questions sent). ALARM: on only with Tongai's yes, after two weeks of shadow.
+  house_modes_entry_off_enabled:
+    name: Entry Off
+    icon: mdi:door-open

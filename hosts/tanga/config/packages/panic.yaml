@@ -10,10 +10,35 @@
 #   Critical Alerts allowed for the HA app.
 # Wording (Tongai 2026-10-28): calm words, urgent delivery. The alarm channel and vibration carry the urgency; the words
 # say who, where and what's needed. Nothing a person sees says panic, emergency, SOS or alarm, and nothing shouts.
-# Buttons: Hannah (h-panic, binary_sensor.h_panic), Ellie (e-panic, binary_sensor.ellie_s_call_button_panic; 2026-10-29).
+# Buttons: Hannah (h-panic, binary_sensor.h_panic), Ellie (e-panic, binary_sensor.ellie_s_call_button_panic; 2026-10-29),
+# Loft (l-panic, binary_sensor.loft_call_button_panic: assumed until it is flashed; 2026-11-09, the Loft suite).
+# The Loft button also needs input_boolean.panic_loft_enabled (starts off): a button not yet flashed can't raise
+# offline alerts, and Tongai turns it on once whoever sleeps there knows what it does. Off: its presses and offline
+# alerts are ignored.
 # Also: a quiet alert if a button is offline 10 min, and a monthly check reminder.
 # Gate: input_boolean.panic_enabled (starts off, hard rule 6). Manual fallback: call or shout; the button only adds
 # a phone alert. Owner: tanga (security, M2).
+# HSE-9 (Tongai 2026-11-09; docs/reports/2026-11-09-night-alerts-setup.md): two more switches, both starting off, and
+# independent of each other (each works without the other). With both off everything above behaves exactly as before;
+# tests/test_night_alerts.py runs the old and new automations side by side, for every combination, to prove it.
+# input_boolean.call_repeats_enabled ("Call repeats"), day and night:
+#   - an unanswered call is repeated to the same phones at 60 s and 3 min (same tag: one notification that sounds
+#     again) until a parent taps I'm coming or All sorted; at 60 s the button shows amber, pulsing slowly ("still
+#     trying", needs the new ESPHome build; without it only that LED step fails);
+#   - a call still live and unanswered after an HA restart or automation reload starts again (security review F2).
+# input_boolean.night_alerts_enabled ("Night-time call alerts"), only 22:00-07:00 (from the press):
+#   - the Loft sideboard lamp pulses at once; at 3:00 the Loft bedside lamp joins and both go steady at 100 %; at 3:30
+#     the Loft Echo says who is calling (once). I'm coming stops the pulse and anything not yet done; lamps already lit
+#     stay lit until the call clears (All sorted), then both go back to how they were (a snapshot from before);
+#     not for a Loft press (Tongai 2026-11-12: "loft call should escalate on the phones, no light or alexa alerts at
+#     night in the loft"): someone is already in the Loft, so a Loft call escalates on the phones only (repeats,
+#     amber LED, the quiet note and the 07:00 offline look as for Hannah and Ellie), never the Loft lamps or Echo;
+#   - the "who is responding" note goes to the quiet channel; the offline alert is held back and at 07:00 every button
+#     still offline is reported, and one that was offline in the night but is back (F3). The monthly check is 18:00.
+# With either switch on: only a parent (person.tongai, person.mojgan: the user on the dashboard press or the phone's
+# action) can answer or clear a call; a child's or the kiosk's login is refused (F1). With both off, anyone, as before.
+# Unchanged: the first alert, who gets it, the green/blue/off LED, the downstairs lamps.
+# Always (switches on or off): the Security card only counts call events fired inside tanga (origin LOCAL).
 
 input_boolean:
   panic_enabled:
@@ -25,9 +50,65 @@ input_boolean:
   panic_active_ellie:
     name: Ellie's call active
     icon: mdi:bell-ring
+  panic_active_loft:
+    name: Loft call active
+    icon: mdi:bell-ring
+  panic_loft_enabled:  # the Loft button's own switch, on top of panic_enabled (starts off; 2026-11-09)
+    name: Loft call button
+    icon: mdi:bell-ring-outline
   notify_mojgan:  # Tongai 2026-10-27: no pushes to Mojgan's phone until he says (starts off)
     name: Mojgan alerts
     icon: mdi:cellphone-message
+  call_repeats_enabled:  # HSE-9 switch (starts off): repeats at 60 s / 3 min, amber LED, resume after a restart
+    name: Call repeats
+    icon: mdi:repeat
+  night_alerts_enabled:  # HSE-9 switch (starts off): 22:00-07:00 only: Loft lamps, Loft Echo, quiet hours
+    name: Night-time call alerts
+    icon: mdi:weather-night
+  night_alerts_test:  # Tongai 19 Nov: test the night steps by day. While on, a call is treated as a night call (Loft
+    # lamps, Echo, quiet note) whatever the hour; it needs "Night-time call alerts" on too, and turns itself off after
+    # 30 min and at every HA start. Starts off. Manual fallback: switch it off.
+    name: Night alerts test (treat now as night)
+    icon: mdi:test-tube
+  call_loft_lamps_in_use:  # set when a night call first takes the Loft lamps (then a snapshot); cleared on restore
+    name: Loft lamps lit for a call
+    icon: mdi:lamp
+  # HSE-9: set by panic_received (after its parent check) when a parent answers; cleared by each real press. What
+  # call_escalation stops on, rather than any event a phone could fire.
+  call_answered_hannah:
+    name: Hannah's call answered
+    icon: mdi:run-fast
+  call_answered_ellie:
+    name: Ellie's call answered
+    icon: mdi:run-fast
+  call_answered_loft:  # written by panic_received for a Loft answer too; what the Loft's phone repeats stop on
+    name: The Loft's call answered
+    icon: mdi:run-fast
+  # F3: a button that was offline during quiet hours, reported at 07:00 even if it came back
+  call_button_offline_overnight_hannah:
+    name: Hannah's call button offline overnight
+    icon: mdi:wifi-off
+  call_button_offline_overnight_ellie:
+    name: Ellie's call button offline overnight
+    icon: mdi:wifi-off
+  call_button_offline_overnight_loft:  # the Loft button (#306) in the same 07:00 look (12 Nov rebase)
+    name: The Loft's call button offline overnight
+    icon: mdi:wifi-off
+
+# HSE-9: which escalation run is the latest for each room (a newer press's run writes its own id; an older run that
+# sees a different id stops). Internal; not on any dashboard. max 100: the id is "run <ts> pressed <ts>", 47
+# characters with HA's microsecond timestamps; at max 40 every set_value failed and each run stopped at its first step
+# (19 Nov daytime test: no repeats, no amber).
+input_text:
+  call_run_hannah:
+    name: Hannah's call run
+    max: 100
+  call_run_ellie:
+    name: Ellie's call run
+    max: 100
+  call_run_loft:  # the Loft's phone repeats (Tongai 2026-11-12)
+    name: The Loft's call run
+    max: 100
 
 # Family → Security: "I'm coming" for when the push was dismissed; "All sorted" turns the button's LED off and removes
 # the alert from both phones.
@@ -44,10 +125,19 @@ input_button:
   panic_clear_ellie:
     name: All sorted
     icon: mdi:check-circle-outline
+  panic_received_loft:
+    name: I'm coming
+    icon: mdi:run-fast
+  panic_clear_loft:
+    name: All sorted
+    icon: mdi:check-circle-outline
 
 # What the Security tab shows (Tongai 2026-10-29: see at a glance which button has a live call and whether anyone has
 # answered): "Calling" from each press, "Help coming" once a parent taps I'm coming (`who`: their name), "Quiet" after
 # All sorted. Trigger-based so it remembers who answered (call_responded, fired by panic_received); restored on restart.
+# Only events fired inside tanga count (origin LOCAL: its own automations); a phone's Fire Event, a webhook or the API
+# arrive as REMOTE, so a look-alike can't change the card (HSE-9 security review F1). Not the user: tanga's logbook
+# shows panic_received's events carry the user who tapped (29-30 Oct).
 template:
   - triggers:
       - trigger: state
@@ -70,24 +160,30 @@ template:
         unique_id: call_hannah_state
         state: >-
           {% if not is_state('input_boolean.panic_active_hannah', 'on') %}Quiet
-          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}Help coming
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}Help coming
           {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}Calling
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}Calling
           {% elif this.state == 'Help coming' %}Help coming
           {% else %}Calling{% endif %}
         icon: >-
           {% if not is_state('input_boolean.panic_active_hannah', 'on') %}mdi:bell-outline
-          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}mdi:run-fast
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}mdi:run-fast
           {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}mdi:bell-ring
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}mdi:bell-ring
           {% elif this.state == 'Help coming' %}mdi:run-fast
           {% else %}mdi:bell-ring{% endif %}
         attributes:
           who: >-
             {% if not is_state('input_boolean.panic_active_hannah', 'on') %}
-            {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}{{ trigger.event.data.who }}
+            {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+               and (trigger.event.origin | string) == 'LOCAL' %}{{ trigger.event.data.who }}
             {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}
             {% else %}{{ this.attributes.who | default('', true) }}{% endif %}
   - triggers:
       - trigger: state
@@ -110,27 +206,139 @@ template:
         unique_id: call_ellie_state
         state: >-
           {% if not is_state('input_boolean.panic_active_ellie', 'on') %}Quiet
-          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}Help coming
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}Help coming
           {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}Calling
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}Calling
           {% elif this.state == 'Help coming' %}Help coming
           {% else %}Calling{% endif %}
         icon: >-
           {% if not is_state('input_boolean.panic_active_ellie', 'on') %}mdi:bell-outline
-          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}mdi:run-fast
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}mdi:run-fast
           {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}mdi:bell-ring
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}mdi:bell-ring
           {% elif this.state == 'Help coming' %}mdi:run-fast
           {% else %}mdi:bell-ring{% endif %}
         attributes:
           who: >-
             {% if not is_state('input_boolean.panic_active_ellie', 'on') %}
-            {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded' %}{{ trigger.event.data.who }}
+            {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+               and (trigger.event.origin | string) == 'LOCAL' %}{{ trigger.event.data.who }}
             {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
-             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed' %}
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}
+            {% else %}{{ this.attributes.who | default('', true) }}{% endif %}
+  - triggers:
+      - trigger: state
+        entity_id: input_boolean.panic_active_loft
+        not_to: [unavailable, unknown]
+      - trigger: event
+        event_type: call_responded
+        event_data:
+          room: Loft
+      - trigger: event  # a press while a call is already live (the boolean stays on): unanswered again
+        event_type: call_pressed
+        event_data:
+          room: Loft
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: event_template_reloaded
+    sensor:
+      - name: Loft call
+        unique_id: call_loft_state
+        state: >-
+          {% if not is_state('input_boolean.panic_active_loft', 'on') %}Quiet
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}Help coming
+          {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}Calling
+          {% elif this.state == 'Help coming' %}Help coming
+          {% else %}Calling{% endif %}
+        icon: >-
+          {% if not is_state('input_boolean.panic_active_loft', 'on') %}mdi:bell-outline
+          {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}mdi:run-fast
+          {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}mdi:bell-ring
+          {% elif this.state == 'Help coming' %}mdi:run-fast
+          {% else %}mdi:bell-ring{% endif %}
+        attributes:
+          who: >-
+            {% if not is_state('input_boolean.panic_active_loft', 'on') %}
+            {% elif trigger.platform == 'event' and trigger.event.event_type == 'call_responded'
+             and (trigger.event.origin | string) == 'LOCAL' %}{{ trigger.event.data.who }}
+            {% elif trigger.platform == 'state' and trigger.from_state is not none and trigger.from_state.state == 'off'
+             or trigger.platform == 'event' and trigger.event.event_type == 'call_pressed'
+                and (trigger.event.origin | string) == 'LOCAL' %}
             {% else %}{{ this.attributes.who | default('', true) }}{% endif %}
 
 automation:
+  # Tongai 19 Nov: the call button's light is how the room knows the call is live. If a button restarts (power, Wi-Fi
+  # watchdog) during a live call it comes back dark, so when it reconnects tanga sends its colour again: blue if a
+  # parent answered, amber if Call repeats is on and the call is over a minute old, otherwise green. Gate panic_enabled.
+  # Manual fallback: the parent's phone alert and Call check show the call; All sorted clears it.
+  - id: call_button_reconnected_resend_light
+    alias: Call button - light back after the button reconnects
+    mode: parallel
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.h_panic
+        from: unavailable
+        id: hannah
+        variables: {dev: h_panic}
+      - trigger: state
+        entity_id: binary_sensor.ellie_s_call_button_panic
+        from: unavailable
+        id: ellie
+        variables: {dev: e_panic}
+      - trigger: state
+        entity_id: binary_sensor.loft_call_button_panic
+        from: unavailable
+        id: loft
+        variables: {dev: l_panic}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ is_state('input_boolean.panic_active_' ~ trigger.id, 'on') }}"
+    actions:
+      - delay: "00:00:03"  # let the API settle after the reconnect
+      - variables:
+          pressed: >-
+            {% set p = states('input_text.call_run_' ~ trigger.id).split(' pressed ') %}
+            {{ p[1] | float(0) if p | count == 2 else 0 }}
+          what: >-
+            {% if is_state('input_boolean.call_answered_' ~ trigger.id, 'on') %}panic_seen
+            {% elif is_state('input_boolean.call_repeats_enabled', 'on') and pressed > 0
+                 and now().timestamp() - pressed > 60 %}panic_waiting
+            {% else %}panic_ack{% endif %}
+      - action: "esphome.{{ dev }}_{{ what | trim }}"
+        continue_on_error: true
+
+  # Night alerts test (Tongai 19 Nov): the test switch never stays on: off 30 min after it is switched on, and at
+  # every HA start (a test left on would make every daytime call a night call). Manual fallback: switch it off.
+  - id: night_alerts_test_off
+    alias: Night alerts test - switch off after 30 min
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.night_alerts_test
+        to: "on"
+        for: "00:30:00"
+      - trigger: homeassistant
+        event: start
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.night_alerts_test
+
   # A button held 2 s: alert both parents, light the way, confirm on the button. Fallback: call or shout.
   - id: panic_pressed
     alias: Call button - pressed
@@ -148,11 +356,22 @@ automation:
         id: ellie
         variables:
           room: Ellie
+      - trigger: state
+        entity_id: binary_sensor.loft_call_button_panic  # l-panic (Atom Lite, 2026-11-09; id assumed until flashed)
+        to: "on"
+        id: loft
+        variables:
+          room: Loft
     conditions:
       - condition: state
         entity_id: input_boolean.panic_enabled
         state: "on"
+      - condition: template  # the Loft button counts only once its own switch is on
+        value_template: "{{ trigger.id != 'loft' or is_state('input_boolean.panic_loft_enabled', 'on') }}"
     actions:
+      - variables:  # the Loft isn't one child's room: no "her"
+          pressed: >-
+            {{ 'Someone in the Loft pressed the' if trigger.id == 'loft' else room ~ ' pressed her' }}
       - choose:  # remember the call until All sorted (the button itself reads on only while held)
           - conditions:
               - condition: trigger
@@ -168,6 +387,13 @@ automation:
               - action: input_boolean.turn_on
                 target:
                   entity_id: input_boolean.panic_active_ellie
+          - conditions:
+              - condition: trigger
+                id: loft
+            sequence:
+              - action: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.panic_active_loft
       - event: call_pressed  # the Security card: Calling (red), even if a parent had answered an earlier press
         event_data:
           room: "{{ room }}"
@@ -175,15 +401,15 @@ automation:
       - action: notify.mobile_app_tongaism25
         data:
           title: "{{ room }} needs you"
-          message: "{{ room }} pressed her call button at {{ now().strftime('%H:%M') }}."
+          message: "{{ pressed }} call button at {{ now().strftime('%H:%M') }}."
           data:
             channel: alarm_stream  # the alarm stream: the urgency is in the delivery, not the words
             vibrationPattern: "0, 800, 300, 800, 300, 800, 300, 800"  # long and strong, for the watch and the phone
             priority: high
             ttl: 0
             tag: "panic_{{ trigger.id }}"
-            clickAction: /family-home/call-check  # Android: a tap opens Family → Call check (M2-O F)
-            url: /family-home/call-check  # iPhone: the same
+            clickAction: /tongai-home/call-check  # Android: a tap opens Tongai → Call check (19 Nov)
+            url: /tongai-home/call-check  # iPhone: the same
             actions:
               - action: "CALL_SEEN_{{ trigger.id }}"
                 title: I'm coming
@@ -200,6 +426,12 @@ automation:
             sequence:
               - action: esphome.e_panic_panic_ack
                 continue_on_error: true  # a button that dropped off mustn't stop the lamps and Mojgan
+          - conditions:
+              - condition: trigger
+                id: loft
+            sequence:
+              - action: esphome.l_panic_panic_ack
+                continue_on_error: true  # a button that dropped off mustn't stop the lamps and Mojgan
       # then Mojgan and the lamps, side by side: a slow lamp or a missing iPhone can't hold up the green
       - parallel:
           - if:  # Mojgan alerts switch (off until Tongai says)
@@ -211,11 +443,11 @@ automation:
                 continue_on_error: true
                 data:
                   title: "{{ room }} needs you"
-                  message: "{{ room }} pressed her call button at {{ now().strftime('%H:%M') }}."
+                  message: "{{ pressed }} call button at {{ now().strftime('%H:%M') }}."
                   data:
                     tag: "panic_{{ trigger.id }}"
-                    clickAction: /family-home/call-check  # Android: a tap opens Family → Call check (M2-O F)
-                    url: /family-home/call-check  # iPhone: the same
+                    clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
+                    url: /mojgan-home/call-check  # iPhone: the same
                     push:
                       sound:
                         name: default
@@ -263,6 +495,20 @@ automation:
         id: ellie
         variables:
           room: Ellie
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: CALL_SEEN_loft
+        id: loft
+        variables:
+          room: Loft
+      - trigger: state
+        entity_id: input_button.panic_received_loft
+        not_from: [unavailable]
+        not_to: [unavailable]
+        id: loft
+        variables:
+          room: Loft
     conditions:
       - condition: template  # a dashboard press: a button created or reloaded has no previous state
         value_template: >-
@@ -271,6 +517,15 @@ automation:
       - condition: state
         entity_id: input_boolean.panic_enabled
         state: "on"
+      - condition: template  # HSE-9 security review F1: with either HSE-9 switch on, only a parent may answer or
+        # clear (a dashboard press or a notification action carries the user; a child's or the kiosk's login is
+        # refused). Both off: anyone, as before
+        value_template: >-
+          {%- set ctx = trigger.event.context if trigger.platform == 'event' else trigger.to_state.context -%}
+          {{ (not is_state('input_boolean.call_repeats_enabled', 'on')
+             and not is_state('input_boolean.night_alerts_enabled', 'on'))
+             or ctx.user_id in (states.person | selectattr('entity_id', 'in', ['person.tongai', 'person.mojgan'])
+                                | map(attribute='attributes.user_id') | list) }}
     actions:
       - variables:
           who: >-
@@ -281,29 +536,73 @@ automation:
         event_data:
           room: "{{ room }}"
           who: "{{ who }}"
-      - action: notify.mobile_app_tongaism25
-        continue_on_error: true
-        data:
-          title: "{{ who }} is responding to {{ room }}'s call"
-          message: "{{ who }} tapped I'm coming."
-          data:
-            tag: "panic_{{ trigger.id }}"
-            clickAction: /family-home/call-check  # Android: a tap opens Family → Call check (M2-O F)
-            url: /family-home/call-check  # iPhone: the same
-      - if:  # Mojgan alerts switch (off until Tongai says)
-          - condition: state
-            entity_id: input_boolean.notify_mojgan
-            state: "on"
+      - if:  # HSE-9: what call_escalation stops on (written only here, after the parent check above)
+          - condition: template
+            value_template: >-
+              {{ not (not is_state('input_boolean.call_repeats_enabled', 'on')
+                 and not is_state('input_boolean.night_alerts_enabled', 'on')) }}
         then:
-          - action: notify.mobile_app_mojgan_iphone
+          - action: input_boolean.turn_on
+            target:
+              entity_id: "input_boolean.call_answered_{{ trigger.id }}"
+      - if:  # HSE-9 N-E: 22:00-07:00 the note goes quietly (wake one parent, not two). Gate off: as before (else)
+          - condition: state
+            entity_id: input_boolean.night_alerts_enabled
+            state: "on"
+          - condition: template
+            value_template: >-
+              {{ now().hour >= 22 or now().hour < 7 or is_state('input_boolean.night_alerts_test', 'on') }}
+        then:
+          - action: notify.mobile_app_tongaism25
             continue_on_error: true
             data:
               title: "{{ who }} is responding to {{ room }}'s call"
               message: "{{ who }} tapped I'm coming."
               data:
                 tag: "panic_{{ trigger.id }}"
-                clickAction: /family-home/call-check  # Android: a tap opens Family → Call check (M2-O F)
-                url: /family-home/call-check  # iPhone: the same
+                clickAction: /tongai-home/call-check
+                url: /tongai-home/call-check
+                channel: Home status
+                importance: low
+          - if:  # Mojgan alerts switch (off until Tongai says)
+              - condition: state
+                entity_id: input_boolean.notify_mojgan
+                state: "on"
+            then:
+              - action: notify.mobile_app_mojgan_iphone
+                continue_on_error: true
+                data:
+                  title: "{{ who }} is responding to {{ room }}'s call"
+                  message: "{{ who }} tapped I'm coming."
+                  data:
+                    tag: "panic_{{ trigger.id }}"
+                    url: /mojgan-home/call-check
+                    push:
+                      interruption-level: passive
+        else:
+          - action: notify.mobile_app_tongaism25
+            continue_on_error: true
+            data:
+              title: "{{ who }} is responding to {{ room }}'s call"
+              message: "{{ who }} tapped I'm coming."
+              data:
+                tag: "panic_{{ trigger.id }}"
+                clickAction: /tongai-home/call-check  # Android: a tap opens Tongai → Call check (19 Nov)
+                url: /tongai-home/call-check  # iPhone: the same
+          - if:  # Mojgan alerts switch (off until Tongai says)
+              - condition: state
+                entity_id: input_boolean.notify_mojgan
+                state: "on"
+            then:
+              - action: notify.mobile_app_mojgan_iphone
+                continue_on_error: true
+                data:
+                  title: "{{ who }} is responding to {{ room }}'s call"
+                  message: "{{ who }} tapped I'm coming."
+                  data:
+                    tag: "panic_{{ trigger.id }}"
+                    clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
+                    url: /mojgan-home/call-check  # iPhone: the same
       - choose:  # the button last: an offline button mustn't stop the other parent hearing
           - conditions:
               - condition: trigger
@@ -316,6 +615,12 @@ automation:
                 id: ellie
             sequence:
               - action: esphome.e_panic_panic_seen
+                continue_on_error: true
+          - conditions:
+              - condition: trigger
+                id: loft
+            sequence:
+              - action: esphome.l_panic_panic_seen
                 continue_on_error: true
 
   # All sorted (Family → Security): the button's LED off, the alert off both phones. Fallback: it goes off by itself
@@ -334,6 +639,11 @@ automation:
         not_from: [unavailable]
         not_to: [unavailable]
         id: ellie
+      - trigger: state
+        entity_id: input_button.panic_clear_loft
+        not_from: [unavailable]
+        not_to: [unavailable]
+        id: loft
     conditions:
       - condition: template  # a dashboard press: a button created or reloaded has no previous state
         value_template: >-
@@ -342,6 +652,15 @@ automation:
       - condition: state
         entity_id: input_boolean.panic_enabled
         state: "on"
+      - condition: template  # HSE-9 security review F1: with either HSE-9 switch on, only a parent may answer or
+        # clear (a dashboard press or a notification action carries the user; a child's or the kiosk's login is
+        # refused). Both off: anyone, as before
+        value_template: >-
+          {%- set ctx = trigger.event.context if trigger.platform == 'event' else trigger.to_state.context -%}
+          {{ (not is_state('input_boolean.call_repeats_enabled', 'on')
+             and not is_state('input_boolean.night_alerts_enabled', 'on'))
+             or ctx.user_id in (states.person | selectattr('entity_id', 'in', ['person.tongai', 'person.mojgan'])
+                                | map(attribute='attributes.user_id') | list) }}
     actions:
       - choose:  # the call is over
           - conditions:
@@ -358,6 +677,13 @@ automation:
               - action: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.panic_active_ellie
+          - conditions:
+              - condition: trigger
+                id: loft
+            sequence:
+              - action: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.panic_active_loft
       - action: notify.mobile_app_tongaism25
         continue_on_error: true
         data:
@@ -388,6 +714,12 @@ automation:
             sequence:
               - action: esphome.e_panic_panic_clear
                 continue_on_error: true
+          - conditions:
+              - condition: trigger
+                id: loft
+            sequence:
+              - action: esphome.l_panic_panic_clear
+                continue_on_error: true
 
   # A button that has dropped off Wi-Fi can't call for help: tell Tongai (quiet). Fallback: the monthly check.
   - id: panic_button_offline
@@ -404,8 +736,17 @@ automation:
         to: unavailable
         for: {minutes: 10}
         variables: {room: Ellie, sensor: binary_sensor.ellie_s_call_button_panic}
+      - trigger: state
+        entity_id: binary_sensor.loft_call_button_panic
+        to: unavailable
+        for: {minutes: 10}
+        variables: {room: Loft, sensor: binary_sensor.loft_call_button_panic}
       - trigger: homeassistant  # already offline when HA starts: the 10-min timer would never fire
         event: start
+        variables: {room: "", sensor: ""}
+      - trigger: time  # HSE-9 N-E: the morning look for anything held back overnight (gate off: does nothing)
+        at: "07:00:00"
+        id: morning
         variables: {room: "", sensor: ""}
     conditions:
       - condition: state
@@ -417,17 +758,65 @@ automation:
             value_template: "{{ trigger.platform == 'homeassistant' }}"
         then:
           - delay: {minutes: 2}
+      - if:  # HSE-9: the 07:00 look does nothing with the gate off (the rest runs as before)
+          - condition: template
+            value_template: "{{ trigger.id == 'morning' and not is_state('input_boolean.night_alerts_enabled', 'on') }}"
+        then:
+          - stop: The 07:00 look, gate off
       - variables:
           offline: >-
-            {% set buttons = {'Hannah': 'binary_sensor.h_panic', 'Ellie': 'binary_sensor.ellie_s_call_button_panic'} %}
-            {% if sensor %}{{ [room] if states(sensor) == 'unavailable' else [] }}
-            {% else %}{% set ns = namespace(out=[]) %}{% for r, e in buttons.items() if states(e) == 'unavailable' %}{% set ns.out = ns.out + [r] %}{% endfor %}{{ ns.out }}{% endif %}
+            {% set buttons = {'Hannah': 'binary_sensor.h_panic', 'Ellie': 'binary_sensor.ellie_s_call_button_panic',
+                              'Loft': 'binary_sensor.loft_call_button_panic'} %}
+            {% set loft_on = is_state('input_boolean.panic_loft_enabled', 'on') %}
+            {% if sensor %}{{ [room] if states(sensor) == 'unavailable' and (room != 'Loft' or loft_on) else [] }}
+            {% else %}{% set ns = namespace(out=[]) %}{% for r, e in buttons.items() if states(e) == 'unavailable' and (r != 'Loft' or loft_on) %}{% set ns.out = ns.out + [r] %}{% endfor %}{{ ns.out }}{% endif %}
+      - if:  # HSE-9 N-E: nothing in quiet hours; note who was offline (security review F3) for the 07:00 look
+          - condition: template
+            value_template: >-
+              {{ is_state('input_boolean.night_alerts_enabled', 'on') and (now().hour >= 22 or now().hour < 7) }}
+        then:
+          - repeat:
+              for_each: "{{ offline }}"
+              sequence:
+                - action: input_boolean.turn_on
+                  target:
+                    entity_id: "input_boolean.call_button_offline_overnight_{{ repeat.item | lower }}"
+          - stop: Quiet hours
+      - if:  # 07:00: a button offline in the night but back now is still worth knowing (quiet)
+          - condition: template
+            value_template: "{{ trigger.id == 'morning' }}"
+        then:
+          - repeat:
+              for_each: >-
+                {{ (['Hannah'] if is_state('input_boolean.call_button_offline_overnight_hannah', 'on')
+                       and 'Hannah' not in offline else [])
+                   + (['Ellie'] if is_state('input_boolean.call_button_offline_overnight_ellie', 'on')
+                       and 'Ellie' not in offline else [])
+                   + (['Loft'] if is_state('input_boolean.call_button_offline_overnight_loft', 'on')
+                       and 'Loft' not in offline else []) }}
+              sequence:
+                - action: notify.mobile_app_tongaism25
+                  data:
+                    title: >-
+                      {{ 'The Loft' if repeat.item == 'Loft' else repeat.item ~ "'s" }} call button was offline overnight
+                    message: It's back now. If it happens again, check its power and Wi-Fi.
+                    data:
+                      tag: "panic_offline_{{ repeat.item | lower }}"
+                      channel: Home status
+                      importance: low
+          - action: input_boolean.turn_off
+            target:
+              entity_id:
+                - input_boolean.call_button_offline_overnight_hannah
+                - input_boolean.call_button_offline_overnight_ellie
+                - input_boolean.call_button_offline_overnight_loft
       - repeat:
           for_each: "{{ offline }}"
           sequence:
             - action: notify.mobile_app_tongaism25
               data:
-                title: "{{ repeat.item }}'s call button is offline"
+                title: >-
+                  {{ 'The Loft' if repeat.item == 'Loft' else repeat.item ~ "'s" }} call button is offline
                 message: Check its power and Wi-Fi.
                 data:
                   tag: "panic_offline_{{ repeat.item | lower }}"
@@ -456,3 +845,351 @@ automation:
             tag: panic_test
             channel: Home status
             importance: low
+
+  # HSE-9: an unanswered call keeps trying (header: "Night-time call alerts"). Runs once per real press (the button's
+  # own sensor, as panic_pressed; never an event a phone could fire), in 5 s steps; it ends when a parent answers
+  # (call_answered_<room>, written only by panic_received after its parent check), All sorted, a newer press for the
+  # same room (that press's own run takes over), or after 3:30. After an HA restart or an automation reload (which
+  # end every run) a call still live and unanswered starts again from 0 s, keeping the press time. Timeline:
+  #   0 s   night: snapshot the Loft lamps (once per call), the sideboard lamp on at 50 % warm, then a long Hue flash
+  #         (a breathe) every 5 s until 3:00
+  #   60 s  the alert again to the same phones; the button turns amber, pulsing slowly (call_still_waiting)
+  #   3:00  the alert again; night: the bedside lamp joins and both lamps go steady at 100 % (the pulse stops)
+  #   3:30  night: the Loft Echo announces it, once (silently dropped if the Echo is in Do Not Disturb)
+  # A Loft press (Tongai 2026-11-12): the phone repeats at 60 s and 3:00 and the amber LED only, day and night; never
+  # the Loft lamps or the Loft Echo (someone is already in the Loft). It counts only with panic_loft_enabled on too.
+  # The first alert, the green LED and the downstairs lamps are still panic_pressed's, unchanged.
+  # Fallback: the first alert has already gone; call or shout. Lamps: their own switches still work (principle 8).
+  - id: call_escalation
+    alias: Call button - keep trying until answered
+    mode: parallel
+    max: 10
+    triggers:
+      - trigger: state  # a real press (held 2 s), exactly panic_pressed's triggers
+        entity_id: binary_sensor.h_panic
+        to: "on"
+        id: hannah
+        variables: {room: Hannah, resume: false}
+      - trigger: state
+        entity_id: binary_sensor.ellie_s_call_button_panic
+        to: "on"
+        id: ellie
+        variables: {room: Ellie, resume: false}
+      - trigger: state
+        entity_id: binary_sensor.loft_call_button_panic  # l-panic: phones only, never the Loft lamps or Echo
+        to: "on"
+        id: loft
+        variables: {room: Loft, resume: false}
+      - trigger: homeassistant  # resume (security review F2): one trigger per room, so each gets its own run
+        event: start
+        id: hannah
+        variables: {room: Hannah, resume: true}
+      - trigger: homeassistant
+        event: start
+        id: ellie
+        variables: {room: Ellie, resume: true}
+      - trigger: homeassistant
+        event: start
+        id: loft
+        variables: {room: Loft, resume: true}
+      - trigger: event
+        event_type: automation_reloaded
+        id: hannah
+        variables: {room: Hannah, resume: true}
+      - trigger: event
+        event_type: automation_reloaded
+        id: ellie
+        variables: {room: Ellie, resume: true}
+      - trigger: event
+        event_type: automation_reloaded
+        id: loft
+        variables: {room: Loft, resume: true}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.panic_enabled
+        state: "on"
+      - condition: template  # the Loft button counts only once its own switch is on (as panic_pressed)
+        value_template: "{{ trigger.id != 'loft' or is_state('input_boolean.panic_loft_enabled', 'on') }}"
+      - condition: template  # either HSE-9 switch; each step below checks its own
+        value_template: >-
+          {{ not (not is_state('input_boolean.call_repeats_enabled', 'on')
+             and not is_state('input_boolean.night_alerts_enabled', 'on')) }}
+      - condition: template  # a reload event from a phone or the API (origin REMOTE) is not a reload
+        value_template: "{{ trigger.platform != 'event' or (trigger.event.origin | string) == 'LOCAL' }}"
+      - condition: template  # resume only a call still live and not answered
+        value_template: >-
+          {{ not resume or (is_state('input_boolean.panic_active_' ~ trigger.id, 'on')
+                            and not is_state('input_boolean.call_answered_' ~ trigger.id, 'on')) }}
+    actions:
+      - variables:
+          key: "{{ trigger.id }}"
+          # night: the Loft lamp and Echo steps apply. Never for a Loft press (Tongai 2026-11-12: phones only), so a
+          # Loft call runs the day timeline (repeats at 60 s and 3:00, then done) at any hour
+          night: >-
+            {{ trigger.id != 'loft' and (now().hour >= 22 or now().hour < 7
+               or is_state('input_boolean.night_alerts_test', 'on')) }}
+          pressed: >-
+            {{ 'Someone in the Loft pressed the' if trigger.id == 'loft' else room ~ ' pressed her' }}
+          previous: "{{ states('input_text.call_run_' ~ trigger.id) }}"
+          pressed_ts: >-
+            {% set p = previous.split(' pressed ') %}
+            {{ (p[1] | float(0) if resume and p | count == 2 else 0) or now().timestamp() }}
+          pressed_at: "{{ pressed_ts | float | timestamp_custom('%H:%M') }}"
+          run_id: "run {{ now().timestamp() }} pressed {{ pressed_ts }}"  # text, never rendered as a number
+      - action: input_text.set_value  # this run is now the room's latest: an older run for the room stops
+        target:
+          entity_id: "input_text.call_run_{{ key }}"
+        data:
+          value: "{{ run_id }}"
+      - if:  # a real press is unanswered again, whatever was answered before
+          - condition: template
+            value_template: "{{ not resume }}"
+        then:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: "input_boolean.call_answered_{{ key }}"
+      - if:  # night: snapshot first (only if no call holds the lamps already), then the sideboard lamp on
+          - condition: template
+            value_template: "{{ night and is_state('input_boolean.night_alerts_enabled', 'on') }}"
+        then:
+          - if:
+              - condition: state
+                entity_id: input_boolean.call_loft_lamps_in_use
+                state: "off"
+            then:  # claim the lamps before the (awaited) snapshot, so a second call at the same moment can't take
+              # a snapshot of this one's lamp
+              - action: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.call_loft_lamps_in_use
+              - action: scene.create
+                continue_on_error: true
+                data:
+                  scene_id: call_loft_lamps_before
+                  snapshot_entities:
+                    - light.study_desk_lamp
+                    - light.bookshelf_lamp
+          - if:  # a lamp already lit (an earlier press's 100 %) is left as it is
+              - condition: state
+                entity_id: light.study_desk_lamp
+                state: "off"
+            then:
+              - action: light.turn_on
+                continue_on_error: true
+                target:
+                  entity_id: light.study_desk_lamp
+                data:
+                  brightness_pct: 50
+                  color_temp_kelvin: 2700
+      - repeat:
+          count: 43  # t = 0, 5, ... 210 s
+          sequence:
+            - variables:
+                t: "{{ (repeat.index - 1) * 5 }}"
+            - if:  # nothing left this run may do (repeats off, and not night or night alerts off; also mid-call),
+                # a newer press for this room (its run takes over), answered, or cleared (not at 0 s: panic_pressed
+                # turns the call on at the same moment as this run starts)
+                - condition: template
+                  value_template: >-
+                    {{ not is_state('input_boolean.call_repeats_enabled', 'on') and not (night
+                       and is_state('input_boolean.night_alerts_enabled', 'on'))
+                       or not is_state('input_boolean.panic_enabled', 'on')
+                       or key == 'loft' and not is_state('input_boolean.panic_loft_enabled', 'on')
+                       or states('input_text.call_run_' ~ key) != run_id
+                       or is_state('input_boolean.call_answered_' ~ key, 'on')
+                       or t > 0 and not is_state('input_boolean.panic_active_' ~ key, 'on') }}
+              then:
+                - stop: Gate off, a newer press, answered or cleared
+            - if:  # the pulse: a Hue long flash (breathe) on the sideboard lamp, every 5 s until 3:00, only while
+                # it is on: switched off by hand, it stays off (principle 8)
+                - condition: template
+                  value_template: >-
+                    {{ night and is_state('input_boolean.night_alerts_enabled', 'on') and t < 180
+                       and (t == 0 or is_state('light.study_desk_lamp', 'on')) }}
+              then:
+                - action: light.turn_on
+                  continue_on_error: true
+                  target:
+                    entity_id: light.study_desk_lamp
+                  data:
+                    flash: long
+            - if:  # 60 s and 3 min: the alert again, same tag, same delivery as panic_pressed's
+                - condition: template
+                  value_template: "{{ is_state('input_boolean.call_repeats_enabled', 'on') and t in [60, 180] }}"
+              then:
+                - event: call_still_waiting  # the button: amber, pulsing slowly (call_button_waiting_led)
+                  event_data:
+                    room: "{{ room }}"
+                - action: notify.mobile_app_tongaism25
+                  continue_on_error: true
+                  data:
+                    title: "{{ room }} needs you"
+                    message: "{{ pressed }} call button at {{ pressed_at }}. No one has answered yet."
+                    data:
+                      channel: alarm_stream
+                      vibrationPattern: "0, 800, 300, 800, 300, 800, 300, 800"
+                      priority: high
+                      ttl: 0
+                      tag: "panic_{{ key }}"
+                      clickAction: /tongai-home/call-check
+                      url: /tongai-home/call-check
+                      actions:
+                        - action: "CALL_SEEN_{{ key }}"
+                          title: I'm coming
+                - if:  # Mojgan alerts switch (off until Tongai says; on at the Cut-over, N-D)
+                    - condition: state
+                      entity_id: input_boolean.notify_mojgan
+                      state: "on"
+                  then:
+                    - action: notify.mobile_app_mojgan_iphone
+                      continue_on_error: true
+                      data:
+                        title: "{{ room }} needs you"
+                        message: "{{ pressed }} call button at {{ pressed_at }}. No one has answered yet."
+                        data:
+                          tag: "panic_{{ key }}"
+                          clickAction: /mojgan-home/call-check
+                          url: /mojgan-home/call-check
+                          push:
+                            sound:
+                              name: default
+                              critical: 1
+                              volume: 1.0
+                          actions:
+                            - action: "CALL_SEEN_{{ key }}"
+                              title: I'm coming
+            - if:  # 3:00 at night: both Loft lamps steady at 100 %, unless the sideboard lamp was switched off by hand
+                - condition: template
+                  value_template: >-
+                    {{ night and is_state('input_boolean.night_alerts_enabled', 'on') and t == 180
+                       and is_state('light.study_desk_lamp', 'on') }}
+              then:
+                - action: light.turn_on
+                  continue_on_error: true
+                  target:
+                    entity_id:
+                      - light.study_desk_lamp
+                      - light.bookshelf_lamp
+                  data:
+                    brightness_pct: 100
+                    color_temp_kelvin: 2700
+            - if:  # 3:30 at night: the Loft Echo, once; then nothing more to do
+                - condition: template
+                  value_template: "{{ night and is_state('input_boolean.night_alerts_enabled', 'on') and t == 210 }}"
+              then:
+                - if:  # an Echo in Do Not Disturb drops announcements without an error: leave a trace
+                    - condition: state
+                      entity_id: switch.the_loft_do_not_disturb
+                      state: "on"
+                  then:
+                    - action: logbook.log
+                      continue_on_error: true
+                      data:
+                        name: Call buttons
+                        message: "{{ room }}'s call: the Loft Echo is in Do Not Disturb, so its announcement may not play"
+                - action: notify.send_message
+                  continue_on_error: true
+                  target:
+                    entity_id: notify.the_loft_announce
+                  data:
+                    message: "{{ room }} needs you. She pressed her call button at {{ pressed_at }}."
+                - stop: Loft Echo done
+            - if:  # by day nothing happens after 3:00
+                - condition: template
+                  value_template: >-
+                    {{ not (night and is_state('input_boolean.night_alerts_enabled', 'on')) and t >= 180 }}
+              then:
+                - stop: Day repeats done
+            - wait_for_trigger:  # answered, cleared, or pressed again (that press's run takes over): states written
+                # by tanga's own automations, never a raw event
+                - trigger: template
+                  value_template: >-
+                    {{ is_state('input_boolean.call_answered_' ~ key, 'on')
+                       or not is_state('input_boolean.panic_active_' ~ key, 'on')
+                       or states('input_text.call_run_' ~ key) != run_id }}
+              timeout: {seconds: 5}
+              continue_on_timeout: true
+            - if:  # I'm coming stops the pulse and the rest; lamps already lit stay until the call clears
+                - condition: template
+                  value_template: "{{ wait.trigger is not none }}"
+              then:
+                - stop: Answered, cleared or pressed again
+
+  # HSE-9 N-F: the calling button (a child's, or the Loft's since 2026-11-12) shows amber, pulsing slowly, while the
+  # call is unanswered ("still trying"). A separate automation so that until every button runs the new build
+  # (panic_waiting), the missing action fails here and nowhere else. I'm coming (blue) and All sorted (off) replace
+  # it. Fallback: the green, then nothing.
+  - id: call_button_waiting_led
+    alias: Call button - still waiting light
+    mode: queued
+    triggers:
+      - trigger: event
+        event_type: call_still_waiting
+    conditions:
+      - condition: state
+        entity_id: input_boolean.call_repeats_enabled
+        state: "on"
+      - condition: template  # tanga's own event only; not answered in the moment since the step fired
+        value_template: >-
+          {{ (trigger.event.origin | string) == 'LOCAL'
+             and trigger.event.data.room in ['Hannah', 'Ellie', 'Loft']
+             and is_state('input_boolean.panic_active_' ~ (trigger.event.data.room | lower), 'on') }}
+    actions:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ trigger.event.data.room == 'Hannah' }}"
+            sequence:
+              - action: esphome.h_panic_panic_waiting
+          - conditions:
+              - condition: template
+                value_template: "{{ trigger.event.data.room == 'Ellie' }}"
+            sequence:
+              - action: esphome.e_panic_panic_waiting
+          - conditions:
+              - condition: template
+                value_template: "{{ trigger.event.data.room == 'Loft' }}"
+            sequence:
+              - action: esphome.l_panic_panic_waiting
+
+  # HSE-9: when no call is live any more (All sorted), the Loft lamps go back to how they were before the first
+  # night step. Not gated on night_alerts_enabled on purpose: turning the gate off mid-call must still put the
+  # lamps back. Again 16 s later, in case a Hue breathe still running turned a lamp back on. After an HA restart
+  # the snapshot is gone: the lamps then stay as they are (their switches still work). Fallback: the lamp switches.
+  - id: call_loft_lamps_restore
+    alias: Call button - Loft lamps back as they were
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_boolean.panic_active_hannah
+          - input_boolean.panic_active_ellie
+        from: "on"
+        to: "off"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.call_loft_lamps_in_use
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.panic_active_hannah
+        state: "off"
+      - condition: state
+        entity_id: input_boolean.panic_active_ellie
+        state: "off"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.call_loft_lamps_in_use
+      - action: scene.turn_on
+        continue_on_error: true
+        target:
+          entity_id: scene.call_loft_lamps_before
+      - delay: {seconds: 16}
+      - if:  # no new call has taken the lamps since
+          - condition: state
+            entity_id: input_boolean.call_loft_lamps_in_use
+            state: "off"
+        then:
+          - action: scene.turn_on
+            continue_on_error: true
+            target:
+              entity_id: scene.call_loft_lamps_before

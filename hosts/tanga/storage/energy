@@ -6,25 +6,25 @@
     "energy_sources": [
       {
         "type": "grid",
-        "cost_adjustment_day": 0.0,
-        "stat_energy_from": "sensor.growatt_sph_grid_energy_in",
+        "stat_energy_from": "sensor.sph_grid_import_energy_total",
+        "stat_energy_to": "sensor.sph_grid_export_energy_total",
         "stat_cost": null,
-        "entity_energy_price": null,
-        "number_energy_price": null,
-        "stat_energy_to": "sensor.growatt_sph_grid_energy_out",
         "stat_compensation": null,
-        "entity_energy_price_export": null,
-        "number_energy_price_export": 0.15
+        "entity_energy_price": "sensor.octopus_energy_electricity_20l3348755_1900029019461_current_rate",
+        "number_energy_price": null,
+        "entity_energy_price_export": "sensor.octopus_energy_electricity_20l3348755_1900092622796_export_current_rate",
+        "number_energy_price_export": null,
+        "cost_adjustment_day": 0.0
       },
       {
         "type": "solar",
-        "stat_energy_from": "sensor.growatt_sph_pv_energy",
+        "stat_energy_from": "sensor.sph_pv_energy_total",
         "config_entry_solar_forecast": null
       },
       {
         "type": "battery",
-        "stat_energy_from": "sensor.growatt_sph_battery_energy_out",
-        "stat_energy_to": "sensor.growatt_sph_battery_energy_in"
+        "stat_energy_from": "sensor.sph_battery_discharge_energy_total",
+        "stat_energy_to": "sensor.sph_battery_charge_energy_total"
       }
     ],
     "device_consumption": [],

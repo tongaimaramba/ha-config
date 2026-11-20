@@ -1,0 +1,89 @@
+# Bedroom presence and bedroom/study door sensors under stable room ids (ROADMAP SEC-12, PLAN decision SEC12-A).
+# The three SONOFF SNZB-06P presence sensors and four door contacts were Zigbee devices on pamba's ZHA (offline since
+# 5 Nov 2026 11:05; tanga read them through the bridge as binary_sensor.pres_<r>_pamba / closed_<r>_pamba). On 9 Nov
+# Tongai re-paired all seven to SmartThings, so tanga's SmartThings integration has them directly.
+# THIS FILE IS THE ONE PLACE that names the SmartThings entities: every consumer on tanga (ac_shadow, comfort,
+# call_context, mode_detector, and room_climate / house_modes once their PRs land) reads the room ids below, so a
+# SmartThings rename or re-pair is a one-line change here.
+# Each is a one-member binary_sensor group: it mirrors its member (on/off; unavailable when the member is), adds no
+# logic and needs no gate. Polarity is unchanged from the ZHA sensors: presence on = someone there (SmartThings
+# "motion" from the mmWave presence sensor, still on while someone sleeps); door on = open.
+# They live in the SmartThings cloud: events arrive via the internet, and all seven read unavailable if the internet
+# or SmartThings is down (docs/ROOMS.md). Manual fallback: none needed (read-only sensors); look at the room.
+
+binary_sensor:
+  - platform: group
+    name: Hannah room presence
+    unique_id: room_sensors_hannah_presence
+    device_class: occupancy
+    entities: [binary_sensor.hannah_presence_motion]
+  - platform: group
+    name: Ellie room presence
+    unique_id: room_sensors_ellie_presence
+    device_class: occupancy
+    entities: [binary_sensor.ellie_presence_motion]
+  - platform: group
+    name: Loft room presence
+    unique_id: room_sensors_loft_presence
+    device_class: occupancy
+    entities: [binary_sensor.loft_presence_motion]
+  - platform: group
+    name: Study room door
+    unique_id: room_sensors_study_door
+    device_class: door
+    entities: [binary_sensor.study_door]
+  - platform: group
+    name: Hannah room door
+    unique_id: room_sensors_hannah_door
+    device_class: door
+    entities: [binary_sensor.hannah_door]
+  - platform: group
+    name: Ellie room door
+    unique_id: room_sensors_ellie_door
+    device_class: door
+    entities: [binary_sensor.ellie_door]
+  - platform: group
+    name: Loft room door
+    unique_id: room_sensors_loft_door
+    device_class: door
+    entities: [binary_sensor.loft_door]
+
+# Outage alert (SEC-12 review): nothing else tells Tongai when these sensors go dark. The bridge-silent alert
+# (packages/ac_shadow.yaml) covers only pamba's ACs; climate_health's SmartThings sync compares other sensors.
+# Gate: input_boolean.room_sensors_alert_enabled (starts off; hard rule 6).
+input_boolean:
+  room_sensors_alert_enabled:
+    name: Room sensors offline alert
+    icon: mdi:access-point-network-off
+
+automation:
+  # All seven room sensors unreadable for 15 min: the internet or SmartThings is down (or the integration needs a
+  # sign-in), so the AC alerts can't see doors or rooms and the mode detector stops guessing Out. Quiet, once per
+  # outage. Manual fallback: check the internet, then Settings → Devices & services → SmartThings (reload or sign in);
+  # meanwhile look at the rooms yourself.
+  - id: room_sensors_offline
+    alias: Room sensors - all offline 15 min
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {{ expand('binary_sensor.hannah_room_presence', 'binary_sensor.ellie_room_presence',
+                    'binary_sensor.loft_room_presence', 'binary_sensor.study_room_door',
+                    'binary_sensor.hannah_room_door', 'binary_sensor.ellie_room_door', 'binary_sensor.loft_room_door')
+             | rejectattr('state', 'in', ['unavailable', 'unknown']) | list | count == 0 }}
+        for: {minutes: 15}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.room_sensors_alert_enabled
+        state: "on"
+    actions:
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Room sensors offline
+          message: >-
+            The bedroom presence and door sensors (SmartThings) have been offline for 15 min: AC alerts can't see doors
+            or rooms. Check the internet and the SmartThings integration.
+          data:
+            tag: room_sensors_offline
+            channel: Home status
+            importance: low

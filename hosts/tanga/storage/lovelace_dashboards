@@ -15,7 +15,7 @@
       },
       {
         "require_admin": true,
-        "show_in_sidebar": false,
+        "show_in_sidebar": true,
         "title": "tab",
         "url_path": "lovelace-tab",
         "mode": "storage",

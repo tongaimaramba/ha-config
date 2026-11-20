@@ -1,0 +1,50 @@
+# Solar control (M5 steps 3 and 6, M5-A): the switches for the solar_control AppDaemon app (apps/solar_control.yaml).
+#   - input_boolean.solar_control_enabled ("Solar control shadow"): it logs the mode it would ask for beside what the
+#     Battery First Scheduler and the Export optimiser ask, and keeps a daily agreement record.
+#   - input_boolean.solar_control_acting ("Solar control acting", M5 step 6): it asks the retry script itself, and the
+#     two automations stand down while it is alive (a condition in each: automations.yaml, acting on and
+#     sensor.solar_control updated in the last 10 min), so they don't both act and, if the app goes silent, the
+#     automations resume by themselves. Off is the rollback: the automations act again at their next trigger (then tap
+#     Load first and Auto: the optimiser's triggers are edges).
+# Both start off (hard rule 6). Manual fallback: acting off; Manual (House ops → Solar); the mode in ShinePhone.
+input_boolean:
+  solar_control_enabled:
+    name: Solar control shadow
+    icon: mdi:solar-power-variant-outline
+  solar_control_acting:
+    name: Solar control acting
+    icon: mdi:solar-power-variant
+
+automation:
+  # Acting but silent: the app's sensor not refreshed for 5 min (it writes every 30 s), or missing, for 5 min more (an HA
+  # restart removes it until the app's next write): about when the automations' stand-down lapses (10 min) and they
+  # take over again. Urgent ("Solar urgent", normal importance, one per incident) while the inverter is in Grid first
+  # or Battery first (a slot the app would otherwise end or watch), quiet otherwise (review of d1cbc74). Tongai only.
+  # Gated by the acting switch itself (it starts off). Fallback: acting off, or restart AppDaemon.
+  - id: solar_control_silent
+    alias: Solar - solar control silent
+    mode: single
+    triggers:
+      - trigger: template
+        value_template: >-
+          {% set s = states.sensor.solar_control %}
+          {{ is_state('input_boolean.solar_control_acting', 'on')
+             and (s is none or (now() - s.last_updated).total_seconds() > 300) }}
+        for: {minutes: 5}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.solar_control_acting
+        state: "on"
+    actions:
+      - variables:
+          urgent: "{{ states('sensor.sph_device_mode') in ['Grid first', 'Battery first'] }}"
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: Solar control silent
+          message: >-
+            Solar control acting but not updated for 10 min (inverter {{ states('sensor.sph_device_mode') }}) · the
+            automations take over · restart AppDaemon, or turn "Acting" off (House ops → Solar) · tanga
+          data:
+            tag: "{{ 'solar_urgent_control' if urgent else 'solar_control_silent' }}"
+            channel: "{{ 'Solar urgent' if urgent else 'Home status' }}"
+            importance: "{{ 'default' if urgent else 'low' }}"

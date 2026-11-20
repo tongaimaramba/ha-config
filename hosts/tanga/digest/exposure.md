@@ -10,30 +10,7 @@
 - 6: switch.loft_blind_stop_loft_suite_blind
 - 7: switch.loft_blind_open_loft_suite_blind
 
-## emulated_hue.yaml
-
-```yaml
-switch.landing_blind_close_landing_blind:
-  name: "LB Down"
-  hidden: false
-switch.landing_blind_stop_landing_blind:
-  name: "LB Stop"
-  hidden: false
-switch.landing_blind_open_landing_blind:
-  name: "LB Up"
-  hidden: false
-switch.loft_blind_close_loft_suite_blind:
-  name: "RB Down"
-  hidden: false
-switch.loft_blind_stop_loft_suite_blind:
-  name: "RB Stop"
-  hidden: false
-switch.loft_blind_open_loft_suite_blind:
-  name: "RB Up"
-  hidden: false
-```
-
-## exposed to assistants (41)
+## exposed to assistants (42)
 
 | entity_id | assistants |
 |---|---|
@@ -52,6 +29,7 @@ switch.loft_blind_open_loft_suite_blind:
 | binary_sensor.nobody_home | conversation |
 | binary_sensor.somebody_is_home | conversation |
 | light.litra_beam | conversation |
+| scene.call_loft_lamps_before | conversation |
 | sensor.bathroom_window_temperature_pamba | conversation |
 | sensor.bay_window_temperature_pamba | conversation |
 | sensor.boiler_temp_temperature_pamba | conversation |

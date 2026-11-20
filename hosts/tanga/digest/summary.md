@@ -2,81 +2,86 @@
 
 ```
 host: tanga
-exported_at: 2026-10-31T12:13:55+00:00
+exported_at: 2026-11-20T08:41:06+00:00
 config_dir: /homeassistant
 ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
-- config entries: 148  (custom components on disk: 27)
-- devices: 483
-- entities: 3342 across 60 platforms
-- areas: 37
+- config entries: 161  (custom components on disk: 27)
+- devices: 509
+- entities: 3841 across 65 platforms
+- areas: 38
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| ibeacon | 970 |
-| mobile_app | 350 |
-| hue | 317 |
+| ibeacon | 1018 |
+| mobile_app | 386 |
+| hue | 311 |
+| input_boolean | 160 |
+| smartthings | 152 |
 | hassio | 144 |
-| hacs | 132 |
-| smartthings | 130 |
-| bermuda | 124 |
-| alexa_devices | 111 |
-| esphome | 91 |
-| automation | 88 |
-| garmin_connect | 87 |
+| bermuda | 136 |
+| automation | 133 |
+| hacs | 133 |
+| esphome | 97 |
+| alexa_devices | 90 |
+| mqtt | 85 |
 | volvo | 75 |
-| mqtt | 65 |
-| input_boolean | 61 |
+| octopus_energy | 74 |
+| script | 63 |
+| template | 63 |
 | lightwave2 | 61 |
+| input_select | 52 |
 | homekit_controller | 46 |
 | fujitsu_airstage | 40 |
+| input_text | 38 |
 | growatt_server_api | 37 |
+| group | 34 |
 | aarlo | 33 |
-| script | 32 |
+| fully_kiosk | 33 |
+| modbus | 32 |
+| input_datetime | 28 |
 | nut | 27 |
 | ble_monitor | 27 |
-| group | 24 |
 | dyson_local | 23 |
 | tile | 22 |
-| input_text | 21 |
-| template | 21 |
-| input_number | 16 |
+| input_button | 22 |
+| roomba | 17 |
 | sonoff | 15 |
-| roomba | 15 |
-| input_button | 15 |
-| input_select | 14 |
+| input_number | 13 |
 | tag | 12 |
 | private_ble_device | 10 |
 | sun | 9 |
 | nest | 8 |
-| input_datetime | 7 |
-| nmap_tracker | 7 |
-| person | 5 |
+| nmap_tracker | 8 |
+| zone | 7 |
+| timer | 6 |
+| remote_calendar | 6 |
 | eventsensor | 5 |
 | rpi_gpio | 5 |
 | places | 5 |
 | backup | 5 |
-| zone | 3 |
+| person | 4 |
+| energy | 4 |
+| counter | 3 |
 | speedtestdotnet | 3 |
 | local_file | 3 |
 | dyson | 2 |
 | androidtv_remote | 2 |
 | webostv | 2 |
-| counter | 2 |
-| energy | 2 |
-| tod | 2 |
 | tuya | 2 |
+| local_todo | 2 |
 | updater | 1 |
 | attributes | 1 |
 | rpi_power | 1 |
 | momentary | 1 |
 | cert_expiry | 1 |
-| timer | 1 |
+| tod | 1 |
 | met | 1 |
+| local_calendar | 1 |
 
 ## files deliberately not exported
 
@@ -84,9 +89,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
-home-assistant_v2.db (18479435776 bytes) — db/log/binary
+home-assistant_v2.db (18820853760 bytes) — db/log/binary
 home-assistant_v2.db-shm (65536 bytes) — db/log/binary
-home-assistant_v2.db-wal (5471392 bytes) — db/log/binary
+home-assistant_v2.db-wal (5236552 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -111,6 +116,8 @@ home-assistant_v2.db-wal (5471392 bytes) — db/log/binary
 .storage/esphome.01KAQ1SN0PBA2SKVC9C5E079N4 — not in allow-list
 .storage/esphome.01KBJ34A95VAG6DK4BT5538TWT — not in allow-list
 .storage/esphome.01M6444G8WGGPX24F3B2M38D1N — not in allow-list
+.storage/esphome.01M6K5FE4VAC15X96621A9STJC — not in allow-list
+.storage/esphome.01M7AB1X1KF2W0G8J55TT6AXXF — not in allow-list
 .storage/esphome.39a67c9db005c4430e20ccafb0012f4c — not in allow-list
 .storage/esphome.5f3decfc9356c5b361239eabda83a811 — not in allow-list
 .storage/esphome.9986fbb44afda2ba99006372152f47da — not in allow-list
@@ -122,8 +129,22 @@ home-assistant_v2.db-wal (5471392 bytes) — db/log/binary
 .storage/homekit_controller-entity-map — not in allow-list
 .storage/http — not in allow-list
 .storage/http.auth — not in allow-list
+.storage/local_calendar.extras.ics — not in allow-list
+.storage/local_todo.ellie_homework.ics — not in allow-list
+.storage/local_todo.hannah_homework.ics — not in allow-list
 .storage/mobile_app — not in allow-list
 .storage/nest.event_media — not in allow-list
+.storage/octopus_energy.1900029019461_20L3348755_weekday_consumption — not in allow-list
+.storage/octopus_energy.1900029019461_20L3348755_weekend_consumption — not in allow-list
+.storage/octopus_energy.1900092622796_20L3348755_weekday_consumption — not in allow-list
+.storage/octopus_energy.1900092622796_20L3348755_weekend_consumption — not in allow-list
+.storage/octopus_energy.A-355AB690_account — not in allow-list
+.storage/octopus_energy.A-355AB690_heat_pump_ids — not in allow-list
+.storage/octopus_energy.A-355AB690_intelligent_devices — not in allow-list
+.storage/octopus_energy.intelligent_dispatches_00000000-0009-4000-8020-000000069f30 — not in allow-list
+.storage/octopus_energy.intelligent_dispatches_history_00000000-0009-4000-8020-000000069f30 — not in allow-list
+.storage/octopus_energy.tariff-E-1R-IOG-SMB-VAR-24-10-29-J.json — not in allow-list
+.storage/octopus_energy.tariff-E-1R-OUTGOING-VAR-24-10-26-J.json — not in allow-list
 .storage/smartthings — not in allow-list
 .storage/sonoff — not in allow-list
 .storage/trace.saved_traces — not in allow-list

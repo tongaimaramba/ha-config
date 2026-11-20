@@ -1,0 +1,340 @@
+# Front-door tablet kiosk (ROADMAP HSE-6; Proposal M6 K-A to K-H, K-J; docs/reports/2026-11-09-kiosk-setup.md for
+# Tongai's steps). The Android tablet runs Fully Kiosk Browser (PLUS, Android device owner, kiosk mode) signed in as the
+# non-admin, local-only `kiosk` user, showing the `front-door` dashboard (dashboards/specs/tanga/front-door) as its start
+# URL. tanga controls it through the Fully Kiosk Browser integration (Remote Admin on the home network; device `Kiosk`, so
+# its entities are `*.kiosk_*`). This package is the HA side:
+#   - the template sensors that page reads (what is open, the school-day briefing),
+#   - one script, the only place that acts on the tablet, with a fixed command list (hide_screensaver, show_camera,
+#     show_cameras, hide_camera, set_screensaver_mode): the screen and screensaver switches, the screensaver brightness,
+#     loading the doorbell or cameras view and reloading the start URL. Nothing here touches a lock, the alarm, heating
+#     or a light, and nothing turns on Fully's camera or motion detection (switch.kiosk_motion_detection stays off, set
+#     by hand in Fully).
+#   - five gated automations: the doorbell shows the front-door camera full screen for 60 s (K-E); the camera on the
+#     plan shows the cameras view on the same rule (G9 v2 block 4); the screen wakes on hall motion, the front door
+#     opening and school-day mornings (K-D); the screensaver is dim by day and dark 22:00 to 06:30 (K-C).
+# The page's time-of-day sections and lists are packages/kiosk_board.yaml's; the Stars ticks packages/stars.yaml's.
+#
+# Gate: input_boolean.kiosk_enabled (starts off, hard rule 6). With it off the script and every automation do nothing, and
+# the dashboard (read-only apart from lights, the hot-water button and the Stars ticks) is just a page. The script also does nothing while
+# the tablet is unreachable (its entities unavailable), so a ring then costs nothing but a log line.
+# Manual fallback: the doorbell still chimes and pushes to the phones through Nest; open the dashboard by hand on any
+# phone (/front-door); tap the tablet to wake it; Fully's own screensaver settings (timer, brightness) work without HA;
+# the lights keep their wall switches. The kiosk is an extra screen, never the only way.
+# Owner: tanga (OWNERSHIP: dashboards and the doorbell/Hue reads are tanga's).
+
+input_boolean:
+  kiosk_enabled:
+    name: Kiosk
+    icon: mdi:tablet-dashboard
+
+# The camera on the kiosk's plan (G9 v2 block 4): the kiosk page presses this (tools/halive/dash.py KIOSK_PRESS_OK) and
+# kiosk_show_cameras below shows the cameras page for a minute, as a ring shows the doorbell. Pressing it does nothing
+# else, and nothing with the gate off.
+input_button:
+  kiosk_show_cameras:
+    name: Kiosk show cameras
+    icon: mdi:cctv
+
+template:
+  - sensor:
+      # What is open, for the kiosk page. The list is the perimeter in dashboards/data/tanga.yaml `openings` (tests keep the
+      # two in step), minus the doors that are usually open (the garage-utility door, Tongai 2026-11-05).
+      # A sensor that is unavailable counts as shut: it is not a reason to shout at the front door.
+      - name: Kiosk open things
+        unique_id: kiosk_open_things
+        icon: mdi:door-open
+        state: >-
+          {% set watch = {
+               'binary_sensor.front_door': 'Front door',
+               'binary_sensor.patio_door_door': 'Patio door',
+               'binary_sensor.kitchen_door': 'Kitchen window',
+               'binary_sensor.utility_back_door': 'Utility back door',
+               'binary_sensor.garage_out_door': 'Garage door',
+               'binary_sensor.bay_window_door': 'Bay window',
+               'binary_sensor.bay_party_wall_door': 'Bay window (party wall)',
+               'binary_sensor.landing_window_door': 'Landing window',
+               'binary_sensor.bathroom_window_door': "Kids' bathroom window",
+               'binary_sensor.ellie_window_door': "Ellie's window",
+               'binary_sensor.ellie_window_party_door': "Ellie's window (party wall)",
+               'binary_sensor.guest_win_door': 'Study window' } %}
+          {% set ns = namespace(open=[]) %}
+          {% for e, n in watch.items() %}
+            {% if is_state(e, 'on') %}{% set ns.open = ns.open + [n] %}{% endif %}
+          {% endfor %}
+          {{ (ns.open | join(', '))[:250] if ns.open else 'Nothing open' }}
+
+      # The school-day briefing slot. HSE-8's school_briefing app (PR #297 branch r1/hse-8-briefing) publishes
+      # sensor.briefing_kiosk itself: both children, today until 15:00 then the next school day; state a one-line summary,
+      # `text` Markdown for a card, `window` when the hall screen should show it; "Nothing yet" with its gate off. This
+      # sensor only passes that through, with "Nothing yet" until the app exists, so the kiosk page and this PR don't
+      # depend on HSE-8 being deployed first (and nothing here defines sensor.briefing_kiosk, which would fight the app).
+      # The id is built from two strings because the app's sensor isn't in tanga's registry until HSE-8 merges; the
+      # template still follows it (HA tracks the entities a template reads, existing or not).
+      - name: Kiosk briefing
+        unique_id: kiosk_briefing
+        icon: mdi:school
+        state: >-
+          {% set s = states('sensor.' ~ 'briefing_kiosk') %}
+          {{ s[:250] if s not in ['unknown', 'unavailable', 'none', ''] else 'Nothing yet' }}
+        attributes:
+          text: "{{ state_attr('sensor.' ~ 'briefing_kiosk', 'text') or 'Nothing yet' }}"
+          window: "{{ state_attr('sensor.' ~ 'briefing_kiosk', 'window') or '' }}"
+
+script:
+  # Acts on the front-door tablet through the Fully Kiosk Browser integration. Only these commands (a fixed list):
+  #   hide_screensaver: screen on (in case Fully turned it off) and the screensaver off, so the page is lit;
+  #   show_camera: Fully loads the doorbell view (/front-door/doorbell, always the front-door camera) on the same address
+  #     as the page it shows now (sensor.kiosk_current_page, normally the start URL), so no address is written here;
+  #   show_cameras: the same, but the cameras view (/front-door/cameras: the doorbell large and live, the garden and the
+  #     back fence as stills; G9 v2 block 4), on the same address;
+  #   hide_camera: Fully reloads its start URL (the Home view);
+  #   set_screensaver_mode dim or blank: the screensaver brightness, 25 (of 255) or 0.
+  # Does nothing with the gate off or the tablet unreachable. The device for load_url is the one switch.kiosk_screen
+  # belongs to (no device id written here). Manual fallback: tap the tablet; Fully's own screensaver settings.
+  kiosk_command:
+    alias: Kiosk - send a command to the tablet
+    description: "Acts on the front-door tablet (Fully Kiosk Browser): hide_screensaver, show_camera, show_cameras, hide_camera or set_screensaver_mode."
+    icon: mdi:tablet-dashboard
+    mode: queued
+    max: 10
+    fields:
+      command:
+        description: hide_screensaver, show_camera, show_cameras, hide_camera or set_screensaver_mode
+        example: hide_screensaver
+      mode:
+        description: For set_screensaver_mode only - dim or blank
+        example: dim
+    sequence:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      # The tablet is reachable: the entities the script sets have a state (the buttons are `unknown` until pressed, so
+      # they aren't checked)
+      - condition: template
+        value_template: >-
+          {{ ['switch.kiosk_screen', 'switch.kiosk_screensaver', 'number.kiosk_screensaver_brightness']
+             | map('states') | reject('in', ['unavailable', 'unknown']) | list | count == 3 }}
+      - condition: template
+        value_template: >-
+          {{ command | default('') in ['hide_screensaver', 'show_camera', 'show_cameras', 'hide_camera',
+                                       'set_screensaver_mode'] }}
+      - choose:
+          # Screen on every time: HA's copy of the screen switch is polled, so it can still read on just after Fully
+          # turned the screen off; Fully's screenOn on a lit screen changes nothing
+          - conditions: "{{ command == 'hide_screensaver' }}"
+            sequence:
+              - action: switch.turn_on
+                target: {entity_id: switch.kiosk_screen}
+              - action: switch.turn_off
+                target: {entity_id: switch.kiosk_screensaver}
+          # show_camera (the doorbell view) and show_cameras (the cameras view): one branch, the page's name the only
+          # difference, so the doorbell's path is unchanged
+          - conditions: "{{ command in ['show_camera', 'show_cameras'] }}"
+            sequence:
+              - variables:
+                  # "http://<address>:8123" from the page Fully shows (no path, query or fragment); '' if it isn't an
+                  # http(s) page, and then nothing is loaded
+                  base: >-
+                    {% set page = states('sensor.kiosk_current_page') %}
+                    {{ (page.split('/')[:3] | join('/')).split('?')[0].split('#')[0]
+                       if page is match('https?://[^/?#]+') else '' }}
+                  device: "{{ device_id('switch.kiosk_screen') or '' }}"
+                  view: "{{ 'doorbell' if command == 'show_camera' else 'cameras' }}"
+              - if: "{{ base != '' and device != '' }}"
+                then:
+                  - action: fully_kiosk.load_url
+                    data:
+                      device_id: "{{ device }}"
+                      url: "{{ base }}/front-door/{{ view }}"
+          - conditions: "{{ command == 'hide_camera' }}"
+            sequence:
+              - action: button.press
+                target: {entity_id: button.kiosk_load_start_url}
+          - conditions: "{{ command == 'set_screensaver_mode' and (mode | default('')) in ['dim', 'blank'] }}"
+            sequence:
+              - action: number.set_value
+                target: {entity_id: number.kiosk_screensaver_brightness}
+                data:
+                  value: "{{ 25 if mode == 'dim' else 0 }}"
+
+automation:
+  # Doorbell rings: lift the screensaver, show the front-door camera full screen for 60 s, then put it away (K-E). About
+  # five rings a week. The camera goes away early when the front door opens (someone has answered; Tongai 16 Nov). A
+  # second ring inside the minute restarts the 60 s. `not_from`/`not_to` keep a restart or the doorbell
+  # reconnecting from counting as a ring. "Full screen" is the front-door dashboard's doorbell view (a live panel of
+  # camera.camera) loaded in Fully; "put away" reloads Fully's start URL. Manual fallback: Nest still chimes and pushes to
+  # the phones; the dashboard's Home view shows a still of the camera.
+  - id: kiosk_doorbell
+    alias: Kiosk - doorbell shows the camera
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: event.front_door_chime
+        not_from: [unavailable, unknown]
+        not_to: [unavailable, unknown]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      # tanga's live entity (read 2026-11-09): event_types ['ring'], event_type 'ring'. The event's own time (the state)
+      # must be within 60 s, as call_context.py's FRESH_EVENT: a reconnect restores the last ring
+      - condition: template
+        value_template: >-
+          {{ trigger.to_state.attributes.event_type == 'ring'
+             and as_datetime(trigger.to_state.state, none) is not none
+             and (now() - as_datetime(trigger.to_state.state, none)).total_seconds() | abs < 60 }}
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_screensaver}
+      - action: script.kiosk_command
+        data: {command: show_camera}
+      # Up to 60 s, or until the front door opens (tanga's own contact), whichever is first
+      - wait_for_trigger:
+          - trigger: state
+            entity_id: binary_sensor.front_door
+            from: "off"
+            to: "on"
+        timeout: {seconds: 60}
+        continue_on_timeout: true
+      - action: script.kiosk_command
+        data: {command: hide_camera}
+
+  # The camera on the kiosk's plan is pressed (G9 v2 block 4, Tongai 19 Nov): the cameras view (the doorbell large and
+  # live, the garden and the back fence as stills) for 60 s, then back to Home, on the doorbell's own rule: early when
+  # the front door opens. A ring meanwhile takes over: kiosk_doorbell shows the doorbell view and puts it away itself,
+  # and this run ends without reloading Home under it. Its own steps (a copy of the doorbell's, plus the ring), so the
+  # doorbell automation is unchanged. A second press restarts the minute. Manual fallback: the Nest and Arlo apps; the
+  # page's back arrow.
+  - id: kiosk_show_cameras
+    alias: Kiosk - camera button shows the cameras
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_button.kiosk_show_cameras
+        # a press, not a reload or restart; a new button's first press is from `unknown` (as panic.yaml's buttons)
+        not_from: [unavailable]
+        not_to: [unavailable]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_screensaver}
+      - action: script.kiosk_command
+        data: {command: show_cameras}
+      # Up to 60 s, or until the front door opens (as the doorbell), or the bell rings (the doorbell takes over)
+      - wait_for_trigger:
+          - trigger: state
+            entity_id: binary_sensor.front_door
+            from: "off"
+            to: "on"
+          - trigger: state
+            id: ring
+            entity_id: event.front_door_chime
+            not_from: [unavailable, unknown]
+            not_to: [unavailable, unknown]
+        timeout: {seconds: 60}
+        continue_on_timeout: true
+      # Back to Home unless a real ring ended the wait (kiosk_doorbell's own test: a 'ring' within 60 s; a reconnect
+      # restoring an old ring ends the wait but the doorbell ignores it, so Home is loaded here)
+      - if: >-
+          {{ wait.trigger is none or wait.trigger.id != 'ring'
+             or wait.trigger.to_state.attributes.event_type != 'ring'
+             or as_datetime(wait.trigger.to_state.state, none) is none
+             or (now() - as_datetime(wait.trigger.to_state.state, none)).total_seconds() | abs >= 60 }}
+        then:
+          - action: script.kiosk_command
+            data: {command: hide_camera}
+
+  # Someone walks into the hall (the Hue sensor by the front door), 06:30-22:00: lift the screensaver so the page is lit
+  # when they reach it (K-D). At most one wake every 20 s. Manual fallback: touch the tablet.
+  - id: kiosk_wake_hall_motion
+    alias: Kiosk - wake on hall motion
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.coats_motion
+        from: "off"
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      - condition: time
+        after: "06:30:00"
+        before: "22:00:00"
+      - condition: template
+        value_template: >-
+          {{ this.attributes.last_triggered is none
+             or (now() - this.attributes.last_triggered).total_seconds() > 20 }}
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_screensaver}
+
+  # The front door opens, any hour (coming home late is when the page is most useful): lift the screensaver (K-D).
+  # Manual fallback: touch the tablet.
+  - id: kiosk_wake_front_door
+    alias: Kiosk - wake when the front door opens
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.front_door
+        from: "off"
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_screensaver}
+
+  # School-day mornings, Monday to Friday 06:30-08:00 every half hour: lift the screensaver so the "Today" briefing is
+  # readable (K-D). Fully's screensaver comes back after 2 minutes and dims the page it shows, which is still readable.
+  # HSE-8 will add a real school-day check (holidays and INSET days); until then a holiday weekday wakes the screen too,
+  # which is harmless. Manual fallback: touch the tablet.
+  - id: kiosk_wake_school_morning
+    alias: Kiosk - wake on school-day mornings
+    mode: single
+    triggers:
+      - trigger: time
+        at: ["06:30:00", "07:00:00", "07:30:00", "08:00:00"]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      - condition: time
+        weekday: [mon, tue, wed, thu, fri]
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_screensaver}
+
+  # The screensaver is dim by day and dark from 22:00 to 06:30 (K-C): Fully's screensaver brightness, 25 by day and 0 at
+  # night. Fully has no timetable of its own for this, so HA sets it at 22:00 and 06:30, every 3 hours (in case the tablet
+  # missed one), when the gate goes on and when the tablet comes back after being unreachable (its 03:30 restart, Wi-Fi).
+  # Manual fallback: Fully's own screensaver settings on the tablet (Settings, Screensaver, Screensaver Brightness).
+  - id: kiosk_screensaver_mode
+    alias: Kiosk - screensaver dim by day, blank at night
+    mode: queued
+    triggers:
+      - trigger: time
+        at: ["06:30:00", "22:00:00"]
+      - trigger: time_pattern
+        hours: "/3"
+        minutes: 0
+      - trigger: state
+        entity_id: input_boolean.kiosk_enabled
+      - trigger: state
+        entity_id: switch.kiosk_screen
+        from: [unavailable, unknown]
+        not_to: [unavailable, unknown]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+    actions:
+      - action: script.kiosk_command
+        data:
+          command: set_screensaver_mode
+          mode: "{{ 'blank' if (now().strftime('%H:%M') >= '22:00' or now().strftime('%H:%M') < '06:30') else 'dim' }}"

@@ -1530,6 +1530,167 @@
             "should_expose": false
           }
         }
+      },
+      "sensor.solar_control": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.solar_payback": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.solar_watch": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "device_tracker.mojgan_phone_pamba": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.mojgan_phone_update_trigger_pamba": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.front_lock_trigger_pamba": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.garage_lock_trigger_pamba": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.battery_forecast": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.notification_router": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "binary_sensor.notification_pick_tongai": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "binary_sensor.notification_pick_mojgan": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.notification_pick_loudness": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.house_modes": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.house_visitor": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.briefing_hannah": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.briefing_ellie": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.briefing_kiosk": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.briefing_reminders_hannah": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.briefing_reminders_ellie": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.homework_copy": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.quick_notes": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.chores": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "scene.call_loft_lamps_before": {
+        "assistants": {
+          "conversation": {
+            "should_expose": true
+          }
+        }
       }
     }
   }

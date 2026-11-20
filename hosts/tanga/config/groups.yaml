@@ -41,15 +41,6 @@
 #     - binary_sensor.utility_garage_door_acceleration
 #
 # car_security:
-#     - binary_sensor.evie_door_closed_left_back
-#     - binary_sensor.evie_door_closed_right_back
-#     - binary_sensor.evie_door_closed_left_front
-#     - binary_sensor.evie_door_closed_right_front
-#     - binary_sensor.evie_window_closed_left_back
-#     - binary_sensor.evie_window_closed_right_back
-#     - binary_sensor.evie_window_closed_left_front
-#     - binary_sensor.evie_window_closed_right_front
-#     - binary_sensor.evie_doors_locked
 #
 # home_perimeter:
 #     - group.perimeter_contact
@@ -66,8 +57,8 @@
 #     - binary_sensor.worktop_sensor_motion
 #     - binary_sensor.aarlo_motion_swings
 #
+# camera.aarlo_swings removed 2026-11-08 (G5): the Swings camera is retired.
 cameras:
-    - camera.aarlo_swings
     - camera.camera
     - camera.backyard
 #
@@ -217,8 +208,9 @@ tado_rads:
 #
 ## System Status
 #
+# sensor.aarlo_battery_level_swings removed 2026-11-08 (G5): Swings camera retired. (sensor.swings_battery_level is a
+# Hue switch, the Piano Lamp's, and stays.)
 batteries:
-    - sensor.aarlo_battery_level_swings
     - sensor.bathroom_dimmer_battery_level
     - sensor.bathroom_heater_battery_level
     - sensor.bathroom_window_battery

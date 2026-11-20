@@ -13,10 +13,6 @@
         "name": "Disable Alarm Auto Modes"
       },
       {
-        "id": "tap_to_open",
-        "name": "Importing"
-      },
-      {
         "name": "iphone_wifi",
         "icon": "mdi:wifi",
         "id": "iphone_wifi"
@@ -137,16 +133,6 @@
         "id": "bridge_sync",
         "name": "bridge sync",
         "icon": "mdi:database-sync-outline"
-      },
-      {
-        "id": "mock_tap_front_door_cooldown",
-        "name": "mock_tap_front_door_cooldown",
-        "icon": "mdi:sleep"
-      },
-      {
-        "id": "mock_tap_garage_cooldown",
-        "icon": "mdi:sleep",
-        "name": "mock_tap_garage_cooldown"
       }
     ]
   }

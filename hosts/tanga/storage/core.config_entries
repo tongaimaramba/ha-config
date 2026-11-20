@@ -207,7 +207,79 @@
               "domain": "zeroconf",
               "key": [
                 "_hap._tcp.local.",
-                "Lightwave Link Plus 314B6B._hap._tcp.local."
+                "Lightwave Link Plus 314B6B (107)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (124)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (116)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (115)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (125)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (120)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (110)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (126)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (127)._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Lightwave Link Plus 314B6B (128)._hap._tcp.local."
               ],
               "version": 1
             }
@@ -216,7 +288,7 @@
         "domain": "homekit_controller",
         "entry_id": "c9bd9681950342d7a035531eed7d30f5",
         "minor_version": 1,
-        "modified_at": "2025-02-22T15:58:59.622726+00:00",
+        "modified_at": "2026-11-04T14:35:21.373974+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -275,13 +347,21 @@
                 "Basestation 5GP5977YA0116._hap._tcp.local."
               ],
               "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "Basestation 5GP5977YA0116 #2._hap._tcp.local."
+              ],
+              "version": 1
             }
           ]
         },
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-10-23T02:20:32.235617+00:00",
+        "modified_at": "2026-11-20T04:16:29.406663+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -338,7 +418,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-10-31T11:26:40.678696+00:00",
+        "modified_at": "2026-11-20T08:36:22.564065+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -662,7 +742,7 @@
         "domain": "nut",
         "entry_id": "e4593ec01a36a391177e6b62af65ce6c",
         "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2026-11-18T18:06:05.243262+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -671,7 +751,7 @@
         "source": "user",
         "subentries": [],
         "title": "ccf28a08-nut:3493",
-        "unique_id": null,
+        "unique_id": "American Power Conversion_Back-UPS RS  650MI_5B2139T64966  ",
         "version": 1
       },
       {
@@ -1800,32 +1880,6 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "tod",
-        "entry_id": "833a2c8b1fbaf18dd54691091202be7b",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "after_time",
-            "before_time",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "peak window",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
           "_redacted_keys": [
             "app_data",
             "app_id",
@@ -2818,32 +2872,6 @@
         "version": 2
       },
       {
-        "created_at": "2024-09-13T07:16:28.619665+00:00",
-        "data": {
-          "_redacted_keys": [
-            "id",
-            "password",
-            "username"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "garmin_connect",
-        "entry_id": "01J7N3V3TBG0CBA4QWCRB8ZP6H",
-        "minor_version": 1,
-        "modified_at": "2024-09-13T07:16:28.619683+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "tongaimaramba@gmail.com",
-        "unique_id": "tongaimaramba@gmail.com",
-        "version": 1
-      },
-      {
         "created_at": "2024-09-24T17:10:46.612300+00:00",
         "data": {
           "_redacted_keys": [
@@ -3368,6 +3396,7 @@
             "password",
             "port",
             "protocol",
+            "transport",
             "username"
           ]
         },
@@ -3384,7 +3413,7 @@
         "domain": "mqtt",
         "entry_id": "01K3HKSE86BER5369STS5MFTDH",
         "minor_version": 1,
-        "modified_at": "2026-10-29T13:22:29.539996+00:00",
+        "modified_at": "2026-11-16T20:59:17.695391+00:00",
         "options": {
           "_redacted_keys": [
             "birth_message",
@@ -4131,7 +4160,7 @@
         "domain": "mobile_app",
         "entry_id": "01KWSDY1ZK9AHSVSK293XTD854",
         "minor_version": 1,
-        "modified_at": "2026-10-28T12:30:59.970269+00:00",
+        "modified_at": "2026-11-03T16:29:16.255477+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4166,7 +4195,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-10-31T08:15:47.468498+00:00",
+        "modified_at": "2026-11-20T02:51:36.566041+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4203,13 +4232,85 @@
                 "tado Internet Bridge IB0210636544._hap._tcp.local."
               ],
               "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-00._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-01._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-02._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-03._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-04._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-05._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-06._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-07._hap._tcp.local."
+              ],
+              "version": 1
+            },
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_hap._tcp.local.",
+                "tado Internet Bridge IB0210636544-08._hap._tcp.local."
+              ],
+              "version": 1
             }
           ]
         },
         "domain": "homekit_controller",
         "entry_id": "01M4DW10JM9HSXF6DJDHK04HE0",
         "minor_version": 1,
-        "modified_at": "2026-10-08T13:42:43.540840+00:00",
+        "modified_at": "2026-11-04T14:25:23.563720+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4317,7 +4418,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-10-31T12:09:53.407277+00:00",
+        "modified_at": "2026-11-20T08:39:00.014035+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4658,6 +4759,456 @@
         "subentries": [],
         "title": "Call still garden",
         "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-01T14:53:03.606806+00:00",
+        "data": {
+          "_redacted_keys": [
+            "account_id",
+            "api_key",
+            "auto_discover_cost_trackers",
+            "calorific_value",
+            "favour_direct_debit_rates",
+            "home_mini_settings",
+            "home_pro_settings",
+            "intelligent_settings",
+            "kind",
+            "price_cap_settings"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "octopus_energy",
+        "entry_id": "01M6BSK1QPFSHBBEQK592QGF0W",
+        "minor_version": 1,
+        "modified_at": "2026-11-01T14:53:03.606810+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "A-355AB690",
+        "unique_id": null,
+        "version": 12
+      },
+      {
+        "created_at": "2026-11-02T12:40:58.243141+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M6E4DX43PYCHCNMR1XQM3E2C",
+        "minor_version": 1,
+        "modified_at": "2026-11-09T13:44:05.146668+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Ellie SOCS",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-02T12:41:20.596651+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M6E4EJYM7CFKA7YVTC7MQXQK",
+        "minor_version": 1,
+        "modified_at": "2026-11-09T13:43:56.083618+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Hannah SOCS",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-02T12:45:15.048327+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M6E4NQX873EQGVSVRFFMRDW7",
+        "minor_version": 1,
+        "modified_at": "2026-11-02T12:47:01.907576+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "U15B Hockey",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-02T12:46:50.422986+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M6E4RN1PF3AB15WV1DRJ6TCA",
+        "minor_version": 1,
+        "modified_at": "2026-11-02T12:46:50.422989+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "U12B Hockey",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-02T21:13:34.729903+00:00",
+        "data": {
+          "_redacted_keys": [
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "mobile_app",
+        "entry_id": "01M6F1RGR9Y2MZ3Z2KCF8QT80M",
+        "minor_version": 1,
+        "modified_at": "2026-11-05T20:11:11.484010+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "registration",
+        "subentries": [],
+        "title": "iPhone",
+        "unique_id": "io.robbie.HomeAssistant-24F2403C-39F2-431E-9883-F8974C351F83",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-04T11:35:29.179118+00:00",
+        "data": {
+          "_redacted_keys": [
+            "bluetooth_mac_address",
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "garden-proxy._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M6K5FE4VAC15X96621A9STJC",
+        "minor_version": 1,
+        "modified_at": "2026-11-04T11:35:29.262764+00:00",
+        "options": {
+          "_redacted_keys": [
+            "allow_service_calls",
+            "bluetooth_scanning_mode"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "Garden proxy",
+        "unique_id": "14:33:5c:4d:c7:80",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-04T11:35:29.256425+00:00",
+        "data": {
+          "_redacted_keys": [
+            "source",
+            "source_config_entry_id",
+            "source_device_id",
+            "source_domain",
+            "source_model"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "bluetooth",
+        "entry_id": "01M6K5FE78ES589Y388YKB9QHJ",
+        "minor_version": 1,
+        "modified_at": "2026-11-04T11:35:29.256430+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "integration_discovery",
+        "subentries": [],
+        "title": "garden-proxy (14:33:5C:4D:C7:82)",
+        "unique_id": "14:33:5C:4D:C7:82",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-09T13:42:29.633335+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M708QK0133M14PFCAR931RW5",
+        "minor_version": 1,
+        "modified_at": "2026-11-09T13:42:29.633337+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Hannah Homework",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-09T13:42:47.117312+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "url",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "remote_calendar",
+        "entry_id": "01M708R42DMH83HZ0CPFRAQ30X",
+        "minor_version": 1,
+        "modified_at": "2026-11-09T13:42:47.117315+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Ellie Homework",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-10T10:18:18.376859+00:00",
+        "data": {
+          "_redacted_keys": [
+            "calendar_name",
+            "import",
+            "storage_key"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_calendar",
+        "entry_id": "01M72FEDW8W1GE8MP010R33FG5",
+        "minor_version": 1,
+        "modified_at": "2026-11-10T10:18:18.376863+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Extras",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-13T10:52:59.040683+00:00",
+        "data": {
+          "_redacted_keys": [
+            "storage_key",
+            "todo_list_name"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_todo",
+        "entry_id": "01M7A8M2S01V3GR8J6KGN9J5GW",
+        "minor_version": 1,
+        "modified_at": "2026-11-13T10:52:59.040685+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Hannah homework",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-13T10:53:18.002362+00:00",
+        "data": {
+          "_redacted_keys": [
+            "storage_key",
+            "todo_list_name"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "local_todo",
+        "entry_id": "01M7A8MN9JJSJN5VA32C9YC03V",
+        "minor_version": 1,
+        "modified_at": "2026-11-13T10:53:18.002364+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Ellie homework",
+        "unique_id": null,
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-13T11:35:29.075278+00:00",
+        "data": {
+          "_redacted_keys": [
+            "device_name",
+            "host",
+            "noise_psk",
+            "password",
+            "port"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "dhcp": [
+            {
+              "domain": "dhcp",
+              "key": "441bf6f6379c",
+              "version": 1
+            }
+          ],
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_esphomelib._tcp.local.",
+                "l-panic._esphomelib._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "esphome",
+        "entry_id": "01M7AB1X1KF2W0G8J55TT6AXXF",
+        "minor_version": 1,
+        "modified_at": "2026-11-13T14:20:59.399271+00:00",
+        "options": {
+          "_redacted_keys": [
+            "allow_service_calls"
+          ]
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "Loft call button",
+        "unique_id": "44:1b:f6:f6:37:9c",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-15T23:26:03.961743+00:00",
+        "data": {
+          "_redacted_keys": [
+            "host",
+            "mac",
+            "password",
+            "ssl",
+            "verify_ssl"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "fully_kiosk",
+        "entry_id": "01M7GRGENS42K634SKBK8MJHKQ",
+        "minor_version": 1,
+        "modified_at": "2026-11-15T23:26:03.961766+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Kiosk",
+        "unique_id": "6fb5ea4d-8673b66a",
         "version": 1
       }
     ]
