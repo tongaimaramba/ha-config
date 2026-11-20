@@ -269,6 +269,55 @@
         "domain": "hassio",
         "is_persistent": false,
         "issue_id": "927d163d2eec444db62dc55dabfeab90"
+      },
+      {
+        "created": "2026-11-04T16:33:28.302958+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_191663150"
+      },
+      {
+        "created": "2026-11-04T16:33:28.304534+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "removed_341931266"
+      },
+      {
+        "created": "2026-11-05T15:51:13.801168+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "2a11ec0372414aaba145d0086c97514d"
+      },
+      {
+        "created": "2026-11-14T20:22:04.031794+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_reauth_navimow_pro_01M2J126F0N1RASMM1ZJ1CYZKP"
+      },
+      {
+        "created": "2026-11-18T07:52:54.428974+00:00",
+        "dismissed_version": null,
+        "domain": "hacs",
+        "is_persistent": false,
+        "issue_id": "restart_required_1162143395_tags/v1.17.0"
+      },
+      {
+        "created": "2026-11-18T08:09:48.764849+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": false,
+        "issue_id": "automation.morning_validation_failed_actions"
+      },
+      {
+        "created": "2026-11-18T18:05:44.201289+00:00",
+        "dismissed_version": null,
+        "domain": "hassio",
+        "is_persistent": false,
+        "issue_id": "102c164f3284464c879d7b9d98281d84"
       }
     ]
   }

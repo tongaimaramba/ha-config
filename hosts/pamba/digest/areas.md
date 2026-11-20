@@ -18,6 +18,7 @@
 - Hannahs Bedroom
 - Home General
 - Hot Water
+- Infra
 - Isla
 - Isla Bedroom
 - Kids Bathroom

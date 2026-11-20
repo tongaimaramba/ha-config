@@ -114,13 +114,12 @@ _none_
 | zone.m_work | Maple Works | {"latitude": 51.394462979231, "longitude": -0.3082783520221711, "icon": "mdi:office-building", "passive": false, "radius": 7.305791288997416} |
 | zone.t_work | Meta Office Kings Cross | {"latitude": 51.538114321228925, "longitude": -0.12655735015869143, "icon": "mdi:office-building", "passive": false, "radius": 184.0} |
 
-## person (5)
+## person (4)
 
 | entity_id | name | settings |
 |---|---|---|
 | person.tongai | Tongai | {"device_trackers": ["device_tracker.garmin_device", "device_tracker.tongaism25"], "user_id": "654b5cdf36f8494cb948a9d13e1c17c7", "picture": null} |
 | person.mojgan | Mojgan | {"device_trackers": ["device_tracker.mm_iphone", "device_tracker.iphone_32", "device_tracker.macbook_pro"], "user_id": "06495997aca44e59a54f1b3138ad088e", "pict |
-| person.feasby | Feasby | {"device_trackers": [], "user_id": "c99ca07941bd4465a02d08ecb04551bc", "picture": null} |
 | person.hannah | Hannah | {"device_trackers": ["device_tracker.hannahs_iphone", "device_tracker.hannah_iphone", "device_tracker.hannahs_iphone13"], "user_id": "f23d493823c54dfea81dad50a9 |
 | person.ellie_maramba | Ellie Maramba | {"device_trackers": ["device_tracker.ellie_s_gym_bag", "device_tracker.ellie_s_hockey_bag", "device_tracker.ellie_iphone"], "user_id": "bdb073282fe44ad38e72a06f |
 

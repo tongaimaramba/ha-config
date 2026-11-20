@@ -28,7 +28,7 @@
 - view **Solar System** — 2 cards (entities×1, vertical-stack×1)
   - entities: sensor.growatt_sph_battery_state_of_charge, sensor.growatt_sph_grid_energy_in, sensor.growatt_sph_grid_energy_out, sensor.growatt_sph_grid_power, sensor.growatt_sph_load_energy, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_energy, sensor.growatt_sph_pv_power
 
-## lovelace.family_test  — url `family-test`  title `Family (test)`  (148771 bytes)
+## lovelace.family_test  — url `family-test`  title `Family (test)`  (540030 bytes)
 
 - view **Home** — 16 cards (tile×13, heading×3)
   - entities: binary_sensor.front_door, binary_sensor.garage_out_door, light.dining_spotlights_switch, light.dining_wall_lights, light.downstairs_lights, light.loft_suite, light.lounge_wall_lights_switch, light.media_room_spotlights_switch, light.media_room_wall_lights_switch, light.turn_off, light.turn_on, sensor.tado_hot_water
@@ -56,6 +56,46 @@
   - entities: climate.hannah_ac, climate.set_hvac_mode
 - view **Study: more** — 11 cards (tile×10, heading×1)
   - entities: climate.set_hvac_mode, climate.study_ac
+- view **Lights** — 1 cards (picture-elements×1)
+  - entities: binary_sensor.bay_party_wall_door, binary_sensor.bay_window_door, binary_sensor.front_door, binary_sensor.garage_out_door, binary_sensor.garage_utility_door_door, binary_sensor.kitchen_door, binary_sensor.patio_door_door, binary_sensor.utility_back_door, light.coats, light.dining_spotlights_switch, light.dining_wall_light_garden, light.dining_wall_light_road, light.hallway_spotlights_switch, light.hue_lightstrip_1, light.hue_white_spot_1, light.kitchen_spotlights_switch, light.kitchen_worktop, light.laundry, light.lounge_lamp_2, light.lounge_pendant_switch, light.lounge_spotlights_switch, light.lounge_wall_lights_switch, light.media_room_spotlights_switch, light.media_room_wall_lights_switch, light.pantry, light.turn_off, light.turn_on, lock.nmudiki, lock.nmukuru, sensor.bay_party_wall_battery, sensor.bay_window_battery, sensor.boiler_temp_battery, sensor.coats_battery, sensor.downstairs_temperature, sensor.front_battery, sensor.front_doorstep_battery, sensor.garage_doorstep_battery, sensor.garage_out_battery, sensor.garage_utility_door_battery, sensor.hue_motion_sensor_2_battery, sensor.kitchen_battery, sensor.kitchen_switch_battery_level, sensor.nmudiki_battery_level, sensor.nmukuru_battery_level, sensor.patio_door_battery, sensor.utility_back_door_battery, sensor.utility_lights_battery_level, sensor.utility_motion_battery, sensor.worktop_sensor_battery
+- view **Lights: first floor** — 1 cards (picture-elements×1)
+  - entities: binary_sensor.bathroom_window_door, binary_sensor.ellie_window_door, binary_sensor.ellie_window_party_door, binary_sensor.guest_win_door, binary_sensor.landing_window_door, light.bathroom_sink, light.ellie_door_lamp, light.ellie_window_lamp, light.hannah_lamp, light.hannah_spotlights_switch, light.lounge_lamp_1, light.main_spotlights_switch, light.movie_lamp, light.turn_off, light.turn_on, sensor.bathroom_dimmer_battery_level, sensor.bathroom_heater_battery_level, sensor.bathroom_sink_battery, sensor.bathroom_window_battery, sensor.closed_e_battery, sensor.closed_h_battery, sensor.closed_s_battery, sensor.ellie_window_battery, sensor.ellie_window_party_battery, sensor.guest_win_battery, sensor.hue_dimmer_switch_1_battery_2, sensor.hue_dimmer_switch_1_battery_level, sensor.hue_dimmer_switch_2_battery, sensor.isla_switch_battery_level, sensor.landing_window_battery, sensor.tado_ellie, sensor.tado_hannah, sensor.tado_kids_bathroom, sensor.tado_landing, sensor.tado_study
+- view **Lights: loft** — 1 cards (picture-elements×1)
+  - entities: light.bookshelf_lamp, light.hue_adore_wall_1, light.hue_lightstrip_plus_1, light.loft_spotlights_switch, light.loft_suite_spotlights_switch, light.study_desk_lamp, light.turn_off, light.turn_on, sensor.closed_l_battery, sensor.hue_dimmer_switch_1_battery, sensor.hue_motion_sensor_1_battery, sensor.m_bedside_light_battery_level, sensor.tado_loft_suite
+- view **Coats** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.coats
+- view **Dining area** — 11 cards (tile×6, markdown×3, heading×2)
+  - entities: light.dining_spotlights_switch, light.dining_wall_light_garden, light.dining_wall_light_road
+- view **Garage** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.hue_lightstrip_1
+- view **Hallway** — 8 cards (tile×4, heading×2, markdown×2)
+  - entities: light.hallway_spotlights_switch, light.lounge_lamp_2
+- view **Kitchen** — 7 cards (tile×4, markdown×2, heading×1)
+  - entities: light.kitchen_spotlights_switch, light.kitchen_worktop
+- view **Laundry** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.laundry
+- view **Lounge** — 11 cards (tile×6, markdown×3, heading×2)
+  - entities: light.lounge_pendant_switch, light.lounge_spotlights_switch, light.lounge_wall_lights_switch
+- view **Media room** — 8 cards (tile×4, heading×2, markdown×2)
+  - entities: light.media_room_spotlights_switch, light.media_room_wall_lights_switch
+- view **Pantry** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.pantry
+- view **Downstairs loo** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.hue_white_spot_1
+- view **Ellie's room** — 29 cards (tile×20, markdown×6, heading×3)
+  - entities: climate.ellie_ac, climate.set_hvac_mode, light.ellie_door_lamp, light.ellie_window_lamp, light.lounge_lamp_1, light.main_spotlights_switch, sensor.tado_ellie
+- view **Hannah's room** — 23 cards (tile×16, markdown×4, heading×3)
+  - entities: climate.hannah_ac, climate.set_hvac_mode, light.hannah_lamp, light.hannah_spotlights_switch, sensor.tado_hannah
+- view **Kids' bathroom** — 5 cards (tile×3, heading×1, markdown×1)
+  - entities: light.bathroom_sink, sensor.tado_kids_bathroom
+- view **Landing** — 5 cards (tile×3, heading×1, markdown×1)
+  - entities: light.movie_lamp, sensor.tado_landing
+- view **Loft bathroom** — 4 cards (tile×2, heading×1, markdown×1)
+  - entities: light.hue_adore_wall_1
+- view **Loft desk** — 14 cards (tile×8, markdown×4, heading×2)
+  - entities: light.hue_lightstrip_plus_1, light.loft32_desk_light, light.loft_spotlights_switch, light.work_status_on_air_light
+- view **Loft suite** — 26 cards (tile×18, markdown×5, heading×3)
+  - entities: climate.loft_suite_ac, climate.set_hvac_mode, light.bookshelf_lamp, light.loft_suite_spotlights_switch, light.study_desk_lamp, sensor.tado_loft_suite
 
 ## lovelace.lovelace_guest  — url `lovelace-guest`  title `Pamba`  (1711 bytes)
 
@@ -102,10 +142,10 @@ _no views / strategy dashboard_
 _no views / strategy dashboard_
 
 
-## lovelace.tongai_test  — url `tongai-test`  title `Home`  (153394 bytes)
+## lovelace.tongai_test  — url `tongai-test`  title `Home`  (175367 bytes)
 
-- view **Overview** — 13 cards (entities×5, glance×4, custom:auto-entities×2, picture-entity×1, gauge×1)
-  - entities: binary_sensor.front_door, binary_sensor.garage_out_door, camera.front_door, climate.downstairs, climate.ellie, climate.hannah, climate.kids_bathroom, group.downstairs_lights, input_boolean.away_on_holiday, input_boolean.force_home_mode, input_boolean.garden_d_cleared, input_boolean.oppy_schedule_enabled, input_boolean.pump_timer, input_boolean.toggle, input_datetime.oppy_mow_time, input_datetime.weekday_shower, input_number.timer_length, input_select.room_heater, light.bookshelf_lamp, light.downstairs_lights, light.linkplus_led, light.loft_suite_spotlights_switch, light.lounge_lamp_2, light.toggle, lock.volvo_eva_lock, script.home_fires, script.oppy_mow_all, script.study_boost, sensor.alarm_mode, sensor.eva_location, sensor.hannah_locator, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, sensor.mojgan_locator, sensor.oppy_battery, sensor.oppy_current_zone, sensor.oppy_mowing_progress, sensor.oppy_status, sensor.tongai_locator, sensor.volvo_eva_battery_charge_level, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
+- view **Overview** — 14 cards (entities×5, glance×4, custom:auto-entities×2, custom:album-slideshow-card×1, picture-entity×1, gauge×1)
+  - entities: binary_sensor.front_door, binary_sensor.garage_out_door, camera.album_slideshow_doggo, camera.front_door, climate.downstairs, climate.ellie, climate.hannah, climate.kids_bathroom, group.downstairs_lights, input_boolean.away_on_holiday, input_boolean.force_home_mode, input_boolean.garden_d_cleared, input_boolean.oppy_schedule_enabled, input_boolean.pump_timer, input_boolean.toggle, input_datetime.oppy_mow_time, input_datetime.weekday_shower, input_number.timer_length, input_select.room_heater, light.bookshelf_lamp, light.downstairs_lights, light.linkplus_led, light.loft_suite_spotlights_switch, light.lounge_lamp_2, light.toggle, lock.volvo_eva_lock, script.home_fires, script.oppy_mow_all, script.study_boost, sensor.alarm_mode, sensor.eva_location, sensor.hannah_locator, sensor.hannahs_iphone_battery_level, sensor.hannahs_iphone_battery_state, sensor.mojgan_locator, sensor.oppy_battery, sensor.oppy_current_zone, sensor.oppy_mowing_progress, sensor.oppy_status, sensor.tongai_locator, sensor.volvo_eva_battery_charge_level, switch.sonoff_1000eced8f, switch.sonoff_100125dac5
 - view **Blinds** — 2 cards (markdown×2)
   - entities: sensor.ellie_today, sensor.ellie_tomorrow, sensor.hannah_today, sensor.hannah_tomorrow
 - view **TV** — 9 cards (entities×5, glance×1, vertical-stack×1, custom:tv-card×1, custom:lg-remote-control×1)
@@ -126,10 +166,12 @@ _no views / strategy dashboard_
   - entities: sensor.batteries_battery_level
 - view **Alarm** — 8 cards (glance×2, picture-entity×2, entity-filter×2, custom:aarlo-glance×1, entities×1)
   - entities: binary_sensor.bathroom_window_contact, binary_sensor.bay_party_wall_contact, binary_sensor.bay_window_contact, binary_sensor.front_contact, binary_sensor.garage_out_contact, binary_sensor.guest_win_contact, binary_sensor.kitchen_contact, binary_sensor.landing_window_contact, binary_sensor.loft_hatch_contact, binary_sensor.main_window_contact, binary_sensor.main_window_party_contact, binary_sensor.patio_door_contact, binary_sensor.utility_back_door_contact, camera.aarlo_garden_c, camera.front_door, camera.garden_a, input_boolean.a_parent_home, input_boolean.all_parents_home, input_boolean.away_on_holiday, input_boolean.disable_auto_modes, input_boolean.force_home_mode, input_boolean.mute_alarm, input_boolean.nearly_home, input_boolean.toggle, input_boolean.we_took_the_car, light.aarlo_garden_c, light.armchair_lamp, light.bathroom_sink, light.coats, light.dining_spotlights, light.hall_downlights, light.isla_downlight, light.isla_wall, light.kitchen_spotlights, light.kitchen_worktop, light.loft_main, light.lounge_dim_1, light.lounge_dim_2, light.lounge_lamp_1, light.lounge_lamp_2, light.m_side, light.main_downlights, light.movie_lamp, light.study_bedside_lamp, light.study_desk_lamp, light.t_side, light.utility, script.nearly_home, script.turn_on, sensor.alarm_mode, sensor.alarm_schedule
-- view **Swings** — 5 cards (entity-filter×2, custom:aarlo-glance×1, picture-entity×1, glance×1)
-  - entities: binary_sensor.bathroom_window_contact, binary_sensor.bay_party_wall_contact, binary_sensor.bay_window_contact, binary_sensor.front_contact, binary_sensor.garage_out_contact, binary_sensor.guest_win_contact, binary_sensor.kitchen_contact, binary_sensor.landing_window_contact, binary_sensor.loft_hatch_contact, binary_sensor.main_window_contact, binary_sensor.main_window_party_contact, binary_sensor.mukuru_contact, binary_sensor.patio_door_contact, binary_sensor.utility_back_door_contact, camera.aarlo_swings, light.aarlo_front_light, light.armchair_lamp, light.bathroom_sink, light.coats, light.dining_spotlights, light.hall_downlights, light.isla_downlight, light.isla_wall, light.kitchen_spotlights, light.kitchen_worktop, light.loft_main, light.lounge_dim_1, light.lounge_dim_2, light.lounge_lamp_1, light.lounge_lamp_2, light.m_side, light.main_downlights, light.movie_lamp, light.study_bedside_lamp, light.study_desk_lamp, light.t_side, light.toggle, light.utility
+- view **Swings** — 5 cards (entity-filter×2, grid×1, picture-entity×1, glance×1)
+  - entities: binary_sensor.bathroom_window_contact, binary_sensor.bay_party_wall_contact, binary_sensor.bay_window_contact, binary_sensor.front_contact, binary_sensor.garage_out_contact, binary_sensor.guest_win_contact, binary_sensor.kitchen_contact, binary_sensor.landing_window_contact, binary_sensor.loft_hatch_contact, binary_sensor.main_window_contact, binary_sensor.main_window_party_contact, binary_sensor.mukuru_contact, binary_sensor.patio_door_contact, binary_sensor.utility_back_door_contact, input_select.light_room_coats, input_select.light_room_desk_light, input_select.light_room_desk_shelf, input_select.light_room_dining_spots, input_select.light_room_dining_wall_garden, input_select.light_room_dining_wall_road, input_select.light_room_ellie_door_lamp, input_select.light_room_ellie_spots, input_select.light_room_ellie_standing_lamp, input_select.light_room_ellie_window_lamp, input_select.light_room_garage_strip, input_select.light_room_hall_lamp, input_select.light_room_hall_spots, input_select.light_room_hannah_lamp, input_select.light_room_hannah_spots, input_select.light_room_kids_bathroom_sink, input_select.light_room_kitchen_spots, input_select.light_room_kitchen_worktop, input_select.light_room_laundry, input_select.light_room_loft_bathroom_sink, input_select.light_room_loft_bedside, input_select.light_room_loft_sideboard, input_select.light_room_loft_spots, input_select.light_room_loft_suite_spots, input_select.light_room_loo, input_select.light_room_lounge_pendant, input_
 - view **Alarm** — 27 cards (heading×6, entities×4, markdown×4, entity×2, horizontal-stack×2, picture-entity×2, glance×2, conditional×2, thermostat×1, logbook×1, history-graph×1)
   - entities: binary_sensor.bathroom_window_contact, binary_sensor.bay_party_wall_contact, binary_sensor.bay_window_contact, binary_sensor.evie_door_closed_left_back, binary_sensor.evie_door_closed_left_front, binary_sensor.evie_door_closed_right_back, binary_sensor.evie_door_closed_right_front, binary_sensor.evie_doors_locked, binary_sensor.evie_window_closed_left_back, binary_sensor.evie_window_closed_left_front, binary_sensor.evie_window_closed_right_back, binary_sensor.evie_window_closed_right_front, binary_sensor.front_contact, binary_sensor.garage_out_contact, binary_sensor.guest_win_contact, binary_sensor.kitchen_contact, binary_sensor.landing_window_contact, binary_sensor.main_window_contact, binary_sensor.main_window_party_contact, binary_sensor.patio_door_contact, binary_sensor.utility_back_door_contact, binary_sensor.utility_garage_door_contact, camera.front_door, camera.garden_a, climate.downstairs, climate.study, device_tracker.evie_position, event.front_door_motion, event.garden_a_motion, input_boolean.a_parent_home, input_boolean.all_parents_home, input_boolean.away_on_holiday, input_boolean.disable_auto_modes, input_boolean.force_home_mode, input_boolean.mute_alarm, input_boolean.nearly_home, input_boolean.turn_on, input_boolean.we_took_the_car, light.downstairs_lights, light.ellie_window_lamp, light.hannah_lamp, light.lounge_lamp_2, light.wall_lamps, sensor.alarm_mode, water_heater.hot_water
+- view **Album** — 1 cards (picture-entity×1)
+  - entities: camera.album_slideshow_doggo
 
 ## resources (custom cards JS)
 
@@ -172,3 +214,4 @@ _no views / strategy dashboard_
 - `/hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js?hacstag=178921037451` (None)
 - `/hacsfiles/flex-table-card/flex-table-card.js?hacstag=156292058075` (None)
 - `/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375511` (None)
+- `/album_slideshow_static/album-slideshow-card.js?v=1.17.0` (None)

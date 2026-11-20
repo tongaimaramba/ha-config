@@ -72,6 +72,10 @@ binary_sensor.coats_motion	hue	tojgan bright	Coats	Hallway	Motion			265cef33-851
 binary_sensor.coats_motion_2	hue	tojgan bright	Coats	Coats	Motion			9fffb4ac-6b8b-43e9-83e9-ac66fff9499d
 binary_sensor.deconz_running	hassio	Supervisor	deCONZ		Running	integration		core_deconz_state
 binary_sensor.domane_lost	tile	tongaimaramba@gmail.com	Domane	Garage	Lost			tongaimaramba@gmail.com_93a9f62adee24a79_lost
+binary_sensor.door_door	smartthings	My home	Door	Ellie	Door			8e12da86-cf02-4c5a-9b36-9fb0d48234ec_main_contactSensor_contact_contact
+binary_sensor.door_door_2	smartthings	My home	Door	Loft	Door			89147137-cb7d-4ed2-b23b-e9bdee83926b_main_contactSensor_contact_contact
+binary_sensor.door_door_3	smartthings	My home	Door	Study	Door			2de41fff-285e-4992-8e21-b40a0d7925a0_main_contactSensor_contact_contact
+binary_sensor.door_door_4	smartthings	My home	Door	Hannah	Door			71977775-92f3-47e7-9b17-0cb28e241c62_main_contactSensor_contact_contact
 binary_sensor.downstairs_indoor_movement	group	Downstairs Indoor Movement			Downstairs Indoor Movement			60bed65316a7857969c58ad2fcbf18f9
 binary_sensor.ellie_iphone_camera_motion	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Camera Motion	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_cameraMotion
 binary_sensor.ellie_iphone_focus	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Focus			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_focus
@@ -154,6 +158,7 @@ binary_sensor.nginx_home_assistant_ssl_proxy_update_available	hassio	Supervisor	
 binary_sensor.nhtojgan_mqtt_connected	mqtt	192.168.179.41	NHtojgan		MQTT connected			167391016630284_mqtt_connected
 binary_sensor.nmudiki_battery_charging	mqtt	192.168.179.41	nMudiki		Battery charging			2ff641fd_battery_charging
 binary_sensor.nmudiki_battery_low	mqtt	192.168.179.41	nMudiki		Battery low			2ff641fd_battery_low
+binary_sensor.nmudiki_lock_n_go_active	mqtt	192.168.179.41	nMudiki		Lock 'n' Go active			2ff641fd_lock_n_go_active
 binary_sensor.nmukuru_battery_charging	mqtt	192.168.179.41	nMukuru		Battery charging			493e09d7_battery_charging
 binary_sensor.nmukuru_battery_charging_2	mqtt	192.168.179.41	nMukuru		Battery charging			49e9ef2f_battery_charging
 binary_sensor.nmukuru_battery_charging_3	mqtt	192.168.179.41	nMukuru		Battery charging			49E9EF2F_battery_charging
@@ -164,6 +169,7 @@ binary_sensor.nmukuru_battery_low	mqtt	192.168.179.41	nMukuru		Battery low			493
 binary_sensor.nmukuru_battery_low_2	mqtt	192.168.179.41	nMukuru		Battery low			49e9ef2f_battery_low
 binary_sensor.nmukuru_hybrid_connected	mqtt	192.168.179.41	nMukuru		Hybrid connected			49e9ef2f_hybrid_connected
 binary_sensor.nmukuru_hybrid_connected_2	mqtt	192.168.179.41	nMukuru		Hybrid connected			493e09d7_hybrid_connected
+binary_sensor.nmukuru_lock_n_go_active	mqtt	192.168.179.41	nMukuru		Lock 'n' Go active			493e09d7_lock_n_go_active
 binary_sensor.node_red_running	hassio	Supervisor	Node-RED		Running	integration		a0d7b954_nodered_state
 binary_sensor.nuki_mudiki_mqtt_connected	mqtt	192.168.179.41	nuki_mudiki		MQTT connected			207629252705240_mqtt_connected
 binary_sensor.nukihub_mqtt_connected	mqtt	192.168.179.41	nukihub		MQTT connected			692105978_mqtt_connected
@@ -180,6 +186,9 @@ binary_sensor.pir_gpio_driveway	rpi_gpio				pir_gpio_driveway			pir_17_gpio_driv
 binary_sensor.pres_e	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-e	Ellies Bedroom				44:e2:f8:ff:fe:33:98:b1-1-1030
 binary_sensor.pres_h	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h	Hannahs Bedroom				c4:d8:c8:ff:fe:1e:40:a1-1-1030
 binary_sensor.pres_l	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite				44:e2:f8:ff:fe:24:03:c4-1-1030
+binary_sensor.presence_motion	smartthings	My home	Presence	Loft	Motion			835ac911-3634-4b41-a4e0-14320f9f5f0d_main_motionSensor_motion_motion
+binary_sensor.presence_motion_2	smartthings	My home	Presence	Ellie	Motion			58442adb-83bd-450a-9353-8eb3686a1951_main_motionSensor_motion_motion
+binary_sensor.presence_motion_3	smartthings	My home	Presence	Hannah	Motion			8f5aea16-c4cc-4b43-9c8d-dd93d8db905c_main_motionSensor_motion_motion
 binary_sensor.rear_perimeter_contact	group	Rear Perimeter Contact			Rear Perimeter Contact			649d350668ae2bbf1f287a862e79aab4
 binary_sensor.rear_perimeter_movement	group	Rear Perimeter Movement			Rear Perimeter Movement			c9adb969e7a7822ef68d92fb529c83b2
 binary_sensor.robert_bin_full	roomba	Robert	Robert		Bin full			bin_4320C0BC4988426D9ADA72F6C3CD8499
@@ -277,7 +286,7 @@ binary_sensor.tongaipix_power_save	mobile_app	TongaiPix	TongaiPix		TongaiPix Pow
 binary_sensor.tongaipix_speakerphone	mobile_app	TongaiPix	TongaiPix		TongaiPix Speakerphone	integration		187ff1d43572a17c24133f9733942ceeaf6446199cdf5803b2c38d674f2eb90d_speakerphone_state
 binary_sensor.tongaipix_wi_fi_state	mobile_app	TongaiPix	TongaiPix		TongaiPix Wi-Fi state	integration		187ff1d43572a17c24133f9733942ceeaf6446199cdf5803b2c38d674f2eb90d_wifi_state
 binary_sensor.tongaipix_work_profile	mobile_app	TongaiPix	TongaiPix		TongaiPix Work profile	integration		187ff1d43572a17c24133f9733942ceeaf6446199cdf5803b2c38d674f2eb90d_is_work_profile
-binary_sensor.tongaism25_android_auto	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Android Auto	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_android_auto
+binary_sensor.tongaism25_android_auto	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Android Auto			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_android_auto
 binary_sensor.tongaism25_app_inactive	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 App inactive	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_app_inactive
 binary_sensor.tongaism25_bluetooth_state	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Bluetooth state	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_bluetooth_state
 binary_sensor.tongaism25_device_locked	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Device locked	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_device_locked
@@ -291,7 +300,7 @@ binary_sensor.tongaism25_is_charging	mobile_app	TongaiSM25	TongaiSM25		TongaiSM2
 binary_sensor.tongaism25_keyguard_locked	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Keyguard locked	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_keyguard_locked
 binary_sensor.tongaism25_keyguard_secure	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Keyguard secure	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_keyguard_secure
 binary_sensor.tongaism25_mic_muted	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Mic muted	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_mic_muted
-binary_sensor.tongaism25_mobile_data	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Mobile data	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_mobile_data
+binary_sensor.tongaism25_mobile_data	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Mobile data			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_mobile_data
 binary_sensor.tongaism25_mobile_data_roaming	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Mobile data roaming	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_mobile_data_roaming
 binary_sensor.tongaism25_music_active	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Music active	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_music_active
 binary_sensor.tongaism25_nfc_state	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 NFC state	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_nfc_state
@@ -305,6 +314,11 @@ binary_sensor.utility_back_door	smartthings	My home	Utility Back Door	Utility			
 binary_sensor.utility_back_door_acceleration	smartthings	My home	Utility Back Door	Utility	Acceleration			d37e06db-a7e8-474f-802e-cad844952232_main_accelerationSensor_acceleration_acceleration
 binary_sensor.utility_motion_motion	hue	tojgan bright	Utility Motion	Utility	Motion			fe4b2176-fd5d-4c3c-a0c2-5a3e302ab64c
 binary_sensor.worktop_sensor_motion	hue	tojgan bright	Worktop Sensor	Kitchen	Motion			e069b5fc-2ed4-477d-93f3-9a0beeb0806f
+button.album_slideshow_doggo_hide_current_photo	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Hide current photo			01M7PTDD55CPGK0BSDS9JJNZB7_hide_photo
+button.album_slideshow_doggo_next_slide	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Next slide			01M7PTDD55CPGK0BSDS9JJNZB7_next_button
+button.album_slideshow_doggo_previous_slide	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Previous slide			01M7PTDD55CPGK0BSDS9JJNZB7_previous_button
+button.album_slideshow_doggo_refresh_album	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Refresh album			01M7PTDD55CPGK0BSDS9JJNZB7_refresh_button
+button.album_slideshow_doggo_undo_hide	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Undo hide			01M7PTDD55CPGK0BSDS9JJNZB7_undo_hide
 button.cancel_writing	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Cancel writing			KITCHEN-NFC-button-cancel_writing
 button.cancel_writing_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Cancel writing			40:91:51:4E:DB:EA-button-cancel_writing
 button.clean_tag	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Clean Tag			KITCHEN-NFC-button-clean_tag
@@ -357,6 +371,7 @@ button.write_tag_random_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Write Tag Rand
 calendar.oppy_mowing_schedule	navimow_pro	Oppy	Oppy	Garden	Mowing schedule			0EBDA2506K0129_schedule
 camera.aarlo_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C	config_entry		garden_c
 camera.aarlo_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings	config_entry		swings
+camera.album_slideshow_doggo	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Album Slideshow Doggo			01M7PTDD55CPGK0BSDS9JJNZB7_camera
 camera.front_door	nest	Pamba	Front Door	Hallway				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-camera
 camera.garden_a	nest	Pamba	Garden A	Backyard				enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera
 camera.oppy_map	navimow_pro	Oppy	Oppy	Garden	Map			0EBDA2506K0129_map
@@ -393,6 +408,7 @@ device_tracker.iphone_32	mobile_app	iPhone (32)	iPhone (32)		iPhone (32)			D3A0E
 device_tracker.mm_iphone	mobile_app	iPhone (3)	mm iphone		mm iphone			8B5159F5-CCA4-4CDA-BD26-786BC595FCAC
 device_tracker.mummy_s_keys	tile	tongaimaramba@gmail.com	Mummy's Keys					tongaimaramba@gmail.com_e331cdcbc83d600e
 device_tracker.nmap_tracker_02_90_8f_b5_9e_41	nmap_tracker	patio_nmap			Nmap Tracker 02:90:8F:B5:9E:41	integration		02:90:8f:b5:9e:41
+device_tracker.nmap_tracker_4e_39_0f_19_ac_e2	nmap_tracker	frontdoor_nmap			Nmap Tracker 4E:39:0F:19:AC:E2	integration		4e:39:0f:19:ac:e2
 device_tracker.nmap_tracker_4e_72_7e_d5_d3_91	nmap_tracker	swings_nmap			Nmap Tracker 4E:72:7E:D5:D3:91	integration		4e:72:7e:d5:d3:91
 device_tracker.nmap_tracker_ca_ee_60_18_15_1a	nmap_tracker	swings_nmap			Nmap Tracker CA:EE:60:18:15:1A	integration		ca:ee:60:18:15:1a
 device_tracker.oppy	navimow_pro	Oppy	Oppy	Garden				0EBDA2506K0129_location
@@ -523,6 +539,39 @@ input_select.dyson_mode	input_select				Dyson Mode			dyson_mode
 input_select.guest_access	input_select				Manage Guest Access			guest_access
 input_select.inverter_mode	input_select				Inverter Mode			inverter_mode
 input_select.inverter_mode_change_retry	input_select				inverter_mode_change_retry			inverter_mode_change_retry
+input_select.light_room_coats	input_select				Room: Coats (coats)			light_room_coats
+input_select.light_room_desk_light	input_select				Room: Desk light (loft32_desk_light)			light_room_desk_light
+input_select.light_room_desk_shelf	input_select				Room: Desk shelf (hue_lightstrip_plus_1)			light_room_desk_shelf
+input_select.light_room_dining_spots	input_select				Room: Dining spots (dining_spotlights_switch)			light_room_dining_spots
+input_select.light_room_dining_wall_garden	input_select				Room: Wall light (garden) (dining_wall_light_garden)			light_room_dining_wall_garden
+input_select.light_room_dining_wall_road	input_select				Room: Wall light (road) (dining_wall_light_road)			light_room_dining_wall_road
+input_select.light_room_ellie_door_lamp	input_select				Room: Door lamp (ellie_door_lamp)			light_room_ellie_door_lamp
+input_select.light_room_ellie_spots	input_select				Room: Spots (main_spotlights_switch)			light_room_ellie_spots
+input_select.light_room_ellie_standing_lamp	input_select				Room: Standing lamp (lounge_lamp_1)			light_room_ellie_standing_lamp
+input_select.light_room_ellie_window_lamp	input_select				Room: Window lamp (ellie_window_lamp)			light_room_ellie_window_lamp
+input_select.light_room_garage_strip	input_select				Room: Strip (hue_lightstrip_1)			light_room_garage_strip
+input_select.light_room_hall_lamp	input_select				Room: Lamp by the front door (lounge_lamp_2)			light_room_hall_lamp
+input_select.light_room_hall_spots	input_select				Room: Hall spots (hallway_spotlights_switch)			light_room_hall_spots
+input_select.light_room_hannah_lamp	input_select				Room: Lamp (hannah_lamp)			light_room_hannah_lamp
+input_select.light_room_hannah_spots	input_select				Room: Spots (hannah_spotlights_switch)			light_room_hannah_spots
+input_select.light_room_kids_bathroom_sink	input_select				Room: Sink light (bathroom_sink)			light_room_kids_bathroom_sink
+input_select.light_room_kitchen_spots	input_select				Room: Kitchen spots (kitchen_spotlights_switch)			light_room_kitchen_spots
+input_select.light_room_kitchen_worktop	input_select				Room: Worktop (kitchen_worktop)			light_room_kitchen_worktop
+input_select.light_room_laundry	input_select				Room: Laundry spots (laundry)			light_room_laundry
+input_select.light_room_loft_bathroom_sink	input_select				Room: Sink light (hue_adore_wall_1)			light_room_loft_bathroom_sink
+input_select.light_room_loft_bedside	input_select				Room: Bedside lamp (bookshelf_lamp)			light_room_loft_bedside
+input_select.light_room_loft_sideboard	input_select				Room: Side board lamp (study_desk_lamp)			light_room_loft_sideboard
+input_select.light_room_loft_spots	input_select				Room: Loft spots (loft_spotlights_switch)			light_room_loft_spots
+input_select.light_room_loft_suite_spots	input_select				Room: Spots (loft_suite_spotlights_switch)			light_room_loft_suite_spots
+input_select.light_room_loo	input_select				Room: Loo light (hue_white_spot_1)			light_room_loo
+input_select.light_room_lounge_pendant	input_select				Room: Pendant (lounge_pendant_switch)			light_room_lounge_pendant
+input_select.light_room_lounge_spots	input_select				Room: Lounge spots (lounge_spotlights_switch)			light_room_lounge_spots
+input_select.light_room_lounge_wall	input_select				Room: Wall lights (lounge_wall_lights_switch)			light_room_lounge_wall
+input_select.light_room_media_spots	input_select				Room: Media room spots (media_room_spotlights_switch)			light_room_media_spots
+input_select.light_room_media_wall	input_select				Room: Wall lights (media_room_wall_lights_switch)			light_room_media_wall
+input_select.light_room_on_air	input_select				Room: On-air light (work_status_on_air_light)			light_room_on_air
+input_select.light_room_pantry	input_select				Room: Pantry spots (pantry)			light_room_pantry
+input_select.light_room_piano_lamp	input_select				Room: Piano lamp (movie_lamp)			light_room_piano_lamp
 input_select.matcher	input_select				matcher			matcher
 input_select.mqtt_messages	input_select				MQTT Messages			mqtt_messages
 input_select.relationship	input_select				Relationship			device_type
@@ -546,6 +595,7 @@ light.bathroom_sink	hue	tojgan bright	Bathroom Sink	Bathroom				e1f392fd-0175-41
 light.bookshelf_lamp	hue	tojgan bright	Loft Bedside Lamp	Loft Suite				3a20da4d-28b0-4569-885a-aca78702b919
 light.coats	hue	tojgan bright	Coats	Hallway				2c3371bd-3bdd-481a-ac5c-d1e84062b383
 light.coats_2	hue	tojgan bright	Coats	Coats		integration		23c32774-b442-4e42-8b1a-8c76bb04dc45
+light.dimmable_light_1	hue	tojgan bright	Utility 3					56be4387-0c65-4f30-9229-869045585ad0
 light.dining_spotlights_off_led_indicator	lightwave_smart	RPI4	Dining Spotlights	Dining Area	Off LED Indicator			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_offLed
 light.dining_spotlights_switch	lightwave_smart	RPI4	Dining Spotlights	Dining Area	Switch			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_smartLightSwitch
 light.dining_wall_light_garden	tuya	tongaimaramba@gmail.com	Dining Wall Light Garden	Dining Area			integration	tuya.bf6b7aeab49b03c1a6zkqqswitch_led
@@ -565,8 +615,6 @@ light.hannah_spotlights_switch	lightwave_smart	RPI4	Hannah Spotlights	Hannahs Be
 light.hue_adore_wall_1	hue	tojgan bright	Loft Bathroom Sink	Loft Bathroom				ea881a12-41e6-4ae9-ac73-a018be8f291f
 light.hue_lightstrip_1	hue	tojgan bright	Garage Light Strip					9ad9dd93-c580-4efc-a4df-39a853e4527b
 light.hue_lightstrip_plus_1	hue	tojgan bright	Desk shelf	Study				076632e6-ebd7-4e71-a536-7b8a61f4e7bc
-light.hue_smart_plug_1	hue	tojgan bright	Christmas Lights	Bathroom heating				ae2a44bc-ef2e-4eba-9d76-2bce6abf5cc0
-light.hue_white_spot_1	hue	tojgan bright	Downstairs Loo					b69912db-82ab-40d1-8647-afa465aebf1e
 light.isla	hue	tojgan bright	Hannahs Bedroom	Isla		integration		daec350c-199d-45b0-870f-202867a438d9
 light.kd_spots	group	kd_spots			kd_spots			cfeb22cf731ab8eda35a839aee9e8975
 light.kd_spots_wall	group	KD_Sposts			KD Spots and Wall			09baafcbb51b087fd933a2ce9d65e9d9
@@ -586,7 +634,6 @@ light.loft_suite_spotlights_off_led_indicator	lightwave_smart	RPI4	Loft Suite Sp
 light.loft_suite_spotlights_switch	lightwave_smart	RPI4	Loft Suite Spotlights	Loft Suite	Switch			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_smartLightSwitch
 light.lounge_ceiling_lights	group	Lounge Ceiling Lights 			Lounge Ceiling Lights 			cf9c7f4eac7754a967ee62e95b6f6d50
 light.lounge_lamp_1	hue	tojgan bright	Ellie Standing Lamp	Living Room				24361d79-b7ac-4a15-8a60-da702224dca5
-light.lounge_lamp_2	hue	tojgan bright	Lounge Lamp - Poppy	Living Room	Hall Lamp Front Door			ce40fdbd-f43b-4d3f-9a26-64c24b8fc3df
 light.lounge_lamps	hue	tojgan bright	Lounge Lamps	Lounge Lamps		integration		635580e8-f2f3-4248-8a78-86c5c4f5dd77
 light.lounge_lamps_2	group	Lounge Lamps			Lounge Lamps			85c5f9b15f38142b6fb98b75bd8e1416
 light.lounge_lights	group	Lounge Lights			Lounge Lights			693800f92004b5b4fb4211a482b69eca
@@ -611,19 +658,19 @@ light.tagreader_led	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader LED			KITC
 light.tagreader_led_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader LED			40:91:51:4E:DB:EA-light-tagreader_led
 light.tojganlrf_hub_my_group_off_led_indicator	lightwave_smart	RPI4	TojganLRF Hub My Group	Garage	Off LED Indicator			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_offLed
 light.utility	group	utility			utility			18f440464495c1d0895424e4bab0cc15
-light.utility_1	hue	tojgan bright	Utility 1	Utility - Laundry	Utility 1			fb8d2acf-9676-4d9d-9484-aa6b9ffa0cd9
+light.utility_1	hue	tojgan bright	Utility 1					8495d97a-26ea-4ef5-b844-535e9afec744
 light.utility_2	hue	tojgan bright	Utility 2	Utility - Laundry	Utility 2			939a6261-23ae-4eef-8f4f-e3231fbeb511
-light.utility_3	hue	tojgan bright	Utility 3	Utility - Laundry	Utility 3			17baef4c-fb81-4a32-8fa9-18648826f309
-light.utility_4	hue	tojgan bright	Utility 4	Utility - Laundry	Utility 4			c48bf678-0d99-46b7-95b2-47a267c4af40
+light.utility_4	hue	tojgan bright	Utility 4					3bc4c414-9460-41be-82cf-33c6e54eee3f
 light.utility_5	hue	tojgan bright	Utility 5	Utility - Laundry	Utility 5			b780729b-8534-4228-9376-fc67de5854f9
 light.utility_6	hue	tojgan bright	Utility 6	Utility				ec815716-2f6a-4ae2-b765-08fa05bb25c4
 light.utility_7	hue	tojgan bright	Utility 7	Utility				2c292044-ac5a-47a1-9958-38c2a9439ba9
 light.utility_8	hue	tojgan bright	Utility 8	Utility				c25a1f0a-0d65-497b-acf0-ef49cd0d820b
-light.utility_9	hue	tojgan bright	Utility 9	Utility				080ae07b-bb09-48af-aa89-60d5e7ff19b9
+light.utility_9	hue	tojgan bright	Utility 9					8313162a-b004-470b-9688-09c415dc2b6d
 light.utility_laundry	hue	tojgan bright	Utility - Laundry	Utility - Laundry		integration		ebda7489-c468-4b32-8c0f-cbbc0b620ff2
 light.utility_pantry	hue	tojgan bright	Utility - Pantry	Utility - Pantry		integration		d23c87ae-9739-4c3c-9991-d1c81aa2f032
 light.wall_lamps	group	Wall Lamps			Wall Lamps			14d7315f10687ff1f98aa0249635414d
 light.work_status_on_air_light	esphome	loft32	work status	Study	On-air Light			94:3C:C6:37:67:84-light-on-air_light
+light.z_plugrepeater	smartthings	My home	Z-PlugRepeater	Infra				c5c1cd9d-239c-4c04-8121-9cf955040c8e_main
 lock.dining_spotlights_lock	lightwave_smart	RPI4	Dining Spotlights	Dining Area	Lock			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_lock
 lock.hallway_spotlights_lock	lightwave_smart	RPI4	Hallway Spotlights	Hallway	Lock			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_lock
 lock.hannah_spotlights_lock	lightwave_smart	RPI4	Hannah Spotlights	Hannahs Bedroom	Lock			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_lock
@@ -636,7 +683,7 @@ lock.lounge_wall_lights_lock	lightwave_smart	RPI4	Lounge Wall Lights	Lounge Lamp
 lock.main_spotlights_lock	lightwave_smart	RPI4	Main Spotlights	Ellies Bedroom	Lock			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_lock
 lock.media_room_spotlights_lock	lightwave_smart	RPI4	Media Room Spotlights	Media area	Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_lock
 lock.media_room_wall_lights_lock	lightwave_smart	RPI4	Media Room Wall Lights	Media area	Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_lock
-lock.mudiki	smartthings	My home	Mudiki	Hallway				744e0f56-d1ce-454b-9c22-cf972ccee78d_main
+lock.mudiki	smartthings	My home	dead	Hallway				744e0f56-d1ce-454b-9c22-cf972ccee78d_main
 lock.nmudiki	mqtt	192.168.179.41	nMudiki					2ff641fd_lock
 lock.nmukuru	mqtt	192.168.179.41	nMukuru					493e09d7_lock
 lock.nmukuru_2	mqtt	192.168.179.41	nMukuru					49e9ef2f_lock
@@ -644,6 +691,14 @@ lock.nmukuru_3	mqtt	192.168.179.41	nMukuru					49E9EF2F_lock
 lock.nmukuru_4	mqtt	192.168.179.41	nMukuru					493E09D7_lock
 media_player.projector	webostv	Projector	Projector	Media area				9e4bcbc6-4c28-2bf9-cd95-44b703a95532
 media_player.shield	androidtv_remote	SHIELD	SHIELD	Media area				48:b0:2d:52:09:55
+number.album_slideshow_doggo_album_refresh_hours	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Album refresh (hours)			01M7PTDD55CPGK0BSDS9JJNZB7_refresh_minutes
+number.album_slideshow_doggo_custom_lookback_days	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Custom lookback days			01M7PTDD55CPGK0BSDS9JJNZB7_custom_lookback_days
+number.album_slideshow_doggo_image_cache_size_mb	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Image cache size (MB)			01M7PTDD55CPGK0BSDS9JJNZB7_image_cache_mb
+number.album_slideshow_doggo_navigation_buffer_slides	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Navigation buffer (slides)			01M7PTDD55CPGK0BSDS9JJNZB7_navigation_buffer_size
+number.album_slideshow_doggo_pair_divider_size_px	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Pair divider size (px)			01M7PTDD55CPGK0BSDS9JJNZB7_pair_divider_px
+number.album_slideshow_doggo_pair_minimum_gap_of_album	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Pair minimum gap (% of album)			01M7PTDD55CPGK0BSDS9JJNZB7_pair_min_gap_percent
+number.album_slideshow_doggo_shuffle_age_bias	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Shuffle age bias			01M7PTDD55CPGK0BSDS9JJNZB7_shuffle_age_bias
+number.album_slideshow_doggo_slide_interval_seconds	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Slide interval (seconds)			01M7PTDD55CPGK0BSDS9JJNZB7_interval
 number.esp_wroom_absorption_2	mqtt	192.168.179.41	ESPresense Garage		Absorption			espresense_14e237_absorption
 number.esp_wroom_max_distance_2	mqtt	192.168.179.41	ESPresense Garage		Max Distance			espresense_14e237_max_distance
 number.loft_pir_bedroom_presence_delay_off	esphome	Bedroom Presence	Bedroom Presence	Loft	Bedroom Presence Delay-Off			D8:3B:DA:75:E6:90-number-bedroom_presence_delay-off
@@ -686,7 +741,6 @@ number.sonoff_1000eced8f_pulsewidth	sonoff	tongaimaramba@gmail.com	Fan		Fan INCH
 number.sonoff_100125dac5_pulsewidth	sonoff	tongaimaramba@gmail.com	patio lights		patio lights INCHING Duration	integration		100125dac5_pulseWidth
 number.sonoff_100140291c_pulsewidth	sonoff	tongaimaramba@gmail.com	Garage		Garage INCHING Duration	integration		100140291c_pulseWidth
 person.ellie_maramba	person				Ellie Maramba			ellie_maramba
-person.feasby	person				Feasby			feasby
 person.hannah	person				Hannah			hannah
 person.mojgan	person				Mojgan			mojgan
 person.tongai	person				Tongai			tongai
@@ -832,13 +886,19 @@ script.set_growatt_mode_from_dropdown	script				Set Growatt Mode From Dropdown		
 script.set_growatt_sph_mode_with_retry	script				Set Growatt SPH Mode with Retry			set_growatt_sph_mode_with_retry
 script.study_boost	script				Study Boost			study_boost
 script.unlock_nuki_momentary	script				Unlock Nuki - momentary			unlock_nuki_momentary
+select.album_slideshow_doggo_aspect_ratio	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Aspect ratio			01M7PTDD55CPGK0BSDS9JJNZB7_aspect_ratio
+select.album_slideshow_doggo_date_filter	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Date filter			01M7PTDD55CPGK0BSDS9JJNZB7_date_filter
+select.album_slideshow_doggo_fill_mode	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Fill mode			01M7PTDD55CPGK0BSDS9JJNZB7_fill_mode
+select.album_slideshow_doggo_max_resolution	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Max resolution			01M7PTDD55CPGK0BSDS9JJNZB7_max_resolution
+select.album_slideshow_doggo_missing_capture_date	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Missing capture date			01M7PTDD55CPGK0BSDS9JJNZB7_missing_date_mode
+select.album_slideshow_doggo_order_mode	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Order mode			01M7PTDD55CPGK0BSDS9JJNZB7_order_mode
+select.album_slideshow_doggo_orientation_mismatch_mode	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Orientation mismatch mode			01M7PTDD55CPGK0BSDS9JJNZB7_portrait_mode
 select.nmudiki_advertising_mode	mqtt	192.168.179.41	nMudiki		Advertising mode			2ff641fd_advertising_mode
 select.nmudiki_battery_type	mqtt	192.168.179.41	nMudiki		Battery type			2ff641fd_battery_type
 select.nmudiki_double_button_press_action	mqtt	192.168.179.41	nMudiki		Double button press action			2ff641fd_double_button_press_action
 select.nmudiki_fob_action_1	mqtt	192.168.179.41	nMudiki		Fob action 1			2ff641fd_fob_action_1
 select.nmudiki_fob_action_2	mqtt	192.168.179.41	nMudiki		Fob action 2			2ff641fd_fob_action_2
 select.nmudiki_fob_action_3	mqtt	192.168.179.41	nMudiki		Fob action 3			2ff641fd_fob_action_3
-select.nmudiki_motor_speed	mqtt	192.168.179.41	nMudiki		Motor speed			2ff641fd_motor_speed
 select.nmudiki_single_button_press_action	mqtt	192.168.179.41	nMudiki		Single button press action			2ff641fd_single_button_press_action
 select.nmudiki_timezone	mqtt	192.168.179.41	nMudiki		Timezone			2ff641fd_timezone
 select.nmukuru_advertising_mode	mqtt	192.168.179.41	nMukuru		Advertising mode			493e09d7_advertising_mode
@@ -863,8 +923,6 @@ select.oppy_rain_sensitivity	navimow_pro	Oppy	Oppy	Garden	Rain sensitivity			0EB
 select.pres_e_detection_sensitivity	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-e	Ellies Bedroom	Detection sensitivity			44:e2:f8:ff:fe:33:98:b1-1-1030-detection_sensitivity
 select.pres_h_detection_sensitivity	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h	Hannahs Bedroom	Detection sensitivity			c4:d8:c8:ff:fe:1e:40:a1-1-1030-detection_sensitivity
 select.pres_l_detection_sensitivity	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite	Detection sensitivity			44:e2:f8:ff:fe:24:03:c4-1-1030-detection_sensitivity
-sensor.15s	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	15s			tongaimaramba@gmail.com_a589fd3cff824897a2814cd20853b7c3
-sensor.17s	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	17s			tongaimaramba@gmail.com_937470aa07504347999b223a7c209ce0
 sensor.aarlo_battery_level_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Battery Level Garden C	config_entry		battery_level_garden_c
 sensor.aarlo_battery_level_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Battery Level swings	config_entry		battery_level_swings
 sensor.aarlo_captured_today_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Captured Today Garden C	config_entry		captured_today_garden_c
@@ -876,35 +934,29 @@ sensor.aarlo_recent_activity_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swi
 sensor.aarlo_signal_strength_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Signal Strength Garden C	config_entry		signal_strength_garden_c
 sensor.aarlo_signal_strength_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	Signal Strength swings	config_entry		signal_strength_swings
 sensor.aarlo_total_cameras	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	Arlo Cameras	config_entry		total_cameras
-sensor.abnormal_hr_counts	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Abnormal HR Counts	integration		tongaimaramba@gmail.com_abnormalHeartRateAlertsCount
-sensor.active_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Active KiloCalories			tongaimaramba@gmail.com_activeKilocalories
-sensor.active_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Active Time			tongaimaramba@gmail.com_activeSeconds
-sensor.activity_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Activity Stress Duration			tongaimaramba@gmail.com_activityStressDuration
-sensor.activity_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Activity Stress Percentage	integration		tongaimaramba@gmail.com_activityStressPercentage
 sensor.advanced_ssh_web_terminal_cpu_percent	hassio	Supervisor	Advanced SSH & Web Terminal		CPU percent	integration		a0d7b954_ssh_cpu_percent
 sensor.advanced_ssh_web_terminal_memory_percent	hassio	Supervisor	Advanced SSH & Web Terminal		Memory percent	integration		a0d7b954_ssh_memory_percent
 sensor.advanced_ssh_web_terminal_newest_version	hassio	Supervisor	Advanced SSH & Web Terminal		Newest version	integration		a0d7b954_ssh_version_latest
 sensor.advanced_ssh_web_terminal_version	hassio	Supervisor	Advanced SSH & Web Terminal		Version	integration		a0d7b954_ssh_version
+sensor.album_slideshow_doggo_album_title	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Album title			01M7PTDD55CPGK0BSDS9JJNZB7_title
+sensor.album_slideshow_doggo_enrichment_progress	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Enrichment progress			01M7PTDD55CPGK0BSDS9JJNZB7_enrichment_progress
+sensor.album_slideshow_doggo_hidden_photos	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Hidden photos			01M7PTDD55CPGK0BSDS9JJNZB7_hidden_photo_count
+sensor.album_slideshow_doggo_image_cache_usage	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Image cache usage			01M7PTDD55CPGK0BSDS9JJNZB7_cache_usage
+sensor.album_slideshow_doggo_photo_count	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Photo count			01M7PTDD55CPGK0BSDS9JJNZB7_count
 sensor.appdaemon_4_cpu_percent	hassio	Supervisor	AppDaemon		CPU percent	integration		a0d7b954_appdaemon_cpu_percent
 sensor.appdaemon_4_memory_percent	hassio	Supervisor	AppDaemon		Memory percent	integration		a0d7b954_appdaemon_memory_percent
 sensor.appdaemon_4_newest_version	hassio	Supervisor	AppDaemon		Newest version	integration		a0d7b954_appdaemon_version_latest
 sensor.appdaemon_4_version	hassio	Supervisor	AppDaemon		Version	integration		a0d7b954_appdaemon_version
 sensor.armchair_lamp_zigbee_connectivity	hue	tojgan bright	Hannah Lamp	Dining Area	Zigbee connectivity	integration		71ae0039-4850-4687-92b4-b422760770ba
 sensor.audio	eventsensor	audio			audio			hue_event_id_audio_event_1000_1_click_1001_1_hold_1002_1_click_up_1003_1_hold_up_2000_2_click_2001_2_hold_2002_2_click_up_2003_2_hold_up_3000_3_click_3001_3_hold_3002_3_click_up_3003_3_hold_up_4000_4_click_4001_4_hold_4002_4_click_up_4003_4_hold_up
-sensor.average_altitude	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Average Altitude	integration		tongaimaramba@gmail.com_averageMonitoringEnvironmentAltitude
-sensor.average_spo2	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Average SPO2			tongaimaramba@gmail.com_averageSpo2
-sensor.avg_stress_level	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Avg Stress Level			tongaimaramba@gmail.com_averageStressLevel
-sensor.awake_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Awake Duration			tongaimaramba@gmail.com_measurableAwakeDuration
 sensor.backup_backup_manager_state	backup	Backup	Backup		Backup Manager state			backup_manager_state
 sensor.backup_last_attempted_automatic_backup	backup	Backup	Backup		Last attempted automatic backup			last_attempted_automatic_backup
 sensor.backup_last_successful_automatic_backup	backup	Backup	Backup		Last successful automatic backup			last_successful_automatic_backup
 sensor.backup_next_scheduled_automatic_backup	backup	Backup	Backup		Next scheduled automatic backup			next_scheduled_automatic_backup
-sensor.badges	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Badges	integration		tongaimaramba@gmail.com_badges
 sensor.bathroom_dimmer_battery_level	hue	tojgan bright	Bathroom Dimmer	Bathroom	Battery			97198ff0-b0b6-4cfd-84d5-9b7d4c4a60d1
 sensor.bathroom_dimmer_zigbee_connectivity	hue	tojgan bright	Bathroom Dimmer	Bathroom	Zigbee connectivity	integration		af3a3e57-01d9-407f-b02e-6d721cf77e2a
 sensor.bathroom_heater_battery_level	hue	tojgan bright	Bathroom heater	Bathroom	Battery			a4a4c104-beea-42eb-acae-a23aa4ce9529
 sensor.bathroom_heater_zigbee_connectivity	hue	tojgan bright	Bathroom heater	Bathroom	Zigbee connectivity	integration		dcae58ce-d3de-4bb4-a932-815ff508e3b3
-sensor.bathroom_heater_zigbee_connectivity_2	hue	tojgan bright	Christmas Lights	Bathroom heating	Zigbee connectivity	integration		247e5f83-ca69-4ed6-91aa-ba8035908aa8
 sensor.bathroom_illuminance	hue	tojgan bright	Bathroom	Bathroom	Illuminance			1f3f5366-b784-47b9-be2d-42ae77fe9814
 sensor.bathroom_sink_battery	hue	tojgan bright	Bathroom Sink	Bathroom	Battery			c3534462-2292-4f87-8bbd-5ac49f06bf1b
 sensor.bathroom_sink_light_level	hue	tojgan bright	Bathroom Sink	Bathroom	Illuminance			c1de4baa-3de2-4e43-be91-9da473e6e39f
@@ -928,23 +980,12 @@ sensor.bay_window_temperature	smartthings	My home	Bay Window	Living Room	Tempera
 sensor.bay_window_x_coordinate	smartthings	My home	Bay Window	Living Room	X-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_x_coordinate
 sensor.bay_window_y_coordinate	smartthings	My home	Bay Window	Living Room	Y-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_y_coordinate
 sensor.bay_window_z_coordinate	smartthings	My home	Bay Window	Living Room	Z-coordinate			9af80a4d-e520-4fab-95ec-f297b19d9721_main_threeAxis_threeAxis_z_coordinate
-sensor.bmi	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	BMI	integration		tongaimaramba@gmail.com_bmi
-sensor.bmr_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	BMR KiloCalories			tongaimaramba@gmail.com_bmrKilocalories
-sensor.body_battery_charged	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Charged			tongaimaramba@gmail.com_bodyBatteryChargedValue
-sensor.body_battery_drained	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Drained			tongaimaramba@gmail.com_bodyBatteryDrainedValue
-sensor.body_battery_highest	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Highest			tongaimaramba@gmail.com_bodyBatteryHighestValue
-sensor.body_battery_lowest	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Lowest			tongaimaramba@gmail.com_bodyBatteryLowestValue
-sensor.body_battery_most_recent	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Battery Most Recent			tongaimaramba@gmail.com_bodyBatteryMostRecentValue
-sensor.body_fat	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Fat	integration		tongaimaramba@gmail.com_bodyFat
-sensor.body_water	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Body Water	integration		tongaimaramba@gmail.com_bodyWater
 sensor.boiler_temp_battery	smartthings	My home	Boiler Temp	Garage	Battery			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_battery_battery_battery
 sensor.boiler_temp_temperature	smartthings	My home	Boiler Temp	Garage	Temperature			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_temperatureMeasurement_temperature_temperature
 sensor.boiler_temp_x_coordinate	smartthings	My home	Boiler Temp	Garage	X-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_x_coordinate
 sensor.boiler_temp_y_coordinate	smartthings	My home	Boiler Temp	Garage	Y-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_y_coordinate
 sensor.boiler_temp_z_coordinate	smartthings	My home	Boiler Temp	Garage	Z-coordinate			1824a68d-4fd4-46c4-86ec-ce714e8b3915_main_threeAxis_threeAxis_z_coordinate
-sensor.bone_mass	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Bone Mass	integration		tongaimaramba@gmail.com_boneMass
 sensor.bookshelf_lamp_zigbee_connectivity	hue	tojgan bright	Loft Bedside Lamp	Loft Suite	Zigbee connectivity	integration		bd79950f-72db-48c2-b8bc-ce97a293b02d
-sensor.burned_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Burned KiloCalories			tongaimaramba@gmail.com_burnedKilocalories
 sensor.cert_expiry_timestamp_192_168_179_41_8123	cert_expiry	192.168.179.41:8123	192.168.179.41:8123		Cert expiry			192.168.179.41:8123-timestamp
 sensor.closed_e_battery	zha	Sonoff Zigbee 3.0 USB Dongle Plus	closed-e	Ellies Bedroom	Battery			c0:9b:9e:ff:fe:ae:b1:e6-1-1
 sensor.closed_h_battery	zha	Sonoff Zigbee 3.0 USB Dongle Plus	closed-h	Hannahs Bedroom	Battery			c0:9b:9e:ff:fe:ae:b6:bc-1-1
@@ -960,17 +1001,22 @@ sensor.coats_light_level	hue	tojgan bright	Coats	Hallway	Illuminance			4b473d2e-
 sensor.coats_temperature	hue	tojgan bright	Coats	Hallway	Temperature			72079f56-5469-4973-85f6-812e27e501f7
 sensor.coats_zigbee_connectivity	hue	tojgan bright	Coats	Hallway	Zigbee connectivity	integration		d8de33e9-b138-437d-9a08-e94ad16a1fa6
 sensor.coats_zigbee_connectivity_2	hue	tojgan bright	Coats	Hallway	Zigbee connectivity	integration		6e69e53c-94ac-45a1-bfe2-677c61edca53
-sensor.consumed_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Consumed KiloCalories	integration		tongaimaramba@gmail.com_consumedKilocalories
-sensor.daily_step_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Daily Step Goal			tongaimaramba@gmail.com_dailyStepGoal
 sensor.deconz_cpu_percent	hassio	Supervisor	deCONZ		CPU percent	integration		core_deconz_cpu_percent
 sensor.deconz_memory_percent	hassio	Supervisor	deCONZ		Memory percent	integration		core_deconz_memory_percent
 sensor.deconz_newest_version	hassio	Supervisor	deCONZ		Newest version	integration		core_deconz_version_latest
 sensor.deconz_version	hassio	Supervisor	deCONZ		Version	integration		core_deconz_version
+sensor.dimmable_light_1_zigbee_connectivity	hue	tojgan bright	Utility 1		Zigbee connectivity	integration		b5e4bfbf-ef14-46e1-9523-fa054724e323
+sensor.dimmable_light_1_zigbee_connectivity_2	hue	tojgan bright	Utility 3		Zigbee connectivity	integration		55b959b2-5c74-4dde-a4f7-99622def2d19
+sensor.dimmable_light_2_zigbee_connectivity	hue	tojgan bright	Utility 4		Zigbee connectivity	integration		ca83423e-c159-468c-8ec3-743dce851501
+sensor.dimmable_light_3_zigbee_connectivity	hue	tojgan bright	Utility 9		Zigbee connectivity	integration		bee85c30-5db5-40b3-a0ec-7a439a7696a7
 sensor.dining_spotlights_current_consumption	lightwave_smart	RPI4	Dining Spotlights	Dining Area	Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_power
 sensor.dining_spotlights_total_consumption	lightwave_smart	RPI4	Dining Spotlights	Dining Area	Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_energy
 sensor.domane	places	Domane			domane			39f987824bcbeb5fb52c6298b39f17ed
-sensor.domane_2	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Domane			tongaimaramba@gmail.com_4c2da3c5b9db494fae4ac75c9998f3db
 sensor.domane_phone	template	domane-phone			domane-phone			beb242e4857e47fcd043cbcadff46069
+sensor.door_battery	smartthings	My home	Door	Ellie	Battery			8e12da86-cf02-4c5a-9b36-9fb0d48234ec_main_battery_battery_battery
+sensor.door_battery_2	smartthings	My home	Door	Loft	Battery			89147137-cb7d-4ed2-b23b-e9bdee83926b_main_battery_battery_battery
+sensor.door_battery_3	smartthings	My home	Door	Study	Battery			2de41fff-285e-4992-8e21-b40a0d7925a0_main_battery_battery_battery
+sensor.door_battery_4	smartthings	My home	Door	Hannah	Battery			71977775-92f3-47e7-9b17-0cb28e241c62_main_battery_battery_battery
 sensor.doorstep_presence_car_sensor	esphome	doorstep presence	study presence	Study	Car Sensor			58:BF:25:D7:20:71-sensor-car_sensor
 sensor.doorstep_presence_person_sensor	esphome	doorstep presence	study presence	Study	Person Sensor			58:BF:25:D7:20:71-sensor-person_sensor
 sensor.downstairs_humidity	nest	Pamba	Downstairs	Dining Area	Humidity			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA-humidity
@@ -992,11 +1038,15 @@ sensor.ellie_iphone_current_pace	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPh
 sensor.ellie_iphone_distance	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Distance			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_distance
 sensor.ellie_iphone_floors_ascended	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Floors Ascended			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_floors_ascended
 sensor.ellie_iphone_floors_descended	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Floors Descended			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pedometer_floors_descended
+sensor.ellie_iphone_focus_name	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Focus name			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_focus_name
 sensor.ellie_iphone_geocoded_location	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Geocoded Location	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_geocoded_location
+sensor.ellie_iphone_hinge_angle	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Hinge Angle	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_hinge_angle
+sensor.ellie_iphone_hinge_status	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Hinge Status	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_hinge_status
 sensor.ellie_iphone_kiosk_brightness	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Brightness	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskBrightness
 sensor.ellie_iphone_kiosk_volume	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Kiosk Volume	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_kioskVolume
 sensor.ellie_iphone_last_update_trigger	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Last Update Trigger	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_last_update_trigger
 sensor.ellie_iphone_location_permission	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Location permission			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_location-permission
+sensor.ellie_iphone_pose	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Pose	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_device_pose
 sensor.ellie_iphone_pressure	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone Pressure			fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_pressure
 sensor.ellie_iphone_sim_1	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SIM 1	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_sim_1
 sensor.ellie_iphone_sim_2	mobile_app	Ellie iPhone	Ellie iPhone		Ellie iPhone SIM 2	integration		fd02a6e404d8561ab5d636edf10172df7349ccb23dafdacb8811c1d518761c15_connectivity_sim_2
@@ -1061,11 +1111,6 @@ sensor.file_editor_cpu_percent	hassio	Supervisor	File editor		CPU percent	integr
 sensor.file_editor_memory_percent	hassio	Supervisor	File editor		Memory percent	integration		core_configurator_memory_percent
 sensor.file_editor_newest_version	hassio	Supervisor	File editor		Newest version	integration		core_configurator_version_latest
 sensor.file_editor_version	hassio	Supervisor	File editor		Version	integration		core_configurator_version
-sensor.floors_ascended	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Floors Ascended			tongaimaramba@gmail.com_floorsAscended
-sensor.floors_ascended_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Floors Ascended Goal			tongaimaramba@gmail.com_userFloorsAscendedGoal
-sensor.floors_ascended_mtr	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Floors Ascended Mtr	integration		tongaimaramba@gmail.com_floorsAscendedInMeters
-sensor.floors_descended	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Floors Descended			tongaimaramba@gmail.com_floorsDescended
-sensor.floors_descended_mtr	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Floors Descended Mtr	integration		tongaimaramba@gmail.com_floorsDescendedInMeters
 sensor.front_battery	smartthings	My home	Front	Hallway	Battery			54d2b98b-3cbc-4e56-8cef-c9d383e71030_main_battery_battery_battery
 sensor.front_doorstep_battery	smartthings	My home	Front Doorstep	Hallway	Battery			63f52bf8-6915-467a-a199-c5ece8c50de1_main_battery_battery_battery
 sensor.front_doorstep_temperature	smartthings	My home	Front Doorstep	Hallway	Temperature			63f52bf8-6915-467a-a199-c5ece8c50de1_main_temperatureMeasurement_temperature_temperature
@@ -1139,18 +1184,19 @@ sensor.hannahs_iphone13_audio_output	mobile_app	Hannah’s iPhone13	Hannah’s i
 sensor.hannahs_iphone13_average_active_pace	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Average Active Pace			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_avg_active_pace
 sensor.hannahs_iphone13_battery_level	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Battery Level			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_battery_level
 sensor.hannahs_iphone13_battery_state	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Battery State			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_battery_state
-sensor.hannahs_iphone13_bssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 BSSID	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_bssid
+sensor.hannahs_iphone13_bssid	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 BSSID			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_bssid
 sensor.hannahs_iphone13_camera_stream	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Camera Stream	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_cameraStream
-sensor.hannahs_iphone13_connection_type	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Connection Type	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_connection_type
+sensor.hannahs_iphone13_connection_type	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Connection Type			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_connection_type
 sensor.hannahs_iphone13_current_cadence	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Current Cadence			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_current_cadence
 sensor.hannahs_iphone13_current_pace	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Current Pace			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_current_pace
 sensor.hannahs_iphone13_distance	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Distance			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_distance
 sensor.hannahs_iphone13_floors_ascended	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Floors Ascended			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_floors_ascended
 sensor.hannahs_iphone13_floors_descended	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Floors Descended			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pedometer_floors_descended
+sensor.hannahs_iphone13_focus_name	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Focus name			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_focus_name
 sensor.hannahs_iphone13_geocoded_location	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Geocoded Location	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_geocoded_location
 sensor.hannahs_iphone13_kiosk_brightness	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Brightness	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskBrightness
 sensor.hannahs_iphone13_kiosk_volume	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Kiosk Volume	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_kioskVolume
-sensor.hannahs_iphone13_last_update_trigger	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Last Update Trigger	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_last_update_trigger
+sensor.hannahs_iphone13_last_update_trigger	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Last Update Trigger			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_last_update_trigger
 sensor.hannahs_iphone13_location_permission	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Location permission			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_location-permission
 sensor.hannahs_iphone13_pressure	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 Pressure			64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_pressure
 sensor.hannahs_iphone13_sim_1	mobile_app	Hannah’s iPhone13	Hannah’s iPhone13		Hannah’s iPhone13 SIM 1	integration		64e9a5d8879a10a2328ba905945858880eae55195c8b4637b66aee26b44da7dd_connectivity_sim_1
@@ -1177,10 +1223,6 @@ sensor.hannahs_iphone_sim_2	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hann
 sensor.hannahs_iphone_ssid	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone SSID			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_connectivity_ssid
 sensor.hannahs_iphone_steps	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone Steps			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_pedometer_steps
 sensor.hannahs_iphone_storage	mobile_app	Hannah’s iPhone	Hannah’s iPhone		Hannah’s iPhone Storage			0932139ad7451413777296f0cb5a91cc1e41f06aa37b4e74a614c4da1507373b_storage
-sensor.high_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	High Stress Duration			tongaimaramba@gmail.com_highStressDuration
-sensor.high_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	High Stress Percentage	integration		tongaimaramba@gmail.com_highStressPercentage
-sensor.highest_respiration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Highest Respiration	integration		tongaimaramba@gmail.com_highestRespirationValue
-sensor.highly_active_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Highly Active Time	integration		tongaimaramba@gmail.com_highlyActiveSeconds
 sensor.home_assistant_core_cpu_percent	hassio	Supervisor	Home Assistant Core		CPU percent	integration		home_assistant_core_cpu_percent
 sensor.home_assistant_core_memory_percent	hassio	Supervisor	Home Assistant Core		Memory percent	integration		home_assistant_core_memory_percent
 sensor.home_assistant_google_drive_backup_cpu_percent	hassio	Supervisor	Home Assistant Google Drive Backup		CPU percent	integration		cebe7a76_hassio_google_drive_backup_cpu_percent
@@ -1196,7 +1238,6 @@ sensor.home_assistant_operating_system_newest_version	hassio	Supervisor	Home Ass
 sensor.home_assistant_operating_system_version	hassio	Supervisor	Home Assistant Operating System		Version	integration		home_assistant_os_version
 sensor.home_assistant_supervisor_cpu_percent	hassio	Supervisor	Home Assistant Supervisor		CPU percent	integration		home_assistant_supervisor_cpu_percent
 sensor.home_assistant_supervisor_memory_percent	hassio	Supervisor	Home Assistant Supervisor		Memory percent	integration		home_assistant_supervisor_memory_percent
-sensor.hrv_status	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	HRV Status			tongaimaramba@gmail.com_hrvStatus
 sensor.hue_adore_wall_1_zigbee_connectivity	hue	tojgan bright	Loft Bathroom Sink	Loft Bathroom	Zigbee connectivity	integration		f13708b0-6df0-422c-8385-c57b69116024
 sensor.hue_dimmer_switch_1_battery	hue	tojgan bright	Loft Sink Switch	Loft Bathroom	Battery			52156c0a-0d51-4223-aed3-13baaca959ae
 sensor.hue_dimmer_switch_1_battery_2	hue	tojgan bright	Hannah Hue Dimmer 	Hannahs Bedroom	Battery			657c7154-b659-4072-a82f-9ea4c0480364
@@ -1218,8 +1259,6 @@ sensor.hue_motion_sensor_2_temperature	hue	tojgan bright	Garage Laundry	Kitchen	
 sensor.hue_motion_sensor_2_zigbee_connectivity	hue	tojgan bright	Garage Laundry	Kitchen	Zigbee connectivity	integration		8894272d-2f63-40c0-b178-05875faa54fc
 sensor.hue_tap_dial_switch_1_battery	hue	tojgan bright	Lamps Dial		Battery			58039f83-dd56-4e03-a836-a9a7135b3f50
 sensor.hue_tap_dial_switch_1_zigbee_connectivity	hue	tojgan bright	Lamps Dial		Zigbee connectivity	integration		8ebcfcfb-7017-4c2a-a9cf-202521672c9f
-sensor.hue_white_spot_1_zigbee_connectivity	hue	tojgan bright	Downstairs Loo		Zigbee connectivity	integration		dd101722-33f5-45a4-8006-be9807b76452
-sensor.intensity_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Intensity Goal	integration		tongaimaramba@gmail.com_intensityMinutesGoal
 sensor.inverter_all_pv_wattage	growatt_server_api	tojgan-solar	Inverter	Garage	Inverter All PV Wattage			KTM0CM50CC-mix_wattage_pv_all
 sensor.inverter_battery_charged_today	growatt_server_api	tojgan-solar	Inverter	Garage	Inverter Battery charged today			KTM0CM50CC-mix_battery_charge_today
 sensor.inverter_battery_charging	growatt_server_api	tojgan-solar	Inverter	Garage	Inverter Battery charging			KTM0CM50CC-mix_battery_charge
@@ -1271,7 +1310,6 @@ sensor.iphone_32_ssid	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) SSID			616
 sensor.iphone_32_storage	mobile_app	iPhone (32)	iPhone (32)		iPhone (32) Storage			6169e18ffd84d0c9394b2961e317dd7d873959f18b8285fb013ac3531c4df82f_storage
 sensor.isla_switch_battery_level	hue	tojgan bright	Study Switch	Isla Bedroom	Battery			476abea5-3c36-460c-a6e4-96fbdf49eaab
 sensor.isla_switch_zigbee_connectivity	hue	tojgan bright	Study Switch	Isla Bedroom	Zigbee connectivity	integration		b57a5118-a936-4f4d-b33c-f5f060b43fd1
-sensor.john_s_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	John's Bike			tongaimaramba@gmail.com_e5ab3b1e7fba4a878a2672364d43068b
 sensor.kitchen_battery	smartthings	My home	Kitchen	Kitchen	Battery			e6821393-e06c-439c-baad-d48f38e8cd5b_main_battery_battery_battery
 sensor.kitchen_illuminance	hue	tojgan bright	Kitchen	Kitchen	Illuminance			c443c177-eb57-4725-b91b-dff49e49aba8
 sensor.kitchen_spotlights_current_consumption	lightwave_smart	RPI4	Kitchen Spotlights	Kitchen	Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_power
@@ -1290,13 +1328,6 @@ sensor.landing_window_temperature	smartthings	My home	Landing Window	Hallway	Tem
 sensor.landing_window_x_coordinate	smartthings	My home	Landing Window	Hallway	X-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_x_coordinate
 sensor.landing_window_y_coordinate	smartthings	My home	Landing Window	Hallway	Y-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_y_coordinate
 sensor.landing_window_z_coordinate	smartthings	My home	Landing Window	Hallway	Z-coordinate			74325601-0eb6-48bf-a640-e09d74995351_main_threeAxis_threeAxis_z_coordinate
-sensor.last_7_days_avg_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Last 7 Days Avg Heart Rate	integration		tongaimaramba@gmail.com_lastSevenDaysAvgRestingHeartRate
-sensor.last_activities	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Last Activities	integration		tongaimaramba@gmail.com_lastActivities
-sensor.last_activity	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Last Activity	integration		tongaimaramba@gmail.com_lastActivity
-sensor.latest_respiration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Latest Respiration	integration		tongaimaramba@gmail.com_latestRespirationValue
-sensor.latest_respiration_update	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Latest Respiration Update	integration		tongaimaramba@gmail.com_latestRespirationTimeGMT
-sensor.latest_spo2	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Latest SPO2			tongaimaramba@gmail.com_latestSpo2
-sensor.latest_spo2_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Latest SPO2 Time	integration		tongaimaramba@gmail.com_latestSpo2ReadingTimeLocal
 sensor.let_s_encrypt_cpu_percent	hassio	Supervisor	Let's Encrypt		CPU percent	integration		core_letsencrypt_cpu_percent
 sensor.let_s_encrypt_memory_percent	hassio	Supervisor	Let's Encrypt		Memory percent	integration		core_letsencrypt_memory_percent
 sensor.let_s_encrypt_newest_version	hassio	Supervisor	Let's Encrypt		Newest version	integration		core_letsencrypt_version_latest
@@ -1309,35 +1340,22 @@ sensor.loft_suite_spotlights_current_consumption	lightwave_smart	RPI4	Loft Suite
 sensor.loft_suite_spotlights_total_consumption	lightwave_smart	RPI4	Loft Suite Spotlights	Loft Suite	Total Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_energy
 sensor.lounge_lamp_dimmer	eventsensor	lounge_lamp_dimmer			lounge_lamp_dimmer			hue_event_id_hue_dimmer_switch_1_button_subtype_1_1_click_2_2_click_3_3_click_4_4_click
 sensor.lounge_lamp_printer_zigbee_connectivity	hue	tojgan bright	Ellie Standing Lamp	Living Room	Zigbee connectivity	integration		d2176fc3-4b2b-4a28-ba25-d43ea559fa4b
-sensor.lounge_lamp_sofa_zigbee_connectivity	hue	tojgan bright	Lounge Lamp - Poppy	Living Room	Zigbee connectivity	integration		5fcb2b54-7ae1-4eb1-acc8-6f58562b66d0
 sensor.lounge_pendant_current_consumption	lightwave_smart	RPI4	Lounge Pendant	Lounge Lamps	Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_power
 sensor.lounge_pendant_total_consumption	lightwave_smart	RPI4	Lounge Pendant	Lounge Lamps	Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_energy
 sensor.lounge_spotlights_current_consumption	lightwave_smart	RPI4	Lounge Spotlights	Lounge Lamps	Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_power
 sensor.lounge_spotlights_total_consumption	lightwave_smart	RPI4	Lounge Spotlights	Lounge Lamps	Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_energy
 sensor.lounge_wall_lights_current_consumption	lightwave_smart	RPI4	Lounge Wall Lights	Lounge Lamps	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_power
 sensor.lounge_wall_lights_total_consumption	lightwave_smart	RPI4	Lounge Wall Lights	Lounge Lamps	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_energy
-sensor.low_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Low Stress Duration			tongaimaramba@gmail.com_lowStressDuration
-sensor.low_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Low Stress Percentage	integration		tongaimaramba@gmail.com_lowStressPercentage
-sensor.lowest_respiration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Lowest Respiration	integration		tongaimaramba@gmail.com_lowestRespirationValue
-sensor.lowest_spo2	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Lowest SPO2			tongaimaramba@gmail.com_lowestSpo2
 sensor.m_bedside_light_battery_level	hue	tojgan bright	M Bedside Light	Main Bedroom	Battery			f6ef3202-f83d-47d9-ab05-312ee2840eae
 sensor.m_bedside_light_zigbee_connectivity	hue	tojgan bright	M Bedside Light	Main Bedroom	Zigbee connectivity	integration		fdac3a1e-f23c-48da-af26-721dd6fdc4b1
 sensor.m_side	eventsensor	m-side			m-side			hue_event_id_m_bedside_light_event_1000_1_click_2000_2_click_3000_3_click_4000_4_click_1001_1_hold_2001_2_hold_3001_3_hold_4001_4_hold_1002_1_click_up_2002_2_click_up_3002_3_click_up_4002_4_click_up_1003_1_hold_up_2003_2_hold_up_3003_3_hold_up_4003_4_hold_up
 sensor.m_side_zigbee_connectivity	hue	tojgan bright	E Door side	M Bedside	Zigbee connectivity	integration		e5b95263-c2ac-468f-b4ed-c6db56000c72
 sensor.main_spotlights_current_consumption	lightwave_smart	RPI4	Main Spotlights	Ellies Bedroom	Current Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_power
 sensor.main_spotlights_total_consumption	lightwave_smart	RPI4	Main Spotlights	Ellies Bedroom	Total Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_energy
-sensor.max_avg_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Max Avg Heart Rate	integration		tongaimaramba@gmail.com_maxAvgHeartRate
-sensor.max_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Max Heart Rate			tongaimaramba@gmail.com_maxHeartRate
-sensor.max_stress_level	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Max Stress Level			tongaimaramba@gmail.com_maxStressLevel
 sensor.media_room_spotlights_current_consumption	lightwave_smart	RPI4	Media Room Spotlights	Media area	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_power
 sensor.media_room_spotlights_total_consumption	lightwave_smart	RPI4	Media Room Spotlights	Media area	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_energy
 sensor.media_room_wall_lights_current_consumption	lightwave_smart	RPI4	Media Room Wall Lights	Media area	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_power
 sensor.media_room_wall_lights_total_consumption	lightwave_smart	RPI4	Media Room Wall Lights	Media area	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_energy
-sensor.medium_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Medium Stress Duration			tongaimaramba@gmail.com_mediumStressDuration
-sensor.medium_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Medium Stress Percentage	integration		tongaimaramba@gmail.com_mediumStressPercentage
-sensor.metabolic_age	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Metabolic Age	integration		tongaimaramba@gmail.com_metabolicAge
-sensor.min_avg_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Min Avg Heart Rate	integration		tongaimaramba@gmail.com_minAvgHeartRate
-sensor.min_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Min Heart Rate			tongaimaramba@gmail.com_minHeartRate
 sensor.mm_iphone_activity	mobile_app	iPhone (3)	mm iphone		mm iphone Activity			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_activity
 sensor.mm_iphone_average_active_pace	mobile_app	iPhone (3)	mm iphone		mm iphone Average Active Pace			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_pedometer_avg_active_pace
 sensor.mm_iphone_battery_level	mobile_app	iPhone (3)	mm iphone		mm iphone Battery Level			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_battery_level
@@ -1354,16 +1372,13 @@ sensor.mm_iphone_sim_2	mobile_app	iPhone (3)	mm iphone		mm iphone SIM 2			1e4f4f
 sensor.mm_iphone_ssid	mobile_app	iPhone (3)	mm iphone		mm iphone SSID			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_connectivity_ssid
 sensor.mm_iphone_steps	mobile_app	iPhone (3)	mm iphone		mm iphone Steps			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_pedometer_steps
 sensor.mm_iphone_storage	mobile_app	iPhone (3)	mm iphone		mm iphone Storage			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_storage
-sensor.moderate_intensity	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Moderate Intensity	integration		tongaimaramba@gmail.com_moderateIntensityMinutes
 sensor.mojgan_locator	places	Mojgan Locator			Mojgan Locator			b3950f3e7ac357580dca8bd6cd76f552
 sensor.mosquitto_broker_cpu_percent	hassio	Supervisor	Mosquitto broker		CPU percent	integration		core_mosquitto_cpu_percent
 sensor.mosquitto_broker_memory_percent	hassio	Supervisor	Mosquitto broker		Memory percent	integration		core_mosquitto_memory_percent
 sensor.mosquitto_broker_newest_version	hassio	Supervisor	Mosquitto broker		Newest version	integration		core_mosquitto_version_latest
 sensor.mosquitto_broker_version	hassio	Supervisor	Mosquitto broker		Version	integration		core_mosquitto_version
-sensor.mountain_bike	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Mountain bike 			tongaimaramba@gmail.com_bea704f07f374bc2b4e8bda4c45a3090
 sensor.movie_lamp_zigbee_connectivity	hue	tojgan bright	Piano Lamp	Media area	Zigbee connectivity	integration		043f8c5b-e44a-4f40-996c-6a7c2ab98cda
-sensor.mudiki_battery	smartthings	My home	Mudiki	Hallway	Battery			744e0f56-d1ce-454b-9c22-cf972ccee78d_main_battery_battery_battery
-sensor.muscle_mass	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Muscle Mass	integration		tongaimaramba@gmail.com_muscleMass
+sensor.mudiki_battery	smartthings	My home	dead	Hallway	Battery			744e0f56-d1ce-454b-9c22-cf972ccee78d_main_battery_battery_battery
 sensor.myups_alarms	nut	ccf28a08-nut:3493	Myups	Garage	Alarms			American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _ups.alarm
 sensor.myups_battery_charge	nut	ccf28a08-nut:3493	Myups	Garage	Battery charge			American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _battery.charge
 sensor.myups_battery_chemistry	nut	ccf28a08-nut:3493	Myups	Garage	Battery chemistry	integration		American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _battery.type
@@ -1392,13 +1407,10 @@ sensor.myups_status_data_2	nut	ccf28a08-nut:3493	Myups		Status data			e4593ec01a
 sensor.myups_ups_shutdown_delay	nut	ccf28a08-nut:3493	Myups	Garage	UPS shutdown delay	integration		American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _ups.delay.shutdown
 sensor.myups_voltage_transfer_reason	nut	ccf28a08-nut:3493	Myups	Garage	Voltage transfer reason	integration		American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _input.transfer.reason
 sensor.myups_warning_battery_setpoint	nut	ccf28a08-nut:3493	Myups	Garage	Warning battery setpoint	integration		American Power Conversion_Back-UPS RS  650MI_5B2139T64966  _battery.charge.warning
-sensor.net_calorie_goal	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Net Calorie Goal	integration		tongaimaramba@gmail.com_netCalorieGoal
-sensor.net_remaining_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Net Remaining KiloCalories	integration		tongaimaramba@gmail.com_netRemainingKilocalories
 sensor.network_ups_tools_cpu_percent	hassio	Supervisor	Network UPS Tools		CPU percent	integration		ccf28a08_nut_cpu_percent
 sensor.network_ups_tools_memory_percent	hassio	Supervisor	Network UPS Tools		Memory percent	integration		ccf28a08_nut_memory_percent
 sensor.network_ups_tools_newest_version	hassio	Supervisor	Network UPS Tools		Newest version	integration		ccf28a08_nut_version_latest
 sensor.network_ups_tools_version	hassio	Supervisor	Network UPS Tools		Version	integration		ccf28a08_nut_version
-sensor.next_alarm_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Next Alarm Time			tongaimaramba@gmail.com_nextAlarm
 sensor.nginx_home_assistant_ssl_proxy_cpu_percent	hassio	Supervisor	NGINX Home Assistant SSL proxy		CPU percent	integration		core_nginx_proxy_cpu_percent
 sensor.nginx_home_assistant_ssl_proxy_memory_percent	hassio	Supervisor	NGINX Home Assistant SSL proxy		Memory percent	integration		core_nginx_proxy_memory_percent
 sensor.nginx_home_assistant_ssl_proxy_newest_version	hassio	Supervisor	NGINX Home Assistant SSL proxy		Newest version	integration		core_nginx_proxy_version_latest
@@ -1406,7 +1418,6 @@ sensor.nginx_home_assistant_ssl_proxy_version	hassio	Supervisor	NGINX Home Assis
 sensor.nhtojgan_build	mqtt	192.168.179.41	NHtojgan		Build			167391016630284_nuki_hub_build
 sensor.nhtojgan_ip	mqtt	192.168.179.41	NHtojgan		IP			167391016630284_nuki_hub_ip
 sensor.nhtojgan_latest_version	mqtt	192.168.179.41	NHtojgan		Latest Version			167391016630284_nuki_hub_latest
-sensor.nhtojgan_mqtt_log	mqtt	192.168.179.41	NHtojgan		MQTT Log			167391016630284_mqtt_log
 sensor.nhtojgan_network_device	mqtt	192.168.179.41	NHtojgan		Network device			167391016630284_network_device
 sensor.nhtojgan_restart_reason	mqtt	192.168.179.41	NHtojgan		Restart reason			167391016630284_nuki_hub_restart_reason
 sensor.nhtojgan_restart_reason_esp	mqtt	192.168.179.41	NHtojgan		Restart reason ESP			167391016630284_nuki_hub_restart_reason_esp
@@ -1480,7 +1491,6 @@ sensor.patio_door_temperature	smartthings	My home	Patio Door	Kitchen	Temperature
 sensor.patio_door_x_coordinate	smartthings	My home	Patio Door	Kitchen	X-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_x_coordinate
 sensor.patio_door_y_coordinate	smartthings	My home	Patio Door	Kitchen	Y-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_y_coordinate
 sensor.patio_door_z_coordinate	smartthings	My home	Patio Door	Kitchen	Z-coordinate			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main_threeAxis_threeAxis_z_coordinate
-sensor.physique_rating	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Physique Rating	integration		tongaimaramba@gmail.com_physiqueRating
 sensor.pres_e_last_illumination_state	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-e	Ellies Bedroom	Last illumination state			44:e2:f8:ff:fe:33:98:b1-1-64529-last_illumination
 sensor.pres_h_last_illumination_state	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h	Hannahs Bedroom	Last illumination state			c4:d8:c8:ff:fe:1e:40:a1-1-64529-last_illumination
 sensor.pres_l_last_illumination_state	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite	Last illumination state			44:e2:f8:ff:fe:24:03:c4-1-64529-last_illumination
@@ -1506,10 +1516,6 @@ sensor.pure_hot_cool_pm_2_5	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Ho
 sensor.pure_hot_cool_temperature	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool Temperature			ZZ9-UK-NEA5537A-temperature
 sensor.pure_hot_cool_volatile_organic_compounds	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool Volatile Organic Compounds			ZZ9-UK-NEA5537A-voc
 sensor.pure_hot_cool_volatile_organic_compounds_index	dyson_local	Pure Hot+Cool	Pure Hot+Cool	Isla	Pure Hot+Cool Volatile Organic Compounds Index			ZZ9-UK-NEA5537A-voc-index
-sensor.remaining_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Remaining KiloCalories	integration		tongaimaramba@gmail.com_remainingKilocalories
-sensor.rest_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Rest Stress Duration			tongaimaramba@gmail.com_restStressDuration
-sensor.rest_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Rest Stress Percentage	integration		tongaimaramba@gmail.com_restStressPercentage
-sensor.resting_heart_rate	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Resting Heart Rate			tongaimaramba@gmail.com_restingHeartRate
 sensor.robert_average_mission_time	roomba	Robert	Robert		Average mission time			average_mission_time_4320C0BC4988426D9ADA72F6C3CD8499
 sensor.robert_battery_cycles	roomba	Robert	Robert		Battery cycles			battery_cycles_4320C0BC4988426D9ADA72F6C3CD8499
 sensor.robert_battery_level	roomba	Robert	Robert		Battery			battery_4320C0BC4988426D9ADA72F6C3CD8499
@@ -1527,10 +1533,6 @@ sensor.samba_share_cpu_percent	hassio	Supervisor	Samba share		CPU percent	integr
 sensor.samba_share_memory_percent	hassio	Supervisor	Samba share		Memory percent	integration		core_samba_memory_percent
 sensor.samba_share_newest_version	hassio	Supervisor	Samba share		Newest version	integration		core_samba_version_latest
 sensor.samba_share_version	hassio	Supervisor	Samba share		Version	integration		core_samba_version
-sensor.sedentary_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Sedentary Time			tongaimaramba@gmail.com_sedentarySeconds
-sensor.sleep_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Sleep Duration			tongaimaramba@gmail.com_measurableAsleepDuration
-sensor.sleep_score	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Sleep Score			tongaimaramba@gmail.com_sleepScore
-sensor.sleeping_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Sleeping Time			tongaimaramba@gmail.com_sleepingSeconds
 sensor.sonoff_1000eced8f_rssi	sonoff	tongaimaramba@gmail.com	Fan		Fan RSSI	integration		1000eced8f_rssi
 sensor.sonoff_100125dac5_rssi	sonoff	tongaimaramba@gmail.com	patio lights		patio lights RSSI	integration		100125dac5_rssi
 sensor.sonoff_100140291c_rssi	sonoff	tongaimaramba@gmail.com	Garage		Garage RSSI	integration		100140291c_rssi
@@ -1549,9 +1551,6 @@ sensor.sqlite_web_cpu_percent	hassio	Supervisor	SQLite Web		CPU percent	integrat
 sensor.sqlite_web_memory_percent	hassio	Supervisor	SQLite Web		Memory percent	integration		a0d7b954_sqlite-web_memory_percent
 sensor.sqlite_web_newest_version	hassio	Supervisor	SQLite Web		Newest version	integration		a0d7b954_sqlite-web_version_latest
 sensor.sqlite_web_version	hassio	Supervisor	SQLite Web		Version	integration		a0d7b954_sqlite-web_version
-sensor.stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Stress Duration	integration		tongaimaramba@gmail.com_stressDuration
-sensor.stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Stress Percentage	integration		tongaimaramba@gmail.com_stressPercentage
-sensor.stress_qualifier	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Stress Qualifier	integration		tongaimaramba@gmail.com_stressQualifier
 sensor.study_ac_indoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Indoor temperature			50BBB5FFC481indoor-temp
 sensor.study_ac_outdoor_temperature	fujitsu_airstage	local - 50BBB5FFC481	Study AC	Study	Outdoor temperature			50BBB5FFC481outdoor-temp
 sensor.study_desk_lamp_zigbee_connectivity	hue	tojgan bright	Side Board Lamp	Loft Suite	Zigbee connectivity	integration		03c3d08d-ef3d-4eb2-bedb-d2ee303de8bb
@@ -1979,7 +1978,7 @@ sensor.tongaism25_car_fuel_type	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car
 sensor.tongaism25_car_name	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car name	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_car_name
 sensor.tongaism25_car_odometer	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car odometer	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_car_odometer
 sensor.tongaism25_car_range_remaining	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car range remaining	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_car_range_remaining
-sensor.tongaism25_car_speed	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car speed	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_car_speed
+sensor.tongaism25_car_speed	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Car speed			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_car_speed
 sensor.tongaism25_charger_type	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Charger type			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_charger_type
 sensor.tongaism25_current_time_zone	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Current time zone	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_current_time_zone
 sensor.tongaism25_current_version	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Current version	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_current_version
@@ -2004,7 +2003,7 @@ sensor.tongaism25_ipv6_addresses	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 IP
 sensor.tongaism25_last_notification	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last notification	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_notification
 sensor.tongaism25_last_reboot	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last reboot	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_reboot
 sensor.tongaism25_last_removed_notification	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last removed notification	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_removed_notification
-sensor.tongaism25_last_update_trigger	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last update trigger	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_update
+sensor.tongaism25_last_update_trigger	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last update trigger			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_update
 sensor.tongaism25_last_used_app	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Last used app	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_last_used_app
 sensor.tongaism25_lean_body_mass	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Lean body mass	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_health_connect_lean_body_mass
 sensor.tongaism25_light_sensor	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Light sensor	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_light_sensor
@@ -2058,24 +2057,11 @@ sensor.tongaism25_wi_fi_frequency	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 W
 sensor.tongaism25_wi_fi_ip_address	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Wi-Fi IP address	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_wifi_ip_address
 sensor.tongaism25_wi_fi_link_speed	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Wi-Fi link speed	integration		cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_wifi_link_speed
 sensor.tongaism25_wi_fi_signal_strength	mobile_app	TongaiSM25	TongaiSM25		TongaiSM25 Wi-Fi signal strength			cf768c6a590caf14445b7319cdf3b47a6d5d238297528093263fe860e3df6826_wifi_signal_strength
-sensor.total_distance_mtr	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Total Distance Mtr			tongaimaramba@gmail.com_totalDistanceMeters
-sensor.total_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Total KiloCalories			tongaimaramba@gmail.com_totalKilocalories
-sensor.total_sleep_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Total Sleep Duration			tongaimaramba@gmail.com_sleepTimeSeconds
-sensor.total_steps	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Total Steps			tongaimaramba@gmail.com_totalSteps
-sensor.total_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Total Stress Duration			tongaimaramba@gmail.com_totalStressDuration
-sensor.uncat_stress_duration	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Uncat. Stress Duration			tongaimaramba@gmail.com_uncategorizedStressDuration
-sensor.uncat_stress_percentage	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Uncat. Stress Percentage	integration		tongaimaramba@gmail.com_uncategorizedStressPercentage
-sensor.user_level	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	User Level	integration		tongaimaramba@gmail.com_userLevel
-sensor.user_points	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	User Points	integration		tongaimaramba@gmail.com_userPoints
-sensor.utility_1_zigbee_connectivity	hue	tojgan bright	Utility 1	Utility - Laundry	Zigbee connectivity	integration		837250bb-2402-40ee-82b4-dfae89cd2c32
 sensor.utility_2_zigbee_connectivity	hue	tojgan bright	Utility 2	Utility - Laundry	Zigbee connectivity	integration		4d4d4572-bbcd-4150-a7ac-b33868cd2e20
-sensor.utility_3_zigbee_connectivity	hue	tojgan bright	Utility 3	Utility - Laundry	Zigbee connectivity	integration		aaef30ca-89e6-457b-9cf4-9a4de674f55d
-sensor.utility_4_zigbee_connectivity	hue	tojgan bright	Utility 4	Utility - Laundry	Zigbee connectivity	integration		0192bf64-08b7-4942-929c-752507b559dd
 sensor.utility_5_zigbee_connectivity	hue	tojgan bright	Utility 5	Utility - Laundry	Zigbee connectivity	integration		02ed863a-f1bc-4a47-99c0-993d5c737747
 sensor.utility_6_zigbee_connectivity	hue	tojgan bright	Utility 6	Utility	Zigbee connectivity	integration		ac8ea566-4b1a-4f32-aa99-811057d41487
 sensor.utility_7_zigbee_connectivity	hue	tojgan bright	Utility 7	Utility	Zigbee connectivity	integration		8bc3cc82-efbd-4b70-b11a-0322a81ea91b
 sensor.utility_8_zigbee_connectivity	hue	tojgan bright	Utility 8	Utility	Zigbee connectivity	integration		58e98c26-4dbd-4291-9e6c-d2d727d23be0
-sensor.utility_9_zigbee_connectivity	hue	tojgan bright	Utility 9	Utility	Zigbee connectivity	integration		753ec09b-9b3c-4686-a590-24b75019dbcf
 sensor.utility_back_door_battery	smartthings	My home	Utility Back Door	Utility	Battery			d37e06db-a7e8-474f-802e-cad844952232_main_battery_battery_battery
 sensor.utility_back_door_temperature	smartthings	My home	Utility Back Door	Utility	Temperature			d37e06db-a7e8-474f-802e-cad844952232_main_temperatureMeasurement_temperature_temperature
 sensor.utility_back_door_x_coordinate	smartthings	My home	Utility Back Door	Utility	X-coordinate			d37e06db-a7e8-474f-802e-cad844952232_main_threeAxis_threeAxis_x_coordinate
@@ -2087,19 +2073,12 @@ sensor.utility_motion_battery	hue	tojgan bright	Utility Motion	Utility	Battery		
 sensor.utility_motion_light_level	hue	tojgan bright	Utility Motion	Utility	Illuminance			b2dffe1b-e1e8-470c-ac5f-5b6d588c92f1
 sensor.utility_motion_temperature	hue	tojgan bright	Utility Motion	Utility	Temperature			7c4d1a9a-c19b-4166-9788-e4ae968b9d3c
 sensor.utility_motion_zigbee_connectivity	hue	tojgan bright	Utility Motion	Utility	Zigbee connectivity	integration		a8815d78-dc30-4aff-b875-672c54224743
-sensor.vigorous_intensity	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Vigorous Intensity	integration		tongaimaramba@gmail.com_vigorousIntensityMinutes
-sensor.visceral_fat	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Visceral Fat	integration		tongaimaramba@gmail.com_visceralFat
-sensor.weight	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Weight	integration		tongaimaramba@gmail.com_weight
-sensor.wellness_active_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Active KiloCalories	integration		tongaimaramba@gmail.com_wellnessActiveKilocalories
-sensor.wellness_description	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Description	integration		tongaimaramba@gmail.com_wellnessDescription
-sensor.wellness_distance_mtr	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Distance Mtr	integration		tongaimaramba@gmail.com_wellnessDistanceMeters
-sensor.wellness_end_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness End Time	integration		tongaimaramba@gmail.com_wellnessEndTimeLocal
-sensor.wellness_kilocalories	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness KiloCalories	integration		tongaimaramba@gmail.com_wellnessKilocalories
-sensor.wellness_start_time	garmin_connect	tongaimaramba@gmail.com	Garmin Connect	Home General	Wellness Start Time	integration		tongaimaramba@gmail.com_wellnessStartTimeLocal
 sensor.worktop_sensor_battery	hue	tojgan bright	Worktop Sensor	Kitchen	Battery			ffc0a5c5-c680-45c2-ab22-9b27d121da01
 sensor.worktop_sensor_light_level	hue	tojgan bright	Worktop Sensor	Kitchen	Illuminance			1b2f8d80-ed29-40c1-9b7b-e5b9b9ab9cad
 sensor.worktop_sensor_temperature	hue	tojgan bright	Worktop Sensor	Kitchen	Temperature			847ae1e3-f56d-49f0-922a-9462c545511c
 sensor.worktop_sensor_zigbee_connectivity	hue	tojgan bright	Worktop Sensor	Kitchen	Zigbee connectivity	integration		46de2556-e87d-4675-bda2-0533e4a38495
+sensor.z_plugrepeater_energy	smartthings	My home	Z-PlugRepeater	Infra	Energy			c5c1cd9d-239c-4c04-8121-9cf955040c8e_main_energyMeter_energy_energy
+sensor.z_plugrepeater_power	smartthings	My home	Z-PlugRepeater	Infra	Power			c5c1cd9d-239c-4c04-8121-9cf955040c8e_main_powerMeter_power_power
 siren.aarlo_all_arlo_sirens	aarlo	Aarlo for tongai.maramba@gmail.com	ARLO CONTROLLER	Garden	All Arlo Sirens	config_entry		aarlo_all_sirens
 siren.aarlo_garden_c_siren	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Siren	config_entry		aarlo_siren_A433197NA3BFB
 siren.aarlo_swings_siren	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Siren	config_entry		aarlo_siren_5GG39B73A4B6E
@@ -2109,6 +2088,10 @@ switch.aarlo_siren_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden
 switch.aarlo_snapshot_garden_c	aarlo	Aarlo for tongai.maramba@gmail.com	Garden C		Garden C Snapshot	config_entry		snapshot_garden_c
 switch.aarlo_snapshot_swings	aarlo	Aarlo for tongai.maramba@gmail.com	swings	Garden	swings Snapshot	config_entry		snapshot_swings
 switch.advanced_ssh_web_terminal	hassio	Supervisor	Advanced SSH & Web Terminal			integration		a0d7b954_ssh_state
+switch.album_slideshow_camera_pre_release	hacs		Album Slideshow Camera		Pre-release	integration		1162143395
+switch.album_slideshow_doggo_crop_debug_overlay	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Crop debug overlay			01M7PTDD55CPGK0BSDS9JJNZB7_crop_debug
+switch.album_slideshow_doggo_pause_slideshow	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Pause slideshow			01M7PTDD55CPGK0BSDS9JJNZB7_paused
+switch.album_slideshow_doggo_pause_when_not_viewed	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Pause when not viewed			01M7PTDD55CPGK0BSDS9JJNZB7_pause_when_unwatched
 switch.alexa_media_player_pre_release	hacs		Alexa Media Player		Pre-release	integration		139664351
 switch.appdaemon	hassio	Supervisor	AppDaemon			integration		a0d7b954_appdaemon_state
 switch.arlo_camera_support_pre_release	hacs		Arlo Camera Support		Pre-release			167885769
@@ -2117,10 +2100,8 @@ switch.auto_entities_pre_release	hacs		auto-entities		Pre-release	integration		1
 switch.automation_audio	hue	tojgan bright	tojgan bright	Garage	Automation: Piano Lamp			ae09bb8a-a1d4-4e1f-aa81-8c9d14dc74a7
 switch.automation_christmas_2	hue	tojgan bright	tojgan bright	Garage	Automation: Christmas 2			bceb46d4-a09c-4212-92a5-8dad0ad925e0
 switch.automation_christmas_lights_times	hue	tojgan bright	tojgan bright	Garage	Automation: Christmas Lights Times			9e0f8e03-ff84-4761-9bbe-c18bbfd38cb8
-switch.automation_ellie_switch	hue	tojgan bright	tojgan bright	Garage	Automation: Piano Lamp Dimmer			549486c6-3dfd-41f8-bda8-daa06cc472de
 switch.automation_hue_dimmer_switch_1	hue	tojgan bright	tojgan bright	Garage	Automation: Hannah Hue Dimmer 			35c24415-bc18-45bc-97f5-1638c48c1910
 switch.automation_hue_dimmer_switch_2	hue	tojgan bright	tojgan bright	Garage	Automation: Ellie Hue Dimmer			c7b11701-3305-4c83-8a32-8d41e9d933fe
-switch.automation_hue_tap_dial_switch_1	hue	tojgan bright	tojgan bright	Garage	Automation: Lamps Dial			22684437-3862-420c-9032-2d4a57cf67e3
 switch.automation_later	hue	tojgan bright	tojgan bright	Garage	Automation: Later			d673e81a-3554-489d-90f8-a11523df9607
 switch.automation_loft_bathroom	hue	tojgan bright	tojgan bright	Garage	Automation: Loft Bathroom 			2404c0df-da70-456e-ae7b-4c443c88189f
 switch.automation_m_bedside_light	hue	tojgan bright	tojgan bright	Garage	Automation: M Bedside Light			7e6fd503-af28-4a16-af65-5726bcc5f2d6
@@ -2160,7 +2141,6 @@ switch.fan_percent_button_row_pre_release	hacs		Fan Percent Button Row		Pre-rele
 switch.file_editor	hassio	Supervisor	File editor			integration		core_configurator_state
 switch.flex_table_highly_customizable_data_visualization_pre_release	hacs		Flex Table - Highly customizable, Data visualization		Pre-release	integration		156292058
 switch.fujitsu_airstage_home_assistant_component_pre_release	hacs		Fujitsu Airstage Home Assistant component		Pre-release	integration		665025312
-switch.garmin_connect_pre_release	hacs		Garmin Connect		Pre-release	integration		383732864
 switch.get_hacs	hassio	Supervisor	Get HACS			integration		cb646a50_get_state
 switch.group_card_pre_release	hacs		group-card		Pre-release	integration		187245511
 switch.group_element_pre_release	hacs		Group Element		Pre-release	integration		179491130
@@ -2227,7 +2207,6 @@ switch.nmudiki_button_enabled	mqtt	192.168.179.41	nMudiki		Button enabled			2ff6
 switch.nmudiki_detached_cylinder	mqtt	192.168.179.41	nMudiki		Detached cylinder			2ff641fd_detached_cylinder
 switch.nmudiki_double_lock	mqtt	192.168.179.41	nMudiki		Double lock			2ff641fd_double_lock
 switch.nmudiki_dst_mode_european	mqtt	192.168.179.41	nMudiki		DST mode European			2ff641fd_dst_mode
-switch.nmudiki_enable_slow_speed_during_nightmode	mqtt	192.168.179.41	nMudiki		Enable slow speed during nightmode			2ff641fd_enable_slow_speed_during_nightmode
 switch.nmudiki_immediate_auto_lock_enabled	mqtt	192.168.179.41	nMudiki		Immediate auto lock enabled			2ff641fd_immediate_auto_lock_enabled
 switch.nmudiki_led_enabled	mqtt	192.168.179.41	nMudiki		LED enabled			2ff641fd_led_enabled
 switch.nmudiki_nightmode_auto_lock	mqtt	192.168.179.41	nMudiki		Nightmode auto lock			2ff641fd_nightmode_auto_lock
@@ -2235,9 +2214,9 @@ switch.nmudiki_nightmode_auto_unlock	mqtt	192.168.179.41	nMudiki		Nightmode auto
 switch.nmudiki_nightmode_enabled	mqtt	192.168.179.41	nMudiki		Nightmode enabled			2ff641fd_nightmode_enabled
 switch.nmudiki_nightmode_immediate_lock_on_start	mqtt	192.168.179.41	nMudiki		Nightmode immediate lock on start			2ff641fd_nightmode_immediate_lock_start
 switch.nmudiki_pairing_enabled	mqtt	192.168.179.41	nMudiki		Pairing enabled			2ff641fd_pairing_enabled
-switch.nmukuru_authorization_124873	mqtt	192.168.179.41	nMukuru		Authorization - 124873			493e09d7_auth_1
+switch.nmukuru_authorization_124873	mqtt	192.168.179.41	nMukuru		Authorization - NukiHub - 124873			493e09d7_auth_1
 switch.nmukuru_authorization_178229	mqtt	192.168.179.41	nMukuru		Authorization - 178229			49e9ef2f_auth_2
-switch.nmukuru_authorization_21649	mqtt	192.168.179.41	nMukuru		Authorization - 21649			493e09d7_auth_0
+switch.nmukuru_authorization_21649	mqtt	192.168.179.41	nMukuru		Authorization - Tongai - 21649			493e09d7_auth_0
 switch.nmukuru_authorization_244875	mqtt	192.168.179.41	nMukuru		Authorization - 244875			49e9ef2f_auth_3
 switch.nmukuru_authorization_28402	mqtt	192.168.179.41	nMukuru		Authorization - 28402			49e9ef2f_auth_0
 switch.nmukuru_authorization_302223	mqtt	192.168.179.41	nMukuru		Authorization - 302223			49e9ef2f_auth_4
@@ -2281,7 +2260,6 @@ switch.nuki_mudiki_webserver_enabled	mqtt	192.168.179.41	nuki_mudiki		Webserver 
 switch.nuki_power	rpi_gpio				Nuki Power			nuki_en_switch_port_4
 switch.nukihub_nuki_hub_webserver_enabled	mqtt	192.168.179.41	nukihub		Nuki Hub webserver enabled			692105978_webserver
 switch.nukihub_restart_nuki_hub	mqtt	192.168.179.41	nukihub		Restart Nuki Hub			692105978_reset
-switch.octopus_agile_pre_release	hacs		Octopus Agile		Pre-release	integration		259739166
 switch.octopus_energy_rates_card_pre_release	hacs		octopus-energy-rates-card		Pre-release	integration		596085141
 switch.open_nuki	rpi_gpio				Open Nuki			nuki_open_switch_port_27
 switch.oppy_animal_friendly	navimow_pro	Oppy	Oppy	Garden	Animal-friendly			0EBDA2506K0129_animal_protection
@@ -2357,6 +2335,8 @@ tag.04_51_f5_01_b4_02_03	tag				Tag 04-51-F5-01-B4-02-03			04-51-F5-01-B4-02-03
 tag.04_61_21_01_86_02_03	tag				Tag 04-61-21-01-86-02-03			04-61-21-01-86-02-03
 tag.04_61_28_01_ae_02_03	tag				Tag 04-61-28-01-AE-02-03			04-61-28-01-AE-02-03
 tag.04_a1_39_da_70_00_00	tag				Tag 04-A1-39-DA-70-00-00			04-A1-39-DA-70-00-00
+tag.1e41aa12_a1f5_4765_a2c3_b0bb388f3975	tag				Tag 1e41aa12-a1f5-4765-a2c3-b0bb388f3975			1e41aa12-a1f5-4765-a2c3-b0bb388f3975
+tag.4b9480e7_dec4_442d_b832_b025febe9791	tag				Tag 4b9480e7-dec4-442d-b832-b025febe9791			4b9480e7-dec4-442d-b832-b025febe9791
 tag.boost_main	tag				Boost main			c589f1a6-b88d-4869-9265-59dce024b7ab
 tag.c9e068e8_208a_46f2_8a7a_cae2109983f8	tag				Tag c9e068e8-208a-46f2-8a7a-cae2109983f8			c9e068e8-208a-46f2-8a7a-cae2109983f8
 tag.downstairs_lights_off	tag				Downstairs Lights Off			80a36f97-2779-4e1b-adc9-ef93c1895868
@@ -2366,6 +2346,7 @@ tag.front	tag				Front			5f18e4cc-d48f-4a65-ab45-02658781dac9
 tag.t_light	tag				T-light			54805471-50ef-43f7-8c19-452ec2e5d80e
 tag.test_pamba	tag				Test pamba			3e382ec5-9d5b-449e-b157-786bfeeaa1ba
 tag.testand	tag				Testand			f81e769d-b89c-4940-9a3d-46bb9bdbeb82
+text.album_slideshow_doggo_pair_divider_color	album_slideshow	Doggo	Album Slideshow Doggo	Hallway	Pair divider color			01M7PTDD55CPGK0BSDS9JJNZB7_pair_divider_color
 text.nmudiki_nightmode_end_time	mqtt	192.168.179.41	nMudiki		Nightmode end time			2ff641fd_nightmode_end_time
 text.nmudiki_nightmode_start_time	mqtt	192.168.179.41	nMudiki		Nightmode start time			2ff641fd_nightmode_start_time
 text.nmukuru_nightmode_end_time	mqtt	192.168.179.41	nMukuru		Nightmode end time			493e09d7_nightmode_end_time
@@ -2373,6 +2354,7 @@ text.nmukuru_nightmode_end_time_2	mqtt	192.168.179.41	nMukuru		Nightmode end tim
 text.nmukuru_nightmode_start_time	mqtt	192.168.179.41	nMukuru		Nightmode start time			493e09d7_nightmode_start_time
 text.nmukuru_nightmode_start_time_2	mqtt	192.168.179.41	nMukuru		Nightmode start time			49e9ef2f_nightmode_start_time
 update.advanced_ssh_web_terminal_update	hassio	Supervisor	Advanced SSH & Web Terminal		Update			a0d7b954_ssh_version_latest
+update.album_slideshow_camera_update	hacs		Album Slideshow Camera		Album Slideshow Camera update			1162143395
 update.alexa_media_player_update	hacs		Alexa Media Player		Alexa Media Player update			139664351
 update.appdaemon_4_update	hassio	Supervisor	AppDaemon		Update			a0d7b954_appdaemon_version_latest
 update.arlo_camera_support_update	hacs		Arlo Camera Support		Arlo Camera Support update			167885769
@@ -2393,6 +2375,10 @@ update.closed_s_firmware	zha	Sonoff Zigbee 3.0 USB Dongle Plus	closed-s	Study	Fi
 update.cloudflared_update	hassio	Supervisor	Cloudflared		Update			9074a9fa_cloudflared_version_latest
 update.config_template_card_update	hacs		Config Template Card		Config Template Card update			172177543
 update.deconz_update	hassio	Supervisor	deCONZ		Update			core_deconz_version_latest
+update.door_firmware	smartthings	My home	Door	Ellie	Firmware			8e12da86-cf02-4c5a-9b36-9fb0d48234ec_main
+update.door_firmware_2	smartthings	My home	Door	Loft	Firmware			89147137-cb7d-4ed2-b23b-e9bdee83926b_main
+update.door_firmware_3	smartthings	My home	Door	Study	Firmware			2de41fff-285e-4992-8e21-b40a0d7925a0_main
+update.door_firmware_4	smartthings	My home	Door	Hannah	Firmware			71977775-92f3-47e7-9b17-0cb28e241c62_main
 update.doorstep_presence_firmware	esphome	doorstep presence	study presence	Study	Firmware			58:BF:25:D7:20:71
 update.driveway_detector_firmware	esphome	driveway detector	driveway detector	Garage	Firmware			FC:B4:67:93:64:5C
 update.dyson_local_update	hacs		Dyson Local		Dyson Local update			334928907
@@ -2413,7 +2399,6 @@ update.fujitsu_airstage_home_assistant_component_update	hacs		Fujitsu Airstage H
 update.garage_doorstep_firmware	smartthings	My home	Garage Doorstep	Garage	Firmware			6285b535-9737-45e6-9361-e4a71ce7f387_main
 update.garage_out_firmware	smartthings	My home	Garage - out	Garage	Firmware			8f5fe671-b1af-4bf4-a265-7f478cad78ed_main
 update.garage_utility_door_firmware	smartthings	My home	Garage Utility Door	Loft	Firmware			bfbccace-0438-4d40-8506-28f0e5439eda_main
-update.garmin_connect_update	hacs		Garmin Connect		Garmin Connect update			383732864
 update.get_hacs_update	hassio	Supervisor	Get HACS		Update			cb646a50_get_version_latest
 update.group_card_update	hacs		group-card		group-card update			187245511
 update.group_element_update	hacs		Group Element		Group Element update			179491130
@@ -2423,7 +2408,7 @@ update.ha_dashboard_update	hacs		HA Dashboard		HA Dashboard update			329411371
 update.ha_floorplan_your_imagination_almost_defines_the_limits_update	hacs		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits update			188323494
 update.hacs_update	hacs		HACS		HACS update			172733314
 update.hallway_spotlights_device_firmware	lightwave_smart	RPI4	Hallway Spotlights Device	Hallway	Firmware			5d17143ac42a3075031ca5a8-5-3157347179+1_firmware
-update.hannah_spotlights_device_firmware	lightwave_smart	RPI4	Hannah Spotlights Device	Hannah	Firmware			5d17143ac42a3075031ca5a8-3-3157347179+1_firmware
+update.hannah_spotlights_device_firmware	lightwave_smart	RPI4	Hannah Spotlights Device	Hannahs Bedroom	Firmware			5d17143ac42a3075031ca5a8-3-3157347179+1_firmware
 update.home_assistant_core_update	hassio	Supervisor	Home Assistant Core		Update			home_assistant_core_version_latest
 update.home_assistant_google_drive_backup_update	hassio	Supervisor	Home Assistant Google Drive Backup		Update			cebe7a76_hassio_google_drive_backup_version_latest
 update.home_assistant_operating_system_update	hassio	Supervisor	Home Assistant Operating System		Update			home_assistant_os_version_latest
@@ -2464,7 +2449,6 @@ update.node_red_update	hassio	Supervisor	Node-RED		Update			a0d7b954_nodered_ver
 update.notify_card_update	hacs		Notify Card		Notify Card update			358962656
 update.nuki_mudiki_firmware_update	mqtt	192.168.179.41	nuki_mudiki		Firmware update			207629252705240_nuki_hub_update
 update.nukihub_nuki_hub_firmware_update	mqtt	192.168.179.41	nukihub		NUKI Hub firmware update			692105978_nuki_hub_update
-update.octopus_agile_update	hacs		Octopus Agile		Octopus Agile update			259739166
 update.octopus_energy_rates_card_update	hacs		octopus-energy-rates-card		octopus-energy-rates-card update			596085141
 update.patio_door_firmware	smartthings	My home	Patio Door	Kitchen	Firmware			0b8b6f71-4aa9-4471-ae54-2098dfb45565_main
 update.places_update	hacs		Places		Places update			131915802
@@ -2472,6 +2456,9 @@ update.portainer_update	hacs		Portainer		Portainer update			636943975
 update.pres_e_firmware	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-e	Ellies Bedroom	Firmware			44:e2:f8:ff:fe:33:98:b1-1-25-firmware_update
 update.pres_h_firmware	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-h	Hannahs Bedroom	Firmware			c4:d8:c8:ff:fe:1e:40:a1-1-25-firmware_update
 update.pres_l_firmware	zha	Sonoff Zigbee 3.0 USB Dongle Plus	pres-l	Loft Suite	Firmware			44:e2:f8:ff:fe:24:03:c4-1-25-firmware_update
+update.presence_firmware	smartthings	My home	Presence	Loft	Firmware			835ac911-3634-4b41-a4e0-14320f9f5f0d_main
+update.presence_firmware_2	smartthings	My home	Presence	Ellie	Firmware			58442adb-83bd-450a-9353-8eb3686a1951_main
+update.presence_firmware_3	smartthings	My home	Presence	Hannah	Firmware			8f5aea16-c4cc-4b43-9c8d-dd93d8db905c_main
 update.raspberry_pi_gpio_update	hacs		Raspberry Pi GPIO		Raspberry Pi GPIO update			454951296
 update.roku_card_update	hacs		Roku Card		Roku Card update			164367214
 update.rpi_rebooter_firmware	esphome	rpi_rebooter	rpi_rebooter	Hallway	Firmware			08:D1:F9:EB:E5:90
@@ -2490,6 +2477,7 @@ update.tv_remote_card_with_touchpad_and_haptic_feedback_update	hacs		TV Remote C
 update.utility_back_door_firmware	smartthings	My home	Utility Back Door	Utility	Firmware			d37e06db-a7e8-474f-802e-cad844952232_main
 update.volvo_cars_update	hacs		Volvo Cars		Volvo Cars update			899977910
 update.whatspie_update	hacs		WhatsPie		WhatsPie update			556789449
+update.z_plugrepeater_firmware	smartthings	My home	Z-PlugRepeater	Infra	Firmware			c5c1cd9d-239c-4c04-8121-9cf955040c8e_main
 vacuum.robert	roomba	Robert	Robert					roomba_4320C0BC4988426D9ADA72F6C3CD8499
 zone.m_work	zone				Maple Works			m_work
 zone.school	zone				School			school

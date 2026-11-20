@@ -66,6 +66,16 @@
       },
       {
         "id": "3e382ec5-9d5b-449e-b157-786bfeeaa1ba"
+      },
+      {
+        "id": "4b9480e7-dec4-442d-b832-b025febe9791",
+        "last_scanned": "2026-11-17T20:16:54.157968+00:00",
+        "device_id": "b45654adb0791dcfea4e10c385bbbad1"
+      },
+      {
+        "id": "1e41aa12-a1f5-4765-a2c3-b0bb388f3975",
+        "last_scanned": "2026-11-18T12:29:48.914833+00:00",
+        "device_id": "b45654adb0791dcfea4e10c385bbbad1"
       }
     ]
   }

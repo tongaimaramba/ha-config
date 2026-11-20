@@ -482,6 +482,7 @@
       type: short_release
       subtype: 3
     id: AC
+    enabled: false
   - trigger: event
     event_type: hue_event
     event_data:
@@ -531,12 +532,14 @@
         condition: trigger
         id:
         - AC
+        enabled: true
       sequence:
       - action: climate.toggle
         metadata: {}
         data: {}
         target:
           entity_id: climate.study_ac
+        enabled: false
       - action: climate.set_temperature
         metadata: {}
         data:
@@ -544,6 +547,7 @@
           hvac_mode: auto
         target:
           entity_id: climate.study_ac
+        enabled: false
     - conditions:
       - condition: trigger
         id:
@@ -554,14 +558,15 @@
         data: {}
         target:
           entity_id:
-          - light.hue_lightstrip_plus_1
           - light.work_status_on_air_light
           - light.loft32_desk_light
+          - light.hue_lightstrip_plus_1
       - action: climate.turn_off
         metadata: {}
         data: {}
         target:
           entity_id: climate.study_ac
+        enabled: false
   mode: single
 - id: '1704793770116'
   alias: Work Status Bookends

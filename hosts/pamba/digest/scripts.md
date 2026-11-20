@@ -11,7 +11,7 @@
 | script.unlock_nuki_momentary | Unlock Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.turn_off, switch.turn_on, switch.unlock_nuki |
 | script.open_nuki_momentary | Open Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.open_nuki, switch.turn_off, switch.turn_on |
 | script.movie_lights | Movie Lights | single | light.turn_off | light.dining_spotlights_3, light.lounge_lamp_1, light.movie_lamp, light.turn_off |
-| script.home_fires | Home Fires | single | light.turn_off, light.turn_on | group.downstairs_lights, light.lounge_lamp_2, light.movie_lamp, light.turn_off, light.turn_on |
+| script.home_fires | Home Fires | single | light.turn_off, light.turn_on | group.downstairs_lights, light.hallway_spotlights_switch, light.kitchen_worktop, light.movie_lamp, light.turn_off, light.turn_on |
 | script.nearly_home | Nearly Home | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.away_on_holiday, input_boolean.nearly_home, input_boolean.turn_off, input_boolean.turn_on |
 | script.boost_downstairs | Boost Downstairs | single | climate.set_temperature | climate.downstairs, climate.set_temperature |
 | script.grid | Grid | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.importing, input_boolean.turn_off, input_boolean.turn_on, sensor.growatt_sph_load_power, sensor.growatt_sph_pv_power |

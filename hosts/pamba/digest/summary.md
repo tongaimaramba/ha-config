@@ -2,57 +2,57 @@
 
 ```
 host: pamba
-exported_at: 2026-10-31T12:14:19+00:00
+exported_at: 2026-11-20T08:40:45+00:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
 ```
 
-- config entries: 146  (custom components on disk: 25)
-- devices: 266
-- entities: 2495 across 53 platforms
-- areas: 39
+- config entries: 147  (custom components on disk: 24)
+- devices: 270
+- entities: 2483 across 53 platforms
+- areas: 40
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| mobile_app | 771 |
-| hue | 313 |
-| mqtt | 235 |
+| mobile_app | 776 |
+| hue | 305 |
+| mqtt | 234 |
+| smartthings | 152 |
 | hassio | 137 |
-| smartthings | 130 |
-| hacs | 118 |
-| garmin_connect | 93 |
+| hacs | 116 |
 | lightwave_smart | 80 |
 | esphome | 57 |
 | zha | 52 |
 | navimow_pro | 51 |
+| input_select | 44 |
 | fujitsu_airstage | 40 |
 | growatt_server_api | 37 |
 | automation | 34 |
 | aarlo | 33 |
 | input_boolean | 31 |
+| album_slideshow | 30 |
 | nut | 28 |
 | dyson_local | 27 |
 | group | 24 |
 | tile | 22 |
 | script | 21 |
 | roomba | 15 |
+| tag | 15 |
 | sonoff | 15 |
-| tag | 13 |
-| input_select | 11 |
 | input_number | 11 |
 | sun | 10 |
 | input_text | 8 |
 | input_datetime | 8 |
+| nmap_tracker | 8 |
 | nest | 8 |
-| nmap_tracker | 7 |
-| person | 5 |
 | eventsensor | 5 |
 | rpi_gpio | 5 |
 | places | 5 |
 | backup | 5 |
+| person | 4 |
 | template | 4 |
 | zone | 3 |
 | speedtestdotnet | 3 |
@@ -79,12 +79,13 @@ home-assistant-rollback.log (40628 bytes) — db/log/binary
 home-assistant.log.1 (3388422 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
-home-assistant_v2.db (2875580416 bytes) — db/log/binary
-home-assistant_v2.db-shm (163840 bytes) — db/log/binary
-home-assistant_v2.db-wal (5351912 bytes) — db/log/binary
+home-assistant_v2.db (2700136448 bytes) — db/log/binary
+home-assistant_v2.db-shm (131072 bytes) — db/log/binary
+home-assistant_v2.db-wal (4898712 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
-zigbee.db-shm (32768 bytes) — db/log/binary
-zigbee.db-wal (4124152 bytes) — db/log/binary
+.storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.hidden — not in allow-list
+.storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.items — not in allow-list
+.storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.position — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
 .storage/androidtv_adbkey.pub — not in allow-list
 .storage/androidtv_remote_cert.pem — not in allow-list

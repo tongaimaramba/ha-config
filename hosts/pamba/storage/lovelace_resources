@@ -198,6 +198,11 @@
         "id": "be4155e87cad40fa88153b4dfff0742b",
         "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375511",
         "type": "module"
+      },
+      {
+        "id": "cde5e7f9084c4e8fb2538900b18b4e3c",
+        "url": "/album_slideshow_static/album-slideshow-card.js?v=1.17.0",
+        "type": "module"
       }
     ]
   }
