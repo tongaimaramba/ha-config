@@ -132,5 +132,5 @@ _none_
 | person.tongai | Tongai | {"device_trackers": ["device_tracker.garmin_device", "device_tracker.bermuda_tongai_phone_bermuda_tracker", "device_tracker.tongai_samsung25"], "user_id": "654b |
 | person.mojgan | Mojgan | {"device_trackers": ["device_tracker.mm_iphone", "device_tracker.iphone_32"], "user_id": "06495997aca44e59a54f1b3138ad088e", "picture": null} |
 | person.hannah | Hannah | {"device_trackers": ["device_tracker.hannahs_iphone", "device_tracker.hannah_hockey_bag", "device_tracker.hannah_keys", "device_tracker.hannah_iphone", "device_ |
-| person.ellie | Ellie | {"device_trackers": ["device_tracker.ellie_s_gym_bag", "device_tracker.ellie_s_phone", "device_tracker.ellie_bag", "device_tracker.ellie_s_hockey_bag", "device_ |
+| person.ellie | Ellie | {"device_trackers": ["device_tracker.ellies_iphone"], "user_id": "e520ec98069d4d2d88d78957b83c1e87", "picture": null} |
 

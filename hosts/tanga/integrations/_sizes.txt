@@ -14,6 +14,7 @@
 53120	/homeassistant/custom_components/hacs/
 220	/homeassistant/custom_components/keymaster/
 280	/homeassistant/custom_components/lightwave2/
+700	/homeassistant/custom_components/lightwave_smart/
 588	/homeassistant/custom_components/miele/
 104	/homeassistant/custom_components/monitor_docker/
 744	/homeassistant/custom_components/myskoda/

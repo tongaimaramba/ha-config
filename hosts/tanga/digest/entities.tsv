@@ -356,6 +356,7 @@ binary_sensor.tailscale_running	hassio	Supervisor	Tailscale		Running	integration
 binary_sensor.terminal_ssh_running	hassio	Supervisor	Terminal & SSH		Running	integration		core_ssh_state
 binary_sensor.terminal_ssh_update_available	hassio	Supervisor	Terminal & SSH		Update available	integration		core_ssh_update_available
 binary_sensor.the_loft_connectivity	alexa_devices	tongaimaramba@gmail.com	Loft Echo Pop		Connectivity			G8M2HN06431200BH-online
+binary_sensor.tojganlrf_hub_my_group_cloud_link	lightwave_smart	Lightwave Smart	TojganLRF Hub My Group	Study	Cloud Link			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_cloudLink
 binary_sensor.tongai_mbp_2_active	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2) Active			f346a7eb50ef87b09b506a5ffaac485cc119eb667b010fe3258006d72dc66614_active
 binary_sensor.tongai_mbp_2_audio_input_in_use	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2) Audio Input In Use			f346a7eb50ef87b09b506a5ffaac485cc119eb667b010fe3258006d72dc66614_microphone_in_use
 binary_sensor.tongai_mbp_2_audio_output_in_use	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2) Audio Output In Use			f346a7eb50ef87b09b506a5ffaac485cc119eb667b010fe3258006d72dc66614_audio_output_in_use
@@ -739,6 +740,8 @@ event.ellie_switch_button_4	hue	Hue Bridge 0017882791a0	Piano Lamp Dimmer		Butto
 event.front_door_chime	nest	Configuration.yaml	Front Door	Hallway	Chime			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-doorbell_chime
 event.front_door_motion	nest	Configuration.yaml	Front Door	Hallway	Motion			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEuYx2lOrKzt__TxtP903Nh8rgPROYSnZINT6xc8EndRyPHjsmA_685j38W9L7enu5vvwVtXme8x0ozn1fahFs0aRA-camera_motion
 event.garden_a_motion	nest	Configuration.yaml	Garden A	Garden	Motion			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEu6qU2UEAhM-6DrBkRX1Y0M2Rb1q4mU09ZrEi0mywEWAXhC8HGTp-34OmCPKbexeyKMIBMC9GD8c9nqVtwcoguYQw-camera_motion
+event.hallway_hallway_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Hallway Spotlights	Hallway	Smart Switch Pair			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_uiButtonPair
+event.hannah_hannah_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Hannah Spotlights	Hannahs Bedroom	Smart Switch Pair			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_uiButtonPair
 event.hannah_s_room_voice_event	alexa_devices	tongaimaramba@gmail.com	Hannah's Room Echo Pop		Voice event			G8M2HQ04405203XR-voice_event
 event.hannah_switch_button_1	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Button 1			200cb44d-b280-439e-9420-34ef3a161d8d
 event.hannah_switch_button_2	hue	Hue Bridge 0017882791a0	Study Switch	Isla Bedroom	Button 2			de7f44f3-f899-45e3-89ca-b737772fbbe6
@@ -757,6 +760,8 @@ event.hue_tap_dial_switch_1_button_2	hue	Hue Bridge 0017882791a0	Lamps Dial		But
 event.hue_tap_dial_switch_1_button_3	hue	Hue Bridge 0017882791a0	Lamps Dial		Button 3			3bd21845-e5e8-4fc2-9dfa-cecf617e9816
 event.hue_tap_dial_switch_1_button_4	hue	Hue Bridge 0017882791a0	Lamps Dial		Button 4			62b270a7-77d9-428e-a9af-f25ee21c2c72
 event.hue_tap_dial_switch_1_rotary	hue	Hue Bridge 0017882791a0	Lamps Dial		Rotary			6f3d9483-09e9-43bf-ac2d-3aa921284551
+event.kitchen_dining_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Dining Spotlights	Dining Area	Smart Switch Pair			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_uiButtonPair
+event.kitchen_kitchen_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Kitchen Spotlights	Kitchen	Smart Switch Pair			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_uiButtonPair
 event.kitchen_switch_button_1	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Button 1			47f0065a-9cd1-4d7e-9f27-62ead27629c3
 event.kitchen_switch_button_2	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Button 2			a7d28817-014f-41cf-8f9b-d7d2c956c361
 event.kitchen_switch_button_3	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Button 3			b1b0e613-c0bb-4f37-ab9b-ad13ebd0b5bc
@@ -767,7 +772,14 @@ event.loft_sink_switch_button_1	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Lof
 event.loft_sink_switch_button_2	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Loft Bathroom	Button 2			1664d95e-e846-4694-b8d7-e3e74a3ecd85
 event.loft_sink_switch_button_3	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Loft Bathroom	Button 3			02d0d0bb-433d-4ecd-9331-5a4beb190545
 event.loft_sink_switch_button_4	hue	Hue Bridge 0017882791a0	Loft Sink Switch	Loft Bathroom	Button 4			d2f318ca-c8c3-4977-95cb-f76d47bc22d9
+event.loft_suite_loft_suite_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Loft Suite Spotlights	Loft Suite	Smart Switch Pair			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_uiButtonPair
+event.lounge_lounge_pendant_smart_switch_pair	lightwave_smart	Lightwave Smart	Lounge Pendant	Lounge	Smart Switch Pair			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_uiButtonPair
+event.lounge_lounge_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Lounge Spotlights	Lounge	Smart Switch Pair			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_uiButtonPair
+event.lounge_media_room_wall_lights_smart_switch_pair	lightwave_smart	Lightwave Smart	Media Room Wall Lights	Media Room	Smart Switch Pair			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_uiButtonPair
 event.m_bedside_light_button_1	hue	Hue Bridge 0017882791a0	M Bedside Light	Main Bedroom	Button 1			45437ce4-ffee-4cad-9dcd-9537ee60b522
+event.main_bedroom_main_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Main Spotlights	Ellies Bedroom	Smart Switch Pair			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_uiButtonPair
+event.media_room_lounge_wall_lights_smart_switch_pair	lightwave_smart	Lightwave Smart	Lounge Wall Lights	Lounge	Smart Switch Pair			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_uiButtonPair
+event.media_room_media_room_spotlights_smart_switch_pair	lightwave_smart	Lightwave Smart	Media Room Spotlights	Media Room	Smart Switch Pair			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_uiButtonPair
 event.noisy_bottle_voice_event	alexa_devices	tongaimaramba@gmail.com	Noisy Bottle		Voice event	device		0176863b6c5f48c4bf8be3863a0621bf-voice_event
 event.octopus_energy_a_355ab690_octoplus_power_down_events	octopus_energy	A-355AB690	Octoplus (A-355AB690)	Garage	Octoplus Power Down Events (A-355AB690)			octopus_energy_A-355AB690_octoplus_power_down_events
 event.octopus_energy_a_355ab690_octoplus_power_up_events	octopus_energy	A-355AB690	Octoplus (A-355AB690)	Garage	Octoplus Power Up Events (A-355AB690)	integration		octopus_energy_A-355AB690_octoplus_power_up_events
@@ -1117,8 +1129,6 @@ light.dimmable_light_1	hue	Hue Bridge 0017882791a0	Utility 1	Utility - Laundry		
 light.dimmable_light_1_2	hue	Hue Bridge 0017882791a0	Utility 3	Utility - Laundry				56be4387-0c65-4f30-9229-869045585ad0
 light.dimmable_light_2	hue	Hue Bridge 0017882791a0	Utility 4	Utility - Laundry				3bc4c414-9460-41be-82cf-33c6e54eee3f
 light.dimmable_light_3	hue	Hue Bridge 0017882791a0	Utility 9	Utility - Pantry				8313162a-b004-470b-9688-09c415dc2b6d
-light.dining_spotlights	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Dining Spotlights			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5
-light.dining_spotlights_led_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Dining Spotlights LED		user	5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_LED
 light.dining_wall_light_garden	tuya	tongaimaramba@gmail.com	Dining Wall Light Garden	Dining Area			integration	tuya.bf6b7aeab49b03c1a6zkqqswitch_led
 light.dining_wall_light_road	tuya	tongaimaramba@gmail.com	Dining Wall Light Road	Dining Area			integration	tuya.bf1e3d7cf5485e0a88zv2fswitch_led
 light.dining_wall_lights	group	Dining Wall Lights			Dining Wall Lights			ad294e85652dade065b20ca89f7fa7e1
@@ -1131,60 +1141,58 @@ light.ellies_lamps	group				Ellies lamps			alexa_ellies_lamps
 light.fp_auth_auth_status_led	esphome	Fingerprint Authoriser	Fingerprint Authoriser	Hallway	Auth Status LED			C8:F0:9E:4E:4A:5C/0/light/Auth Status LED
 light.fp_auth_status_led	esphome	c3	Fingerprint Authoriser	Garage	Auth Status LED			D8:3B:DA:73:D9:F4/0/light/Auth Status LED
 light.garage	hue	Hue Bridge 0017882791a0	Garage	Garage				233b74a8-9436-4644-844a-145849fed0c8
-light.hall_downlights_led	lightwave2	tongaimaramba@gmail.com	Hall Downlights	Hallway	Hall Downlights LED		user	5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_LED
-light.hall_spotlights	lightwave2	tongaimaramba@gmail.com	Hall Downlights	Hallway	Hall Spotlights			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916
+light.hallway_hallway_spotlights	lightwave_smart	Lightwave Smart	Hallway Spotlights	Hallway				5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_smartLightSwitch
+light.hallway_hallway_spotlights_device_hallway_spotlights_off_led	lightwave_smart	Lightwave Smart	Hallway Spotlights Device	Hallway	Hallway Spotlights Off LED			5d17143ac42a3075031ca5a8-5-3157347179+1_offLed
+light.hannah_hannah_spotlights	lightwave_smart	Lightwave Smart	Hannah Spotlights	Hannahs Bedroom				5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_smartLightSwitch
+light.hannah_hannah_spotlights_device_hannah_spotlights_off_led	lightwave_smart	Lightwave Smart	Hannah Spotlights Device	Hannahs Bedroom	Hannah Spotlights Off LED			5d17143ac42a3075031ca5a8-3-3157347179+1_offLed
 light.hannah_lamp	hue	Hue Bridge 0017882791a0	Hannah Lamp	Dining Area	Hannah Lamp			f5955270-f97b-4e09-8035-9793b81fc1cb
 light.hannahs_lamps	group				Hannahs lamps			alexa_hannahs_lamps
 light.hue_adore_wall_1	hue	Hue Bridge 0017882791a0	Loft Bathroom Sink	Loft Bathroom				ea881a12-41e6-4ae9-ac73-a018be8f291f
 light.hue_lightstrip_1	hue	Hue Bridge 0017882791a0	Garage Light Strip					9ad9dd93-c580-4efc-a4df-39a853e4527b
 light.hue_lightstrip_plus_1	hue	Hue Bridge 0017882791a0	Desk shelf	Study				076632e6-ebd7-4e71-a536-7b8a61f4e7bc
-light.identify_344_led	lightwave2	tongaimaramba@gmail.com	Media Room Wall Lights		Media Room Wall Lights LED			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_LED
-light.identify_344_led_2	lightwave2	tongaimaramba@gmail.com	Lounge Wall Lights		Lounge Wall Lights LED			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_LED
 light.isla	hue	Hue Bridge 0017882791a0	Hannahs Bedroom	Isla		integration		daec350c-199d-45b0-870f-202867a438d9
-light.isla_spotlights	lightwave2	tongaimaramba@gmail.com	Isla Spotlights	Isla	Isla Spotlights			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c
-light.isla_spotlights_led	lightwave2	tongaimaramba@gmail.com	Isla Spotlights	Isla	Isla Spotlights LED		user	5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_LED
 light.kai_proxy_front_door_status_led	esphome	kai_proxy	kai_proxy	Hallway	Front Door Status LED			F4:65:0B:08:8B:88/0/light/Front Door Status LED
 light.kd_spots	group	kd_spots			kd_spots			cfeb22cf731ab8eda35a839aee9e8975
 light.kd_spots_wall	group	KD_Sposts			KD Spots and Wall			09baafcbb51b087fd933a2ce9d65e9d9
+light.kigali_loft_spotlights	lightwave_smart	Lightwave Smart	Loft Spotlights	Loft Suite				5d17143ac42a3075031ca5a8-651404a8349ed709befcfa18_smartLightSwitch
 light.kitchen	hue	Hue Bridge 0017882791a0	Kitchen	Kitchen		integration		1d39228d-1af0-499b-a95b-d2a7d19d7c11
-light.kitchen_spotlights	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Spotlights			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4
-light.kitchen_spotlights_led	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Spotlights LED		user	5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_LED
+light.kitchen_dining_spotlights	lightwave_smart	Lightwave Smart	Dining Spotlights	Dining Area				5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_smartLightSwitch
+light.kitchen_kitchen_spotlights	lightwave_smart	Lightwave Smart	Kitchen Spotlights	Kitchen				5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_smartLightSwitch
+light.kitchen_kitchen_spotlights_dining_spotlights_device_kitchen_spotlights_off_led	lightwave_smart	Lightwave Smart	Kitchen Spotlights - Dining Spotlights Device	Kitchen	Kitchen Spotlights Off LED			5d17143ac42a3075031ca5a8-13-3157347179+1_offLed
 light.kitchen_worktop	hue	Hue Bridge 0017882791a0	Kitchen Worktop	Kitchen				e62ac51f-2026-4712-bd2e-2520c94ac494
 light.lamps_downstairs	group	Lamps Downstairs 			Lamps Downstairs 			86492212a71ad40d9c3a2a714e43363b
 light.landing	hue	Hue Bridge 0017882791a0	Landing	Landing				42541598-28b7-4596-aca6-ea9ae786f8e8
 light.laundry	group	laundry			laundry			4e94c9b30d69fa0fd4b1ec3345778be7
-light.linkplus_led	lightwave2	tongaimaramba@gmail.com	LinkPlus	Garage	LinkPlus LED		user	5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_LED
 light.loft32_desk_light	esphome	study work status	work status	Study	Desk Light			94:3C:C6:37:67:84/0/light/Desk Light
 light.loft32_neopixel_light	esphome	study work status	work status	Study	NeoPixel Light			94:3C:C6:37:67:84-light-neopixel_light
 light.loft_bathroom	hue	Hue Bridge 0017882791a0	Loft Bathroom	Loft Bathroom				bdaea831-995b-4d81-ae64-67787b96efc3
 light.loft_lamps	group				Loft lamps			alexa_loft_lamps
 light.loft_suite	hue	Hue Bridge 0017882791a0	Loft Suite	Loft Suite				5b90cf8c-875a-4c6d-80fd-ebfdb62b63c7
-light.loft_suite_spotlights	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19
-light.loft_suite_spotlights_led	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights LED			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_LED
+light.loft_suite_loft_suite_spotlights	lightwave_smart	Lightwave Smart	Loft Suite Spotlights	Loft Suite				5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_smartLightSwitch
+light.loft_suite_loft_suite_spotlights_device_loft_suite_spotlights_off_led	lightwave_smart	Lightwave Smart	Loft Suite Spotlights Device	Loft Suite	Loft Suite Spotlights Off LED			5d17143ac42a3075031ca5a8-22-3157347179+1_offLed
 light.lounge_ceiling_lights	group	Lounge Ceiling Lights 			Lounge Ceiling Lights 			cf9c7f4eac7754a967ee62e95b6f6d50
-light.lounge_dim_led	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim LED		user	5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_LED
 light.lounge_lamp_1	hue	Hue Bridge 0017882791a0	Ellie Standing Lamp	Living Room				24361d79-b7ac-4a15-8a60-da702224dca5
 light.lounge_lamps	hue	Hue Bridge 0017882791a0	Lounge Lamps	Lounge Lamps		integration		635580e8-f2f3-4248-8a78-86c5c4f5dd77
 light.lounge_lamps_2	group	Lounge Lamps			Lounge Lamps			85c5f9b15f38142b6fb98b75bd8e1416
 light.lounge_lights	group	Lounge Lights			Lounge Lights			693800f92004b5b4fb4211a482b69eca
-light.lounge_pendant	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge Pendant			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632
-light.lounge_spotlights	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge Spotlights			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633
-light.lounge_spotlights_led_2	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge Spotlights LED		user	5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_LED
-light.lounge_wall_lights	lightwave2	tongaimaramba@gmail.com	Lounge Wall Lights		Lounge Wall Lights			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76
+light.lounge_lounge_pendant	lightwave_smart	Lightwave Smart	Lounge Pendant	Lounge				5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_smartLightSwitch
+light.lounge_lounge_pendant_lounge_spotlights_device_lounge_pendant_off_led	lightwave_smart	Lightwave Smart	Lounge Pendant - Lounge Spotlights Device	Lounge	Lounge Pendant Off LED			5d17143ac42a3075031ca5a8-12-3157347179+1_offLed
+light.lounge_lounge_spotlights	lightwave_smart	Lightwave Smart	Lounge Spotlights	Lounge				5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_smartLightSwitch
+light.lounge_media_room_wall_lights	lightwave_smart	Lightwave Smart	Media Room Wall Lights	Media Room				5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_smartLightSwitch
 light.lounges_wall_lamps	group	lounges wall lamps			lounges wall lamps			b00596c1011e27faf50f9018b12ebe76
-light.main_downlights_led	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Downlights LED		user	5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_LED
-light.main_spotlights	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Soptlights			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43
-light.media_room_spotlights	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74
-light.media_room_wall_lights	lightwave2	tongaimaramba@gmail.com	Media Room Wall Lights		Media Room Wall Lights			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75
+light.main_bedroom_main_spotlights	lightwave_smart	Lightwave Smart	Main Spotlights	Ellies Bedroom				5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_smartLightSwitch
+light.main_bedroom_main_spotlights_device_main_spotlights_off_led	lightwave_smart	Lightwave Smart	Main Spotlights Device	Ellies Bedroom	Main Spotlights Off LED			5d17143ac42a3075031ca5a8-7-3157347179+1_offLed
+light.media_room_lounge_wall_lights	lightwave_smart	Lightwave Smart	Lounge Wall Lights	Lounge				5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_smartLightSwitch
+light.media_room_media_room_spotlights	lightwave_smart	Lightwave Smart	Media Room Spotlights	Media Room				5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_smartLightSwitch
+light.media_room_media_room_spotlights_media_room_wall_lights_lounge_wall_lights_device_media_room_spotlights_off_led	lightwave_smart	Lightwave Smart	Media Room Spotlights - Media Room Wall Lights - Lounge Wall Lights Device	Media Room	Media Room Spotlights Off LED			5d17143ac42a3075031ca5a8-23-3157347179+1_offLed
 light.mhuka_power	smartthings	My home	Z-PlugRepeater		Mhuka Power	user		c5c1cd9d-239c-4c04-8121-9cf955040c8e_main
 light.movie_lamp	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Piano Lamp			4fafa5b7-a544-4bf3-b14e-13fad33fe675
 light.pantry	group	pantry			pantry			790ad5d30ef222d99be7536aa683156f
 light.study	hue	Hue Bridge 0017882791a0	Study	Study		integration		6248b345-5884-4a4d-a4b7-71e54bc377ea
 light.study_desk_lamp	hue	Hue Bridge 0017882791a0	Side Board Lamp	Study				a999f4ca-420f-4344-8e8a-86d7ca603647
-light.switch_276	lightwave2	tongaimaramba@gmail.com	switch 276		switch 276			5d17143ac42a3075031ca5a8-651404a8349ed709befcfa18
-light.switch_351_led	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights LED			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_LED
 light.tagreader_led	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader LED			KITCHEN-NFC-light-tagreader_led
 light.tagreader_led_2	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	TagReader LED			40:91:51:4E:DB:EA/0/light/TagReader LED
+light.tojganlrf_hub_my_group_tojganlrf_hub_off_led	lightwave_smart	Lightwave Smart	TojganLRF Hub My Group	Study	TojganLRF Hub Off LED			5d17143ac42a3075031ca5a8-1-3157347179+1_offLed
 light.utility	group	utility			utility			18f440464495c1d0895424e4bab0cc15
 light.utility_2	hue	Hue Bridge 0017882791a0	Utility 2	Utility - Laundry	Utility 2			939a6261-23ae-4eef-8f4f-e3231fbeb511
 light.utility_5	hue	Hue Bridge 0017882791a0	Utility 5	Utility - Laundry	Utility 5			b780729b-8534-4228-9376-fc67de5854f9
@@ -1195,20 +1203,20 @@ light.utility_laundry	hue	Hue Bridge 0017882791a0	Utility - Laundry	Utility - La
 light.utility_pantry	hue	Hue Bridge 0017882791a0	Utility - Pantry	Utility - Pantry		integration		d23c87ae-9739-4c3c-9991-d1c81aa2f032
 light.wall_lamps	group	Wall Lamps			Wall Lamps			14d7315f10687ff1f98aa0249635414d
 light.work_status_on_air_light	esphome	study work status	work status	Study	On-air Light			94:3C:C6:37:67:84/0/light/On-air Light
-lock.downlights_lock	lightwave2	tongaimaramba@gmail.com	Isla Spotlights	Isla	Downlights Lock			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c
 lock.garage_vivo_lock	volvo	Volvo YV1XZEHR5T2686253	Vivo	Garage	Lock			yv1xzehr5t2686253_lock
-lock.hall_downlights_lock	lightwave2	tongaimaramba@gmail.com	Hall Downlights	Hallway	Hall Downlights Lock			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916
-lock.identify_344_lock	lightwave2	tongaimaramba@gmail.com	Media Room Wall Lights		Media Room Wall Lights Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75
-lock.identify_344_lock_2	lightwave2	tongaimaramba@gmail.com	Lounge Wall Lights		Lounge Wall Lights Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76
-lock.kitchen_lock	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Lock			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4
-lock.kitchen_lock_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Kitchen Lock			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5
-lock.loft_suite_spotlights_lock	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights Lock			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19
-lock.lounge_dim_lock	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632
-lock.lounge_dim_lock_2	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge dim Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633
-lock.main_downlights_lock	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Downlights Lock			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43
+lock.hallway_hallway_spotlights_lock	lightwave_smart	Lightwave Smart	Hallway Spotlights	Hallway	Lock			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_lock
+lock.hannah_hannah_spotlights_lock	lightwave_smart	Lightwave Smart	Hannah Spotlights	Hannahs Bedroom	Lock			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_lock
+lock.kigali_loft_spotlights_lock	lightwave_smart	Lightwave Smart	Loft Spotlights	Loft Suite	Lock			5d17143ac42a3075031ca5a8-651404a8349ed709befcfa18_lock
+lock.kitchen_dining_spotlights_lock	lightwave_smart	Lightwave Smart	Dining Spotlights	Dining Area	Lock			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_lock
+lock.kitchen_kitchen_spotlights_lock	lightwave_smart	Lightwave Smart	Kitchen Spotlights	Kitchen	Lock			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_lock
+lock.loft_suite_loft_suite_spotlights_lock	lightwave_smart	Lightwave Smart	Loft Suite Spotlights	Loft Suite	Lock			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_lock
+lock.lounge_lounge_pendant_lock	lightwave_smart	Lightwave Smart	Lounge Pendant	Lounge	Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_lock
+lock.lounge_lounge_spotlights_lock	lightwave_smart	Lightwave Smart	Lounge Spotlights	Lounge	Lock			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_lock
+lock.lounge_media_room_wall_lights_lock	lightwave_smart	Lightwave Smart	Media Room Wall Lights	Media Room	Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_lock
+lock.main_bedroom_main_spotlights_lock	lightwave_smart	Lightwave Smart	Main Spotlights	Ellies Bedroom	Lock			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_lock
+lock.media_room_lounge_wall_lights_lock	lightwave_smart	Lightwave Smart	Lounge Wall Lights	Lounge	Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_lock
+lock.media_room_media_room_spotlights_lock	lightwave_smart	Lightwave Smart	Media Room Spotlights	Media Room	Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_lock
 lock.mudiki	smartthings	My home	dead	Hallway		user		744e0f56-d1ce-454b-9c22-cf972ccee78d_main
-lock.switch_276_lock	lightwave2	tongaimaramba@gmail.com	switch 276		switch 276 Lock			5d17143ac42a3075031ca5a8-651404a8349ed709befcfa18
-lock.switch_351_lock	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights Lock			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74
 media_player.ellie_s_room	alexa_devices	tongaimaramba@gmail.com	Ellie's Room Echo Pop					G8M2HP06432400NL-media
 media_player.everywhere	alexa_devices	tongaimaramba@gmail.com	Everywhere					0b54411565704c5582f7af413d4c86b1-media
 media_player.hannah_s_room	alexa_devices	tongaimaramba@gmail.com	Hannah's Room Echo Pop					G8M2HQ04405203XR-media
@@ -2007,8 +2015,6 @@ sensor.domane	places	Domane			domane			39f987824bcbeb5fb52c6298b39f17ed
 sensor.domane_phone	template	domane-phone			domane-phone			beb242e4857e47fcd043cbcadff46069
 sensor.doorstep_presence_car_sensor	esphome	doorstep presence	study presence	Study	Car Sensor			58:BF:25:D7:20:71-sensor-car_sensor
 sensor.doorstep_presence_person_sensor	esphome	doorstep presence	study presence	Study	Person Sensor			58:BF:25:D7:20:71-sensor-person_sensor
-sensor.downlights_current_consumption	lightwave2	tongaimaramba@gmail.com	Isla Spotlights	Isla	Downlights Current Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_power
-sensor.downlights_total_consumption	lightwave2	tongaimaramba@gmail.com	Isla Spotlights	Isla	Downlights Total Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_energy
 sensor.downstairs_humidity_2	nest	Configuration.yaml	Downstairs	Downstairs	Humidity			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA-humidity
 sensor.downstairs_temperature_2	nest	Configuration.yaml	Downstairs	Downstairs	Temperature			enterprises/e949facd-de30-4290-be28-6de353666a4d/devices/AVPHwEsiSLe_vNJ-rAO1ZeTpGVRRFj5u3bFhvjeONfWuBHyMmZFksynhdHuN9iYJDSdh8TSd4Fe941zBTzuToT74e4CkNA-temperature
 sensor.dp_2_0_tovht067072_f26b_estimated_distance	ibeacon	iBeacon Tracker	DP_2_0_TOVHT067072  F26B		Estimated distance			8063ae90-d8b7-11e6-9598-0800200c9a66_62059_22787_B4:B8:59:03:F2:6B_estimated_distance
@@ -2367,9 +2373,11 @@ sensor.gvh5075_ff9b_estimated_distance	ibeacon	iBeacon Tracker	GVH5075_FF9B		Est
 sensor.gvh5075_ff9b_power	ibeacon	iBeacon Tracker	GVH5075_FF9B		Power	integration		494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:0D:FF:9B_power
 sensor.gvh5075_ff9b_signal_strength	ibeacon	iBeacon Tracker	GVH5075_FF9B		Signal strength	integration		494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:0D:FF:9B_rssi
 sensor.gvh5075_ff9b_vendor	ibeacon	iBeacon Tracker	GVH5075_FF9B		Vendor	integration		494e5445-4c4c-495f-524f-434b535f4857_20597_62207_A4:C1:38:0D:FF:9B_vendor
-sensor.hall_downlights_current_consumption	lightwave2	tongaimaramba@gmail.com	Hall Downlights	Hallway	Hall Downlights Current Consumption			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_power
-sensor.hall_downlights_total_consumption	lightwave2	tongaimaramba@gmail.com	Hall Downlights	Hallway	Hall Downlights Total Consumption			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_energy
+sensor.hallway_hallway_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Hallway Spotlights	Hallway	Current Consumption			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_power
+sensor.hallway_hallway_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Hallway Spotlights	Hallway	Total Consumption			5d17143ac42a3075031ca5a8-5d250106b6c35d33e7bfe916_energy
 sensor.hannah_door_battery	smartthings	My home	H Door	Hannah	Battery			71977775-92f3-47e7-9b17-0cb28e241c62_main_battery_battery_battery
+sensor.hannah_hannah_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Hannah Spotlights	Hannahs Bedroom	Current Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_power
+sensor.hannah_hannah_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Hannah Spotlights	Hannahs Bedroom	Total Consumption			5d17143ac42a3075031ca5a8-5d1d1601c42a3075031cca4c_energy
 sensor.hannah_iphone13_area	bermuda	Bermuda BLE Trilateration	Hannah iPhone13	Home General	Area			3e965b2a301d81c5895fa7957e771120
 sensor.hannah_iphone13_area_last_seen	bermuda	Bermuda BLE Trilateration	Hannah iPhone13	Home General	Area Last Seen			3e965b2a301d81c5895fa7957e771120_area_last_seen
 sensor.hannah_iphone13_area_switch_diagnostic	bermuda	Bermuda BLE Trilateration	Hannah iPhone13	Home General	Area Switch Diagnostic			3e965b2a301d81c5895fa7957e771120_area_switch_reason
@@ -2500,10 +2508,6 @@ sensor.hue_motion_sensor_2_temperature	hue	Hue Bridge 0017882791a0	Garage Laundr
 sensor.hue_motion_sensor_2_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Garage Laundry	Kitchen	Zigbee connectivity	integration		8894272d-2f63-40c0-b178-05875faa54fc
 sensor.hue_tap_dial_switch_1_battery	hue	Hue Bridge 0017882791a0	Lamps Dial		Battery			58039f83-dd56-4e03-a836-a9a7135b3f50
 sensor.hue_tap_dial_switch_1_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Lamps Dial		Zigbee connectivity	integration		8ebcfcfb-7017-4c2a-a9cf-202521672c9f
-sensor.identify_344_current_consumption	lightwave2	tongaimaramba@gmail.com	Media Room Wall Lights		Media Room Wall Lights Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_power
-sensor.identify_344_current_consumption_2	lightwave2	tongaimaramba@gmail.com	Lounge Wall Lights		Lounge Wall Lights Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_power
-sensor.identify_344_total_consumption	lightwave2	tongaimaramba@gmail.com	Media Room Wall Lights		Media Room Wall Lights Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_energy
-sensor.identify_344_total_consumption_2	lightwave2	tongaimaramba@gmail.com	Lounge Wall Lights		Lounge Wall Lights Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_energy
 sensor.ims_0152_10d3_estimated_distance	ibeacon	iBeacon Tracker	IMS-0152 10D3		Estimated distance			e08d4118-15d6-11e6-a148-3e1d05defe78_8898_7128_EA:C3:78:5C:10:D3_estimated_distance
 sensor.ims_0152_10d3_power	ibeacon	iBeacon Tracker	IMS-0152 10D3		Power	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_8898_7128_EA:C3:78:5C:10:D3_power
 sensor.ims_0152_10d3_signal_strength	ibeacon	iBeacon Tracker	IMS-0152 10D3		Signal strength	integration		e08d4118-15d6-11e6-a148-3e1d05defe78_8898_7128_EA:C3:78:5C:10:D3_rssi
@@ -2649,10 +2653,12 @@ sensor.kiosk_period	template				Kiosk period			kiosk_period
 sensor.kiosk_screen_orientation	fully_kiosk	Kiosk	Kiosk	Hallway	Screen orientation			6fb5ea4d-8673b66a-screenOrientation
 sensor.kiosk_total_memory	fully_kiosk	Kiosk	Kiosk	Hallway	Total memory			6fb5ea4d-8673b66a-ramTotalMemory
 sensor.kitchen_battery	smartthings	My home	Kitchen	Kitchen	Battery			e6821393-e06c-439c-baad-d48f38e8cd5b_main_battery_battery_battery
-sensor.kitchen_current_consumption	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_power
-sensor.kitchen_current_consumption_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Kitchen Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_power
+sensor.kitchen_dining_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Dining Spotlights	Dining Area	Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_power
+sensor.kitchen_dining_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Dining Spotlights	Dining Area	Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_energy
 sensor.kitchen_illuminance	hue	Hue Bridge 0017882791a0	Kitchen	Kitchen	Illuminance			c443c177-eb57-4725-b91b-dff49e49aba8
 sensor.kitchen_illuminance_2	alexa_devices	tongaimaramba@gmail.com	Kitchen		Illuminance			G0922K07415409E6-illuminance
+sensor.kitchen_kitchen_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Kitchen Spotlights	Kitchen	Current Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_power
+sensor.kitchen_kitchen_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Kitchen Spotlights	Kitchen	Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_energy
 sensor.kitchen_next_alarm	alexa_devices	tongaimaramba@gmail.com	Kitchen		Next alarm			G0922K07415409E6-Alarm
 sensor.kitchen_next_reminder	alexa_devices	tongaimaramba@gmail.com	Kitchen		Next reminder			G0922K07415409E6-Reminder
 sensor.kitchen_next_timer	alexa_devices	tongaimaramba@gmail.com	Kitchen		Next timer			G0922K07415409E6-Timer
@@ -2660,8 +2666,6 @@ sensor.kitchen_switch_battery_level	hue	Hue Bridge 0017882791a0	Kitchen switch	K
 sensor.kitchen_switch_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Kitchen switch	Kitchen	Zigbee connectivity	integration		ad36a418-35fc-4c65-8151-f8563eb49329
 sensor.kitchen_temperature	smartthings	My home	Kitchen	Kitchen	Temperature			e6821393-e06c-439c-baad-d48f38e8cd5b_main_temperatureMeasurement_temperature_temperature
 sensor.kitchen_temperature_2	alexa_devices	tongaimaramba@gmail.com	Kitchen		Temperature			G0922K07415409E6-temperature
-sensor.kitchen_total_consumption	lightwave2	tongaimaramba@gmail.com	Kitchen Spotlights	Dining Area	Kitchen Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a4_energy
-sensor.kitchen_total_consumption_2	lightwave2	tongaimaramba@gmail.com	Dining Spotlights	Dining Area	Kitchen Total Consumption			5d17143ac42a3075031ca5a8-5e68f516213a0d46ddf774a5_energy
 sensor.kitchen_worktop	eventsensor	kitchen_worktop			kitchen_worktop			hue_event_id_kitchen_switch_button_subtype_1_1_click_2_2_click_3_3_click_4_4_click
 sensor.kitchen_worktop_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Kitchen Worktop	Kitchen	Zigbee connectivity	integration		3358131b-393a-4f64-b2dd-aa448fe06980
 sensor.kitchen_x_coordinate	smartthings	My home	Kitchen	Kitchen	X-coordinate			e6821393-e06c-439c-baad-d48f38e8cd5b_main_threeAxis_threeAxis_x_coordinate
@@ -2683,9 +2687,6 @@ sensor.leapmotor_digitalkey_8e54_estimated_distance	ibeacon	iBeacon Tracker	Leap
 sensor.leapmotor_digitalkey_8e54_power	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 8E54		Power	integration		feff0000-0000-0000-0000-000000000000_0_0_34:C4:59:C3:8E:54_power
 sensor.leapmotor_digitalkey_8e54_signal_strength	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 8E54		Signal strength	integration		feff0000-0000-0000-0000-000000000000_0_0_34:C4:59:C3:8E:54_rssi
 sensor.leapmotor_digitalkey_8e54_vendor	ibeacon	iBeacon Tracker	Leapmotor_DigitalKey 8E54		Vendor	integration		feff0000-0000-0000-0000-000000000000_0_0_34:C4:59:C3:8E:54_vendor
-sensor.linkplus_dawn_time	lightwave2	tongaimaramba@gmail.com	LinkPlus	Garage	LinkPlus Dawn Time			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_dawnTime
-sensor.linkplus_dusk_time	lightwave2	tongaimaramba@gmail.com	LinkPlus	Garage	LinkPlus Dusk Time			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_duskTime
-sensor.linkplus_last_event_received	lightwave2	tongaimaramba@gmail.com	LinkPlus	Garage	LinkPlus Last Event Received			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_lastEvent
 sensor.litra_beam_463b_power	ibeacon	iBeacon Tracker	Litra Beam 463B		Power	integration		a92ee200-5501-11e4-916c-0800200c9a66_12278_16893_E2:0F:08:22:46:3B_power
 sensor.litra_beam_463b_signal_strength	ibeacon	iBeacon Tracker	Litra Beam 463B		Signal strength	integration		a92ee200-5501-11e4-916c-0800200c9a66_12278_16893_E2:0F:08:22:46:3B_rssi
 sensor.litra_beam_463b_vendor	ibeacon	iBeacon Tracker	Litra Beam 463B		Vendor	integration		a92ee200-5501-11e4-916c-0800200c9a66_12278_16893_E2:0F:08:22:46:3B_vendor
@@ -2695,14 +2696,16 @@ sensor.loft_call	template				Loft call			call_loft_state
 sensor.loft_door_battery	smartthings	My home	L Door	Loft	Battery			89147137-cb7d-4ed2-b23b-e9bdee83926b_main_battery_battery_battery
 sensor.loft_suite_loft_suite_ac_indoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Indoor temperature			106838B4B505indoor-temp
 sensor.loft_suite_loft_suite_ac_outdoor_temperature	fujitsu_airstage	local - 106838B4B505	Loft Suite AC	Loft Suite	Outdoor temperature			106838B4B505outdoor-temp
-sensor.loft_suite_spotlights_current_consumption	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights Current Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_power
-sensor.loft_suite_spotlights_total_consumption	lightwave2	tongaimaramba@gmail.com	Loft Suite Spotlights	Loft Suite	Loft Suite Spotlights Total Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_energy
-sensor.lounge_dim_current_consumption	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_power
-sensor.lounge_dim_current_consumption_2	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge dim Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_power
-sensor.lounge_dim_total_consumption	lightwave2	tongaimaramba@gmail.com	Lounge dim	Living Room	Lounge dim Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_energy
-sensor.lounge_dim_total_consumption_2	lightwave2	tongaimaramba@gmail.com	Lounge Spotlights	Living Room	Lounge dim Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_energy
+sensor.loft_suite_loft_suite_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Loft Suite Spotlights	Loft Suite	Current Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_power
+sensor.loft_suite_loft_suite_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Loft Suite Spotlights	Loft Suite	Total Consumption			5d17143ac42a3075031ca5a8-658da652fcf6321ec512ac19_energy
 sensor.lounge_lamp_dimmer	eventsensor	lounge_lamp_dimmer			lounge_lamp_dimmer			hue_event_id_hue_dimmer_switch_1_button_subtype_1_1_click_2_2_click_3_3_click_4_4_click
 sensor.lounge_lamp_printer_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Ellie Standing Lamp	Living Room	Zigbee connectivity	integration		d2176fc3-4b2b-4a28-ba25-d43ea559fa4b
+sensor.lounge_lounge_pendant_current_consumption	lightwave_smart	Lightwave Smart	Lounge Pendant	Lounge	Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_power
+sensor.lounge_lounge_pendant_total_consumption	lightwave_smart	Lightwave Smart	Lounge Pendant	Lounge	Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9632_energy
+sensor.lounge_lounge_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Lounge Spotlights	Lounge	Current Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_power
+sensor.lounge_lounge_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Lounge Spotlights	Lounge	Total Consumption			5d17143ac42a3075031ca5a8-5dcfce99909866214d6f9633_energy
+sensor.lounge_media_room_wall_lights_current_consumption	lightwave_smart	Lightwave Smart	Media Room Wall Lights	Media Room	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_power
+sensor.lounge_media_room_wall_lights_total_consumption	lightwave_smart	Lightwave Smart	Media Room Wall Lights	Media Room	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a75_energy
 sensor.m2_connect_d1c62a252a64_estimated_distance	ibeacon	iBeacon Tracker	M2+ Connect_D1C62A252A64		Estimated distance			18bae0e7-a7f7-4148-8b65-396f1ec41684_1_1_D1:C6:2A:25:2A:64_estimated_distance
 sensor.m2_connect_d1c62a252a64_power	ibeacon	iBeacon Tracker	M2+ Connect_D1C62A252A64		Power	integration		18bae0e7-a7f7-4148-8b65-396f1ec41684_1_1_D1:C6:2A:25:2A:64_power
 sensor.m2_connect_d1c62a252a64_signal_strength	ibeacon	iBeacon Tracker	M2+ Connect_D1C62A252A64		Signal strength	integration		18bae0e7-a7f7-4148-8b65-396f1ec41684_1_1_D1:C6:2A:25:2A:64_rssi
@@ -2711,12 +2714,16 @@ sensor.m_bedside_light_battery_level	hue	Hue Bridge 0017882791a0	M Bedside Light
 sensor.m_bedside_light_zigbee_connectivity	hue	Hue Bridge 0017882791a0	M Bedside Light	Main Bedroom	Zigbee connectivity	integration		fdac3a1e-f23c-48da-af26-721dd6fdc4b1
 sensor.m_side	eventsensor	m-side			m-side			hue_event_id_m_bedside_light_event_1000_1_click_2000_2_click_3000_3_click_4000_4_click_1001_1_hold_2001_2_hold_3001_3_hold_4001_4_hold_1002_1_click_up_2002_2_click_up_3002_3_click_up_4002_4_click_up_1003_1_hold_up_2003_2_hold_up_3003_3_hold_up_4003_4_hold_up
 sensor.m_side_zigbee_connectivity	hue	Hue Bridge 0017882791a0	E Door side	M Bedside	Zigbee connectivity	integration		e5b95263-c2ac-468f-b4ed-c6db56000c72
-sensor.main_downlights_current_consumption	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Downlights Current Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_power
-sensor.main_downlights_total_consumption	lightwave2	tongaimaramba@gmail.com	Main Downlights	Main Bedroom	Main Downlights Total Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_energy
+sensor.main_bedroom_main_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Main Spotlights	Ellies Bedroom	Current Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_power
+sensor.main_bedroom_main_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Main Spotlights	Ellies Bedroom	Total Consumption			5d17143ac42a3075031ca5a8-5d25a447b6c35d33e7bfeb43_energy
 sensor.matter_server_cpu_percent	hassio	Supervisor	Matter Server		CPU percent	integration		core_matter_server_cpu_percent
 sensor.matter_server_memory_percent	hassio	Supervisor	Matter Server		Memory percent	integration		core_matter_server_memory_percent
 sensor.matter_server_newest_version	hassio	Supervisor	Matter Server		Newest version	integration		core_matter_server_version_latest
 sensor.matter_server_version	hassio	Supervisor	Matter Server		Version	integration		core_matter_server_version
+sensor.media_room_lounge_wall_lights_current_consumption	lightwave_smart	Lightwave Smart	Lounge Wall Lights	Lounge	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_power
+sensor.media_room_lounge_wall_lights_total_consumption	lightwave_smart	Lightwave Smart	Lounge Wall Lights	Lounge	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a76_energy
+sensor.media_room_media_room_spotlights_current_consumption	lightwave_smart	Lightwave Smart	Media Room Spotlights	Media Room	Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_power
+sensor.media_room_media_room_spotlights_total_consumption	lightwave_smart	Lightwave Smart	Media Room Spotlights	Media Room	Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_energy
 sensor.mm_iphone_activity	mobile_app	iPhone (3)	mm iphone		mm iphone Activity			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_activity
 sensor.mm_iphone_average_active_pace	mobile_app	iPhone (3)	mm iphone		mm iphone Average Active Pace			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_pedometer_avg_active_pace
 sensor.mm_iphone_battery_level	mobile_app	iPhone (3)	mm iphone		mm iphone Battery Level			1e4f4f5c243b4c297da73c9e6bfbccb4ea668fe9a42d2e729ff38a7b30eeee14_battery_level
@@ -3214,8 +3221,6 @@ sensor.sun_solar_azimuth	sun	Sun	Sun		Solar azimuth	integration		fb23c1fe8cd83a2
 sensor.sun_solar_elevation	sun	Sun	Sun		Solar elevation	integration		fb23c1fe8cd83a23977a89578999be3f-solar_elevation
 sensor.swings_battery_level	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Battery			f99e8378-aee1-4536-a3ce-309ae8f7f9a1
 sensor.swings_zigbee_connectivity	hue	Hue Bridge 0017882791a0	Piano Lamp	Media area	Zigbee connectivity	integration		0a90e8ff-5b3b-472f-8797-412e2f9ffa7e
-sensor.switch_351_current_consumption	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights Current Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_power
-sensor.switch_351_total_consumption	lightwave2	tongaimaramba@gmail.com	Media Room Spotlights		Media Room Spotlights Total Consumption			5d17143ac42a3075031ca5a8-665f686ff812fb9bda578a74_energy
 sensor.t_s_jabra_elite_7_pro_next_alarm	alexa_devices	tongaimaramba@gmail.com	T's Jabra Elite 7 Pro		Next alarm	device		d18fb9bf3790489aa2caf85a56cea9db-Alarm
 sensor.t_s_jabra_elite_7_pro_next_reminder	alexa_devices	tongaimaramba@gmail.com	T's Jabra Elite 7 Pro		Next reminder	device		d18fb9bf3790489aa2caf85a56cea9db-Reminder
 sensor.t_s_jabra_elite_7_pro_next_timer	alexa_devices	tongaimaramba@gmail.com	T's Jabra Elite 7 Pro		Next timer	device		d18fb9bf3790489aa2caf85a56cea9db-Timer
@@ -3269,6 +3274,9 @@ sensor.tojgan_solar_total_maximum_power	growatt_server_api	tojgan-solar	tojgan-s
 sensor.tojgan_solar_total_money_lifetime	growatt_server_api	tojgan-solar	tojgan-solar Total	Garage	tojgan-solar Total Money lifetime			2462223-total_money_total
 sensor.tojgan_solar_total_output_power	growatt_server_api	tojgan-solar	tojgan-solar Total	Garage	tojgan-solar Total Output Power			2462223-total_output_power
 sensor.tojgan_solar_total_total_money_today	growatt_server_api	tojgan-solar	tojgan-solar Total	Garage	tojgan-solar Total Total money today			2462223-total_money_today
+sensor.tojganlrf_hub_my_group_dawn_time	lightwave_smart	Lightwave Smart	TojganLRF Hub My Group	Study	Dawn Time			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_dawnTime
+sensor.tojganlrf_hub_my_group_dusk_time	lightwave_smart	Lightwave Smart	TojganLRF Hub My Group	Study	Dusk Time			5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_duskTime
+sensor.tojganlrf_hub_my_group_last_event_received	lightwave_smart	Lightwave Smart	TojganLRF Hub My Group	Study	Last Event Received	integration		5d17143ac42a3075031ca5a8-5d17143ac42a3075031ca5b1_lastEvent
 sensor.tongai_locator	places	Tongai Locator 			Tongai Locator 			e7dd9ae3b871d63d2ce68c0f05dde2a8
 sensor.tongai_mbp_2_active_audio_input	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2) Active Audio Input			f346a7eb50ef87b09b506a5ffaac485cc119eb667b010fe3258006d72dc66614_active_microphone
 sensor.tongai_mbp_2_active_audio_output	mobile_app	tongai-mbp (2)	tongai-mbp (2)		tongai-mbp (2) Active Audio Output			f346a7eb50ef87b09b506a5ffaac485cc119eb667b010fe3258006d72dc66614_active_audio_output
@@ -3570,6 +3578,7 @@ switch.hue_motion_sensor_2_motion_sensor_enabled	hue	Hue Bridge 0017882791a0	Gar
 switch.keymaster_pre_release	hacs		keymaster		Pre-release	integration		318359434
 switch.kiosk_kiosk_lock	fully_kiosk	Kiosk	Kiosk	Hallway	Kiosk lock			6fb5ea4d-8673b66a-kiosk
 switch.kiosk_maintenance_mode	fully_kiosk	Kiosk	Kiosk	Hallway	Maintenance mode			6fb5ea4d-8673b66a-maintenance
+switch.kiosk_mode_pre_release	hacs		Kiosk Mode		Pre-release	integration		497319128
 switch.kiosk_motion_detection	fully_kiosk	Kiosk	Kiosk	Hallway	Motion detection			6fb5ea4d-8673b66a-motion-detection
 switch.kiosk_screen	fully_kiosk	Kiosk	Kiosk	Hallway	Screen			6fb5ea4d-8673b66a-screenOn
 switch.kiosk_screensaver	fully_kiosk	Kiosk	Kiosk	Hallway	Screensaver			6fb5ea4d-8673b66a-screensaver
@@ -3582,6 +3591,7 @@ switch.landing_blind_stop_landing_blind	esphome	landing-blind	landing-blind	Loft
 switch.lg_webos_remote_control_pre_release	hacs		LG WebOS Remote Control		Pre-release	integration		257005990
 switch.light_entity_card_pre_release	hacs		Light Entity Card		Pre-release	integration		168744428
 switch.lightwave_rf_pre_release	hacs		Lightwave RF		Pre-release	integration		162808336
+switch.lightwave_smart_pre_release	hacs		Lightwave Smart		Pre-release	integration		719179733
 switch.lock_nuki	rpi_gpio				Lock Nuki			nuki_lock_switch_port_17
 switch.loft_blind_close_loft_suite_blind	esphome	loft-blind	loft-blind		Close - Loft Suite Blind			AC:0B:FB:D7:F6:97/0/switch/Close - Loft Suite Blind
 switch.loft_blind_open_loft_suite_blind	esphome	loft-blind	loft-blind		Open - Loft Suite Blind			AC:0B:FB:D7:F6:97/0/switch/Open - Loft Suite Blind
@@ -3761,8 +3771,10 @@ update.guest_win_firmware	smartthings	My home	Guest Win	Study	Firmware			90c6a3f
 update.ha_dashboard_update	hacs		HA Dashboard		HA Dashboard update			329411371
 update.ha_floorplan_your_imagination_almost_defines_the_limits_update	hacs		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits		ha-floorplan 🖌🎨 | Your imagination (almost) defines the limits update			188323494
 update.hacs_update	hacs		HACS		HACS update			172733314
+update.hallway_hallway_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Hallway Spotlights Device	Hallway	Firmware			5d17143ac42a3075031ca5a8-5-3157347179+1_firmware
 update.hannah_door_firmware	smartthings	My home	H Door	Hannah	Firmware			71977775-92f3-47e7-9b17-0cb28e241c62_main
 update.hannah_h_presence_firmware	smartthings	My home	H Presence	Hannah	Firmware			8f5aea16-c4cc-4b43-9c8d-dd93d8db905c_main
+update.hannah_hannah_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Hannah Spotlights Device	Hannahs Bedroom	Firmware			5d17143ac42a3075031ca5a8-3-3157347179+1_firmware
 update.home_assistant_core_update	hassio	Supervisor	Home Assistant Core		Update			home_assistant_core_version_latest
 update.home_assistant_google_drive_backup_update	hassio	Supervisor	Home Assistant Google Drive Backup		Update			cebe7a76_hassio_google_drive_backup_version_latest
 update.home_assistant_operating_system_update	hassio	Supervisor	Home Assistant Operating System		Update			home_assistant_os_version_latest
@@ -3771,6 +3783,7 @@ update.kai_proxy_firmware	esphome	kai_proxy	kai_proxy	Hallway	Firmware	integrati
 update.keymaster_update	hacs		keymaster		keymaster update			318359434
 update.kiosk_mode_update	hacs		Kiosk Mode		Kiosk Mode update			497319128
 update.kitchen_firmware	smartthings	My home	Kitchen	Kitchen	Firmware			e6821393-e06c-439c-baad-d48f38e8cd5b_main
+update.kitchen_kitchen_spotlights_dining_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Kitchen Spotlights - Dining Spotlights Device	Kitchen	Firmware			5d17143ac42a3075031ca5a8-13-3157347179+1_firmware
 update.kitchen_nfc_firmware	esphome	kitchen-nfc	Kitchen-Nfc	Kitchen	Firmware			40:91:51:4E:DB:EA
 update.kitchen_z_plugrepeater_firmware	smartthings	My home	Z-PlugRepeater		Firmware			c5c1cd9d-239c-4c04-8121-9cf955040c8e_main
 update.landing_blind_firmware	esphome	landing-blind	landing-blind	Loft	Firmware	integration		34:85:18:03:D8:A8
@@ -3778,16 +3791,21 @@ update.landing_window_firmware	smartthings	My home	Landing Window	Hallway	Firmwa
 update.lg_webos_remote_control_update	hacs		LG WebOS Remote Control		LG WebOS Remote Control update			257005990
 update.light_entity_card_update	hacs		Light Entity Card		Light Entity Card update			168744428
 update.lightwave_rf_update	hacs		Lightwave RF		Lightwave RF update			162808336
+update.lightwave_smart_update	hacs		Lightwave Smart		Lightwave Smart update			719179733
 update.loft32_firmware	esphome	study work status	work status	Study	Firmware			94:3C:C6:37:67:84
 update.loft_blind_firmware	esphome	loft-blind	loft-blind		Firmware			AC:0B:FB:D7:F6:97
 update.loft_call_button_firmware	esphome	Loft call button	Loft call button	Loft Suite	Firmware	integration		44:1B:F6:F6:37:9C
 update.loft_controller_firmware	esphome	Loft Controller	Hannah's call button	Hannahs Bedroom	Firmware	integration		F4:65:0B:07:AB:34
 update.loft_door_firmware	smartthings	My home	L Door	Loft	Firmware			89147137-cb7d-4ed2-b23b-e9bdee83926b_main
 update.loft_presence_firmware	smartthings	My home	L Presence	Loft	Firmware			835ac911-3634-4b41-a4e0-14320f9f5f0d_main
+update.loft_suite_loft_suite_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Loft Suite Spotlights Device	Loft Suite	Firmware			5d17143ac42a3075031ca5a8-22-3157347179+1_firmware
+update.lounge_lounge_pendant_lounge_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Lounge Pendant - Lounge Spotlights Device	Lounge	Firmware			5d17143ac42a3075031ca5a8-12-3157347179+1_firmware
 update.lovelace_card_templater_update	hacs		Lovelace Card Templater		Lovelace Card Templater update			184333163
 update.lovelace_hass_aarlo_update	hacs		Lovelace Hass Aarlo		Lovelace Hass Aarlo update			197245179
 update.lovelace_text_input_row_update	hacs		Lovelace Text Input Row		Lovelace Text Input Row update			182113743
+update.main_bedroom_main_spotlights_device_firmware	lightwave_smart	Lightwave Smart	Main Spotlights Device	Ellies Bedroom	Firmware			5d17143ac42a3075031ca5a8-7-3157347179+1_firmware
 update.matter_server_update	hassio	Supervisor	Matter Server		Update			core_matter_server_version_latest
+update.media_room_media_room_spotlights_media_room_wall_lights_lounge_wall_lights_device_firmware	lightwave_smart	Lightwave Smart	Media Room Spotlights - Media Room Wall Lights - Lounge Wall Lights Device	Media Room	Firmware			5d17143ac42a3075031ca5a8-23-3157347179+1_firmware
 update.miele_integration_update	hacs		Miele integration		Miele integration update			316807165
 update.miele_update	hacs		Miele		Miele update			439944813
 update.mini_graph_card_update	hacs		mini-graph-card		mini-graph-card update			151280062
@@ -3827,6 +3845,7 @@ update.template_entity_row_update	hacs		template-entity-row		template-entity-row
 update.terminal_ssh_update	hassio	Supervisor	Terminal & SSH		Update			core_ssh_version_latest
 update.timer_bar_card_update	hacs		Timer Bar Card		Timer Bar Card update			376904517
 update.toggle_control_button_row_update	hacs		Toggle Control Button Row		Toggle Control Button Row update			326033921
+update.tojganlrf_hub_device_firmware	lightwave_smart	Lightwave Smart	TojganLRF Hub Device	Study	Firmware			5d17143ac42a3075031ca5a8-1-3157347179+1_firmware
 update.tv_remote_card_with_touchpad_and_haptic_feedback_update	hacs		TV Remote Card (with touchpad and haptic feedback)		TV Remote Card (with touchpad and haptic feedback) update			505459170
 update.utility_back_door_firmware	smartthings	My home	Utility Back Door	Utility	Firmware			d37e06db-a7e8-474f-802e-cad844952232_main
 update.whatspie_update	hacs		WhatsPie		WhatsPie update			556789449

@@ -48,8 +48,9 @@
 | AlexxIT/SonoffLAN | integration | v3.8.2 | v3.13.3 | 222118751 |
 | BottlecapDave/HomeAssistant-OctopusEnergy | integration | v19.3.0 | v19.3.0 | 401282856 |
 | ExperienceLovelace/ha-floorplan | plugin | 1.0.44 | v1.1.5 | 188323494 |
-| FutureTense/keymaster | integration | v0.0.87 | v0.6.4 | 318359434 |
+| FutureTense/keymaster | integration | v0.0.87 | v0.6.5 | 318359434 |
 | HomeAssistant-Mods/home-assistant-miele | integration | v.0.9.8 | v.0.9.10 | 316807165 |
+| LightwaveSmartHome/homeassistant-lightwave-smart | integration | v5.2.0 | v5.2.0 | 719179733 |
 | NemesisRE/kiosk-mode | plugin | v16.0.0 | v16.0.0 | 497319128 |
 | Odianosen25/Monitor-App | appdaemon |  |  | 188970295 |
 | agittins/bermuda | integration | v0.8.5 | v0.8.7 | 676091897 |
@@ -79,7 +80,7 @@
 | gadgetchnnel/lovelace-text-input-row | plugin | V0.0.10 | v0.0.11 | 182113743 |
 | hacs/integration | integration | 2.0.5 | 2.0.5 | 172733314 |
 | hulkhaugen/hass-bha-icons | plugin |  |  | 179808576 |
-| iantrich/config-template-card | plugin | 1.3.6 | 2.2.0 | 172177543 |
+| iantrich/config-template-card | plugin | 1.3.6 | 2.3.0 | 172177543 |
 | iantrich/roku-card | plugin | 1.2.4 | 1.2.4 | 164367214 |
 | ikb42/homeassistant-lightwave2 | integration | v3.5.20 | v3.5.20 | 162808336 |
 | jampez77/Multiline-Entity-Card | plugin | 1.2.2 | 1.2.2 | 351472550 |

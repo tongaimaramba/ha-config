@@ -10,6 +10,31 @@
       "date_format": "language",
       "time_zone": "local",
       "first_weekday": "language"
+    },
+    "core": {
+      "default_panel": "mojgan-home"
+    },
+    "sidebar": {
+      "panelOrder": [
+        "mojgan-home"
+      ],
+      "hiddenPanels": [
+        "climate-home",
+        "family-home",
+        "kids-home",
+        "tongai-home",
+        "hannah-home",
+        "ellie-home",
+        "dashboard-basics",
+        "mdiindex",
+        "map",
+        "media-browser",
+        "history",
+        "logbook",
+        "energy",
+        "calendar",
+        "todo"
+      ]
     }
   }
 }

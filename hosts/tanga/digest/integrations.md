@@ -86,7 +86,7 @@
 | group | pantry | user | core | 0 | 1 |  | 790ad5d30ef222d99be7536aa683156f |
 | group | utility | user | core | 0 | 1 |  | 18f440464495c1d0895424e4bab0cc15 |
 | growatt_server_api | tojgan-solar | user | custom | 0 | 37 |  | 26ed0faa71ef6b3aef24274377700cef |
-| hacs |  | user | custom | 0 | 133 |  | dc93992ca134461aa614600f58f0b57c |
+| hacs |  | user | custom | 0 | 136 |  | dc93992ca134461aa614600f58f0b57c |
 | hassio | Supervisor | system | core | 0 | 144 |  | e170bc42d8b368aa1271b400fde50598 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | c9bd9681950342d7a035531eed7d30f5 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | 3409676f1de7289f30d22cc3daad2dc7 |
@@ -99,7 +99,7 @@
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
-| lightwave2 | tongaimaramba@gmail.com | user | custom | 0 | 61 |  | 25ac2933732f83c622dfc3e758f3ba30 |
+| lightwave_smart | Lightwave Smart | zeroconf | custom | 0 | 77 |  | 01M7WE3K9X90ZARZHGAQV3X2T3 |
 | local_calendar | Extras | user | core | 0 | 1 |  | 01M72FEDW8W1GE8MP010R33FG5 |
 | local_file | Call still back fence | user | core | 0 | 1 |  | 01M68PGRS2NVXVK1XRCDZPPE1S |
 | local_file | Call still front door | user | core | 0 | 1 |  | 01M68WYH4W3H9VRJEKS14Z771T |
@@ -183,7 +183,8 @@
 | growatt_server_api | 1.0.4 | Growatt Server API | yes | https://github.com/muppet3000/homeassistant-growatt_server_api |
 | hacs | 2.0.5 | HACS | yes | https://hacs.xyz/docs/use/ |
 | keymaster | v0.0.87 | keymaster | NO — installed but not configured | https://github.com/FutureTense/keymaster |
-| lightwave2 | 3.5.20 | Lightwave v2 (Smart Series) custom component | yes | https://github.com/bigbadblunt/homeassistant-lightwave2 |
+| lightwave2 | 3.5.20 | Lightwave v2 (Smart Series) custom component | NO — installed but not configured | https://github.com/bigbadblunt/homeassistant-lightwave2 |
+| lightwave_smart | 5.2.0 | Lightwave Smart | yes | https://github.com/LightwaveSmartHome/homeassistant-lightwave-smart |
 | miele | 2024.3.0 | Miele | yes | https://github.com/astrandb/miele |
 | monitor_docker | 1.10 | Monitor Docker | NO — installed but not configured | https://github.com/ualex73/monitor_docker |
 | myskoda | 1.22.0 | MySkoda | NO — installed but not configured | https://github.com/skodaconnect/homeassistant-myskoda/blob/main/README.md |

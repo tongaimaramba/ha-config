@@ -2,16 +2,16 @@
 
 ```
 host: tanga
-exported_at: 2026-11-20T08:41:06+00:00
+exported_at: 2026-11-20T13:01:54+00:00
 config_dir: /homeassistant
 ha_version: 2026.10.0
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
-- config entries: 161  (custom components on disk: 27)
-- devices: 509
-- entities: 3841 across 65 platforms
-- areas: 38
+- config entries: 161  (custom components on disk: 28)
+- devices: 518
+- entities: 3860 across 65 platforms
+- areas: 41
 
 ## entities per platform
 
@@ -23,17 +23,17 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 | input_boolean | 160 |
 | smartthings | 152 |
 | hassio | 144 |
+| hacs | 136 |
 | bermuda | 136 |
 | automation | 133 |
-| hacs | 133 |
 | esphome | 97 |
 | alexa_devices | 90 |
 | mqtt | 85 |
+| lightwave_smart | 77 |
 | volvo | 75 |
 | octopus_energy | 74 |
 | script | 63 |
 | template | 63 |
-| lightwave2 | 61 |
 | input_select | 52 |
 | homekit_controller | 46 |
 | fujitsu_airstage | 40 |
@@ -90,8 +90,8 @@ home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
 home-assistant_v2.db (18820853760 bytes) — db/log/binary
-home-assistant_v2.db-shm (65536 bytes) — db/log/binary
-home-assistant_v2.db-wal (5236552 bytes) — db/log/binary
+home-assistant_v2.db-shm (32768 bytes) — db/log/binary
+home-assistant_v2.db-wal (12446552 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list

@@ -497,6 +497,45 @@
         "temperature_entity_id": null,
         "created_at": "2026-11-09T10:31:31.260446+00:00",
         "modified_at": "2026-11-09T10:31:31.260449+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "lounge",
+        "labels": [],
+        "name": "Lounge",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "2026-11-20T12:15:13.334755+00:00",
+        "modified_at": "2026-11-20T12:15:13.334758+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "media_room",
+        "labels": [],
+        "name": "Media Room",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "2026-11-20T12:15:13.337527+00:00",
+        "modified_at": "2026-11-20T12:15:13.337529+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "kigali",
+        "labels": [],
+        "name": "kigali",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "2026-11-20T12:15:13.349162+00:00",
+        "modified_at": "2026-11-20T12:15:13.349165+00:00"
       }
     ]
   }

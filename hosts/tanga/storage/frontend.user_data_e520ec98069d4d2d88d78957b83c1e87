@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_e520ec98069d4d2d88d78957b83c1e87",
+  "data": {
+    "sidebar": {
+      "panelOrder": [
+        "ellie-home"
+      ],
+      "hiddenPanels": [
+        "climate-home",
+        "kids-home",
+        "tongai-home",
+        "mojgan-home",
+        "hannah-home",
+        "dashboard-basics",
+        "mdiindex",
+        "map",
+        "media-browser",
+        "history",
+        "logbook",
+        "energy",
+        "calendar",
+        "todo",
+        "family-home"
+      ]
+    },
+    "core": {
+      "default_panel": "ellie-home"
+    }
+  }
+}
