@@ -360,7 +360,7 @@
         "domain": "homekit_controller",
         "entry_id": "3409676f1de7289f30d22cc3daad2dc7",
         "minor_version": 1,
-        "modified_at": "2026-11-04T15:04:20.328661+00:00",
+        "modified_at": "2026-11-20T04:16:29.408487+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2769,7 +2769,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2026-11-19T17:54:43.449277+00:00",
+        "modified_at": "2026-11-20T07:47:45.586389+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -3693,7 +3693,7 @@
         "domain": "nest",
         "entry_id": "01JZ7Z5Q3VGSN8HBZ98THPEGF7",
         "minor_version": 1,
-        "modified_at": "2026-11-19T17:18:03.348711+00:00",
+        "modified_at": "2026-11-20T08:24:26.080098+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4226,7 +4226,7 @@
         "domain": "smartthings",
         "entry_id": "01KHV34R3NJ1A41RGN36KYHCYN",
         "minor_version": 2,
-        "modified_at": "2026-11-19T16:07:50.536024+00:00",
+        "modified_at": "2026-11-20T05:48:31.065066+00:00",
         "options": {
           "_redacted_keys": []
         },

@@ -247,7 +247,7 @@ more-info-card	thomasloven	plugin		hacs			ca2b618279f89c6efeadb36811e49e7c
 nMudiki	Nuki	SmartLock		mqtt		3.10.7	d2a03a6df70b6b1ee432577556fdde5b
 nMukuru	Nuki	SmartLock		mqtt		5.6.9	643eafc4a2ffd23de2ebc85621aa89b1
 nMukuru	Nuki	Smart Lock Pro		mqtt			f05cae271326759cf19bc3456472e406
-nMukuru	Nuki	SmartLock		mqtt		5.9.4	c5bfed8b18686a354459b2498e2c25fd
+nMukuru	Nuki	SmartLock		mqtt		5.10.5	c5bfed8b18686a354459b2498e2c25fd
 nMukuru	Nuki	Smart Lock Pro		mqtt			9d7160f4e11cc0f96678c9a9d5ccf441
 nuki_mudiki	Technyon	Nuki Hub		mqtt		10.00	3a86b730f528ce3ad7d5b44f55b55a02
 nukihub	Technyon	NukiHub		mqtt		9.06	6e00b620ade4eb1250d355d6e1cab571

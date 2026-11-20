@@ -2,7 +2,7 @@
 
 ```
 host: pamba
-exported_at: 2026-11-19T17:57:05+00:00
+exported_at: 2026-11-20T08:40:45+00:00
 config_dir: /homeassistant
 ha_version: 2025.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Mar 17 12:19:09 UTC 2025 armv7l Linux
@@ -81,7 +81,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (2700136448 bytes) — db/log/binary
 home-assistant_v2.db-shm (131072 bytes) — db/log/binary
-home-assistant_v2.db-wal (5306592 bytes) — db/log/binary
+home-assistant_v2.db-wal (4898712 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 .storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.hidden — not in allow-list
 .storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.items — not in allow-list

@@ -126,7 +126,7 @@
 15397	./storage/core.area_registry
 431	./storage/core.config
 133614	./storage/core.config_entries
-210967	./storage/core.device_registry
+210968	./storage/core.device_registry
 2371500	./storage/core.entity_registry
 648	./storage/core.label_registry
 96	./storage/core.logger

@@ -5,7 +5,7 @@ home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (1553825 bytes) — db/log/binary
 home-assistant_v2.db (2700136448 bytes) — db/log/binary
 home-assistant_v2.db-shm (131072 bytes) — db/log/binary
-home-assistant_v2.db-wal (5306592 bytes) — db/log/binary
+home-assistant_v2.db-wal (4898712 bytes) — db/log/binary
 zigbee.db (110592 bytes) — db/log/binary
 .storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.hidden — not in allow-list
 .storage/album_slideshow.01M7PTDD55CPGK0BSDS9JJNZB7.items — not in allow-list
