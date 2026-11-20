@@ -13,16 +13,28 @@
     },
     "sidebar": {
       "panelOrder": [
-        "dashboard-basics"
+        "hannah-home"
       ],
       "hiddenPanels": [
+        "climate-home",
+        "family-home",
+        "kids-home",
+        "tongai-home",
+        "mojgan-home",
+        "ellie-home",
+        "dashboard-basics",
         "mdiindex",
+        "map",
+        "media-browser",
         "history",
         "logbook",
-        "media-browser",
         "energy",
-        "map"
+        "calendar",
+        "todo"
       ]
+    },
+    "core": {
+      "default_panel": "hannah-home"
     }
   }
 }

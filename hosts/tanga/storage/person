@@ -42,10 +42,6 @@
         "id": "ellie",
         "name": "Ellie",
         "device_trackers": [
-          "device_tracker.ellie_s_gym_bag",
-          "device_tracker.ellie_s_phone",
-          "device_tracker.ellie_bag",
-          "device_tracker.ellie_s_hockey_bag",
           "device_tracker.ellies_iphone"
         ],
         "user_id": "e520ec98069d4d2d88d78957b83c1e87",

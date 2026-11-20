@@ -26,9 +26,11 @@
 - Loft
 - Loft Bathroom
 - Loft Suite
+- Lounge
 - Lounge Lamps
 - M Bedside
 - Main Bedroom
+- Media Room
 - Media area
 - Room 6
 - Study
@@ -38,3 +40,4 @@
 - Utility
 - Utility - Laundry
 - Utility - Pantry
+- kigali

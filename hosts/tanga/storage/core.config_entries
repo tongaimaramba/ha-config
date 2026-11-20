@@ -418,7 +418,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-11-20T08:36:22.564065+00:00",
+        "modified_at": "2026-11-20T12:39:51.016191+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -1577,36 +1577,6 @@
         "subentries": [],
         "title": "192.168.179.41:8123",
         "unique_id": "192.168.179.41:8123",
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": [
-            "password",
-            "username"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "lightwave2",
-        "entry_id": "25ac2933732f83c622dfc3e758f3ba30",
-        "minor_version": 1,
-        "modified_at": "2025-03-23T09:59:26.261747+00:00",
-        "options": {
-          "_redacted_keys": [
-            "lightwave_debug",
-            "lightwave_homekit",
-            "lightwave_publicapi",
-            "lightwave_reconnect"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "tongaimaramba@gmail.com",
-        "unique_id": "tongaimaramba@gmail.com",
         "version": 1
       },
       {
@@ -4195,7 +4165,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-11-20T02:51:36.566041+00:00",
+        "modified_at": "2026-11-20T12:12:45.807504+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4418,7 +4388,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-11-20T08:39:00.014035+00:00",
+        "modified_at": "2026-11-20T12:59:47.732543+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -5209,6 +5179,43 @@
         "subentries": [],
         "title": "Kiosk",
         "unique_id": "6fb5ea4d-8673b66a",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-20T12:15:10.141633+00:00",
+        "data": {
+          "_redacted_keys": [
+            "auth_implementation",
+            "lightwave_auth_method",
+            "token"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {
+          "zeroconf": [
+            {
+              "domain": "zeroconf",
+              "key": [
+                "_lightwave._tcp.local.",
+                "Lightwave Link Plus 314B6B (128)._lightwave._tcp.local."
+              ],
+              "version": 1
+            }
+          ]
+        },
+        "domain": "lightwave_smart",
+        "entry_id": "01M7WE3K9X90ZARZHGAQV3X2T3",
+        "minor_version": 1,
+        "modified_at": "2026-11-20T12:15:10.141635+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "Lightwave Smart",
+        "unique_id": "lightwave_smart",
         "version": 1
       }
     ]
