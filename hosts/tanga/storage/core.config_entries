@@ -88,26 +88,18 @@
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
           "_redacted_keys": [
-            "token"
+            "token",
+            "warning_accepted"
           ]
         },
         "disabled_by": null,
         "discovery_keys": {},
-        "domain": "hacs",
+        "domain": "marketplace",
         "entry_id": "dc93992ca134461aa614600f58f0b57c",
         "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2026-11-23T19:04:36.514776+00:00",
         "options": {
-          "_redacted_keys": [
-            "appdaemon",
-            "country",
-            "debug",
-            "experimental",
-            "netdaemon",
-            "release_limit",
-            "sidepanel_icon",
-            "sidepanel_title"
-          ]
+          "_redacted_keys": []
         },
         "pref_disable_new_entities": false,
         "pref_disable_polling": false,
@@ -418,7 +410,7 @@
         "domain": "nest",
         "entry_id": "1270c0b2a30655f538ca0eb633a114ca",
         "minor_version": 1,
-        "modified_at": "2026-11-20T12:39:51.016191+00:00",
+        "modified_at": "2026-11-26T22:56:52.838503+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2036,7 +2028,7 @@
         "domain": "group",
         "entry_id": "45059156ca02438bd551972a07b06359",
         "minor_version": 1,
-        "modified_at": "2025-01-12T20:47:47.952582+00:00",
+        "modified_at": "2026-11-20T16:03:22.548464+00:00",
         "options": {
           "_redacted_keys": [
             "all",
@@ -2254,34 +2246,6 @@
         "disabled_by": null,
         "discovery_keys": {},
         "domain": "group",
-        "entry_id": "c9adb969e7a7822ef68d92fb529c83b2",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "all",
-            "entities",
-            "group_type",
-            "hide_members",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Rear Perimeter Movement",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "group",
         "entry_id": "38652b66a5ab91af73e3560989e05f03",
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
@@ -2394,34 +2358,6 @@
         "disabled_by": null,
         "discovery_keys": {},
         "domain": "group",
-        "entry_id": "60bed65316a7857969c58ad2fcbf18f9",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "all",
-            "entities",
-            "group_type",
-            "hide_members",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Downstairs Indoor Movement",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "group",
         "entry_id": "361b9a06a3b2cb159d38521763c2c00d",
         "minor_version": 1,
         "modified_at": "1970-01-01T00:00:00+00:00",
@@ -2439,34 +2375,6 @@
         "source": "user",
         "subentries": [],
         "title": "Upstairs Indoor Motion",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "group",
-        "entry_id": "85c5f9b15f38142b6fb98b75bd8e1416",
-        "minor_version": 1,
-        "modified_at": "2024-12-20T21:05:50.539240+00:00",
-        "options": {
-          "_redacted_keys": [
-            "all",
-            "entities",
-            "group_type",
-            "hide_members",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Lounge Lamps",
         "unique_id": null,
         "version": 1
       },
@@ -2501,34 +2409,6 @@
       {
         "created_at": "1970-01-01T00:00:00+00:00",
         "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "group",
-        "entry_id": "09baafcbb51b087fd933a2ce9d65e9d9",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "all",
-            "entities",
-            "group_type",
-            "hide_members",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "KD_Sposts",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
           "_redacted_keys": [
             "endpoint",
             "terminal_id",
@@ -2541,7 +2421,7 @@
         "domain": "tuya",
         "entry_id": "e45c0687bfd0bce4ae2a8d3188b81b86",
         "minor_version": 1,
-        "modified_at": "2025-03-26T07:36:51.681875+00:00",
+        "modified_at": "2026-11-26T22:53:40.922329+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -2578,33 +2458,6 @@
         "source": "user",
         "subentries": [],
         "title": "Dining Wall Lights",
-        "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "data": {
-          "_redacted_keys": []
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "group",
-        "entry_id": "14d7315f10687ff1f98aa0249635414d",
-        "minor_version": 1,
-        "modified_at": "1970-01-01T00:00:00+00:00",
-        "options": {
-          "_redacted_keys": [
-            "entities",
-            "group_type",
-            "hide_members",
-            "name"
-          ]
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "user",
-        "subentries": [],
-        "title": "Wall Lamps",
         "unique_id": null,
         "version": 1
       },
@@ -3871,8 +3724,8 @@
         "discovery_keys": {},
         "domain": "matter",
         "entry_id": "01KA3PMH3S3S2NKH8YHC1QXEWZ",
-        "minor_version": 1,
-        "modified_at": "2025-11-15T12:07:59.865975+00:00",
+        "minor_version": 2,
+        "modified_at": "2026-11-23T16:49:24.479715+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4130,7 +3983,7 @@
         "domain": "mobile_app",
         "entry_id": "01KWSDY1ZK9AHSVSK293XTD854",
         "minor_version": 1,
-        "modified_at": "2026-11-03T16:29:16.255477+00:00",
+        "modified_at": "2026-11-25T07:13:14.598494+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4165,7 +4018,7 @@
         "domain": "smartthings",
         "entry_id": "01M4C2C1GC5VF0KEE1D3N2DQ3K",
         "minor_version": 3,
-        "modified_at": "2026-11-20T12:12:45.807504+00:00",
+        "modified_at": "2026-11-26T18:55:01.925853+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4388,7 +4241,7 @@
         "domain": "volvo",
         "entry_id": "01M5JWVS6EM7W09YTWX7XG91ZY",
         "minor_version": 1,
-        "modified_at": "2026-11-20T12:59:47.732543+00:00",
+        "modified_at": "2026-11-26T23:01:06.740697+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4517,9 +4370,7 @@
         "data": {
           "_redacted_keys": [
             "elevation",
-            "latitude",
-            "longitude",
-            "name"
+            "location"
           ]
         },
         "disabled_by": null,
@@ -4527,7 +4378,7 @@
         "domain": "met",
         "entry_id": "01M5WY8VM9XDZG6KWAYRRSC4B9",
         "minor_version": 1,
-        "modified_at": "2026-10-26T20:26:16.073490+00:00",
+        "modified_at": "2026-11-23T16:49:24.571743+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -4537,45 +4388,7 @@
         "subentries": [],
         "title": "Home",
         "unique_id": null,
-        "version": 1
-      },
-      {
-        "created_at": "2026-10-27T20:20:11.201419+00:00",
-        "data": {
-          "_redacted_keys": [
-            "app_data",
-            "app_id",
-            "app_name",
-            "app_version",
-            "device_id",
-            "device_name",
-            "manufacturer",
-            "model",
-            "no_legacy_encryption",
-            "os_name",
-            "os_version",
-            "secret",
-            "supports_encryption",
-            "user_id",
-            "webhook_id"
-          ]
-        },
-        "disabled_by": null,
-        "discovery_keys": {},
-        "domain": "mobile_app",
-        "entry_id": "01M5ZGAEA19YH1SB8NVQEATDC2",
-        "minor_version": 1,
-        "modified_at": "2026-10-27T20:20:13.823556+00:00",
-        "options": {
-          "_redacted_keys": []
-        },
-        "pref_disable_new_entities": false,
-        "pref_disable_polling": false,
-        "source": "registration",
-        "subentries": [],
-        "title": "Mojgan-iPhone",
-        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
-        "version": 1
+        "version": 2
       },
       {
         "created_at": "2026-10-29T11:24:36.100424+00:00",
@@ -4894,7 +4707,7 @@
         "domain": "mobile_app",
         "entry_id": "01M6F1RGR9Y2MZ3Z2KCF8QT80M",
         "minor_version": 1,
-        "modified_at": "2026-11-05T20:11:11.484010+00:00",
+        "modified_at": "2026-11-25T23:26:17.987560+00:00",
         "options": {
           "_redacted_keys": []
         },
@@ -5216,6 +5029,66 @@
         "subentries": [],
         "title": "Lightwave Smart",
         "unique_id": "lightwave_smart",
+        "version": 1
+      },
+      {
+        "created_at": "2026-11-21T21:25:29.830826+00:00",
+        "data": {
+          "_redacted_keys": []
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "browser_mod",
+        "entry_id": "01M8000036SYH0AC6ACN42AEAX",
+        "minor_version": 1,
+        "modified_at": "2026-11-21T21:25:29.830830+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Browser Mod",
+        "unique_id": null,
+        "version": 2
+      },
+      {
+        "created_at": "2026-11-22T19:50:42.778371+00:00",
+        "data": {
+          "_redacted_keys": [
+            "app_data",
+            "app_id",
+            "app_name",
+            "app_version",
+            "device_id",
+            "device_name",
+            "manufacturer",
+            "model",
+            "no_legacy_encryption",
+            "os_name",
+            "os_version",
+            "secret",
+            "supports_encryption",
+            "user_id",
+            "webhook_id"
+          ]
+        },
+        "disabled_by": null,
+        "discovery_keys": {},
+        "domain": "mobile_app",
+        "entry_id": "01M82CZ5ATW3A63SBNM3SJYM22",
+        "minor_version": 1,
+        "modified_at": "2026-11-22T20:18:52.945191+00:00",
+        "options": {
+          "_redacted_keys": []
+        },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "registration",
+        "subentries": [],
+        "title": "iPhone (32)",
+        "unique_id": "io.robbie.HomeAssistant-D3A0E2E2-EF12-4169-A8EC-83FC0B887C04",
         "version": 1
       }
     ]

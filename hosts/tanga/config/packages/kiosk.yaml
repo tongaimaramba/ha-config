@@ -9,9 +9,11 @@
 #     loading the doorbell or cameras view and reloading the start URL. Nothing here touches a lock, the alarm, heating
 #     or a light, and nothing turns on Fully's camera or motion detection (switch.kiosk_motion_detection stays off, set
 #     by hand in Fully).
-#   - five gated automations: the doorbell shows the front-door camera full screen for 60 s (K-E); the camera on the
-#     plan shows the cameras view on the same rule (G9 v2 block 4); the screen wakes on hall motion, the front door
-#     opening and school-day mornings (K-D); the screensaver is dim by day and dark 22:00 to 06:30 (K-C).
+#   - eight gated automations: the doorbell shows the front-door camera full screen for 60 s (K-E); the camera on the
+#     plan shows the cameras view on the same rule (G9 v2 block 4); any other page goes back to Home after 3 minutes
+#     untouched (26 Nov); the screen wakes on hall motion, the front door
+#     opening and school-day mornings (K-D); the screensaver is dim by day and dark 22:00 to 06:30 (K-C); light and
+#     dark mode from sensor.kiosk_period through Browser Mod (21 Nov, its own second gate).
 # The page's time-of-day sections and lists are packages/kiosk_board.yaml's; the Stars ticks packages/stars.yaml's.
 #
 # Gate: input_boolean.kiosk_enabled (starts off, hard rule 6). With it off the script and every automation do nothing, and
@@ -26,6 +28,11 @@ input_boolean:
   kiosk_enabled:
     name: Kiosk
     icon: mdi:tablet-dashboard
+  # The kiosk's light and dark mode from HA (21 Nov; kiosk_dark_mode below). Its own gate as well as the kiosk's: it
+  # needs Browser Mod installed and the tablet's browser registered as `kiosk` first (Tongai's steps). Starts off.
+  kiosk_dark_mode_enabled:
+    name: Kiosk dark mode from HA
+    icon: mdi:theme-light-dark
 
 # The camera on the kiosk's plan (G9 v2 block 4): the kiosk page presses this (tools/halive/dash.py KIOSK_PRESS_OK) and
 # kiosk_show_cameras below shows the cameras page for a minute, as a ring shows the doorbell. Pressing it does nothing
@@ -247,6 +254,35 @@ automation:
           - action: script.kiosk_command
             data: {command: hide_camera}
 
+  # Any page but Home goes back to Home after 3 minutes untouched (Tongai 26 Nov: "if i click the House button it should
+  # revert back after a few minutes"): House, Stars, the timetables. Fully's screensaver comes on 2 minutes after the
+  # last touch (read live 26 Nov: off -> on 2 min apart all day), so the screensaver on for one more minute is 3 minutes
+  # untouched, and a touch ends the screensaver and with it the wait; nobody is moved off a page they are using. Only
+  # when the page Fully shows (sensor.kiosk_current_page) is a front-door page other than Home, so Home itself is never
+  # reloaded and a page that isn't the kiosk's is left alone. The doorbell and cameras views go back by themselves after
+  # 60 s, which comes first. Manual fallback: the page's own Home button or back arrow.
+  - id: kiosk_back_to_home
+    alias: Kiosk - back to Home after 3 minutes untouched
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: switch.kiosk_screensaver
+        to: "on"
+        for: {minutes: 1}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      - condition: template
+        value_template: >-
+          {% set page = states('sensor.kiosk_current_page') %}
+          {% set path = ('/' ~ (page.split('/')[3:] | join('/'))).split('?')[0].split('#')[0].rstrip('/') %}
+          {{ page is match('https?://[^/?#]+/front-door/')
+             and path not in ['/front-door', '/front-door/home'] }}
+    actions:
+      - action: script.kiosk_command
+        data: {command: hide_camera}
+
   # Someone walks into the hall (the Hue sensor by the front door), 06:30-22:00: lift the screensaver so the page is lit
   # when they reach it (K-D). At most one wake every 20 s. Manual fallback: touch the tablet.
   - id: kiosk_wake_hall_motion
@@ -338,3 +374,44 @@ automation:
         data:
           command: set_screensaver_mode
           mode: "{{ 'blank' if (now().strftime('%H:%M') >= '22:00' or now().strftime('%H:%M') < '06:30') else 'dim' }}"
+
+  # Light and dark from HA (Tongai 21 Nov, decision A: "Build the HA control for dark mode, it's already failed twice
+  # relying on the tablet"). sensor.kiosk_period's `dark` (packages/kiosk_board.yaml: from bounds.dark, 20:30, to
+  # bounds.morning, 06:30, or the Night preview) sets the kiosk browser's mode through Browser Mod, for that browser
+  # only (`browser_id: [kiosk]`; without it Browser Mod would set every registered browser). Set again every 3 hours,
+  # when either gate goes on, after an HA start and when the tablet comes back (its 03:30 restart, Wi-Fi), in case the
+  # browser missed one. The tablet's own Android dark schedule should be off so the two don't fight.
+  # Manual fallback: the kiosk profile's Theme setting on the tablet (Auto, Light or Dark), or Android's dark theme.
+  - id: kiosk_dark_mode
+    alias: Kiosk - dark mode from 20:30, light from 06:30
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: sensor.kiosk_period
+        attribute: dark
+      - trigger: time_pattern
+        hours: "/3"
+        minutes: 5
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: [input_boolean.kiosk_enabled, input_boolean.kiosk_dark_mode_enabled]
+        to: "on"
+      - trigger: state
+        entity_id: switch.kiosk_screen
+        from: [unavailable, unknown]
+        not_to: [unavailable, unknown]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kiosk_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.kiosk_dark_mode_enabled
+        state: "on"
+      - condition: template
+        value_template: "{{ state_attr('sensor.kiosk_period', 'dark') in [true, false] }}"
+    actions:
+      - action: browser_mod.set_theme
+        data:
+          browser_id: [kiosk]
+          dark: "{{ 'dark' if state_attr('sensor.kiosk_period', 'dark') else 'light' }}"

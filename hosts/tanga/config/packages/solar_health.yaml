@@ -1,5 +1,5 @@
 # Solar health (M5 step 2, decision M5-F; the backlog's "solar scheduler health alert", Tongai 2026-10-23). The
-# Battery First Scheduler (Battery first 03:00, Load first 05:30) and the Export optimiser change the inverter's mode
+# Battery First Scheduler (Battery first 03:00, Load first 05:30) and solar_control change the inverter's mode
 # through script.set_growatt_sph_mode_with_retry: Modbus straight to the inverter since M5 step 7
 # (packages/solar_modbus.yaml; it was MQTT to SolarAssistant). On 2026-10-29 MQTT was refused ~15 h and the
 # 03:00 charge never happened, unnoticed; on 2-3 Nov SolarAssistant went silent, both mode changes failed with quiet
@@ -62,8 +62,8 @@ automation:
             channel: Solar urgent
             importance: default
 
-  # The charge stopped part-way: Battery first left while the 03:00–05:30 window is on (a car-charging branch, the
-  # Export optimiser's fallback, a manual change). 5 min, so a retry that lands doesn't alert.
+  # The charge stopped part-way: Battery first left while the 03:00–05:30 window is on (a car-charging branch,
+  # solar_control, a manual change). 5 min, so a retry that lands doesn't alert.
   - id: solar_health_charge_interrupted
     alias: Solar - overnight charge stopped
     mode: single
@@ -97,8 +97,7 @@ automation:
             importance: low
 
   # Battery first still on after 05:30: the battery keeps charging from the grid at the peak rate. Checked at 05:40;
-  # urgent, the same tag as the watchdog's stuck Battery first, so one replaces the other. (The Export optimiser's
-  # sunrise trigger only opens its window; it never sets Battery first.)
+  # urgent, the same tag as the watchdog's stuck Battery first, so one replaces the other.
   - id: solar_health_charge_not_ended
     alias: Solar - overnight charge didn't end
     mode: single
@@ -136,7 +135,7 @@ automation:
       - condition: state
         entity_id: input_boolean.solar_health_enabled
         state: "on"
-      # one quiet push per 30 min: the Export optimiser can ask again every few minutes while Modbus is down or writes
+      # one quiet push per 30 min: solar_control can ask again every few minutes while Modbus is down or writes
       # are off; a Battery first failure always gets through
       - condition: template
         value_template: >-
@@ -169,7 +168,7 @@ automation:
   #   leftovers): always set Load first, at most once per 15 min, and an urgent push worded from the mode read back
   #   after; again every 30 min while it stays on.
   # - Never judged mid-change (G4, 2026-11-08): while the mode script runs (anyone's change: the scheduler, solar_control,
-  #   the Export optimiser, a manual mode) it waits for it to finish (up to 90 s; a run is ~40 s at most), then goes on
+  #   a manual mode) it waits for it to finish (up to 90 s; a run is ~40 s at most), then goes on
   #   only if the inverter still differs; and it reads the mode back only once the script is idle again. Its :00 / :30
   #   re-check fell on the scheduler's 03:00 and 05:30: at 05:30 it called the busy `mode: single` script ("Already
   #   running") 0.1 s before the inverter took Load first and read back Battery first, i.e. a false "couldn't correct"
@@ -357,7 +356,8 @@ automation:
             channel: Home status
             importance: low
 
-  # A solar automation switched off (or broken: unavailable) for 10 min; also one already off at start-up or when the
+  # The Battery First Scheduler (the solar_control fallback; the Export optimiser was deleted 23 Nov, NRG-1) switched
+  # off (or broken: unavailable) for 10 min; also one already off at start-up or when the
   # gate goes on (a state trigger needs a change). Fallback: Settings → Automations.
   - id: solar_health_automation_off
     alias: Solar - automation off
@@ -366,7 +366,6 @@ automation:
       - trigger: state
         entity_id:
           - automation.battery_first_scheduler
-          - automation.export_optimiser
         to: ["off", "unavailable"]
         for: {minutes: 10}
       - trigger: homeassistant
@@ -380,20 +379,17 @@ automation:
         state: "on"
       - condition: template
         value_template: >-
-          {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
-             | select('is_state', 'on') | list | count < 2 }}
+          {{ not is_state('automation.battery_first_scheduler', 'on') }}
     actions:
       - delay: {minutes: 10}  # at start-up, give the automations time to load
       - condition: template
         value_template: >-
-          {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
-             | select('is_state', 'on') | list | count < 2 }}
+          {{ not is_state('automation.battery_first_scheduler', 'on') }}
       - action: notify.mobile_app_tongaism25
         data:
           title: Solar automation off
           message: >-
-            {{ ['automation.battery_first_scheduler', 'automation.export_optimiser']
-               | reject('is_state', 'on') | map('state_attr', 'friendly_name') | join(', ') }} off · tanga
+            Battery First Scheduler off · tanga
           data:
             tag: solar_health_automation
             channel: Home status

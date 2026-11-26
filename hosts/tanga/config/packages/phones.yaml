@@ -1,0 +1,189 @@
+# Each person's phone, found by itself (PLT-47, Tongai 22 Nov: "use a device name from one place and have that place set
+# itself"; rule agreed 24 Nov, PLAN OVERNIGHT-24). On 22 Nov Mojgan's iPhone re-registered as "iPhone (32)" and every
+# push to her named a service that no longer existed (also 27 and 29 Oct). HA adds a phone's tracker to its user's
+# person when the Companion app registers, so the person's own list is the one place: of their trackers that belong to
+# the Companion app (integration mobile_app) and are not unavailable, the one heard most recently wins, and its notify
+# service is notify.mobile_app_<the device's name, slugified> (how HA names it). sensor.phone_<person> holds that
+# service; `found` is false when none qualifies, and the sensor then holds the last known service (`fallback`), so a
+# push still has somewhere to go. Read-only: these sensors send nothing.
+# Pushes move onto them (`action: "{{ states('sensor.phone_<person>') }}"`) in steps, after the values are checked live
+# (STATUS 25 Nov). lint-refs can't check a computed name; phones_watch is the check instead.
+# Manual fallback: the fixed services as before (each sensor's fallback), and the person's phone settings in HA.
+template:
+  - sensor:
+      - name: Phone Tongai  # entity id sensor.phone_tongai (HA derives it from the name)
+        unique_id: phone_tongai
+        icon: mdi:cellphone-message
+        state: >-
+          {%- set ns = namespace(best=none) %}
+          {%- for t in state_attr('person.tongai', 'device_trackers') or [] %}
+          {%- if t in integration_entities('mobile_app') and states[t] is not none
+                and states[t].state not in ['unavailable', 'unknown'] %}
+          {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+          {%- set ns.best = t %}
+          {%- endif %}{%- endif %}{%- endfor %}
+          {%- set name = device_attr(device_id(ns.best), 'name') if ns.best else none %}
+          {{ 'notify.mobile_app_' ~ (name | slugify) if name else 'notify.mobile_app_tongaism25' }}
+        attributes:
+          found: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.tongai', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best is not none and device_attr(device_id(ns.best), 'name') is not none }}
+          tracker: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.tongai', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best or '' }}
+          fallback: notify.mobile_app_tongaism25
+      - name: Phone Mojgan  # entity id sensor.phone_mojgan (HA derives it from the name)
+        unique_id: phone_mojgan
+        icon: mdi:cellphone-message
+        state: >-
+          {%- set ns = namespace(best=none) %}
+          {%- for t in state_attr('person.mojgan', 'device_trackers') or [] %}
+          {%- if t in integration_entities('mobile_app') and states[t] is not none
+                and states[t].state not in ['unavailable', 'unknown'] %}
+          {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+          {%- set ns.best = t %}
+          {%- endif %}{%- endif %}{%- endfor %}
+          {%- set name = device_attr(device_id(ns.best), 'name') if ns.best else none %}
+          {{ 'notify.mobile_app_' ~ (name | slugify) if name else 'notify.mobile_app_iphone_32' }}
+        attributes:
+          found: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.mojgan', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best is not none and device_attr(device_id(ns.best), 'name') is not none }}
+          tracker: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.mojgan', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best or '' }}
+          fallback: notify.mobile_app_iphone_32
+      - name: Phone Hannah  # entity id sensor.phone_hannah (HA derives it from the name)
+        unique_id: phone_hannah
+        icon: mdi:cellphone-message
+        state: >-
+          {%- set ns = namespace(best=none) %}
+          {%- for t in state_attr('person.hannah', 'device_trackers') or [] %}
+          {%- if t in integration_entities('mobile_app') and states[t] is not none
+                and states[t].state not in ['unavailable', 'unknown'] %}
+          {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+          {%- set ns.best = t %}
+          {%- endif %}{%- endif %}{%- endfor %}
+          {%- set name = device_attr(device_id(ns.best), 'name') if ns.best else none %}
+          {{ 'notify.mobile_app_' ~ (name | slugify) if name else 'notify.mobile_app_hannahs_iphone13' }}
+        attributes:
+          found: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.hannah', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best is not none and device_attr(device_id(ns.best), 'name') is not none }}
+          tracker: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.hannah', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best or '' }}
+          fallback: notify.mobile_app_hannahs_iphone13
+      - name: Phone Ellie  # entity id sensor.phone_ellie (HA derives it from the name)
+        unique_id: phone_ellie
+        icon: mdi:cellphone-message
+        state: >-
+          {%- set ns = namespace(best=none) %}
+          {%- for t in state_attr('person.ellie', 'device_trackers') or [] %}
+          {%- if t in integration_entities('mobile_app') and states[t] is not none
+                and states[t].state not in ['unavailable', 'unknown'] %}
+          {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+          {%- set ns.best = t %}
+          {%- endif %}{%- endif %}{%- endfor %}
+          {%- set name = device_attr(device_id(ns.best), 'name') if ns.best else none %}
+          {{ 'notify.mobile_app_' ~ (name | slugify) if name else 'notify.mobile_app_ellie_s_iphone' }}
+        attributes:
+          found: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.ellie', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best is not none and device_attr(device_id(ns.best), 'name') is not none }}
+          tracker: >-
+            {%- set ns = namespace(best=none) %}
+            {%- for t in state_attr('person.ellie', 'device_trackers') or [] %}
+            {%- if t in integration_entities('mobile_app') and states[t] is not none
+                  and states[t].state not in ['unavailable', 'unknown'] %}
+            {%- if ns.best is none or states[t].last_updated > states[ns.best].last_updated %}
+            {%- set ns.best = t %}
+            {%- endif %}{%- endif %}{%- endfor %}
+            {{ ns.best or '' }}
+          fallback: notify.mobile_app_ellie_s_iphone
+
+input_boolean:
+  phones_watch_enabled:  # gate for phones_watch (starts off; no initial, hard rule 6)
+    name: Phone watch
+    icon: mdi:cellphone-check
+
+automation:
+  # A quiet note to Tongai when a person's phone can't be found for 30 min (PLT-47): their pushes then go to the last
+  # known service, which may be gone (re-registered, signed out, app removed). GATE input_boolean.phones_watch_enabled
+  # (starts off). Manual fallback: the Companion app's settings on that phone; the person's device list in HA.
+  - id: phones_watch
+    alias: Phones - a person's phone can't be found
+    mode: queued
+    triggers:
+      - trigger: template
+        value_template: "{{ not state_attr('sensor.phone_tongai', 'found') }}"
+        for: "00:30:00"
+        variables: {who: Tongai}
+      - trigger: template
+        value_template: "{{ not state_attr('sensor.phone_mojgan', 'found') }}"
+        for: "00:30:00"
+        variables: {who: Mojgan}
+      - trigger: template
+        value_template: "{{ not state_attr('sensor.phone_hannah', 'found') }}"
+        for: "00:30:00"
+        variables: {who: Hannah}
+      - trigger: template
+        value_template: "{{ not state_attr('sensor.phone_ellie', 'found') }}"
+        for: "00:30:00"
+        variables: {who: Ellie}
+    conditions:
+      - condition: state
+        entity_id: input_boolean.phones_watch_enabled
+        state: "on"
+    actions:
+      - action: "{{ states('sensor.phone_tongai') }}"
+        continue_on_error: true
+        data:
+          title: "{{ who }}'s phone can't be found"
+          message: Pushes to {{ who }} may not arrive · check the Companion app on that phone
+          data:
+            tag: phones_watch
+            channel: Home status
+            importance: low

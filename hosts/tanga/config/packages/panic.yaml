@@ -278,6 +278,45 @@ template:
                 and (trigger.event.origin | string) == 'LOCAL' %}
             {% else %}{{ this.attributes.who | default('', true) }}{% endif %}
 
+script:
+  # Mojgan's call pushes, each started on its own (script.turn_on) by the call automations (Tongai 22 Nov). On 22 Nov
+  # her iPhone re-registered under another name, its notify service was missing, and "Service not found" (which
+  # continue_on_error doesn't cover) stopped the rest of the call: the repeats and the button's own clear. Started
+  # this way, a missing or renamed iPhone fails only here; the call carries on for everyone else.
+  # Fields: `title` (absent for clear_notification), `message`, `push` (the notification's data). Started only while
+  # "Mojgan alerts" is on (each caller checks it). Runs are started in order and send at once, so a clear started after
+  # a push follows it (not guaranteed under load: a stale push would stay on her lock screen). Manual fallback: the other parent's alert; the button's own light.
+  call_push_mojgan:
+    alias: Call button - push to Mojgan
+    icon: mdi:cellphone-message
+    mode: parallel
+    max: 20
+    fields:
+      title:
+        description: The notification's title (none for clear_notification)
+      message:
+        description: The text, or clear_notification
+      push:
+        description: The notification's data (tag, url, sound, actions)
+    sequence:
+      - condition: state  # the callers check it too (nothing is started while off); here for a run started anyway
+        entity_id: input_boolean.notify_mojgan
+        state: "on"
+      - if:
+          - condition: template
+            value_template: "{{ title is defined and title }}"
+        then:
+          - action: notify.mobile_app_iphone_32  # Mojgan's iPhone, registered as "iPhone (32)" (22 Nov): keep that name
+            data:
+              title: "{{ title }}"
+              message: "{{ message }}"
+              data: "{{ push | default({}) }}"
+        else:
+          - action: notify.mobile_app_iphone_32
+            data:
+              message: "{{ message }}"
+              data: "{{ push | default({}) }}"
+
 automation:
   # Tongai 19 Nov: the call button's light is how the room knows the call is live. If a button restarts (power, Wi-Fi
   # watchdog) during a live call it comes back dark, so when it reconnects tanga sends its colour again: blue if a
@@ -434,28 +473,30 @@ automation:
                 continue_on_error: true  # a button that dropped off mustn't stop the lamps and Mojgan
       # then Mojgan and the lamps, side by side: a slow lamp or a missing iPhone can't hold up the green
       - parallel:
-          - if:  # Mojgan alerts switch (off until Tongai says)
+          - if:  # Mojgan alerts switch (off until Tongai says): off, nothing is started
               - condition: state
                 entity_id: input_boolean.notify_mojgan
                 state: "on"
             then:
-              - action: notify.mobile_app_mojgan_iphone  # Mojgan's iPhone (re-registered 2026-10-27; was mobile_app_iphone_32)
-                continue_on_error: true
+              - action: script.turn_on  # Mojgan's push in its own run (call_push_mojgan): her phone can't stop the call
+                target:
+                  entity_id: script.call_push_mojgan
                 data:
-                  title: "{{ room }} needs you"
-                  message: "{{ pressed }} call button at {{ now().strftime('%H:%M') }}."
-                  data:
-                    tag: "panic_{{ trigger.id }}"
-                    clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
-                    url: /mojgan-home/call-check  # iPhone: the same
+                  variables:
+                    title: "{{ room }} needs you"
+                    message: "{{ pressed }} call button at {{ now().strftime('%H:%M') }}."
                     push:
-                      sound:
-                        name: default
-                        critical: 1
-                        volume: 1.0
-                    actions:
-                      - action: "CALL_SEEN_{{ trigger.id }}"
-                        title: I'm coming
+                      tag: "panic_{{ trigger.id }}"
+                      clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
+                      url: /mojgan-home/call-check  # iPhone: the same
+                      push:
+                        sound:
+                          name: default
+                          critical: 1
+                          volume: 1.0
+                      actions:
+                        - action: "CALL_SEEN_{{ trigger.id }}"
+                          title: I'm coming
           - action: light.turn_on
             continue_on_error: true
             target:
@@ -564,21 +605,23 @@ automation:
                 url: /tongai-home/call-check
                 channel: Home status
                 importance: low
-          - if:  # Mojgan alerts switch (off until Tongai says)
+          - if:  # Mojgan alerts switch (off until Tongai says): off, nothing is started
               - condition: state
                 entity_id: input_boolean.notify_mojgan
                 state: "on"
             then:
-              - action: notify.mobile_app_mojgan_iphone
-                continue_on_error: true
+              - action: script.turn_on  # Mojgan's push in its own run (call_push_mojgan): her phone can't stop the call
+                target:
+                  entity_id: script.call_push_mojgan
                 data:
-                  title: "{{ who }} is responding to {{ room }}'s call"
-                  message: "{{ who }} tapped I'm coming."
-                  data:
-                    tag: "panic_{{ trigger.id }}"
-                    url: /mojgan-home/call-check
+                  variables:
+                    title: "{{ who }} is responding to {{ room }}'s call"
+                    message: "{{ who }} tapped I'm coming."
                     push:
-                      interruption-level: passive
+                      tag: "panic_{{ trigger.id }}"
+                      url: /mojgan-home/call-check
+                      push:
+                        interruption-level: passive
         else:
           - action: notify.mobile_app_tongaism25
             continue_on_error: true
@@ -589,20 +632,22 @@ automation:
                 tag: "panic_{{ trigger.id }}"
                 clickAction: /tongai-home/call-check  # Android: a tap opens Tongai → Call check (19 Nov)
                 url: /tongai-home/call-check  # iPhone: the same
-          - if:  # Mojgan alerts switch (off until Tongai says)
+          - if:  # Mojgan alerts switch (off until Tongai says): off, nothing is started
               - condition: state
                 entity_id: input_boolean.notify_mojgan
                 state: "on"
             then:
-              - action: notify.mobile_app_mojgan_iphone
-                continue_on_error: true
+              - action: script.turn_on  # Mojgan's push in its own run (call_push_mojgan): her phone can't stop the call
+                target:
+                  entity_id: script.call_push_mojgan
                 data:
-                  title: "{{ who }} is responding to {{ room }}'s call"
-                  message: "{{ who }} tapped I'm coming."
-                  data:
-                    tag: "panic_{{ trigger.id }}"
-                    clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
-                    url: /mojgan-home/call-check  # iPhone: the same
+                  variables:
+                    title: "{{ who }} is responding to {{ room }}'s call"
+                    message: "{{ who }} tapped I'm coming."
+                    push:
+                      tag: "panic_{{ trigger.id }}"
+                      clickAction: /mojgan-home/call-check  # Android: a tap opens Mojgan → Call check (19 Nov)
+                      url: /mojgan-home/call-check  # iPhone: the same
       - choose:  # the button last: an offline button mustn't stop the other parent hearing
           - conditions:
               - condition: trigger
@@ -690,17 +735,19 @@ automation:
           message: clear_notification
           data:
             tag: "panic_{{ trigger.id }}"
-      - if:  # Mojgan alerts switch (off until Tongai says)
+      - if:  # Mojgan alerts switch (off until Tongai says): off, nothing is started
           - condition: state
             entity_id: input_boolean.notify_mojgan
             state: "on"
         then:
-          - action: notify.mobile_app_mojgan_iphone
-            continue_on_error: true
+          - action: script.turn_on  # Mojgan's push in its own run (call_push_mojgan): her phone can't stop the call
+            target:
+              entity_id: script.call_push_mojgan
             data:
-              message: clear_notification
-              data:
-                tag: "panic_{{ trigger.id }}"
+              variables:
+                message: clear_notification
+                push:
+                  tag: "panic_{{ trigger.id }}"
       - choose:  # the button last: the phones clear whatever the button's state
           - conditions:
               - condition: trigger
@@ -1035,28 +1082,30 @@ automation:
                       actions:
                         - action: "CALL_SEEN_{{ key }}"
                           title: I'm coming
-                - if:  # Mojgan alerts switch (off until Tongai says; on at the Cut-over, N-D)
+                - if:  # Mojgan alerts switch (off until Tongai says): off, nothing is started
                     - condition: state
                       entity_id: input_boolean.notify_mojgan
                       state: "on"
                   then:
-                    - action: notify.mobile_app_mojgan_iphone
-                      continue_on_error: true
+                    - action: script.turn_on  # Mojgan's push in its own run (call_push_mojgan): her phone can't stop the call
+                      target:
+                        entity_id: script.call_push_mojgan
                       data:
-                        title: "{{ room }} needs you"
-                        message: "{{ pressed }} call button at {{ pressed_at }}. No one has answered yet."
-                        data:
-                          tag: "panic_{{ key }}"
-                          clickAction: /mojgan-home/call-check
-                          url: /mojgan-home/call-check
+                        variables:
+                          title: "{{ room }} needs you"
+                          message: "{{ pressed }} call button at {{ pressed_at }}. No one has answered yet."
                           push:
-                            sound:
-                              name: default
-                              critical: 1
-                              volume: 1.0
-                          actions:
-                            - action: "CALL_SEEN_{{ key }}"
-                              title: I'm coming
+                            tag: "panic_{{ key }}"
+                            clickAction: /mojgan-home/call-check
+                            url: /mojgan-home/call-check
+                            push:
+                              sound:
+                                name: default
+                                critical: 1
+                                volume: 1.0
+                            actions:
+                              - action: "CALL_SEEN_{{ key }}"
+                                title: I'm coming
             - if:  # 3:00 at night: both Loft lamps steady at 100 %, unless the sideboard lamp was switched off by hand
                 - condition: template
                   value_template: >-

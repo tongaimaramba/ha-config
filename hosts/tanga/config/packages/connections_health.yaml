@@ -4,7 +4,12 @@
 # integration stands in for it (Tuya left out: its only devices are wall lights, often switched off at the wall;
 # Nest Protect dropped 2026-10-29, too fragile): unavailable or unknown for 30 min+ = that connection is down (a lapsed sign-in, a
 # broker refusing HA, a device off the network). The climate devices have their own check (climate_health.yaml), and
-# sign-ins that HA raises as a repair alert straight away (climate_health_reauth_needed).
+# sign-ins that HA raises as a repair alert straight away (climate_health_reauth_needed). The UPS (NUT) added
+# 2026-11-08 (backlog 8, G7): it is how "the UPS is not reporting" reaches Tongai (sensor.ups_flags is unavailable
+# while neither NUT status entity has a value); its power alerts are ups_alerts.yaml. The `watch` dict below is
+# written out three times (count, names, labels): a template can't share it without a custom_templates macro file on
+# the box or an extra helper sensor, both changes to a working check for no gain this week; tests/test_ups_alerts.py
+# fails if the UPS line is missing from any copy.
 # Gate: input_boolean.connections_health_enabled (starts off, hard rule 6). Manual fallback: Settings → Devices &
 # services on tanga (a red integration). Owner: tanga (platform health).
 
@@ -29,7 +34,8 @@ template:
                'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
                'Volvo': 'sensor.garage_vivo_battery',
                'Alexa': 'binary_sensor.the_loft_connectivity',
-               'Met.no weather': 'weather.garden_outside_weather_home' } %}
+               'Met.no weather': 'weather.garden_outside_weather_home',
+               'UPS (NUT)': 'sensor.ups_flags' } %}
           {% set ns = namespace(n=0) %}
           {% for name, e in watch.items() %}
             {% set s = expand(e) | first | default(none) %}
@@ -49,7 +55,8 @@ template:
                  'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
                  'Volvo': 'sensor.garage_vivo_battery',
                  'Alexa': 'binary_sensor.the_loft_connectivity',
-                 'Met.no weather': 'weather.garden_outside_weather_home' } %}
+                 'Met.no weather': 'weather.garden_outside_weather_home',
+                 'UPS (NUT)': 'sensor.ups_flags' } %}
             {% set ns = namespace(out=[]) %}
             {% for name, e in watch.items() %}
               {% set s = expand(e) | first | default(none) %}
@@ -69,7 +76,8 @@ template:
                  'Arlo': 'binary_sensor.aarlo_connected_tojgarln',
                  'Volvo': 'sensor.garage_vivo_battery',
                  'Alexa': 'binary_sensor.the_loft_connectivity',
-                 'Met.no weather': 'weather.garden_outside_weather_home' } %}
+                 'Met.no weather': 'weather.garden_outside_weather_home',
+                 'UPS (NUT)': 'sensor.ups_flags' } %}
             {% set ns = namespace(out=[]) %}
             {% for name, e in watch.items() %}
               {% set s = expand(e) | first | default(none) %}

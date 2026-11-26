@@ -1,10 +1,11 @@
 {
   "version": 1,
-  "minor_version": 2,
+  "minor_version": 3,
   "key": "repairs.issue_registry",
   "data": {
     "issues": [
       {
+        "config_entry_id": null,
         "created": "2022-08-03T18:12:34.798759+00:00",
         "dismissed_version": "2022.8.0",
         "domain": "nest",
@@ -12,6 +13,7 @@
         "issue_id": "deprecated_yaml"
       },
       {
+        "config_entry_id": null,
         "created": "2022-11-09T19:38:00.461325+00:00",
         "dismissed_version": "2023.1.2",
         "domain": "mqtt",
@@ -19,6 +21,7 @@
         "issue_id": "deprecated_yaml_binary_sensor"
       },
       {
+        "config_entry_id": null,
         "created": "2022-11-09T19:38:00.466251+00:00",
         "dismissed_version": "2023.1.2",
         "domain": "mqtt",
@@ -26,6 +29,7 @@
         "issue_id": "deprecated_yaml_sensor"
       },
       {
+        "config_entry_id": null,
         "created": "2023-01-11T18:38:15.604878+00:00",
         "dismissed_version": "2023.1.2",
         "domain": "homeassistant",
@@ -33,6 +37,7 @@
         "issue_id": "country_not_configured"
       },
       {
+        "config_entry_id": null,
         "created": "2023-06-16T18:26:00.282184+00:00",
         "dismissed_version": null,
         "domain": "sensor",
@@ -40,6 +45,7 @@
         "issue_id": "platform_integration_no_support_sensor_openweathermap"
       },
       {
+        "config_entry_id": null,
         "created": "2023-06-16T18:26:00.284246+00:00",
         "dismissed_version": null,
         "domain": "sensor",
@@ -47,6 +53,7 @@
         "issue_id": "platform_integration_no_support_sensor_mqtt"
       },
       {
+        "config_entry_id": null,
         "created": "2023-06-16T18:26:28.953216+00:00",
         "dismissed_version": null,
         "domain": "binary_sensor",
@@ -54,6 +61,7 @@
         "issue_id": "platform_integration_no_support_binary_sensor_mqtt"
       },
       {
+        "config_entry_id": null,
         "created": "2023-06-29T12:43:40.547719+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -61,6 +69,7 @@
         "issue_id": "329e506d98714412bd4fb7cc58ef5a87"
       },
       {
+        "config_entry_id": null,
         "created": "2023-06-30T14:49:00.292895+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -68,6 +77,7 @@
         "issue_id": "53665eb436a34204b792b7633d73ea2d"
       },
       {
+        "config_entry_id": null,
         "created": "2023-12-23T22:55:58.639496+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -75,6 +85,7 @@
         "issue_id": "deprecated_yaml_aarlo"
       },
       {
+        "config_entry_id": null,
         "created": "2023-12-23T22:56:10.989690+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -82,6 +93,7 @@
         "issue_id": "platform_integration_no_support_camera_aarlo"
       },
       {
+        "config_entry_id": null,
         "created": "2023-12-23T22:56:10.990265+00:00",
         "dismissed_version": "2023.12.4",
         "domain": "homeassistant",
@@ -89,6 +101,7 @@
         "issue_id": "platform_integration_no_support_sensor_aarlo"
       },
       {
+        "config_entry_id": null,
         "created": "2023-12-23T22:56:10.990649+00:00",
         "dismissed_version": "2023.12.4",
         "domain": "homeassistant",
@@ -96,6 +109,7 @@
         "issue_id": "platform_integration_no_support_binary_sensor_aarlo"
       },
       {
+        "config_entry_id": null,
         "created": "2023-12-23T22:56:10.991004+00:00",
         "dismissed_version": "2023.12.4",
         "domain": "homeassistant",
@@ -103,6 +117,7 @@
         "issue_id": "platform_integration_no_support_media_player_aarlo"
       },
       {
+        "config_entry_id": null,
         "created": "2024-04-05T11:18:21.386478+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -110,6 +125,7 @@
         "issue_id": "platform_integration_no_support_sensor_mqtt"
       },
       {
+        "config_entry_id": null,
         "created": "2024-05-19T15:49:47.886642+00:00",
         "dismissed_version": null,
         "domain": "panel_iframe",
@@ -117,6 +133,7 @@
         "issue_id": "deprecated_yaml"
       },
       {
+        "config_entry_id": null,
         "created": "2024-08-04T21:02:51.215151+00:00",
         "dismissed_version": "2024.7.4",
         "domain": "homeassistant",
@@ -124,6 +141,7 @@
         "issue_id": "platform_integration_no_support_sensor_systemmonitor"
       },
       {
+        "config_entry_id": null,
         "created": "2024-08-25T20:52:48.637105+00:00",
         "dismissed_version": "2024.8.3",
         "domain": "script",
@@ -131,6 +149,7 @@
         "issue_id": "script.bathtime_on_validation_failed_sequence"
       },
       {
+        "config_entry_id": null,
         "created": "2024-08-25T20:52:48.637560+00:00",
         "dismissed_version": "2024.8.3",
         "domain": "script",
@@ -138,6 +157,7 @@
         "issue_id": "script.bathtime_off_validation_failed_sequence"
       },
       {
+        "config_entry_id": null,
         "created": "2024-12-08T20:39:49.754024+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -145,13 +165,7 @@
         "issue_id": "integration_not_found.ota"
       },
       {
-        "created": "2025-03-26T20:08:55.268887+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant",
-        "is_persistent": false,
-        "issue_id": "config_entry_reauth_tuya_e45c0687bfd0bce4ae2a8d3188b81b86"
-      },
-      {
+        "config_entry_id": null,
         "created": "2025-04-12T17:07:21.193789+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -172,6 +186,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-04-12T17:07:23.385539+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -192,6 +207,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-04T21:58:10.790958+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -212,6 +228,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-14T09:55:07.083835+00:00",
         "dismissed_version": null,
         "domain": "esphome",
@@ -219,6 +236,7 @@
         "issue_id": "service_calls_not_enabled-c8:f0:9e:4e:4a:5c"
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-14T21:15:27.526274+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -239,6 +257,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-15T18:37:43.481747+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -259,6 +278,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-18T18:01:16.298606+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -279,6 +299,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-06-24T21:26:42.565567+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -299,6 +320,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2025-07-25T21:02:54.546324+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -306,55 +328,7 @@
         "issue_id": "ba30249e8d40463e999bd799edbab9b2"
       },
       {
-        "created": "2025-07-29T13:42:18.380986+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_257988102"
-      },
-      {
-        "created": "2025-07-29T13:42:18.381336+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_312896602"
-      },
-      {
-        "created": "2025-07-29T13:44:51.196421+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_899977910_tags/v1.5.6"
-      },
-      {
-        "created": "2025-07-31T15:28:28.509121+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_131915802_tags/v2.9.0"
-      },
-      {
-        "created": "2025-09-09T20:48:49.456017+00:00",
-        "dismissed_version": null,
-        "domain": "homeassistant_alerts",
-        "is_persistent": false,
-        "issue_id": "accuweather.markdown_accuweather"
-      },
-      {
-        "created": "2025-10-14T14:37:53.358286+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_158654878"
-      },
-      {
-        "created": "2025-11-12T14:39:49.941716+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_223993584_tags/13.10.1"
-      },
-      {
+        "config_entry_id": null,
         "created": "2025-11-13T09:53:26.448206+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -362,13 +336,7 @@
         "issue_id": "419811d0a96a4a68a84baeb50dabc770"
       },
       {
-        "created": "2025-11-13T12:17:06.516349+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_676091897_tags/v0.8.5"
-      },
-      {
+        "config_entry_id": null,
         "created": "2025-11-23T16:59:48.316613+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -376,27 +344,7 @@
         "issue_id": "2c7786beadf34733a2d1724717134941"
       },
       {
-        "created": "2026-03-04T13:31:54.970294+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_636943975"
-      },
-      {
-        "created": "2026-03-04T13:31:54.970631+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_164367214"
-      },
-      {
-        "created": "2026-10-09T12:22:02.744323+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_899977910_tags/v1.5.7"
-      },
-      {
+        "config_entry_id": null,
         "created": "2026-10-09T21:10:16.191897+00:00",
         "dismissed_version": null,
         "domain": "http",
@@ -404,6 +352,7 @@
         "issue_id": "deprecated_yaml"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-09T21:10:58.109009+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -411,6 +360,7 @@
         "issue_id": "platform_integration_no_support_light_template"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-09T21:10:58.109259+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -418,6 +368,7 @@
         "issue_id": "platform_integration_no_support_sensor_template"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-09T21:10:59.496393+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -425,6 +376,7 @@
         "issue_id": "platform_integration_no_support_cover_template"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-09T21:11:08.107592+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -432,6 +384,7 @@
         "issue_id": "platform_integration_no_support_device_tracker_tile"
       },
       {
+        "config_entry_id": "5f3decfc9356c5b361239eabda83a811",
         "created": "2026-10-09T21:11:12.832340+00:00",
         "dismissed_version": null,
         "domain": "esphome",
@@ -439,6 +392,7 @@
         "issue_id": "ble_firmware_outdated-94:3C:C6:37:67:84"
       },
       {
+        "config_entry_id": "01K9ZCAWGKG7HZTP4QA157BYAK",
         "created": "2026-10-09T21:11:12.837026+00:00",
         "dismissed_version": null,
         "domain": "esphome",
@@ -446,6 +400,7 @@
         "issue_id": "ble_firmware_outdated-F4:65:0B:08:8B:88"
       },
       {
+        "config_entry_id": "01KAQ1SN0PBA2SKVC9C5E079N4",
         "created": "2026-10-09T21:11:12.839732+00:00",
         "dismissed_version": null,
         "domain": "esphome",
@@ -453,6 +408,7 @@
         "issue_id": "ble_firmware_outdated-F4:65:0B:07:70:84"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-09T21:47:06.156541+00:00",
         "dismissed_version": null,
         "domain": "http",
@@ -460,6 +416,7 @@
         "issue_id": "yaml_still_present_after_migration"
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-10T18:18:39.257175+00:00",
         "dismissed_version": null,
         "domain": "homeassistant",
@@ -467,6 +424,7 @@
         "issue_id": "config_entry_reauth_webostv_a64420808c99104e10612453353d0b78"
       },
       {
+        "config_entry_id": "7b836b3f62de3ad9780a91384a6731bf",
         "created": "2026-10-14T16:18:34.860450+00:00",
         "dismissed_version": null,
         "domain": "rpi_power",
@@ -482,34 +440,7 @@
         "translation_placeholders": null
       },
       {
-        "created": "2026-10-18T07:11:40.768896+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_191663150"
-      },
-      {
-        "created": "2026-10-23T11:41:05.474748+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_341931266"
-      },
-      {
-        "created": "2026-10-23T11:41:05.475734+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "removed_439944813"
-      },
-      {
-        "created": "2026-10-26T17:59:05.967522+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_665025312_tags/v1.9.0"
-      },
-      {
+        "config_entry_id": null,
         "created": "2026-10-27T21:29:29.499716+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -530,6 +461,7 @@
         }
       },
       {
+        "config_entry_id": null,
         "created": "2026-10-27T21:29:29.516094+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -550,34 +482,7 @@
         }
       },
       {
-        "created": "2026-10-29T10:49:04.593858+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_167885769_tags/v0.9.0-alpha.5"
-      },
-      {
-        "created": "2026-10-29T10:49:37.662665+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_167885769_tags/v0.8.1.27"
-      },
-      {
-        "created": "2026-10-29T11:36:22.506153+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_448323715_tags/v0.5.0"
-      },
-      {
-        "created": "2026-11-01T14:16:56.854528+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_401282856_tags/v19.2.1"
-      },
-      {
+        "config_entry_id": null,
         "created": "2026-11-01T14:53:04.900179+00:00",
         "dismissed_version": null,
         "domain": "octopus_energy",
@@ -585,13 +490,7 @@
         "issue_id": "intelligent_manual_service_b2080da87cebe3aa766ce51db0fb1e88fb6c4d5bb33b7ec63518bfa2676b1123"
       },
       {
-        "created": "2026-11-13T18:06:23.665314+00:00",
-        "dismissed_version": null,
-        "domain": "hacs",
-        "is_persistent": false,
-        "issue_id": "restart_required_401282856_tags/v19.3.0"
-      },
-      {
+        "config_entry_id": null,
         "created": "2026-11-18T18:05:54.729918+00:00",
         "dismissed_version": null,
         "domain": "hassio",
@@ -599,6 +498,7 @@
         "issue_id": "536af95303d95108b931f8c892fb6a56"
       },
       {
+        "config_entry_id": null,
         "created": "2026-11-18T18:06:07.539059+00:00",
         "dismissed_version": null,
         "domain": "automation",
@@ -606,11 +506,165 @@
         "issue_id": "automation.morning_validation_failed_actions"
       },
       {
-        "created": "2026-11-20T12:11:42.134776+00:00",
+        "config_entry_id": null,
+        "created": "2026-11-22T20:47:12.921959+00:00",
         "dismissed_version": null,
-        "domain": "hacs",
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.panic_button_pressed_service_not_found_notify.mobile_app_mojgan_iphone",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_mojgan_iphone",
+          "entity_id": "automation.panic_button_pressed",
+          "name": "Call button - pressed",
+          "edit": "/config/automation/edit/panic_pressed"
+        }
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-22T20:48:12.777383+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.call_button_keep_trying_until_answered_service_not_found_notify.mobile_app_mojgan_iphone",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_mojgan_iphone",
+          "entity_id": "automation.call_button_keep_trying_until_answered",
+          "name": "Call button - keep trying until answered",
+          "edit": "/config/automation/edit/call_escalation"
+        }
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-22T20:48:33.411881+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": true,
+        "issue_id": "automation.panic_clear_service_not_found_notify.mobile_app_mojgan_iphone",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": true,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "error",
+        "translation_key": "service_not_found",
+        "translation_placeholders": {
+          "service": "notify.mobile_app_mojgan_iphone",
+          "entity_id": "automation.panic_clear",
+          "name": "Call button - all sorted",
+          "edit": "/config/automation/edit/panic_clear"
+        }
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:18.700354+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": true,
+        "issue_id": "appdaemon_not_supported",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": false,
+        "issue_domain": null,
+        "learn_more_url": null,
+        "severity": "warning",
+        "translation_key": "appdaemon_not_supported",
+        "translation_placeholders": {
+          "apps": "Monitor-App"
+        }
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:27.294173+00:00",
+        "dismissed_version": null,
+        "domain": "nest",
         "is_persistent": false,
-        "issue_id": "restart_required_719179733_tags/v5.2.0"
+        "issue_id": "legacy_pubsub_topic_1270c0b2a30655f538ca0eb633a114ca"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.574842+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_257988102"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.575445+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_312896602"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.577994+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_158654878"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.578427+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_636943975"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.578696+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_164367214"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.582383+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_191663150"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.586089+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_341931266"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-23T16:49:43.586521+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_439944813"
+      },
+      {
+        "config_entry_id": null,
+        "created": "2026-11-26T15:06:53.951670+00:00",
+        "dismissed_version": null,
+        "domain": "marketplace",
+        "is_persistent": false,
+        "issue_id": "removed_162808336"
       }
     ]
   }

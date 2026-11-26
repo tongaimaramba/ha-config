@@ -1691,6 +1691,20 @@
             "should_expose": true
           }
         }
+      },
+      "sensor.car_preheat": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.quick_notes_extras": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
       }
     }
   }

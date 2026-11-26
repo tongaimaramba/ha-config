@@ -80,8 +80,8 @@ cameras:
 #     - light.kitchen_spotlights
 #
 kitchen_lights:
-    - light.dining_spotlights
-    - light.kitchen_spotlights
+    - light.kitchen_dining_spotlights  # lightwave_smart ids since the Cut-over (20 Nov)
+    - light.kitchen_kitchen_spotlights
     - light.kitchen_worktop
 #
 # utility_laundry_lights:
@@ -107,12 +107,11 @@ kitchen_lights:
 #
 landing_lights:
 #
-isla_lights:
-    - light.isla_spotlights
+isla_lights:  # its Lightwave spots (lightwave2, light.isla_spotlights) are gone since the Cut-over; no lightwave_smart match
     - light.isla_wall
 #
 main_lights:
-    - light.main_spotlights
+    - light.main_bedroom_main_spotlights  # lightwave_smart id since the Cut-over (20 Nov)
     - light.m_side
     - light.t_side
 #

@@ -8,7 +8,7 @@
 | script.unlock_nuki_momentary | Unlock Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.turn_off, switch.turn_on, switch.unlock_nuki |
 | script.open_nuki_momentary | Open Nuki - momentary | single | switch.turn_off, switch.turn_on | switch.open_nuki, switch.turn_off, switch.turn_on |
 | script.movie_lights | Movie Lights | single | light.turn_off | light.dining_spotlights_3, light.lounge_lamp_1, light.movie_lamp, light.turn_off |
-| script.home_fires | Home Fires | single | light.turn_off, light.turn_on | group.downstairs_lights, light.lounge_lamp_2, light.movie_lamp, light.turn_off, light.turn_on |
+| script.home_fires | Home Fires | single | light.turn_off, light.turn_on | group.downstairs_lights, light.movie_lamp, light.turn_off, light.turn_on |
 | script.nearly_home | Nearly Home | single | input_boolean.turn_off, input_boolean.turn_on | input_boolean.away_on_holiday, input_boolean.nearly_home, input_boolean.turn_off, input_boolean.turn_on |
 | script.change_sound_output | change sound output | single | webostv.select_sound_output | input_boolean.audio_switch, media_player.projector |
 | script.downstairs_lights_off | Downstairs Lights Off | single | light.turn_off, switch.turn_off | light.downstairs_lights, light.movie_lamp, light.study_desk_lamp, light.turn_off, switch.sonoff_lights, switch.turn_off |

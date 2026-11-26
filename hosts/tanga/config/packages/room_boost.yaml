@@ -3,14 +3,15 @@
 # buttons. They do not have their own boost: each tap runs script.room_boost_button, which hands the room and kind to
 # the shared boost of the Alexa routines, script.alexa_room_boost (packages/alexa_routines.yaml, #311), with
 # `source: page`. That one script does the boost for Alexa and the pages: Boost = the AC heats at the room target
-# (tado's) + 2 °C for 30 min, ending early once tado reads target + 1 °C after a 20-min minimum run; Cool = the AC
+# (tado's), now a fixed 23 °C (Tongai 22 Nov; was target + 2 °C), for 30 min, ending early once tado reads target + 1 °C after a 20-min minimum run; Cool = the AC
 # cools at target - 2 °C (never under 18) for 30 min, refused while the radiator heats; afterwards the AC goes back to
 # what it was doing, unless a person changed it meanwhile (then it is left alone). The automatic catch-up stays in
 # shadow (CLM-3 decision A): only a tap acts.
 #
 # One button per action (Tongai 2026-10-24: one toggle, state in the colour): Boost lights while a warm boost runs in
 # that room and shows "until hh:mm"; a tap on the lit button ends it early (ROOM_CLIMATE rule 2, "pressed again"),
-# which puts the AC back as at 30 min. Cool likewise. Schedule is lit when neither runs.
+# which puts the AC back as at 30 min. Cool likewise. When neither runs, the page's status line says Schedule (PLAN
+# ROOM-F, 22 Nov: it was a lit button that did nothing).
 #
 # Gates (hard rule 6: start off, no `initial`): `input_boolean.room_boost_enabled` ("Room boost buttons", the one-tap
 # stop for every room) AND the room's own `input_boolean.room_boost_<room>_enabled` (so the Cut-over can go room by
@@ -20,6 +21,20 @@
 # these switches stay off until that block. Feedback: what a tap did or refused goes on the page (5 min) and quietly to
 # the presser's phone (heating_buttons_say, as the CLM-2 heating buttons).
 # Manual fallback: the AC's Fujitsu remote or the Airstage app; tado's app or the radiator valve for the radiator.
+
+# The Boost temperature (Tongai 22 Nov: "maybe it should be 22, but it might need some testing"): every room's Boost
+# (the room cards and the Alexa warm boosts, packages/alexa_routines.yaml) heats the AC at this, read at each press.
+# One value for all four rooms. A new slider starts at its minimum (set it once); the boost falls back to 22 °C if
+# it can't be read. On House ops -> Climate. Manual fallback: the AC remote.
+input_number:
+  room_boost_warm_c:
+    name: Boost temperature
+    min: 21
+    max: 24
+    step: 0.5
+    unit_of_measurement: "°C"
+    mode: slider
+    icon: mdi:thermometer-chevron-up
 
 input_boolean:
   room_boost_enabled:
@@ -119,7 +134,7 @@ script:
       # Whose phone gets the notice: the HA user who tapped (ids as in dashboards/data/tanga.yaml), else Tongai's.
       who: >-
         {{ {'654b5cdf36f8494cb948a9d13e1c17c7': 'notify.mobile_app_tongaism25',
-            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_mojgan_iphone'}
+            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_iphone_32'}
            .get(context.user_id if context is defined and context else none, 'notify.mobile_app_tongaism25') }}
     sequence:
       - if:
@@ -142,6 +157,7 @@ script:
               message: The AC goes back to how it was, unless someone changed it meanwhile
               who: "{{ who }}"
               phone: false
+              room: "{{ room }}"
           - stop: Ended by the button
       - action: script.alexa_room_boost
         data:
@@ -169,3 +185,4 @@ script:
                    if state_attr(timer, 'finishes_at') else 'in 30 min' }} · tap again to stop
               who: "{{ who }}"
               phone: false
+              room: "{{ room }}"

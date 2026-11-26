@@ -99,8 +99,9 @@ script:
 template:
   # The calendars, read for the app (calendar.get_events returns a service response, which an AppDaemon app may not
   # get on this box: unverified). Every 15 min, at start and on a `briefing_refresh` event: today 00:00 + 9 days, so
-  # Sunday's week look-ahead sees to the next Sunday. Title, start, end, location only (no descriptions: the team
-  # feeds' are long and the school's empty). State 'ok' or 'unavailable' (the read failed: the app then sends
+  # Sunday's week look-ahead sees to the next Sunday. Title, start, end, location; a description only from Extras
+  # (HSE-44: the details pasted into Quick note's More, cut at 300 characters; the team feeds' are long and the
+  # school's empty). State 'ok' or 'unavailable' (the read failed: the app then sends
   # nothing it can't back). Excluded from the recorder (recorder_config.yaml): a list rewritten every 15 min.
   # Manual fallback: the calendar app.
   - triggers:
@@ -139,7 +140,8 @@ template:
             {%- for e in (r.events if r is mapping and r.events is defined else []) -%}
             {%- set ns.l = ns.l + [{'c': c, 's': ((e.summary or '') | string)[:90],
                 'b': e.start | string, 'e': (e.end or '') | string,
-                'l': ((e.location or '') | string)[:40]}] -%}
+                'l': ((e.location or '') | string)[:60],
+                'd': ((e.description or '') | string)[:300] if c == 'calendar.kids_extras' else ''}] -%}
             {%- endfor -%}
             {%- endfor -%}
             {%- endif -%}

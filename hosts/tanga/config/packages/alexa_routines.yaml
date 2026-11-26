@@ -4,9 +4,9 @@
 # cosy" and "Morning lights". Alexa routines (phrase -> scene) are set up in the Alexa app: docs/reports/
 # 2026-11-10-alexa-setup.md.
 #
-# Boosts (A, B; CLM-1 "Boost = target + 2 °C for 30 min"). "Target" is the room target of docs/ROOM_CLIMATE.md: tado's
+# Boosts (A, B; CLM-1 "Boost = target + 2 °C for 30 min", changed 22 Nov by Tongai to a fixed 23 °C). "Target" is the room target of docs/ROOM_CLIMATE.md: tado's
 # current target for the room (the `temperature` of the room's tado thermostat, the same `tado:` entity the
-# room_climate app reads in appdaemon/apps/room_climate.yaml). Warm: the room's AC heats at target + 2 °C for 30 min;
+# room_climate app reads in appdaemon/apps/room_climate.yaml). Warm: the room's AC heats at 23 °C for 30 min (was target + 2 until 22 Nov);
 # cool: the AC cools at target - 2 °C for 30 min. Rounded to the AC's 0.5 °C step and kept inside its own range (live
 # 10 Nov: min_temp 18, max_temp 30, step 0.5 on all four) and never below 18 °C, so a cool boost against the 18 °C
 # setback cools at 18 °C. A warm boost also stops early once the room is warm enough (CLM-3 C, Tongai 11 Nov; PLAN
@@ -127,7 +127,7 @@ script:
         description: hannah, ellie, loft or study
         example: loft
       kind:
-        description: warm (AC heat at target + 2 °C) or cool (AC cool at target - 2 °C)
+        description: warm (AC heat at the Boost temperature) or cool (AC cool at target - 2 °C)
         example: warm
       source:
         description: alexa (the default) or page (a room page's button, with its own gates)
@@ -177,10 +177,13 @@ script:
       r: "{{ rooms.get(room) }}"
       hvac: "{{ 'cool' if kind == 'cool' else 'heat' }}"
       target: "{{ state_attr(r.tado, 'temperature') if r and state_attr(r.tado, 'temperature') | is_number else '' }}"
-      # target ± 2, to the AC's 0.5 °C step, inside the AC's own range and never under 18 °C
+      # Boost (warm): input_number.room_boost_warm_c, House ops' "Boost temperature" (Tongai 22 Nov: 23, then a slider
+      # to try 22; 22 if unreadable; was target + 2);
+      # Cool: target - 2. To the AC's 0.5 °C step, inside the AC's own range and never under 18 °C. The room target
+      # is still needed: the warm boost's early stop compares tado's reading with it.
       setpoint: >-
         {% if target | is_number %}
-          {% set raw = target | float + (-2 if hvac == 'cool' else 2) %}
+          {% set raw = (target | float - 2) if hvac == 'cool' else states('input_number.room_boost_warm_c') | float(22) %}
           {% set lo = [state_attr(r.ac, 'min_temp') | float(18), 18] | max %}
           {% set hi = state_attr(r.ac, 'max_temp') | float(30) %}
           {{ [[(raw * 2) | round / 2, lo] | max, hi] | min }}
@@ -204,6 +207,7 @@ script:
                 (House ops → Climate) to use it{% else %}Turn on "Alexa boosts" and "Heating boost" to use it{% endif %}
                 · or use the AC remote
               who: "{{ who }}"
+              room: "{{ room }}"
           - stop: Boosts are switched off
       - if:
           - condition: template
@@ -222,6 +226,7 @@ script:
                 {{ 'AC offline' if states(r.ac) in ['unavailable', 'unknown'] else 'Room target unknown (tado)' }}
                 · use the AC remote
               who: "{{ who }}"
+              room: "{{ room }}"
           - stop: Can't boost
       # Never both (ROOM_CLIMATE rule 4): no cooling while the radiator heats. The radiator isn't touched.
       - if:
@@ -233,6 +238,7 @@ script:
               title: "Cool {{ r.name }} not started"
               message: The radiator is heating · turn the room target down first, or use the AC remote
               who: "{{ who }}"
+              room: "{{ room }}"
           - stop: Radiator heating
       # The state to go back to: recorded only by the first call, so a repeat doesn't record the boost as "before".
       # The last field is the room target now (a warm boost's early stop compares tado's reading with it).
@@ -286,6 +292,7 @@ script:
                 Asked {{ hvac }} {{ setpoint }}°C, it shows {{ states(r.ac) }} · boost ends
                 {{ (now() + timedelta(minutes=boost_minutes)).strftime('%H:%M') }} · or use the AC remote
               who: "{{ who }}"
+              room: "{{ room }}"
 
   # Say why a boost didn't start or didn't take: for a room page (`who` set) on the page and the presser's phone
   # (heating_buttons_say, packages/heating_buttons.yaml), for Alexa on Tongai's phone; always quiet. Manual fallback:
@@ -302,6 +309,8 @@ script:
         description: What happened and what to do instead
       who:
         description: the presser's notify service (room pages); empty for Alexa
+      room:
+        description: the boost's room key (study, loft, ellie, hannah), so the message shows on that room's page only
     sequence:
       - if:
           - condition: template
@@ -312,6 +321,7 @@ script:
               title: "{{ title }}"
               message: "{{ message }}"
               who: "{{ who }}"
+              room: "{{ room if room is defined else '' }}"
         else:
           - action: notify.mobile_app_tongaism25
             data:
@@ -376,9 +386,9 @@ script:
         data: {room: loft, kind: warm}
 
   # Morning lights (C): the living room (lounge) and media room wall lights, hallway and kitchen spots on (Tongai,
-  # 10 Nov). The ids are pamba's live Lightwave ones (lightwave_smart), which tanga gets when Lightwave moves at the
-  # Cut-over (as #299's lights.yaml expects); until then they aren't on tanga (lint-refs baseline lines marked "remove
-  # after the Lightwave move"), so the gate stays off and is turned on after the move. Check the ids then.
+  # 10 Nov). The ids are tanga's own lightwave_smart ones since the sign-in at the Cut-over (20 Nov; the prefix is the
+  # Lightwave app's room, crossed for the two wall lights: light.media_room_lounge_wall_lights is the lounge's). The gate
+  # (alexa_morning_lights_enabled) is still off; turning it on is a separate step.
   # Dining wall lights: two Tuya Wi-Fi bulbs (Tongai, 10 Nov), named one by one (the UI group light.dining_wall_lights
   # has stale members). Unreliable through the Tuya cloud, so they've been kept off at the wall; Tongai is trying the
   # no-cost fixes (local control, then maybe open firmware). While they're unreachable HA skips them and the rest
@@ -393,10 +403,10 @@ script:
       - action: light.turn_on
         target:
           entity_id:
-            - light.lounge_wall_lights_switch
-            - light.media_room_wall_lights_switch
-            - light.hallway_spotlights_switch
-            - light.kitchen_spotlights_switch
+            - light.media_room_lounge_wall_lights
+            - light.lounge_media_room_wall_lights
+            - light.hallway_hallway_spotlights
+            - light.kitchen_kitchen_spotlights
             - light.dining_wall_light_garden
             - light.dining_wall_light_road
 

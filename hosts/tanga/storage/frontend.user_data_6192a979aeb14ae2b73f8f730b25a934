@@ -28,6 +28,10 @@
         "todo",
         "ellie-home"
       ]
+    },
+    "theme": {
+      "command": "set_theme",
+      "dark": true
     }
   }
 }

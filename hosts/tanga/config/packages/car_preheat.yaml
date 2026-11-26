@@ -1,0 +1,17 @@
+# Car pre-heat from the calendar (HSE-41): the switches and the skip button for the car_preheat AppDaemon app
+# (apps/car_preheat.yaml, which has the rules and publishes sensor.car_preheat). Both switches start off (hard rule 6:
+# no initial, so a restart keeps what was set). House ops -> Car has the switches; Family -> Car the skip button and
+# the next pre-heat. Owner: tanga.
+# Manual fallback: the Volvo Cars app's own schedule and climate button; the Car climate tile.
+input_boolean:
+  car_climate_schedule_enabled:  # on: the app plans and records "would start" / "would skip" (shadow); nothing sent
+    name: Car pre-heat schedule
+    icon: mdi:calendar-clock
+  car_climate_schedule_acting:  # on (with the schedule on): it really starts the car's climate
+    name: Car pre-heat acting
+    icon: mdi:car-defrost-front
+
+input_button:
+  car_climate_schedule_skip:  # a press skips the next planned pre-heat; a second press un-skips it
+    name: Skip next pre-heat
+    icon: mdi:debug-step-over

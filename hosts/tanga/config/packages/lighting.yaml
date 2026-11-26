@@ -29,9 +29,9 @@
 #
 # STUBS until the Lightwave sign-in on the day (CUTOVER "Lighting" step 1). These lights are Lightwave or Tuya, which work
 # only on pamba today; on tanga they exist but read unavailable, so a tap on tanga switches nothing (and does no harm):
-#   Tap 1  light.lounge_wall_lights, light.media_room_wall_lights   tanga's dead `lightwave2` ids. After the sign-in
-#          replace them with the `lightwave_smart` ids (pamba's: light.lounge_wall_lights_switch,
-#          light.media_room_wall_lights_switch) everywhere Tap 1 and its notice name them (each is marked STUB).
+#   Tap 1  light.media_room_lounge_wall_lights ("Lounge Wall Lights"), light.lounge_media_room_wall_lights ("Media Room
+#          Wall Lights"): tanga's `lightwave_smart` ids since the sign-in on 20 Nov (pamba's light.lounge_wall_lights_switch
+#          and light.media_room_wall_lights_switch; the prefix is the Lightwave app's room, which is crossed for these two).
 #   Tap 2  light.lounge_ceiling_lights   UI group (pendant + spots); Tongai re-points its members, no change here
 #   Tap 3  light.kd_spots                UI group (dining + kitchen spots); same
 #   Tap 4  light.dining_wall_lights      UI group of the two Tuya wall lights; same ("Off at the wall" is normal)
@@ -103,28 +103,28 @@ automation:
           - condition: or
             conditions:
               - condition: state
-                entity_id: light.lounge_wall_lights  # STUB until the Lightwave sign-in
+                entity_id: light.media_room_lounge_wall_lights
                 state: "on"
               - condition: state
-                entity_id: light.media_room_wall_lights  # STUB until the Lightwave sign-in
+                entity_id: light.lounge_media_room_wall_lights
                 state: "on"
         then:
           - action: light.turn_off
             target:
               entity_id:
-                - light.media_room_wall_lights  # STUB until the Lightwave sign-in
-                - light.lounge_wall_lights  # STUB until the Lightwave sign-in
+                - light.lounge_media_room_wall_lights
+                - light.media_room_lounge_wall_lights
         else:
           - action: light.turn_on
             data:
               brightness_pct: 34
             target:
-              entity_id: light.lounge_wall_lights  # STUB until the Lightwave sign-in
+              entity_id: light.media_room_lounge_wall_lights
           - action: light.turn_on
             data:
               brightness_pct: 71
             target:
-              entity_id: light.media_room_wall_lights  # STUB until the Lightwave sign-in
+              entity_id: light.lounge_media_room_wall_lights
 
   # Tap 1 notice: the gate is on and Tap 1 was pressed, but both wall lights are unavailable (Lightwave not signed in on
   # tanga, or down), so Tap 1 switched nothing. One quiet push per 10 minutes (single mode; the delay is the rate limit)
@@ -141,8 +141,8 @@ automation:
       - *fresh_press
       - condition: state
         entity_id:
-          - light.lounge_wall_lights  # STUB until the Lightwave sign-in
-          - light.media_room_wall_lights  # STUB until the Lightwave sign-in
+          - light.media_room_lounge_wall_lights
+          - light.lounge_media_room_wall_lights
         state: unavailable
     actions:
       - action: notify.mobile_app_tongaism25

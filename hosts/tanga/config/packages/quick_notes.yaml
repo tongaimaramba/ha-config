@@ -13,6 +13,16 @@ input_text:
     name: What?
     icon: mdi:note-edit-outline
     max: 60
+  # "More" (HSE-44, Tongai 25 Nov: school trips, clinics, extra clubs): where, and the details (the teacher's email,
+  # pasted: HA's text boxes stop at 255 characters, decision HSE44-C); both written into the calendar event.
+  quick_note_where:
+    name: Where?
+    icon: mdi:map-marker-outline
+    max: 60
+  quick_note_details:
+    name: Details
+    icon: mdi:text-long
+    max: 255
 
 input_select:
   # When? (chips). A weekday means the next one after today; Pick a date uses quick_note_date. Back to Tomorrow after
@@ -35,12 +45,47 @@ input_datetime:
     name: Date
     has_date: true
     has_time: false
+  quick_note_from:  # HSE-44: the start time, with At a time on
+    name: From
+    has_date: false
+    has_time: true
+  quick_note_to:  # HSE-44: the end time
+    name: To
+    has_date: false
+    has_time: true
 
 input_boolean:
   # One toggle (lit while on): the note means no school that day for who it's for. Off after each Add.
   quick_note_no_school:
     name: No school
     icon: mdi:school-outline
+  # "More" (HSE-44): shows the extra rows (a time, where, details, repeat). Off after each Add, so a quick note stays
+  # one line.
+  quick_note_more:
+    name: More
+    icon: mdi:chevron-down
+  # At a time (HSE-44): on, the event runs From-To that day (a trip, a clinic); off, it's for the whole day. On by
+  # default (Tongai 25 Nov: opening More shouldn't need a second tap): the app turns it back on after each Add.
+  quick_note_timed:
+    name: At a time
+    icon: mdi:clock-outline
+  # Weekly to the end of term (Tongai 25 Nov: "until I stop it"; HA writes one-off events only): on, the app writes
+  # one event a week from the day picked to the last day of that term, skipping half terms, INSET and bank holidays
+  # (the school_briefing app's term dates), and Weeks is hidden. Stop early: delete the rest in Calendar -> Extras.
+  quick_note_term:
+    name: Weekly to the end of term
+    icon: mdi:calendar-end
+
+input_number:
+  # Repeat weekly (HSE-44 B): the same day and time for this many weeks (1 = once). One session per Add: Hannah's
+  # Monday clinic and her Wednesday one are two Adds, each with its own time and room.
+  quick_note_weeks:
+    name: Weeks
+    icon: mdi:repeat
+    min: 1
+    max: 26
+    step: 1
+    mode: box
 
 script:
   # The Add button on the Quick note card. The app (apps/quick_notes.yaml) checks the form and the gate and writes
@@ -54,10 +99,29 @@ script:
       - event: quick_note
         event_data:
           action: add
+  # A row's Delete button in Extras to remember on the parents' Week page (HSE44-I), after HA's "Are you sure?". The
+  # app deletes the note in that row (a repeat: its sessions not yet started) from the Extras calendar only. Manual
+  # fallback: Calendar -> Extras -> the note -> Delete.
+  quick_note_delete:
+    alias: Quick note delete
+    icon: mdi:delete-outline
+    mode: single
+    max_exceeded: silent
+    fields:
+      row:
+        description: The row's number in Extras to remember, 1-8, as shown
+        selector:
+          number: {min: 1, max: 8, mode: box}
+    sequence:
+      - event: quick_note
+        event_data:
+          action: delete
+          row: "{{ row | default(0) | int(0) }}"
 
 template:
   # The Extras calendar, read for the Coming up list (14 days: today and the next 13). Every 15 min, at start and on
-  # a `briefing_refresh` event (the app fires one after an Add). Title, start and end only. State 'ok' or
+  # a `briefing_refresh` event (the app fires one after an Add). Title, start, end, where and details (HSE-44; the
+  # details cut at 300 characters, which holds the form's 255 and a repeat's "1 of 6" tag). State 'ok' or
   # 'unavailable'. Excluded from the recorder (recorder_config.yaml). Manual fallback: Calendar -> Extras.
   - triggers:
       - trigger: homeassistant
@@ -90,6 +154,7 @@ template:
             {%- set r = cal.get('calendar.kids_extras') if cal is defined and cal is mapping else none -%}
             {%- for e in (r.events if r is mapping and r.events is defined else []) -%}
             {%- set ns.l = ns.l + [{'s': ((e.summary or '') | string)[:90],
-                'b': e.start | string, 'e': (e.end or '') | string}] -%}
+                'b': e.start | string, 'e': (e.end or '') | string,
+                'l': ((e.location or '') | string)[:60], 'd': ((e.description or '') | string)[:300]}] -%}
             {%- endfor -%}
             {{ ns.l }}
