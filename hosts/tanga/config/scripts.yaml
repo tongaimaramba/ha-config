@@ -135,7 +135,6 @@ home_fires:
       brightness_pct: 10
     target:
       entity_id:
-      - light.lounge_lamp_2
       - light.movie_lamp
   mode: single
   icon: mdi:candle

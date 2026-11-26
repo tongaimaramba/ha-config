@@ -32,8 +32,9 @@
         "history",
         "logbook",
         "energy",
+        "todo",
         "calendar",
-        "todo"
+        "browser-mod"
       ]
     }
   }

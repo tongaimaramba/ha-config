@@ -1,11 +1,10 @@
-# tanga — automations.yaml (33 automations)
+# tanga — automations.yaml (31 automations)
 
 | id | alias | mode | triggers | entities referenced |
 |---|---|---|---|---|
 | 1606917291219 | Mojgan Iphone WiFi | single | state:sensor.iphone_ssid | input_boolean.iphone_wifi, input_boolean.turn_off, input_boolean.turn_on, sensor.iphone_ssid |
 | 1641497968693 | patio and lamps | single | event:hue_event | sensor.lounge_lamp_dimmer, switch.sonoff_100125dac5, switch.turn_off, switch.turn_on |
 | 1642517830283 | patio and worktop | single | event:hue_event | sensor.kitchen_worktop, switch.sonoff_100125dac5, switch.turn_off, switch.turn_on |
-| 1642112099034 | Morning  | single | time:input_datetime.weekday_shower | input_boolean.morning_heater, input_datetime.weekday_shower, light.hue_smart_plug_1, sensor.bathroom_temperature_2 |
 | 1645567096937 | lights for Robert | single | device:vacuum.robert | light.kitchen_worktop, light.turn_on, vacuum.robert |
 | 1646081816959 | Garage light timer | single | state:['switch.sonoff_100140291c'] | switch.sonoff_100140291c, switch.turn_off |
 | 1656705377102 | Audio | single | device | media_player.projector |
@@ -26,7 +25,6 @@
 | 1704312712410 | Manage Loft Blind | single | time:19:00:00, time:07:00:00 | switch.landing_blind_close_landing_blind, switch.landing_blind_open_landing_blind, switch.loft_blind_close_loft_suite_blind, switch.turn_on |
 | 1704793770116 | Work Status Bookends | single | state:['sensor.study_presence_desk_sensor'], device:4f688294beda58b4f4a6a930a36e8d93, state:['binary_sensor.tongai_mbp_w | binary_sensor.tongai_mbp_wk_active, input_select.select_option, input_select.work_status, sensor.study_presence_desk_sensor, sensor.tongai_mbp_wk_primary_display_name |
 | 1708505312139 | On-air - Family laptop | single | state:['binary_sensor.family_mbp_camera_in_use'] | binary_sensor.family_mbp_camera_in_use, binary_sensor.family_mbp_focus, input_select.select_option, input_select.work_status, sensor.family_mbp_active_camera, sensor.family_mbp_primary_display_name |
-| 1709480751318 | Export optimiser | single | time:input_datetime.end_window, time:input_datetime.start_window, template, template, sun, sun | input_boolean.battery_charging_window, input_boolean.export_window, input_boolean.solar_control_acting, input_boolean.solar_manual_hold, input_boolean.turn_off, input_boolean.turn_on, input_datetime.end_window, input_datetime.start_window, script.set_growatt_sph_mode_with_retry, sensor.sph_battery_s |
 | 1709496362515 | Test temp | single | state:['input_number.battery_max_charge'] | input_number.battery_max_charge, input_number.daily_event_count, input_number.set_value |
 | 1709909184554 | test temp wait | single | template | sensor.sph_load_power, sensor.sph_pv_power |
 | 1710089973439 | Battery First Scheduler | single | time:03:00:00, time:05:30:00, state:['sensor.garage_vivo_charging_status'], state:['sensor.garage_vivo_charging_status'] | input_boolean.battery_charging_window, input_boolean.solar_control_acting, input_boolean.solar_manual_hold, input_boolean.solar_skip_charge_tonight, input_boolean.turn_off, input_boolean.turn_on, input_datetime.set_datetime, input_datetime.solar_charge_skipped, input_text.solar_mode_requested, notif |

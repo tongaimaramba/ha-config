@@ -1,15 +1,21 @@
 # Car climate as one toggle on Family → Car (Tongai 2026-10-24: one button with its state, not Start and Stop).
-# Volvo reports no climatisation state, so this is read from presses: on from a start that went through until a Stop
-# press or 30 minutes, Volvo's usual run. It can be wrong: a start or stop made only in the Volvo app or the car isn't
-# seen. The dashboard's stop presses input_button.car_climate_stopped, then opens the Volvo app (Android) or runs the
-# "Stop car climate" Shortcut (iPhone): Volvo's API acknowledges climatization-stop but the car ignores it. So "off"
-# means "someone pressed stop here", not that the car confirmed it (Tongai, 2026-10-27).
+# Volvo reports no climatisation state, so this is read from presses: on from a start that went through until a stop
+# that went through or 30 minutes, Volvo's usual run. It can be wrong: a start or stop made only in the Volvo app or the
+# car isn't seen.
 # HSE-24 (Tongai 2026-11-15): a start goes through script.car_climate_start (the dashboard and Alexa), which presses
 # input_button.car_climate_started only when the Volvo press didn't fail. The Volvo button's own state can't be used:
 # HA sets a button's state to the press time before the press runs, so a rejected start (415, 13 Nov) looked "on".
+# Stop (Tongai 23 Nov, on Core 2026.11.2: Volvo's stop now stops the car; tested 21:52): the tile runs
+# script.car_climate_stop, which presses Volvo's stop and records car_climate_stopped only if Volvo took it; if it
+# didn't within 45 s, the presser gets a push that opens the Volvo app (Android) or runs the "Stop car climate" Shortcut (iPhone).
+# Until 23 Nov the stop only recorded "stopped" and opened the app (2026-10-27: Volvo acknowledged the stop, the car
+# ignored it).
+# Auto-off (Tongai 24 Nov, with HSE-41): 30 min after any start, if the car wasn't used (engine on or a front door
+# opened), car_climate_auto_off sends Volvo's stop; gated, starts off. The pre-heat schedule itself is
+# apps/car_preheat.yaml (HSE-41), which starts through script.car_climate_start like the tile.
 # Manual fallback: the Volvo Cars app, the car's own controls.
 input_button:
-  car_climate_stopped:
+  car_climate_stopped:  # pressed only by script.car_climate_stop_volvo, after a stop the integration didn't reject
     name: Car climate stopped
     icon: mdi:fan-off
   car_climate_started:  # pressed only by script.car_climate_start, after a start the integration didn't reject
@@ -35,6 +41,126 @@ script:
         target:
           entity_id: input_button.car_climate_started
 
+  # Stop the car's climate (Tongai 23 Nov: the stop through HA, opening the app as the fallback): the Car climate tile's
+  # stop. Starts the Volvo half below (not waited on, so no error of Volvo's can end this script) and waits up to 45 s
+  # for its record: if car_climate_stopped didn't move, Volvo rejected the stop (or never answered) and the person who
+  # tapped gets a push that opens the Volvo app / runs the "Stop car climate" Shortcut; the tile stays lit. Taps from a
+  # user without a phone here (the kiosk) send that push to Tongai's. Not gated: it replaces the tile's live stop (hard
+  # rule 6 is for automations). Unverified: a stop Volvo acknowledges but the car ignores (as 2026-10-27) can't be
+  # seen; the tile then reads off. Manual fallback: the Volvo Cars app (stop climate there), or the car's own controls.
+  car_climate_stop:
+    alias: Car climate stop
+    icon: mdi:car-off
+    mode: single
+    variables:
+      before: "{{ states('input_button.car_climate_stopped') }}"
+      # Whose phone gets the fallback: the HA user who tapped (ids as in dashboards/data/tanga.yaml), else Tongai's.
+      who: >-
+        {{ {'654b5cdf36f8494cb948a9d13e1c17c7': 'notify.mobile_app_tongaism25',
+            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_iphone_32'}
+           .get(context.user_id if context is defined and context else none, 'notify.mobile_app_tongaism25') }}
+      # Where the Shortcut returns to: the presser's own Car tab (HSE-43, 24 Nov: Family retires); Tongai's otherwise
+      car_page: >-
+        {{ {'06495997aca44e59a54f1b3138ad088e': 'mojgan-home'}
+           .get(context.user_id if context is defined and context else none, 'tongai-home') }}
+    sequence:
+      - action: script.turn_on
+        target:
+          entity_id: script.car_climate_stop_volvo
+      - wait_template: "{{ states('input_button.car_climate_stopped') != before }}"
+        timeout: "00:00:45"  # Volvo's start answered in about 10 s (23 Nov)
+        continue_on_timeout: true
+      - if:
+          - condition: template
+            value_template: "{{ not wait.completed }}"
+        then:
+          - action: "{{ who }}"
+            continue_on_error: true
+            data:
+              title: Car climate didn't stop
+              message: Volvo didn't take the stop · tap to stop it in the Volvo app
+              data:
+                tag: car_climate
+                # asks for an action, so not the quiet Home status channel: its own channel, heads-up
+                channel: Car
+                importance: high
+                clickAction: app://se.volvo.vcc  # Android: the Volvo Cars app
+                url: >-
+                  shortcuts://x-callback-url/run-shortcut?name=Stop%20car%20climate&x-success=homeassistant%3A%2F%2Fnavigate%2F{{ car_page }}%2Fcar%3Fserver%3Ddefault
+
+  # The Volvo half of the stop: press Volvo's stop; a press that raises (Volvo rejected it) ends this script before
+  # the record, as car_climate_start does. No continue_on_error here, on purpose. Started only by script.car_climate_stop.
+  # Manual fallback: the Volvo Cars app.
+  car_climate_stop_volvo:
+    alias: Car climate stop - Volvo press
+    icon: mdi:car-off
+    mode: single
+    sequence:
+      - action: button.press
+        target:
+          entity_id: button.garage_vivo_stop_climatisation
+      - action: input_button.press
+        target:
+          entity_id: input_button.car_climate_stopped
+
+input_boolean:
+  car_climate_auto_off_enabled:  # gate for car_climate_auto_off (starts off; no initial, hard rule 6)
+    name: Car climate auto-off
+    icon: mdi:timer-off-outline
+
+automation:
+  # Off if the car isn't used (Tongai 24 Nov, with HSE-41: 15 min of warm-up + 15 min to be late = 30 min after any
+  # start, the tile's, Alexa's or the pre-heat schedule's). Not armed if the car is already in use (engine on or a front
+  # door open) when it starts. After a recorded start, waits 30 min for the engine to
+  # come on or a front door to open (either counts as used: the engine reading reaches HA by polling, so a door
+  # covers a late one); if neither, the car is still home and no stop was recorded since, it starts the Volvo half of
+  # the stop (script.car_climate_stop_volvo, not the tile's stop: no "didn't stop" push if Volvo has already ended
+  # its own run). A new start restarts the wait. Unverified: Volvo's own run is about 30 min (the tile assumes it),
+  # so this mostly matters if the car runs longer. GATE input_boolean.car_climate_auto_off_enabled (starts off).
+  # Manual fallback: the Car climate tile's stop, the Volvo Cars app, the car's own controls.
+  - id: car_climate_auto_off
+    alias: Car climate - off if the car isn't used
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_button.car_climate_started
+        not_from: [unavailable, unknown]
+    conditions:
+      - condition: state
+        entity_id: input_boolean.car_climate_auto_off_enabled
+        state: "on"
+      # already in use when it started (engine running, or someone in with a front door open): leave it alone, as
+      # neither would turn on again to end the wait
+      - condition: template
+        value_template: >-
+          {{ not (is_state('binary_sensor.garage_vivo_engine_status', 'on')
+                  or is_state('binary_sensor.garage_vivo_door_front_left', 'on')
+                  or is_state('binary_sensor.garage_vivo_door_front_right', 'on')) }}
+    actions:
+      - variables:
+          stopped_before: "{{ states('input_button.car_climate_stopped') }}"
+      - wait_for_trigger:
+          - trigger: state
+            entity_id: binary_sensor.garage_vivo_engine_status
+            to: "on"
+          - trigger: state
+            entity_id: binary_sensor.garage_vivo_door_front_left
+            to: "on"
+          - trigger: state
+            entity_id: binary_sensor.garage_vivo_door_front_right
+            to: "on"
+        timeout: "00:30:00"
+      - condition: template  # timed out: nobody used the car
+        value_template: "{{ wait.trigger is none }}"
+      - condition: state
+        entity_id: device_tracker.garage_vivo_location
+        state: home
+      - condition: template  # no stop recorded since the start (the tile's, or Volvo's taken stop)
+        value_template: "{{ states('input_button.car_climate_stopped') == stopped_before }}"
+      - action: script.turn_on
+        target:
+          entity_id: script.car_climate_stop_volvo
+
 template:
   - binary_sensor:
       - name: Car climate
@@ -42,13 +168,9 @@ template:
         icon: mdi:car-defrost-front
         state: >-
           {% set s = states('input_button.car_climate_started') | as_datetime(none) %}
-          {% set stops = [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
-             | map('as_datetime', none) | reject('none') | list %}
-          {% set t = stops | max if stops else none %}
+          {% set t = states('input_button.car_climate_stopped') | as_datetime(none) %}
           {{ s is not none and (t is none or s > t) and now() - s < timedelta(minutes=30) }}
         attributes:
           started: "{{ states('input_button.car_climate_started') }}"
-          stopped: >-
-            {{ [states('button.garage_vivo_stop_climatisation'), states('input_button.car_climate_stopped')]
-               | map('as_datetime', none) | reject('none') | max | default('', true) }}
-          read_from: "starts that went through and stop presses (Volvo gives no climate state)"
+          stopped: "{{ states('input_button.car_climate_stopped') }}"
+          read_from: "starts and stops that went through (Volvo gives no climate state)"

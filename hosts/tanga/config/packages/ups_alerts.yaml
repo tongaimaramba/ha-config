@@ -1,0 +1,254 @@
+# UPS alerts (backlog 8, G7, 2026-11-08). The cabinet's APC Back-UPS RS 650MI (USB to tanga; the NUT add-on serves it
+# as `myups`, HA's `nut` integration reads it as sensor.myups_*) carries tanga, pamba and the network. Tells Tongai
+# when mains is lost (the UPS is on battery), when its battery is low (urgent: the boxes are about to shut down), and
+# when mains is back. "Not reporting" (the UPS unplugged or its USB link lost) is the Connections check's
+# (packages/connections_health.yaml, `UPS (NUT)`, watching sensor.ups_flags), so it shows on House ops → Health with
+# the rest. Alerts only: nothing here shuts anything down or controls the UPS. Notifications: quiet "Home status"
+# channel, except low battery ("Power urgent", normal importance: audible, never the alarm channel). Tongai only.
+# Gate: input_boolean.ups_alerts_enabled (starts off, hard rule 6). Manual fallback: the UPS's own beeps and lights;
+# the NUT add-on's log on tanga. Owner: tanga (platform health). Built while the UPS was disconnected: the ids are from
+# tanga's registry (sensor.myups_*, from before it was unplugged), the values from NUT's documented ups.status flags;
+# check them against the live UPS before switching the gate on (docs/reports/2026-11-08-g7-ups-alerts.md).
+#
+# State is kept in helpers so it survives a restart, including the boxes' own clean shutdown: `outage` (an outage has
+# been seen), `outage_since` (when it began), `low_sent` (the urgent push went). Every alert also runs when HA starts
+# and when the gate is switched on, so an outage already under way (or ended while HA was down) is picked up; the
+# flags are reset when mains is back whatever the gate says, so switching the gate off mid-outage can't leave them
+# stuck (only the push is gated).
+
+input_boolean:
+  ups_alerts_enabled:
+    name: UPS alerts
+    icon: mdi:power-plug-battery-outline
+  # Tongai sets this once the reconnect-day checks show the boxes really shut down on the UPS's low mark (NUT's upsmon:
+  # tanga's add-on with shutdown_host, pamba as a client). Until then the urgent push tells him to shut them down.
+  ups_alerts_shutdown_ready:
+    name: Boxes shut down on the UPS
+    icon: mdi:power-plug-off-outline
+  # Internal: an outage has been alerted, so "back on mains" only follows a real outage.
+  ups_alerts_outage:
+    name: UPS outage alerted
+    icon: mdi:power-plug-off-outline
+  # Internal: the urgent "battery low" push went: once per outage, however often the charge crosses the line.
+  ups_alerts_low_sent:
+    name: UPS low battery alerted
+    icon: mdi:battery-alert-variant-outline
+
+input_datetime:
+  # Internal: when the outage began, for "back on mains" to say how long it lasted.
+  ups_alerts_outage_since:
+    name: UPS outage since
+    has_date: true
+    has_time: true
+
+template:
+  - sensor:
+      # NUT's raw ups.status flags, read once here (e.g. "OL CHRG", "OB DISCHRG", "OB LB"). sensor.myups_status_data_2
+      # is a duplicate the integration created once (its unique id is the config entry's, not the UPS serial's): used
+      # only if the first has no value. Unavailable while neither has one: the UPS is unplugged, off, or its USB link
+      # to tanga is lost; the Connections check watches this.
+      - name: UPS flags
+        unique_id: ups_alerts_flags
+        icon: mdi:power-plug-battery-outline
+        availability: >-
+          {{ has_value('sensor.myups_status_data') or has_value('sensor.myups_status_data_2') }}
+        state: >-
+          {{ (states('sensor.myups_status_data') if has_value('sensor.myups_status_data')
+              else states('sensor.myups_status_data_2')) | upper | trim }}
+
+      # The UPS in one word: mains, battery, low (on battery and under 30 % or ~10 min, or the UPS's own low-battery
+      # flag LB, or a forced shutdown FSD), other (flags that are neither OL nor OB, e.g. OFF), unreachable (no
+      # flags). Runtime (sensor.myups_battery_runtime, seconds) is disabled in the registry by the integration: until
+      # Tongai enables it, only the charge and LB count.
+      - name: UPS power
+        unique_id: ups_alerts_power
+        icon: mdi:power-plug-battery-outline
+        state: >-
+          {%- set f = states('sensor.ups_flags') -%}
+          {%- set flags = [] if f in ['unavailable', 'unknown', '', 'NONE'] else f.split() -%}
+          {%- set charge = states('sensor.myups_battery_charge') | float(none) -%}
+          {%- set runtime = states('sensor.myups_battery_runtime') | float(none) -%}
+          {%- if not flags -%} unreachable
+          {%- elif 'FSD' in flags or ('OB' in flags and ('LB' in flags or (charge is not none and charge < 30)
+                   or (runtime is not none and runtime < 600))) -%} low
+          {%- elif 'OB' in flags -%} battery
+          {%- elif 'OL' in flags -%} mains
+          {%- else -%} other
+          {%- endif -%}
+        attributes:
+          # one line for House ops → Health and the pushes: "On mains · battery 100 % · ~45 min · load 12 %"
+          summary: >-
+            {%- set f = states('sensor.ups_flags') -%}
+            {%- set flags = [] if f in ['unavailable', 'unknown', '', 'NONE'] else f.split() -%}
+            {%- set charge = states('sensor.myups_battery_charge') | float(none) -%}
+            {%- set runtime = states('sensor.myups_battery_runtime') | float(none) -%}
+            {%- set load = states('sensor.myups_load') | float(none) -%}
+            {%- if not flags -%}
+              Not reporting: the UPS is off or unplugged, or its USB link to tanga is lost
+            {%- else -%}
+              {%- set bits = ['On battery' if 'OB' in flags else ('On mains' if 'OL' in flags else f)] -%}
+              {%- set bits = bits + (['battery ' ~ (charge | round(0) | int) ~ ' %'] if charge is not none else []) -%}
+              {%- set bits = bits + (['~' ~ ((runtime / 60) | round(0) | int) ~ ' min'] if runtime is not none else []) -%}
+              {%- set bits = bits + (['load ' ~ (load | round(0) | int) ~ ' %'] if load is not none else []) -%}
+              {%- set bits = bits + (['low battery'] if 'LB' in flags else []) -%}
+              {%- set bits = bits + (['replace battery'] if 'RB' in flags else []) -%}
+              {{ bits | join(' · ') }}
+            {%- endif -%}
+
+automation:
+  # Mains lost: on battery (or low) for 30 s. The wait is a delay and a check at the end, not a `for:`, because NUT's
+  # driver flaps (a blip to "unreachable" would restart a `for:`); it counts unless mains came back or the UPS says
+  # something else in the meantime. Once per outage; also when HA starts, or the gate goes on, mid-outage. Records when
+  # the outage began (the first change to battery/low, not when this ran). If the urgent "battery low" push already
+  # went (it came straight from mains) only the record is made. Manual fallback: the UPS beeps every 30 s on battery.
+  - id: ups_alerts_on_battery
+    alias: UPS - on battery
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.ups_power
+        to: [battery, low]
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: input_boolean.ups_alerts_enabled
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.ups_alerts_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.ups_alerts_outage
+        state: "off"
+      - condition: state
+        entity_id: sensor.ups_power
+        state: [battery, low]
+    actions:
+      - variables:
+          began: >-
+            {{ trigger.to_state.last_changed.timestamp()
+               if (trigger.entity_id | default('')) == 'sensor.ups_power' else now().timestamp() }}
+      - delay: {seconds: 30}
+      - condition: template
+        value_template: "{{ states('sensor.ups_power') not in ['mains', 'other'] }}"
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.ups_alerts_outage_since
+        data:
+          timestamp: "{{ began }}"
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.ups_alerts_outage
+      - if:
+          - condition: state
+            entity_id: input_boolean.ups_alerts_low_sent
+            state: "off"
+        then:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: UPS on battery
+              message: >-
+                Mains lost {{ began | timestamp_custom('%H:%M') }} · {{ state_attr('sensor.ups_power', 'summary') }}
+              data:
+                tag: ups_alerts_power
+                channel: Home status
+                importance: low
+
+  # Battery low while on battery (under 30 %, ~10 min left, or the UPS's own low mark): urgent, once per outage. At the
+  # UPS's low mark NUT's upsmon shuts the boxes down, once that is set up and Tongai has turned on "Boxes shut down on
+  # the UPS"; until then this says to do it by hand. Also when HA starts, or the gate goes on, while already low.
+  # Manual fallback: shut pamba and tanga down from Settings → System → Power; the UPS beeps fast when low.
+  - id: ups_alerts_low_battery
+    alias: UPS - battery low
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.ups_power
+        to: low
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: input_boolean.ups_alerts_enabled
+        to: "on"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.ups_alerts_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.ups_alerts_low_sent
+        state: "off"
+      - condition: state
+        entity_id: sensor.ups_power
+        state: low
+    actions:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.ups_alerts_low_sent
+      - action: notify.mobile_app_tongaism25
+        data:
+          title: UPS battery low
+          message: >-
+            {{ state_attr('sensor.ups_power', 'summary') }} ·
+            {{ "tanga and pamba shut down at the UPS's low mark"
+               if is_state('input_boolean.ups_alerts_shutdown_ready', 'on')
+               else 'shut tanga and pamba down now: no automatic shutdown is set up' }}
+          data:
+            tag: ups_alerts_urgent
+            channel: Power urgent
+            importance: default
+
+  # Mains back: on mains for 1 min after an outage that was alerted. Also when HA starts, or the gate changes, with
+  # mains already on and the flags left over (the boxes shut down and came back up, or the gate was off when mains
+  # returned). The flags are reset whatever the gate says; only the push is gated. Says how long it lasted. Manual
+  # fallback: the UPS stops beeping.
+  - id: ups_alerts_back_on_mains
+    alias: UPS - back on mains
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.ups_power
+        to: mains
+        for: {minutes: 1}
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: input_boolean.ups_alerts_enabled
+    conditions:
+      - condition: state
+        entity_id: sensor.ups_power
+        state: mains
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: input_boolean.ups_alerts_outage
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.ups_alerts_low_sent
+            state: "on"
+    actions:
+      - variables:
+          minutes: >-
+            {{ ((now().timestamp() - (state_attr('input_datetime.ups_alerts_outage_since', 'timestamp') or now().timestamp()))
+                / 60) | round(0) | int }}
+          lasted: "{{ minutes ~ ' min' if minutes < 120 else (minutes / 60) | round(1) ~ ' h' }}"
+          was_alerted: "{{ is_state('input_boolean.ups_alerts_outage', 'on') }}"
+      - action: input_boolean.turn_off
+        target:
+          entity_id:
+            - input_boolean.ups_alerts_outage
+            - input_boolean.ups_alerts_low_sent
+      - if:
+          - condition: state
+            entity_id: input_boolean.ups_alerts_enabled
+            state: "on"
+          - condition: template
+            value_template: "{{ was_alerted }}"
+        then:
+          - action: notify.mobile_app_tongaism25
+            data:
+              title: UPS back on mains
+              message: "Outage ~{{ lasted }} · {{ state_attr('sensor.ups_power', 'summary') }}"
+              data:
+                tag: ups_alerts_power
+                channel: Home status
+                importance: low

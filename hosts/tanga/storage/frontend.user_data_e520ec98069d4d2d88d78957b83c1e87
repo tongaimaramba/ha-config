@@ -9,6 +9,7 @@
       ],
       "hiddenPanels": [
         "climate-home",
+        "family-home",
         "kids-home",
         "tongai-home",
         "mojgan-home",
@@ -20,9 +21,9 @@
         "history",
         "logbook",
         "energy",
-        "calendar",
         "todo",
-        "family-home"
+        "calendar",
+        "browser-mod"
       ]
     },
     "core": {

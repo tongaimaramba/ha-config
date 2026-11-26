@@ -3,15 +3,15 @@
 68	/homeassistant/custom_components/attributes/
 1092	/homeassistant/custom_components/bermuda/
 2336	/homeassistant/custom_components/ble_monitor/
+636	/homeassistant/custom_components/browser_mod/
 40	/homeassistant/custom_components/dyson_cloud/
 244	/homeassistant/custom_components/dyson_local/
 420	/homeassistant/custom_components/edgeos/
 124	/homeassistant/custom_components/eventsensor/
-208	/homeassistant/custom_components/fujitsu_airstage/
+256	/homeassistant/custom_components/fujitsu_airstage/
 96	/homeassistant/custom_components/fullykiosk/
 280	/homeassistant/custom_components/garmin_connect/
 380	/homeassistant/custom_components/growatt_server_api/
-53120	/homeassistant/custom_components/hacs/
 220	/homeassistant/custom_components/keymaster/
 280	/homeassistant/custom_components/lightwave2/
 700	/homeassistant/custom_components/lightwave_smart/

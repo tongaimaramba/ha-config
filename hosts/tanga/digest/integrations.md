@@ -12,7 +12,7 @@
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | 62169be743cad373c9bac67c9ad31f95 |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | 220305b0d648671e3a38fbbf13526b79 |
 | apple_tv | Tongai Maramba (Apple TV 3) | ignore | core | 0 | 0 |  | 522931814a035c248f578a7a0484c9fe |
-| backup | Backup | system | core | 0 | 5 |  | 01JZMSBEA61EEZW59KCQAS5SC0 |
+| backup | Backup | system | core | 0 | 6 |  | 01JZMSBEA61EEZW59KCQAS5SC0 |
 | bermuda | Bermuda BLE Trilateration | bluetooth | custom | 0 | 136 |  | 01K9YRAT79T6Z7BV0XHCVYN8VH |
 | ble_monitor | Bluetooth Low Energy Monitor | user | custom | 0 | 27 |  | 01K9W86FXR2H8N298C50N40E9Y |
 | bluetooth | Raspberry Pi (Trading) Ltd bcm43438-bt (2C:CF:67:DF:CD:AB) | integration_discovery | core | 0 | 0 | user | 01K9TGHJFQSMAPQW4QHSYC3VH2 |
@@ -24,6 +24,7 @@
 | bluetooth | nya-proxy (F4:65:0B:07:70:86) | integration_discovery | core | 0 | 0 |  | 01KAQ1SN7CA76ZNJM83NGFNSEQ |
 | bluetooth | rpi-rebooter (08:D1:F9:EB:E5:92) | integration_discovery | core | 0 | 0 |  | 01K9YK29XJDE1RM9NV50A3PW6Y |
 | bluetooth | work-status (94:3C:C6:37:67:86) | integration_discovery | core | 0 | 0 |  | 01KA18DEMBAZPWTPP1142QXGW7 |
+| browser_mod | Browser Mod | user | custom | 0 | 13 |  | 01M8000036SYH0AC6ACN42AEAX |
 | cast | Google Cast | ignore | core | 0 | 0 |  | 16241d1be076862f736f15d21ea5eb2f |
 | cert_expiry | 192.168.179.41:8123 | user | core | 0 | 1 |  | a734584d0267a26845dde8de65a036aa |
 | dlna_dmr | Living room | ignore | core | 0 | 0 |  | 52dc1059ac19b5542ff5239261bbbb7a |
@@ -63,22 +64,17 @@
 | go2rtc | go2rtc | system | core | 0 | 0 |  | 01JMQ640YFB3KK9DSJ1ZCAN92X |
 | group | Car Security | user | core | 0 | 1 |  | 32512a8a1e1341f8ca6d8d8f791537e9 |
 | group | Dining Wall Lights | user | core | 0 | 1 |  | ad294e85652dade065b20ca89f7fa7e1 |
-| group | Downstairs Indoor Movement | user | core | 0 | 1 |  | 60bed65316a7857969c58ad2fcbf18f9 |
 | group | Front Perimeter Contact | user | core | 0 | 1 |  | aac00270760a49337665a3788afa04a9 |
 | group | Front Perimeter Movement | user | core | 0 | 1 |  | 4a5b2578b6f5d1a0d194a1cc02b7dcf2 |
-| group | KD_Sposts | user | core | 0 | 1 |  | 09baafcbb51b087fd933a2ce9d65e9d9 |
 | group | Lamps Downstairs  | user | core | 0 | 1 |  | 86492212a71ad40d9c3a2a714e43363b |
 | group | Lounge Ceiling Lights  | user | core | 0 | 1 |  | cf9c7f4eac7754a967ee62e95b6f6d50 |
-| group | Lounge Lamps | user | core | 0 | 1 |  | 85c5f9b15f38142b6fb98b75bd8e1416 |
 | group | Lounge Lights | user | core | 0 | 1 |  | 693800f92004b5b4fb4211a482b69eca |
 | group | Perimeter Contacts | user | core | 0 | 1 |  | 7bb42dcf512573dd7abdbedb0ebe1528 |
 | group | Perimeter Movement | user | core | 0 | 1 |  | 38652b66a5ab91af73e3560989e05f03 |
 | group | Perimeter Status | user | core | 0 | 1 |  | 6ca223bdaa566da071a7c144272819e4 |
 | group | Rear Perimeter Contact | user | core | 0 | 1 |  | 649d350668ae2bbf1f287a862e79aab4 |
-| group | Rear Perimeter Movement | user | core | 0 | 1 |  | c9adb969e7a7822ef68d92fb529c83b2 |
 | group | Sonoff Lights | user | core | 0 | 1 |  | a532b39561cfbbf37cdb7ddd6cb8b0f6 |
 | group | Upstairs Indoor Motion | user | core | 0 | 1 |  | 361b9a06a3b2cb159d38521763c2c00d |
-| group | Wall Lamps | user | core | 0 | 1 |  | 14d7315f10687ff1f98aa0249635414d |
 | group | downstairs_new | user | core | 0 | 1 |  | 45059156ca02438bd551972a07b06359 |
 | group | kd_spots | user | core | 0 | 1 |  | cfeb22cf731ab8eda35a839aee9e8975 |
 | group | laundry | user | core | 0 | 1 |  | 4e94c9b30d69fa0fd4b1ec3345778be7 |
@@ -86,7 +82,6 @@
 | group | pantry | user | core | 0 | 1 |  | 790ad5d30ef222d99be7536aa683156f |
 | group | utility | user | core | 0 | 1 |  | 18f440464495c1d0895424e4bab0cc15 |
 | growatt_server_api | tojgan-solar | user | custom | 0 | 37 |  | 26ed0faa71ef6b3aef24274377700cef |
-| hacs |  | user | custom | 0 | 136 |  | dc93992ca134461aa614600f58f0b57c |
 | hassio | Supervisor | system | core | 0 | 144 |  | e170bc42d8b368aa1271b400fde50598 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | c9bd9681950342d7a035531eed7d30f5 |
 | homekit_controller | Ignored | ignore | core | 0 | 0 |  | 3409676f1de7289f30d22cc3daad2dc7 |
@@ -95,7 +90,7 @@
 | homekit_controller | tado Internet Bridge IB0210636544 | zeroconf | core | 0 | 46 |  | 01M4DW10JM9HSXF6DJDHK04HE0 |
 | hue | Hue Bridge 0017882791a0 | zeroconf | core | 0 | 311 |  | 01K5BX4CSA7VRHH4QA38N0K1ZW |
 | hue | Ignored | ignore | core | 0 | 0 |  | c4e7b635846d436ba4e511616215acd2 |
-| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 1018 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
+| ibeacon | iBeacon Tracker | bluetooth | core | 0 | 1038 |  | 01K9SN9M0C91Z13JCS6WNBBE30 |
 | ipp | Canon TS6300 series | ignore | core | 0 | 0 |  | c166401741f0d8b363785d98cbd5a1a9 |
 | ipp | Canon TS6300 series @ tongai-mbp | ignore | core | 0 | 0 |  | 5045592efdf60508e09c6c1c9bcdb701 |
 | ipp | Ignored | ignore | core | 0 | 0 |  | f321f3d732020bfef802f63b3e04a64f |
@@ -106,6 +101,7 @@
 | local_file | Call still garden | user | core | 0 | 1 |  | 01M68WZM25HC95YYVV9535EZVF |
 | local_todo | Ellie homework | user | core | 0 | 1 |  | 01M7A8MN9JJSJN5VA32C9YC03V |
 | local_todo | Hannah homework | user | core | 0 | 1 |  | 01M7A8M2S01V3GR8J6KGN9J5GW |
+| marketplace |  | user | core | 0 | 134 |  | dc93992ca134461aa614600f58f0b57c |
 | matter | Matter | user | core | 0 | 0 |  | 01KA3PMH3S3S2NKH8YHC1QXEWZ |
 | matter | matter | ignore | core | 0 | 0 |  | 01K204FD2BSD6NR0GKTCCXKJBJ |
 | met | Home | user | core | 0 | 1 |  | 01M5WY8VM9XDZG6KWAYRRSC4B9 |
@@ -113,14 +109,14 @@
 | mobile_app | Garmin Device | registration | core | 0 | 10 |  | 01J8JG772M17AHN6YNAEYX3722 |
 | mobile_app | Hannah’s iPhone | registration | core | 0 | 20 |  | 0339cf5d47f896d8e8af5fc425b8ad60 |
 | mobile_app | Hannah’s iPhone | registration | core | 0 | 15 |  | 01KA3NG0GJD8CX0MDJDQQJFESA |
-| mobile_app | Hannah’s iPhone13 | registration | core | 0 | 32 |  | 01KWSDY1ZK9AHSVSK293XTD854 |
+| mobile_app | Hannah’s iPhone13 | registration | core | 0 | 35 |  | 01KWSDY1ZK9AHSVSK293XTD854 |
 | mobile_app | MacBook Pro | registration | core | 0 | 22 |  | c1e2f77695764f64b7d4b620ac9c7781 |
-| mobile_app | Mojgan-iPhone | registration | core | 0 | 13 |  | 01M5ZGAEA19YH1SB8NVQEATDC2 |
 | mobile_app | TongaiSM25 | registration | core | 0 | 136 |  | 01K2PQEAENWBCVTRY36CDNNDGE |
 | mobile_app | family_mac | registration | core | 0 | 24 |  | dd4b052e1d5475ec87e7c2ac905c4aa7 |
 | mobile_app | iPad | registration | core | 0 | 10 |  | d9e1afc9673d0cdc068f01f0111d380f |
 | mobile_app | iPhone | registration | core | 0 | 35 |  | 01M6F1RGR9Y2MZ3Z2KCF8QT80M |
 | mobile_app | iPhone (3) | registration | core | 0 | 19 |  | 9c660d7fffd4deaddb4635e9f7fc99e9 |
+| mobile_app | iPhone (32) | registration | core | 0 | 35 |  | 01M82CZ5ATW3A63SBNM3SJYM22 |
 | mobile_app | tongai-mbp (2) | registration | core | 0 | 25 |  | 2e4455d642f14e852e5d58ee9f60971b |
 | mobile_app | tongai-mbp_wk | registration | core | 0 | 25 |  | 01JT6NCM80RMH66K4Q76N1HB56 |
 | mqtt | Mosquitto broker | hassio | core | 0 | 85 |  | 01K3HKSE86BER5369STS5MFTDH |
@@ -128,7 +124,7 @@
 | nmap_tracker | frontdoor_nmap | user | core | 0 | 2 |  | fff92b6d308a20b30009997aaa01e667 |
 | nmap_tracker | patio_nmap | user | core | 0 | 3 |  | e88c4b29201af53044186ef92f283a44 |
 | nmap_tracker | swings_nmap | user | core | 0 | 3 |  | 8418c00c08abcd8dfdcdc0fe168328a0 |
-| nut | ccf28a08-nut:3493 | user | core | 0 | 27 |  | e4593ec01a36a391177e6b62af65ce6c |
+| nut | ccf28a08-nut:3493 | user | core | 0 | 28 |  | e4593ec01a36a391177e6b62af65ce6c |
 | octopus_energy | A-355AB690 | user | custom | 0 | 74 |  | 01M6BSK1QPFSHBBEQK592QGF0W |
 | places | Domane | user | custom | 0 | 1 |  | 39f987824bcbeb5fb52c6298b39f17ed |
 | places | Eva Location | user | custom | 0 | 1 |  | 324ed424c510584676f714b2e0be804f |
@@ -173,15 +169,15 @@
 | attributes | 1.2.1 | Attributes | NO — installed but not configured | https://github.com/pilotak/homeassistant-attributes |
 | bermuda | 0.8.5 | Bermuda BLE Trilateration | yes | https://github.com/agittins/bermuda |
 | ble_monitor | 13.10.1 | Passive BLE monitor | yes | https://github.com/custom-components/ble_monitor |
+| browser_mod | 3.4.2 | Browser mod | yes | https://github.com/thomasloven/hass-browser_mod/blob/master/README.md |
 | dyson_cloud | 0.15.0 | Dyson Cloud | NO — installed but not configured | https://github.com/shenxn/ha-dyson |
 | dyson_local | 0.16.4-4 | Dyson Local | yes | https://github.com/shenxn/ha-dyson |
 | edgeos | 2.0.31 | Ubiquiti EdgeOS Routers | NO — installed but not configured | https://github.com/elad-bar/ha-edgeos |
 | eventsensor | 3.3.1 | Event sensor | yes | https://github.com/azogue/eventsensor |
-| fujitsu_airstage | 1.9.0 | Fujitsu Airstage | yes | https://github.com/danielkaldheim/ha_airstage |
+| fujitsu_airstage | 1.10.0 | Fujitsu Airstage | yes | https://github.com/danielkaldheim/ha_airstage |
 | fullykiosk | 1.1.0 | Fully Kiosk Browser | NO — installed but not configured | https://github.com/cgarwood/homeassistant-fullykiosk |
 | garmin_connect | 0.2.19 | Garmin Connect | NO — installed but not configured | https://github.com/cyberjunky/home-assistant-garmin_connect |
 | growatt_server_api | 1.0.4 | Growatt Server API | yes | https://github.com/muppet3000/homeassistant-growatt_server_api |
-| hacs | 2.0.5 | HACS | yes | https://hacs.xyz/docs/use/ |
 | keymaster | v0.0.87 | keymaster | NO — installed but not configured | https://github.com/FutureTense/keymaster |
 | lightwave2 | 3.5.20 | Lightwave v2 (Smart Series) custom component | NO — installed but not configured | https://github.com/bigbadblunt/homeassistant-lightwave2 |
 | lightwave_smart | 5.2.0 | Lightwave Smart | yes | https://github.com/LightwaveSmartHome/homeassistant-lightwave-smart |

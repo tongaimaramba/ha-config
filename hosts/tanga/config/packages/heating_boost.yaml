@@ -9,7 +9,8 @@
 #   timer then looks: if tado reverted, nothing to do; if the room is still at the boost target, restore the previous
 #   target (HomeKit has no "follow schedule" mode) and tell Tongai the timer didn't apply.
 # Gate: input_boolean.heating_boost_enabled (starts off; hard rule 6) stops NEW boosts only. The fallback-end automation
-# is deliberately ungated: a boost already running must always be ended, or a room could stay at 25 °C.
+# and script.heating_boost_end (a boost ended early from a room page) are deliberately ungated: a boost already running
+# must always be ended, or a room could stay at 25 °C.
 # Manual fallback: the tado app (boost/override per room) or the thermostat dial.
 
 input_boolean:
@@ -165,6 +166,49 @@ script:
                 tag: heating_boost
                 channel: Home status
                 importance: low
+
+  # End the fallback boost now (Tongai 22 Nov: the Landing's lit Boost, tapped again, ends it, as the AC rooms' do). The
+  # same rule as the 35-min check below, at once and without its notices (the caller says what happened): still at
+  # 25 °C → the previous target back; tado already ended it → leave the room alone; either way the record is cleared
+  # and the check timer cancelled. It does nothing, leaving the record and the check to finish the job, when the room
+  # can't be read, when the previous target is unknown (never a guess: the check then tells Tongai "Still 25°C"), or
+  # when the check timer isn't running (the check itself is acting, or retrying). Deliberately ungated: a running boost
+  # must always be endable. Manual fallback: tado app → room → resume schedule, or the valve.
+  heating_boost_end:
+    alias: Heating boost - end it now
+    icon: mdi:rocket-launch-outline
+    mode: single
+    max_exceeded: silent
+    variables:
+      record: "{{ states('input_text.heating_boost_fallback') }}"
+      entity: "{{ record.split('|')[0] if '|' in record else '' }}"
+      previous_raw: "{{ record.split('|')[1] if '|' in record else '' }}"
+      readable: >-
+        {{ entity != '' and states(entity) not in ['unavailable', 'unknown']
+           and state_attr(entity, 'temperature') | is_number }}
+      still_boosted: "{{ readable and state_attr(entity, 'temperature') | float(0) >= 25 }}"
+    sequence:
+      - condition: template
+        value_template: >-
+          {{ readable and is_state('timer.heating_boost_fallback', 'active')
+             and not (still_boosted and not previous_raw | is_number) }}
+      - if:
+          - condition: template
+            value_template: "{{ still_boosted }}"
+        then:
+          - action: climate.set_temperature
+            target:
+              entity_id: "{{ entity }}"
+            data:
+              temperature: "{{ previous_raw | float }}"
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.heating_boost_fallback
+        data:
+          value: ""
+      - action: timer.cancel
+        target:
+          entity_id: timer.heating_boost_fallback
 
 automation:
   # Check a fallback boost 35 min on. Can't read the room → keep the record, retry every 5 min. tado ended it → say so.

@@ -167,16 +167,15 @@ template:
         attributes:
           summary: >-
             {%- if is_state('input_boolean.solar_manual_hold', 'on') -%}
-              **Manual:** the 03:00 charge and the export optimiser leave the mode alone
+              **Manual:** the 03:00 charge and solar control leave the mode alone
               ({{ states('sensor.sph_device_mode') }} now) until Auto. The 05:30 Load first still runs, and a Grid
               first lapses at its end time.
             {%- elif is_state('input_boolean.solar_control_acting', 'on') -%}
               **Auto (solar control):** the 03:00–05:30 charge and the export decisions are solar control's
               ({{ states('sensor.sph_device_mode') }} now); after Manual, Auto takes effect within a minute.
             {%- else -%}
-              **Auto:** the 03:00–05:30 charge and the export optimiser set the mode
-              ({{ states('sensor.sph_device_mode') }} now); after Manual, Auto takes effect at the optimiser's next
-              change.
+              **Auto (solar control off):** only the 03:00–05:30 charge sets the mode
+              ({{ states('sensor.sph_device_mode') }} now); by day Grid or Load first is set by hand.
             {%- endif %}
             {%- if is_state('input_boolean.solar_skip_charge_tonight', 'on') %} Tonight's 03:00 charge is skipped
             (back on at 06:00).{% endif %}
@@ -190,11 +189,11 @@ template:
             {%- set manual = is_state('input_boolean.solar_manual_hold', 'on') -%}
             {{ (['**Modbus writes are off:** nothing reaches the inverter']
                   if not is_state('input_boolean.solar_modbus_writes_enabled', 'on') else [])
-               + (['Manual: the 03:00 charge and the export optimiser leave the mode alone until Auto',
+               + (['Manual: the 03:00 charge and solar control leave the mode alone until Auto',
                    'The 05:30 Load first still runs; a Grid first lapses at its end time'] if manual else
                   ['Solar control sets the mode (the 03:00–05:30 charge and exports); after Manual, Auto acts within '
                    ~ 'a minute'] if is_state('input_boolean.solar_control_acting', 'on') else
-                  ['The 03:00–05:30 charge and the export optimiser set the mode'])
+                  ['Solar control is off: only the 03:00–05:30 charge sets the mode; by day, set it by hand'])
                + (["Tonight's 03:00 charge is skipped (back on at 06:00)"]
                   if is_state('input_boolean.solar_skip_charge_tonight', 'on') else []) }}
       # Today's saving in £ (sensor.solar_payback's `today`), so a tile can show it with its unit.

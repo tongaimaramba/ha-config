@@ -10,14 +10,13 @@
 #   3. Hot water boost: not here. It already works on tanga (tado cloud client, AppDaemon apps/tado_cloud.yaml: a fixed
 #      30 min timer, quota-aware, its own gate input_boolean.tado_cloud_enabled) and is already the "Hot water boost"
 #      toggle on Family -> Home and Climate for Tongai and Mojgan.
-# The Nest step is INERT until tanga's own reading of the Nest can be trusted. Heating is pamba's until the Cut-over
-# (OWNERSHIP) and both boxes are connected to the same Nest. On 8 Nov they disagreed (tanga's target 21.3 for 1 h 40 min
-# while pamba's, and the Nest, said 20.3; each box has missed changes the other saw), so a "one degree up" worked out
-# from tanga's reading could land a degree off. The script therefore compares tanga's target with pamba's mirror
-# (sensor.downstairs_nest_pamba) and refuses, saying so, if they differ by more than 0.3 °C. It works once they agree
-# (a separate Google subscription per box, or pamba's Nest connection removed at the Cut-over, then the mirror is
-# unavailable and is not consulted). Right after a step the mirror lags, so for 30 s the script steps from the value it
-# last commanded (input_text.heating_nest_last_set) and skips the comparison: two quick taps are two steps.
+# The Nest step reads tanga's own Nest connection only (Tongai 21 Nov, PLAN ROOM-E: tanga owns the Nest since the
+# Cut-over). Until then it also compared tanga's target with pamba's mirror (sensor.downstairs_nest_pamba) and refused
+# when they differed by more than 0.3 °C (on 8 Nov each box had missed changes the other saw); on 20 Nov pamba's reading
+# stopped following the Nest at all (19.0 while tanga and the dial moved), so that check only blocked the buttons. Right
+# after a step tanga's own reading can lag (Google's events can take a minute or more), so for 120 s (was 30 s, sized
+# for pamba's mirror) the script steps from the value it last commanded (input_text.heating_nest_last_set): two taps a
+# minute apart are two steps. A change at the dial inside those 120 s is overwritten by the next tap's step.
 # Limits (tests/test_heating_buttons.py): the Nest target never goes outside 16-24 °C and changes by at most 1 °C a tap
 # (a Nest set far outside that range, e.g. 10 °C, is left to the dial: a tap would otherwise jump it); only a Nest in
 # plain heat mode (not Off, Eco, cool or the heat/cool range); at most 12 steps an hour and one every 6 s (Google
@@ -25,7 +24,7 @@
 # feedback); a boost needs a room from the list and 60 s since the last started boost.
 # Feedback: every refusal, and every success, goes (a) to the phone of whoever tapped, quietly (channel Home status,
 # importance low): Tongai's or Mojgan's if their HA user is recognised, otherwise Tongai's; and (b) to
-# input_text.heating_buttons_last_message, shown under the buttons for 5 minutes. Only a tap that arrives while another
+# input_text.heating_buttons_last_message with its room, shown under that room's buttons only, for 5 minutes. Only a tap that arrives while another
 # is still running is dropped without a message.
 # Manual fallback for everything here: the Nest dial or app (Downstairs), tado's app or the radiator valve (boosts),
 # the boiler's own controls. The buttons sit beside those, never in place of them.
@@ -36,8 +35,9 @@ input_boolean:
     icon: mdi:radiator
 
 input_text:
-  # The last thing a heating button did or refused, with the time ("19:02:11 Landing boost on"). The room pages show it
-  # for 5 minutes. Not a record: the logbook of the scripts is.
+  # The last thing a heating button did or refused, with its room and the time ("landing|19:02:11 Landing boost on").
+  # Only that room's page shows it, for 5 minutes (Tongai 22 Nov: the Landing showed an AC room's message). Not a
+  # record: the logbook of the scripts is.
   heating_buttons_last_message:
     name: Heating buttons - last message
     max: 255
@@ -63,15 +63,32 @@ timer:
 
 template:
   - binary_sensor:
-      # On while a boost of that room that heating_boost started is running (it records "entity|previous target" in
-      # input_text.heating_boost_fallback). Only drives which button is lit on the room page. The entities are the
-      # rooms' tado thermostats in packages/heating_boost.yaml (a test checks they agree).
+      # On while a boost of that room that heating_boost started is running: it records "entity|previous target" in
+      # input_text.heating_boost_fallback, and the thermostat isn't read below the boost's 25 °C (tado's own 30-min
+      # timer ends it before the 35-min check clears the record; an unreadable thermostat counts as still boosted).
+      # `until`: "until hh:mm", the boost's end, 30 min from the start (the check timer's end less its 5 extra
+      # minutes), as room_boost.yaml's sensors. Only drives the room page (the lit Boost, the status line). The entities
+      # are the rooms' tado thermostats in packages/heating_boost.yaml (a test checks they agree).
       - name: Heating boost Landing
         unique_id: heating_boost_landing
-        state: "{{ states('input_text.heating_boost_fallback').startswith('climate.tado_smart_radiator_thermostat_va2390168576|') }}"
+        state: >-
+          {% set t = state_attr('climate.tado_smart_radiator_thermostat_va2390168576', 'temperature') %}
+          {{ states('input_text.heating_boost_fallback').startswith('climate.tado_smart_radiator_thermostat_va2390168576|') and not (t is number and t < 25) }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.heating_boost_fallback', 'finishes_at') %}
+            {{ 'until ' ~ (as_timestamp(f) - 300) | timestamp_custom('%H:%M')
+               if f and is_state('timer.heating_boost_fallback', 'active') else '' }}
       - name: Heating boost Kids bathroom
         unique_id: heating_boost_kids_bathroom
-        state: "{{ states('input_text.heating_boost_fallback').startswith('climate.tado_smart_radiator_thermostat_va0796464128|') }}"
+        state: >-
+          {% set t = state_attr('climate.tado_smart_radiator_thermostat_va0796464128', 'temperature') %}
+          {{ states('input_text.heating_boost_fallback').startswith('climate.tado_smart_radiator_thermostat_va0796464128|') and not (t is number and t < 25) }}
+        attributes:
+          until: >-
+            {% set f = state_attr('timer.heating_boost_fallback', 'finishes_at') %}
+            {{ 'until ' ~ (as_timestamp(f) - 300) | timestamp_custom('%H:%M')
+               if f and is_state('timer.heating_boost_fallback', 'active') else '' }}
 
 script:
   # Say what a heating button did or refused: the page's helper text and a quiet notice to `who` (a notify service: the
@@ -88,19 +105,25 @@ script:
       message:
         description: What happened and what to do instead
       who:
-        description: notify.mobile_app_tongaism25 or notify.mobile_app_mojgan_iphone (anything else means Tongai's)
+        description: notify.mobile_app_tongaism25 or notify.mobile_app_iphone_32 (anything else means Tongai's)
       phone:
         description: false to skip the notice (the page text is still set)
+      room:
+        description: >-
+          The room page the message belongs to (a comfort room key: landing, kids_bathroom, downstairs, loft_suite,
+          ellie, hannah, study; the AC boost's `loft` counts as loft_suite). Only that room's page shows it.
     variables:
+      page_room: >-
+        {%- set r = room if room is defined and room else '' -%}{{ 'loft_suite' if r == 'loft' else r }}
       service: >-
-        {{ who if who is defined and who in ['notify.mobile_app_tongaism25', 'notify.mobile_app_mojgan_iphone']
+        {{ who if who is defined and who in ['notify.mobile_app_tongaism25', 'notify.mobile_app_iphone_32']
            else 'notify.mobile_app_tongaism25' }}
     sequence:
       - action: input_text.set_value
         target:
           entity_id: input_text.heating_buttons_last_message
         data:
-          value: "{{ ((now().strftime('%H:%M:%S') ~ ' ' ~ message) | string)[:250] }}"
+          value: "{{ ((page_room ~ '|' ~ now().strftime('%H:%M:%S') ~ ' ' ~ message) | string)[:250] }}"
       - condition: template
         value_template: "{{ phone is not defined or phone }}"
       - action: "{{ service }}"
@@ -127,18 +150,16 @@ script:
         example: 1
     variables:
       nest: climate.downstairs_2     # tanga's own Nest connection; keep in step with tools/hosts.json command_guard
-      mirror: sensor.downstairs_nest_pamba
       min_c: 16
       max_c: 24
       max_steps_hour: 12
-      tolerance: 0.3
-      settle_s: 30
+      settle_s: 120  # tanga's own reading can take a minute or more to follow a command (Google's events)
       delta: "{{ step | int(0) if step is defined else 0 }}"
       # Whose phone gets the notice: the HA user who tapped (ids as in dashboards/data/tanga.yaml), else Tongai's (also if
       # a script run does not expose `context`: unverified on the box, then everything goes to Tongai's phone).
       who: >-
         {{ {'654b5cdf36f8494cb948a9d13e1c17c7': 'notify.mobile_app_tongaism25',
-            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_mojgan_iphone'}
+            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_iphone_32'}
            .get(context.user_id if context is defined and context else none, 'notify.mobile_app_tongaism25') }}
     sequence:
       # 1. The gate first, before anything about the Nest is read: off = say so and stop, no heating service called.
@@ -151,6 +172,7 @@ script:
               title: Heating buttons are switched off
               message: Turn on "Heating buttons" to use it · or use the Nest dial or app
               who: "{{ who }}"
+              room: downstairs
           - stop: Heating buttons are switched off
       - if:
           - condition: template
@@ -161,15 +183,13 @@ script:
               title: Downstairs not changed
               message: The button sent a step that is not +1 or -1 · use the Nest dial or app
               who: "{{ who }}"
+              room: downstairs
           - stop: Bad step
       # 2. Read the Nest, defensively: anything that is not a number is "none", never an error.
       - variables:
           hvac: "{{ states(nest) }}"
           preset: "{{ state_attr(nest, 'preset_mode') }}"
           nest_t: "{{ state_attr(nest, 'temperature') | float(none) }}"
-          mirror_t: >-
-            {{ state_attr(mirror, 'temperature') | float(none) if states(mirror) not in ['unavailable', 'unknown']
-               else none }}
           last_value: >-
             {{ (states('input_text.heating_nest_last_set') | string).split('|')[0] | float(none)
                if '|' in (states('input_text.heating_nest_last_set') | string) else none }}
@@ -189,7 +209,6 @@ script:
             {%- elif hvac != 'heat' -%}mode
             {%- elif preset == 'eco' -%}eco
             {%- elif current is not number -%}reading
-            {%- elif not recent and mirror_t is number and (mirror_t - current) | abs > tolerance -%}disagree
             {%- elif (delta > 0 and current >= max_c) or (delta < 0 and current <= min_c)
                       or (wanted - current) | abs > 1.05 -%}limit
             {%- elif states('counter.heating_nest_steps') | int(0) >= max_steps_hour -%}rate
@@ -202,8 +221,6 @@ script:
             {%- elif why_not == 'mode' -%}The Nest is in a mode these buttons don't handle ({{ hvac }}) · use the Nest dial or app
             {%- elif why_not == 'eco' -%}The Nest is in Eco · change it on the Nest dial or app
             {%- elif why_not == 'reading' -%}Can't read the Nest's target · use the Nest dial or app
-            {%- elif why_not == 'disagree' -%}Tanga reads {{ current }}° but pamba {{ mirror_t }}°,
-            so a step could land on the wrong number · use the Nest dial or app
             {%- elif why_not == 'limit' -%}Already {{ current }}°, the buttons stay within {{ min_c }}-{{ max_c }}° · use the Nest dial or app beyond that
             {%- elif why_not == 'rate' -%}{{ max_steps_hour }} steps already this hour · use the Nest dial or app
             {%- endif -%}
@@ -216,6 +233,7 @@ script:
               title: Downstairs not changed
               message: "{{ message }}"
               who: "{{ who }}"
+              room: downstairs
           - stop: "{{ why_not }}"
       # 3. Step. Counted before the call, so a failing call still uses up its step.
       - action: counter.increment
@@ -236,12 +254,19 @@ script:
           title: "Downstairs {{ wanted }}°"
           message: "Was {{ current }}° · the Nest dial or app changes it back"
           who: "{{ who }}"
+          room: downstairs
       - delay: "00:00:06"  # the rate limit: at most 10 commands a minute
 
   # Boost a radiator room that has no AC (Landing, Kids' bathroom) for 30 min: the gate and the room list in front of
   # script.heating_boost, which does the boost (25 °C, tado ends it; see packages/heating_boost.yaml). The rooms with
   # an AC are the room controller's (CLM-1). Says which switch is off ("Heating buttons" or "Heating boost") and why a
-  # boost did not start; the 60 s cooldown starts only once a boost HAS started. Manual fallback: the tado app
+  # boost did not start; the 60 s cooldown starts only once a boost HAS started.
+  # Pressed again while that room's boost runs (Tongai 22 Nov, as the AC rooms' buttons): ends it now through
+  # script.heating_boost_end (the previous target back), ungated, as ending a boost always is. It says instead, and
+  # leaves the 35-min check to end it, when: it started under a minute ago (a double tap must not start and end it at
+  # once), the thermostat can't be read, the previous target is unknown, or the check is already acting. A boost tado
+  # has already ended (its record waiting for the 35-min check) is cleared once the gates pass, so the press starts a
+  # new one. Every message is the room's own (`room` for heating_buttons_say). Manual fallback: the tado app
   # (boost/override per room) or the valve.
   heating_radiator_boost:
     alias: Heating - radiator boost
@@ -254,29 +279,95 @@ script:
         example: Landing
     variables:
       allowed: ["Landing", "Kids' bathroom"]
+      # Each room's tado thermostat, as in heating_boost's room list (a test checks they agree), and its page.
+      thermostats:
+        Landing: climate.tado_smart_radiator_thermostat_va2390168576
+        "Kids' bathroom": climate.tado_smart_radiator_thermostat_va0796464128
+      pages: {"Landing": "landing", "Kids' bathroom": "kids_bathroom"}
+      page: "{{ pages.get(room, '') if room is defined and room else '' }}"
       who: >-
         {{ {'654b5cdf36f8494cb948a9d13e1c17c7': 'notify.mobile_app_tongaism25',
-            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_mojgan_iphone'}
+            '06495997aca44e59a54f1b3138ad088e': 'notify.mobile_app_iphone_32'}
            .get(context.user_id if context is defined and context else none, 'notify.mobile_app_tongaism25') }}
-      why_not: >-
-        {%- if not is_state('input_boolean.heating_buttons_enabled', 'on') -%}gate
-        {%- elif room is not defined or room not in allowed -%}room
-        {%- elif not is_state('timer.heating_buttons_boost_cooldown', 'idle') -%}wait
-        {%- elif not is_state('input_boolean.heating_boost_enabled', 'on') -%}boost_gate
-        {%- elif states('input_text.heating_boost_fallback') not in ['', 'unknown', 'unavailable'] -%}running
-        {%- else -%}ok{%- endif -%}
-      title: >-
-        {{ {'gate': 'Heating buttons are switched off', 'boost_gate': 'Boost is switched off (heating_boost_enabled)',
-            'room': 'Boost not started', 'wait': 'Boost not started', 'running': 'Boost not started'}
-           .get(why_not, '') }}
-      message: >-
-        {{ {'gate': 'Turn on "Heating buttons" to use it · or use the tado app',
-            'boost_gate': 'Turn on "Heating boost" (heating_boost_enabled) · or use the tado app',
-            'room': 'No boost button for that room · use the tado app',
-            'wait': 'A boost was started a moment ago · give it a minute, or use the tado app',
-            'running': 'Another boost is already running · use the tado app'}
-           .get(why_not, '') }}
+      # This room's boost is on record (heating_boost's "entity|previous target"); `boosted`: the thermostat still at
+      # 25 °C, or unreadable (as the lit sensor: a boost is never taken as over on a failed read).
+      record: "{{ states('input_text.heating_boost_fallback') }}"
+      own: "{{ room is defined and room in allowed and record.startswith(thermostats[room] ~ '|') }}"
+      readable: >-
+        {{ own and states(thermostats[room]) not in ['unavailable', 'unknown']
+           and state_attr(thermostats[room], 'temperature') | is_number }}
+      boosted: "{{ own and (not readable or state_attr(thermostats[room], 'temperature') | float(0) >= 25) }}"
+      previous: "{{ record.split('|')[1] if own else '' }}"
+      checking: "{{ is_state('timer.heating_boost_fallback', 'active') }}"
     sequence:
+      # Pressed again while it runs: end it (ungated), or say why the 35-min check will.
+      - if:
+          - condition: template
+            value_template: "{{ boosted }}"
+        then:
+          - variables:
+              hold: >-
+                {%- if not is_state('timer.heating_buttons_boost_cooldown', 'idle') -%}wait
+                {%- elif not readable -%}unreadable
+                {%- elif not checking -%}checking
+                {%- elif not previous | is_number -%}unknown
+                {%- else -%}{%- endif -%}
+          - if:
+              - condition: template
+                value_template: "{{ hold != '' }}"
+            then:
+              - action: script.heating_buttons_say
+                data:
+                  title: >-
+                    {{ {'wait': room ~ ' boost just started', 'unreadable': room ~ ' cannot be read now',
+                        'checking': room ~ ' boost is ending', 'unknown': room ~ ' boost: no earlier temperature'}[hold] }}
+                  message: >-
+                    {{ {'wait': 'Tap again after a minute to end it',
+                        'unreadable': 'Its boost still ends by itself · or use the tado app',
+                        'checking': 'It ends by itself in a moment',
+                        'unknown': 'Set its temperature in the tado app'}[hold] }}
+                  who: "{{ who }}"
+                  phone: false
+                  room: "{{ page }}"
+              - stop: "{{ hold }}"
+          - action: script.heating_boost_end
+          - action: script.heating_buttons_say
+            data:
+              title: "{{ room }} boost ended"
+              message: "Back to {{ '%g' | format(previous | float) }}° · resume schedule in tado app"
+              who: "{{ who }}"
+              phone: false
+              room: "{{ page }}"
+          - stop: Ended by the button
+      - variables:
+          why_not: >-
+            {%- if not is_state('input_boolean.heating_buttons_enabled', 'on') -%}gate
+            {%- elif room is not defined or room not in allowed -%}room
+            {%- elif not is_state('timer.heating_buttons_boost_cooldown', 'idle') -%}wait
+            {%- elif not is_state('input_boolean.heating_boost_enabled', 'on') -%}boost_gate
+            {%- else -%}ok{%- endif -%}
+      # tado already ended this room's boost (the record waits for the 35-min check): clear it so this press can start a
+      # new one. Only once the gates pass: a refused press changes nothing.
+      - if:
+          - condition: template
+            value_template: "{{ why_not == 'ok' and own and checking }}"
+        then:
+          - action: script.heating_boost_end
+      - variables:
+          why_not: >-
+            {{ 'running' if why_not == 'ok' and states('input_text.heating_boost_fallback')
+               not in ['', 'unknown', 'unavailable'] else why_not }}
+          title: >-
+            {{ {'gate': 'Heating buttons are switched off', 'boost_gate': 'Boost is switched off (heating_boost_enabled)',
+                'room': 'Boost not started', 'wait': 'Boost not started', 'running': 'Boost not started'}
+               .get(why_not, '') }}
+          message: >-
+            {{ {'gate': 'Turn on "Heating buttons" to use it · or use the tado app',
+                'boost_gate': 'Turn on "Heating boost" (heating_boost_enabled) · or use the tado app',
+                'room': 'No boost button for that room · use the tado app',
+                'wait': 'A boost was started a moment ago · give it a minute, or use the tado app',
+                'running': 'Another boost is already running · use the tado app'}
+               .get(why_not, '') }}
       - if:
           - condition: template
             value_template: "{{ why_not != 'ok' }}"
@@ -286,6 +377,7 @@ script:
               title: "{{ title }}"
               message: "{{ message }}"
               who: "{{ who }}"
+              room: "{{ page }}"
           - stop: "{{ why_not }}"
       - action: script.heating_boost
         data:
@@ -304,9 +396,10 @@ script:
               - action: script.heating_buttons_say
                 data:
                   title: "{{ room }} boost on"
-                  message: 25° for 30 min, then back to the schedule
+                  message: 25° for 30 min, then back to the schedule · tap again to stop
                   who: "{{ who }}"
                   phone: "{{ who != 'notify.mobile_app_tongaism25' }}"
+                  room: "{{ page }}"
         default:
           - action: script.heating_buttons_say
             data:
@@ -314,6 +407,7 @@ script:
               message: The thermostat could not be reached · use the tado app
               who: "{{ who }}"
               phone: "{{ who != 'notify.mobile_app_tongaism25' }}"
+              room: "{{ page }}"
 
 automation:
   # Reset the hourly Nest step count on the hour (and at start-up). It only zeroes a counter: no heating action, so

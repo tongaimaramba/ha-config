@@ -1,6 +1,7 @@
 # Auto-unlock (M2 step 8c; design M2-N). The gates of the auto_unlock_shadow AppDaemon app.
 # - auto_unlock_shadow_enabled: the shadow, which decides and logs "would unlatch" for the front door.
-# - auto_unlock_enabled (G15, 2026-11-08; built, not deployed; decision L = option 1 agreed by Tongai 2026-11-08, CUTOVER go-criteria first): with the shadow on, it really
+# - auto_unlock_enabled (G15, 2026-11-08; decision L = option 1; on since 22 Nov 13:12 for the testers, SEC-3; on the
+#   parents' Security page, SEC3-AUD D): with the shadow on, it really
 #   unlatches the front door on a would-unlatch, by asking pamba to run script.unlatch_front_from_tanga over the bridge
 #   (pamba has its own gate, "tanga unlatch allowed"). Starts off; off = pure shadow. The garage never acts.
 # Manual fallback (always): the key, the keypad, the Nuki app, the doorbell.

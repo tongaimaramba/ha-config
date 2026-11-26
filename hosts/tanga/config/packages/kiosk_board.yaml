@@ -5,8 +5,11 @@
 # alarm or the heating, and nothing sends a notification.
 #
 #   sensor.kiosk_period    morning / day / evening / night / weekend. The boundaries are in ONE place, `bounds` below:
-#                          night 22:00-06:30 (the time and the screensaver only); evening 17:00-22:00 every day (darker
-#                          from 21:00: attribute `dark`); and from 06:30 to 17:00 on a school day morning until 09:00
+#                          night 22:00-06:30 (the time and the screensaver only); from 17:00 to 22:00 evening when
+#                          tomorrow is a school day (Pack for tomorrow), else weekend (Tongai 20 Nov: "weekend screen
+#                          should start from 5pm on friday"; so Friday and Saturday evenings and the evenings of a
+#                          holiday are weekend, Sunday's is evening); darker from 20:30 (attribute `dark`; Tongai
+#                          20 Nov); and from 06:30 to 17:00 on a school day morning until 09:00
 #                          (sensor.briefing_kiosk's morning `window` also starts at 06:30), then day; on a weekend or a
 #                          school holiday, weekend. A school day is what the school-day briefing says (its
 #                          sensor.briefing_<child> `day` is today until 15:00 on a school day: the app's SWITCH; the
@@ -15,6 +18,10 @@
 #                          `school_day`, `school_day_date`); with no answer for today (briefing off, HA started after
 #                          15:00) a weekday counts as a school day, as the app itself does outside its term dates.
 #   sensor.kiosk_forecast  tomorrow's weather (met.no's daily forecast): `headline` "Tomorrow: 7° to 11°", `lines`.
+#   sensor.kiosk_day_weather  the school day's rain in one line, from the hourly forecast (Tongai 20 Nov: the five
+#                          hourly slots can hide a wet afternoon): "Today: Rain 14:00–16:00", "Today: Dry until 17:00";
+#                          from 17:00 tomorrow's ("Tomorrow: Dry from 07:00 to 17:00"); `none` with no hourly forecast.
+#                          The hours are 07:00-17:00 (`day_hours`), today's only from now on.
 #   sensor.kiosk_children  per girl (attribute `hannah`, `ellie`): `badges`, today's chores for her (Chores: Doggo, an
 #                          instrument) or none while Chores is off; `homework`, what is still to do on her homework list
 #                          (sensor.homework_items, packages/homework.yaml: due today or later); `fixtures`, today's
@@ -97,7 +104,7 @@ template:
         entity_id: [input_select.kiosk_period_override, input_datetime.kiosk_period_override_until]
     variables:
       # THE ONE PLACE for the kiosk's times (HH:MM, Europe/London). `switch` is the briefing app's SWITCH (15:00).
-      bounds: {morning: "06:30", day: "09:00", evening: "17:00", dark: "21:00", night: "22:00", switch: "15:00"}
+      bounds: {morning: "06:30", day: "09:00", evening: "17:00", dark: "20:30", night: "22:00", switch: "15:00"}
       hm: "{{ now().strftime('%H:%M') }}"
       today: "{{ now().date().isoformat() }}"
       # Is today a school day? Before 15:00: the briefing's `day` for either girl is today; a girl whose briefing
@@ -113,6 +120,19 @@ template:
                  and state_attr('sensor.kiosk_period', 'school_day') in [true, false] -%}
           {{ state_attr('sensor.kiosk_period', 'school_day') }}
         {%- else -%}{{ none_week < 2 }}{%- endif -%}
+      # Is tomorrow a school day? Read from 17:00 only (the evening's Pack is for tomorrow; with no school tomorrow
+      # the evening is the weekend view). From 15:00 the briefing's `day` is the next school day, so tomorrow is one
+      # if either girl's says so. No answer (briefing off or not read, or a `day` that isn't after today: the app
+      # stopped, so its last answer is stale): Monday to Friday counts, unless both say "No school this week".
+      school_tomorrow: >-
+        {%- set kids = ['sensor.briefing_hannah', 'sensor.briefing_ellie'] -%}
+        {%- set t = now() + timedelta(days=1) -%}
+        {%- set days = [state_attr(kids[0], 'day'), state_attr(kids[1], 'day')] | select('string')
+                       | select('>=', t.date().isoformat()) | list -%}
+        {%- set none_week = kids | select('is_state', 'No school this week') | list | count -%}
+        {%- if days -%}{{ t.date().isoformat() in days }}
+        {%- elif none_week == 2 -%}{{ false }}
+        {%- else -%}{{ t.weekday() < 5 }}{%- endif -%}
       # A preview (House ops -> Actions): the period picked there, until input_datetime.kiosk_period_override_until
       # (kiosk_period_override_start sets it); never when worked out at HA start (a restart ends a preview)
       override: >-
@@ -123,7 +143,7 @@ template:
       period: >-
         {%- if override -%}{{ override }}
         {%- elif hm < bounds.morning or hm >= bounds.night -%}night
-        {%- elif hm >= bounds.evening -%}evening
+        {%- elif hm >= bounds.evening -%}{{ 'evening' if school_tomorrow else 'weekend' }}
         {%- elif not school_day -%}weekend
         {%- elif hm < bounds.day -%}morning
         {%- else -%}day{%- endif -%}
@@ -136,6 +156,7 @@ template:
           # the real answer, kept for after 15:00 (a preview never overwrites it: see `shown_school_day`)
           school_day: "{{ school_day }}"
           school_day_date: "{{ today }}"
+          school_tomorrow: "{{ school_tomorrow }}"
           override: "{{ override != '' }}"
           # what the screen shows: a preview's own (Morning and Day are school days, Weekend not; Night is dark)
           shown_school_day: >-
@@ -160,6 +181,68 @@ template:
         data:
           type: daily
         response_variable: fc
+      - action: weather.get_forecasts
+        continue_on_error: true
+        target:
+          entity_id: weather.garden_outside_weather_home
+        data:
+          type: hourly
+        response_variable: hourly
+      # The day's rain in words, for today (the hours still to come) and tomorrow: {today: "...", tomorrow: "..."},
+      # each '' unless the hourly forecast covers those hours (all but one at most: the hour now may be gone from it).
+      # An hour is wet on a rainy, snowy or hail condition or 0.3 mm or more (this line's own rule, here only: the
+      # briefing's walking rule has its own in apps/school_briefing.yaml and leaves snow out); each hour counts once;
+      # wet hours next to each other are one spell, "14:00–16:00" (to the end of its last hour); three spells or more
+      # are "on and off"; "Snow" when every wet hour is snow or sleet, "Rain or snow" when some are.
+      - variables:
+          day_hours: [7, 17]  # THE ONE PLACE for the hours the line covers: from 07:00 up to 17:00
+      - variables:
+          rain_lines: >-
+            {%- set hours = ((hourly.get('weather.garden_outside_weather_home') or {}).get('forecast') or [])
+                            if hourly is defined and hourly is mapping else [] -%}
+            {%- set wet = ['rainy', 'pouring', 'lightning-rainy', 'snowy', 'snowy-rainy', 'hail'] -%}
+            {%- set first = '%02d:00' % day_hours[0] -%}{%- set last = '%02d:00' % day_hours[1] -%}
+            {%- set out = namespace(d={}) -%}
+            {%- for d in [0, 1] -%}
+              {%- set day = (now() + timedelta(days=d)).date() -%}
+              {%- set ns = namespace(wet=[], hours=[], snow=0) -%}
+              {%- for h in hours if h is mapping and h.datetime is defined and as_datetime(h.datetime) -%}
+                {%- set t = as_local(as_datetime(h.datetime)) -%}
+                {%- if t.date() == day and day_hours[0] <= t.hour < day_hours[1] and (d == 1 or t.hour >= now().hour)
+                       and t.hour not in ns.hours -%}
+                  {%- set ns.hours = ns.hours + [t.hour] -%}
+                  {%- if h.condition in wet or (h.precipitation is number and h.precipitation >= 0.3) -%}
+                    {%- set ns.wet = ns.wet + [t.hour] -%}
+                    {%- set ns.snow = ns.snow + (1 if h.condition in ['snowy', 'snowy-rainy'] else 0) -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- set r = namespace(out=[], start=none, prev=none) -%}
+              {%- for x in ns.wet | sort -%}
+                {%- if r.prev is not none and x == r.prev + 1 -%}{%- set r.prev = x -%}
+                {%- else -%}
+                  {%- if r.start is not none -%}{%- set r.out = r.out + [[r.start, r.prev + 1]] -%}{%- endif -%}
+                  {%- set r.start = x -%}{%- set r.prev = x -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if r.start is not none -%}{%- set r.out = r.out + [[r.start, r.prev + 1]] -%}{%- endif -%}
+              {%- set word = 'Rain' if not ns.snow else 'Snow' if ns.snow == ns.wet | count else 'Rain or snow' -%}
+              {%- set due = day_hours[1] - (day_hours[0] if d == 1 else [day_hours[0], now().hour] | max) -%}
+              {%- set seen = ns.hours | count -%}
+              {%- set spells = namespace(l=[]) -%}
+              {%- for a, b in r.out -%}{%- set spells.l = spells.l + ['%02d:00–%02d:00' % (a, b)] -%}{%- endfor -%}
+              {%- if seen == 0 or seen < due - 1 -%}{%- set text = '' -%}
+              {%- elif not r.out -%}
+                {%- set text = ('Dry until ' ~ last) if d == 0 else ('Dry from ' ~ first ~ ' to ' ~ last) -%}
+              {%- elif ns.wet | count == seen -%}
+                {%- set text = (word ~ ' until ' ~ last) if d == 0 else (word ~ ' from ' ~ first ~ ' to ' ~ last) -%}
+              {%- elif r.out | count <= 2 -%}{%- set text = word ~ ' ' ~ spells.l | join(' and ') -%}
+              {%- else -%}
+                {%- set text = word ~ ' on and off, ' ~ '%02d:00–%02d:00' % (r.out[0][0], r.out[-1][1]) -%}
+              {%- endif -%}
+              {%- set out.d = dict(out.d, **{('today' if d == 0 else 'tomorrow'): text}) -%}
+            {%- endfor -%}
+            {{ out.d }}
     sensor:
       - name: Kiosk forecast
         unique_id: kiosk_forecast
@@ -194,13 +277,30 @@ template:
                              'Sunny spells', 'pouring': 'Heavy rain', 'rainy': 'Rain', 'snowy': 'Snow',
                              'snowy-rainy': 'Sleet', 'sunny': 'Sunny', 'windy': 'Windy',
                              'windy-variant': 'Windy'} -%}
+            {%- set hourly_line = (rain_lines if rain_lines is defined and rain_lines is mapping else {})
+                                  .get('tomorrow', '') -%}
             {%- if t -%}
               {%- set p = t.precipitation_probability -%}
+              {%- set likely = ('Rain likely (' ~ p | int ~ ' %)') if p is number and p >= 50 else '' -%}
+              {#- the daytime line when there is one; the day's own chance too when that line says dry (rain due
+                  in the evening, a fixture) or there is no line -#}
               {{ [words.get(t.condition, t.condition | default('', true)),
-                  ('Rain likely (' ~ p | int ~ ' %)') if p is number and p >= 50 else
-                  ('Dry' if p is number and p < 20 else '')] | select | list }}
+                  hourly_line,
+                  likely if not hourly_line or hourly_line.startswith('Dry') else '',
+                  'Dry' if not hourly_line and p is number and p < 20 else ''] | select | list }}
             {%- else -%}{{ [] }}{%- endif -%}
           summary: "No forecast yet."
+      - name: Kiosk day weather
+        unique_id: kiosk_day_weather
+        icon: mdi:weather-pouring
+        # Until 17:00 today's line, then tomorrow's; `none` when there is none (the card is hidden then)
+        state: >-
+          {%- set r = rain_lines if rain_lines is defined and rain_lines is mapping else {} -%}
+          {%- if now().hour < day_hours[1] -%}{{ ('Today: ' ~ r.today) if r.get('today') else 'none' }}
+          {%- else -%}{{ ('Tomorrow: ' ~ r.tomorrow) if r.get('tomorrow') else 'none' }}{%- endif -%}
+        attributes:
+          today: "{{ (rain_lines if rain_lines is defined and rain_lines is mapping else {}).get('today', '') }}"
+          tomorrow: "{{ (rain_lines if rain_lines is defined and rain_lines is mapping else {}).get('tomorrow', '') }}"
 
   # ---- sensor.kiosk_children: each girl's badges, homework and fixtures, every 15 min and on any change ----
   - triggers:
@@ -256,7 +356,10 @@ template:
                 {%- set whole = e.b | length == 10 -%}
                 {%- set t = strptime(e.b, '%Y-%m-%d') if whole else as_local(as_datetime(e.b)) -%}
                 {%- if t.date().isoformat() in days and e.b not in f.seen and f.l | count < 4 -%}
-                  {%- set f.l = f.l + [t.strftime('%a' if whole else '%a %H:%M') ~ ' · ' ~ e.s] -%}
+                  {#- Home or Away from the feed's location, only when it says exactly that (Tongai 21 Nov) -#}
+                  {%- set where = (e.l | default('') | string | trim | lower) -%}
+                  {%- set f.l = f.l + [t.strftime('%a' if whole else '%a %H:%M') ~ ' · ' ~ e.s
+                                       ~ (' · ' ~ where | capitalize if where in ['home', 'away'] else '')] -%}
                   {%- set f.seen = f.seen + [e.b] -%}
                 {%- endif -%}
               {%- endfor -%}

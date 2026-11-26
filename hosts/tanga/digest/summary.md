@@ -2,68 +2,69 @@
 
 ```
 host: tanga
-exported_at: 2026-11-20T13:01:54+00:00
+exported_at: 2026-11-26T23:01:55+00:00
 config_dir: /homeassistant
-ha_version: 2026.10.0
+ha_version: 2026.11.2
 uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:31:30 UTC 2025 aarch64 GNU/Linux
 ```
 
-- config entries: 161  (custom components on disk: 28)
-- devices: 518
-- entities: 3860 across 65 platforms
+- config entries: 157  (custom components on disk: 28)
+- devices: 530
+- entities: 3961 across 66 platforms
 - areas: 41
 
 ## entities per platform
 
 | platform | entities |
 |---|---|
-| ibeacon | 1018 |
-| mobile_app | 386 |
+| ibeacon | 1038 |
+| mobile_app | 411 |
 | hue | 311 |
-| input_boolean | 160 |
+| input_boolean | 172 |
 | smartthings | 152 |
 | hassio | 144 |
-| hacs | 136 |
+| automation | 141 |
 | bermuda | 136 |
-| automation | 133 |
+| marketplace | 134 |
 | esphome | 97 |
 | alexa_devices | 90 |
 | mqtt | 85 |
 | lightwave_smart | 77 |
 | volvo | 75 |
 | octopus_energy | 74 |
-| script | 63 |
-| template | 63 |
-| input_select | 52 |
+| template | 70 |
+| script | 69 |
+| input_select | 53 |
 | homekit_controller | 46 |
+| input_text | 44 |
 | fujitsu_airstage | 40 |
-| input_text | 38 |
 | growatt_server_api | 37 |
-| group | 34 |
+| input_datetime | 33 |
 | aarlo | 33 |
 | fully_kiosk | 33 |
 | modbus | 32 |
-| input_datetime | 28 |
-| nut | 27 |
+| group | 29 |
+| nut | 28 |
 | ble_monitor | 27 |
 | dyson_local | 23 |
+| input_button | 23 |
 | tile | 22 |
-| input_button | 22 |
 | roomba | 17 |
+| input_number | 15 |
 | sonoff | 15 |
-| input_number | 13 |
+| browser_mod | 13 |
 | tag | 12 |
 | private_ble_device | 10 |
 | sun | 9 |
 | nest | 8 |
 | nmap_tracker | 8 |
 | zone | 7 |
+| backup | 6 |
 | timer | 6 |
 | remote_calendar | 6 |
 | eventsensor | 5 |
 | rpi_gpio | 5 |
 | places | 5 |
-| backup | 5 |
 | person | 4 |
 | energy | 4 |
 | counter | 3 |
@@ -89,9 +90,9 @@ uname: Linux a0d7b954-appdaemon 6.6.74-haos-raspi #1 SMP PREEMPT Mon Apr 14 16:3
 home-assistant.log.1 (5354857 bytes) — db/log/binary
 home-assistant.log.fault (0 bytes) — db/log/binary
 home-assistant.log.old (535979 bytes) — db/log/binary
-home-assistant_v2.db (18820853760 bytes) — db/log/binary
-home-assistant_v2.db-shm (32768 bytes) — db/log/binary
-home-assistant_v2.db-wal (12446552 bytes) — db/log/binary
+home-assistant_v2.db (19396820992 bytes) — db/log/binary
+home-assistant_v2.db-shm (65536 bytes) — db/log/binary
+home-assistant_v2.db-wal (6723872 bytes) — db/log/binary
 .storage/alexa — not in allow-list
 .storage/alexa_auth — not in allow-list
 .storage/androidtv_adbkey — not in allow-list
@@ -105,6 +106,7 @@ home-assistant_v2.db-wal (12446552 bytes) — db/log/binary
 .storage/backup — not in allow-list
 .storage/bluetooth.passive_update_processor — not in allow-list
 .storage/bluetooth.remote_scanners — not in allow-list
+.storage/browser_mod.storage — not in allow-list
 .storage/core.device_registry.20261009_211015.migration_backup — not in allow-list
 .storage/core.restore_state — not in allow-list
 .storage/esphome.01JN651AFQ9YV7DYKM67HTC3EQ — not in allow-list
@@ -125,13 +127,17 @@ home-assistant_v2.db-wal (12446552 bytes) — db/log/binary
 .storage/esphome.e295d2aea7b3dc61103352d812f7808d — not in allow-list
 .storage/esphome.f75455c1399f06b3538717e1df7b35b9 — not in allow-list
 .storage/frontend.system_data — not in allow-list
-.storage/hacs.data — not in allow-list
+.storage/hassio.auto_update — not in allow-list
 .storage/homekit_controller-entity-map — not in allow-list
 .storage/http — not in allow-list
 .storage/http.auth — not in allow-list
 .storage/local_calendar.extras.ics — not in allow-list
 .storage/local_todo.ellie_homework.ics — not in allow-list
 .storage/local_todo.hannah_homework.ics — not in allow-list
+.storage/marketplace.common — not in allow-list
+.storage/marketplace.critical — not in allow-list
+.storage/marketplace.repositories — not in allow-list
+.storage/marketplace_backups — not in allow-list
 .storage/mobile_app — not in allow-list
 .storage/nest.event_media — not in allow-list
 .storage/octopus_energy.1900029019461_20L3348755_weekday_consumption — not in allow-list
